@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HOMEPAGE</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
+        <script src="js-homepage.js" type="text/javascript"></script>
+        <script src="js-logincheck.js" type="text/javascript"></script>
+        <script src="js-general.js" type="text/javascript"></script>
+        
+        <style type="text/css">
+            #loginform {
+                display : none;
+            }
+
+            #log, #sign, #loginbutton, #signupbutton {
+                font-weight : bold;
+                color : black;
+            }
+
+            #signupform {
+                display : none;
+            }
+
+            #piclink {
+                margin-left : 20px;
+            }
+            #logo {
+                float:left;
+                height:50px;
+                width:60px;
+                margin-left:10px;
+                margin-right:-100px;
+                margin-top:10px;
+                position: absolute;
+            }
+
+            #logoimg {
+                height:100px;
+                width:auto;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="logo"><img id="logoimg" src="images/logo.png"/></div>
+
+        <div id="content">
+            <div id="navbar">
+            </div>
+        </div>
+        
+        <object width="600" height="600" data="book.swf"></object>
+        
+        <div id='member'>
+            <!--LOG IN-->
+            <div id="login">
+
+                <div style="font-weight:bold;">Already a member<input type='button' id='loginbutton' value='login'>
+                </div> <!--login button-->
+
+                <div id="loginform">
+                    <form id="logform" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">
+                        <table>
+                            <tr>
+                                <td>Username</td>
+                                <td><input type='text' id='loguser' name='loguser' onblur="usernameCheck();" onfocus="backWhite(this);"></td>
+                            </tr>
+                            <tr>
+                                <td>Password</td>
+                                <td><input type='password' id='logpass' name='logpass' onblur="passwordCheck();" onfocus="backWhite(this);"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type='submit' id="log" value="Login"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div> <!--login form-->
+
+            </div> <!--end of login-->
+
+            <!--SIGN UP-->
+            <div id="signup">
+
+                <div style="font-weight:bold;">Not yet a member<input type='button' id='signupbutton' value='signup'>
+                </div> <!--signup button-->
+
+                <div id="signupform">
+                    <a href="signup.html"> Sign up </a>
+                </div> <!--signup form-->
+
+            </div> <!--end of signup-->
+        </div> <!--account-->
+
+    </body>
+</html>

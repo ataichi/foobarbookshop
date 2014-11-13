@@ -1,0 +1,297 @@
+body{
+    margin: 0px;
+    font-family: Helvetiva, sans-serif;
+    background-color: white;
+    /*background-image: url(stardust.png");*/
+}
+
+#banner{
+    position: absolute;
+    top: 3%;
+    left: 1%;
+}
+
+.links{
+    font-family: Istok Web;
+    color: #FF4739;
+    text-decoration:none;
+}	 
+.links:hover{ 
+    color: #CAFC42;
+}
+
+#link1{
+    width: 100px;
+    height: 45px;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top: 12%;
+    left: 20%;
+    padding-left: 3em;
+    padding-top: 1em;
+}
+
+#link2{
+    width: 100px;
+    height: 45px;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top: 12%;
+    left: 33%;
+    padding-left: 3em;
+    padding-top: 1em; 
+}
+
+#link3{
+    width: 100px;
+    height: 45px; 
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top:12%;
+    left: 46%;
+    padding-left: 3em;
+    padding-top: 1em;
+}
+
+#link4{
+    width: 100px;
+    height: 45px;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top:12%;
+    left: 59%;
+    padding-left: 3em;
+    padding-top: 1em;
+}
+
+#link5{
+    width: 100px;
+    height: 45px;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top:12%;
+    left: 72%;
+    padding-left: 3em; 
+    padding-top: 1em;
+}
+
+#fanfic{
+    position: fixed;
+    z-index: 100;
+    margin-top: 180px;
+    margin-left: 250px;
+}
+
+#orig{
+    position: fixed;
+    z-index: 100;
+    margin-top: 180px;
+    margin-left: 780px;
+}
+
+#ff{
+    margin-left: 140px;
+    margin-top: -20px;
+    font-family: Muli, sans-serif;
+}
+
+#or{
+    margin-left: 150px;
+    margin-top: -20px;
+    font-family: Muli, sans-serif;
+}
+
+#glist1{
+    width: 150px;
+    height: 200px;
+    margin-left: 350px;
+    margin-top: 250px;
+    position: absolute;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 4em;
+    font-family: Muli, sans-serif;
+}
+
+#glist2{
+    width: 150px;
+    height: 200px;
+    margin-left: 750px;
+    margin-top: 250px;
+    position: absolute;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 4em;
+    font-family: Muli, sans-serif;
+}
+
+#flist1{
+    width: 200px;
+    height:310px;
+    margin-left: 180px;
+    margin-top: 225px;
+    position: absolute;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    font-family: Muli, sans-serif;
+}
+
+#flist2{
+    width: 220px;
+    height:310px;
+    margin-left: 430px;
+    margin-top: 225px;
+    position: absolute;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    font-family: Muli, sans-serif;
+}
+
+#flist3{
+    width: 220px;
+    height:310px;
+    margin-left: 700px;
+    margin-top: 225px;
+    position: absolute;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    font-family: Muli, sans-serif;
+}
+
+#flist4{
+    width: 180px;
+    height:310px;
+    margin-left: 970px;
+    margin-top: 225px;
+    position: absolute;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    font-family: Muli, sans-serif;
+}
+
+#story{
+    width: 800px;
+    height:750px;
+    margin-left: 200px;
+    margin-top: 170px;
+    position: absolute;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    padding-right: 3em;
+    font-family: 'Exo 2', sans-serif;
+}
+
+#chapstory{
+    margin-left: 30px;
+    margin-top: 20px;
+    text-align: justify;
+}
+
+#chapter{
+    width: 800px;
+    height:750px;
+    margin-left: 270px;
+    margin-top: 225px;
+    position: absolute;
+    background-color: #f6f6f6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    padding-right: 3em;
+    font-family: 'Exo 2', sans-serif;
+}
+
+#title{
+    margin: 30px;
+    margin-bottom: 0px;
+    font-size: 50px;
+    font-family: 'Over the Rainbow', cursive !important;
+}
+
+#chaptitle{
+    margin: 30px;
+    margin-bottom: 0px;
+    font-size: 40px;
+    font-family: 'Over the Rainbow', cursive !important;
+}
+
+#rating{
+    margin-left: 30px;
+}
+
+#description{
+    margin-left: 30px;
+    margin-top: 10px;
+    text-align: justify;
+}
+
+#coverphoto{
+    position: relative;
+    margin-left: 250px;
+}
+
+#next{
+    position: fixed;
+    margin-left: 1000px;
+    padding-left:230px;
+    margin-top: 300px;
+    font-size: 50px;
+}
+
+#back{
+    position: fixed;
+    margin-left: 120px;
+    margin-top: 300px;
+    font-size: 50px;
+}
