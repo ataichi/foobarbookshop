@@ -1,17 +1,12 @@
-<%-- 
-    Document   : signupfail
-    Created on : Nov 10, 2014, 12:42:39 AM
-    Author     : Giodee
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Failure to sign up.</title>
     </head>
     <body>
-        <h1>Fail :(</h1>
+        <%@include file="signup.jsp" %>
+        <h4 style="position: absolute; color: red; top:500px; left:480px;">Something went wrong. Please try again!<br></h4>
     </body>
 </html>
