@@ -13,5 +13,6 @@ import Beans.BookBean;
  */
 public interface BookDAOInterface {
     public BookBean getBookByProductId(int id);
+    public boolean deleteBook(int id);
     
 }

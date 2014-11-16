@@ -250,8 +250,10 @@ public class AddProductServlet extends HttpServlet {
 
                     if (addMagazine) {
                         ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                        ArrayList<ProductBean> plist = pdao.getProductsByType(type);
                         magazinelist = mdao.viewAllMagazine();
                         session.setAttribute("magazinelist", magazinelist);
+                        session.setAttribute("productlist", plist);
                         response.sendRedirect("productmanagerHOME.jsp");
                     } else {
                         response.sendRedirect("addproduct.jsp");

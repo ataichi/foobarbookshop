@@ -5,6 +5,25 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
+import Beans.AudioCDBean;
+import Beans.BookBean;
+import Beans.DVDBean;
+import Beans.MagazineBean;
+import Beans.ProductBean;
+import Beans.ProductManagerBean;
+import DAO.Implementation.AudioCDDAOImplementation;
+import DAO.Implementation.BookDAOImplementation;
+import DAO.Implementation.DVDDAOImplementation;
+import DAO.Implementation.MagazineDAOImplementation;
+import DAO.Implementation.ProductDAOImplementation;
+import DAO.Implementation.ProductManagerDAOImplementation;
+import DAO.Interface.AudioCDDAOInterface;
+import DAO.Interface.BookDAOInterface;
+import DAO.Interface.DVDDAOInterface;
+import DAO.Interface.MagazineDAOInterface;
+import DAO.Interface.ProductDAOInterface;
+import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +31,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,15 +54,91 @@ public class RemoveProductServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RemoveProductServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RemoveProductServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+            HttpSession session = request.getSession();
+            AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            ProductManagerBean productManager = new ProductManagerBean();
+            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+            ProductDAOInterface productdao = new ProductDAOImplementation();
+            productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
+
+            int productID = Integer.parseInt(request.getParameter("product"));
+            ProductBean removeproduct = productdao.getProductById(productID);
+            boolean check_removeproduct = false;
+            boolean check_removespecificproduct = false;
+
+            String type = removeproduct.getType();
+            if (type.equals("Audio CD")) {
+                AudioCDBean removeaudio = new AudioCDBean();
+                AudioCDDAOInterface audiodao = new AudioCDDAOImplementation();
+                removeaudio = audiodao.getAudioCDByProductId(productID);
+
+                check_removespecificproduct = audiodao.deleteaudioCD(productID);
+                if (check_removespecificproduct) {
+                    check_removeproduct = productdao.removeProduct(productID);
+
+                    if (check_removeproduct) {
+                        out.println("delete cd");
+                        //response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        out.println("failed to remove cd");
+                        //response.sendRedirect("productmanagerHOME.jsp");
+                    }
+                }
+
+            } else if (type.equals("Books")) {
+                BookBean removebook = new BookBean();
+                BookDAOInterface bookdao = new BookDAOImplementation();
+                removebook = bookdao.getBookByProductId(productID);
+
+                check_removespecificproduct = bookdao.deleteBook(productID);
+                if (check_removespecificproduct) {
+                    check_removeproduct = productdao.removeProduct(productID);
+
+                    if (check_removeproduct) {
+                        out.println("delete book");
+                        //response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        out.println("failed to remove book");
+                        //response.sendRedirect("productmanagerHOME.jsp");
+                    }
+                }
+            } else if (type.equals("DVD")) {
+                DVDBean removedvd = new DVDBean();
+                DVDDAOInterface dvddao = new DVDDAOImplementation();
+                removedvd = dvddao.getDVDByProductId(productID);
+
+                check_removespecificproduct = dvddao.deleteDVD(productID);
+                if (check_removespecificproduct) {
+                    check_removeproduct = productdao.removeProduct(productID);
+
+                    if (check_removeproduct) {
+                        out.println("delete dvd");
+                        //response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        out.println("failed to remove dvd");
+                        //response.sendRedirect("productmanagerHOME.jsp");
+                    }
+                }
+
+            } else if (type.equals("Magazine")) {
+                MagazineBean removemagazine = new MagazineBean();
+                MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
+                removemagazine = magazinedao.getMagazineByProductId(productID);
+
+                check_removespecificproduct = magazinedao.deleteMagazine(productID);
+                if (check_removespecificproduct) {
+                    check_removeproduct = productdao.removeProduct(productID);
+
+                    if (check_removeproduct) {
+                        out.println("delete cd");
+                        //response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        out.println("failed to remove cd");
+                        //response.sendRedirect("productmanagerHOME.jsp");
+                    }
+                }
+            }
         }
     }
 

@@ -10,5 +10,6 @@ import Beans.MagazineBean;
 public interface MagazineDAOInterface {
     
     public MagazineBean getMagazineByProductId(int id);
+    public boolean deleteMagazine(int id);
     
 }

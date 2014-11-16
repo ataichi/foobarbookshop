@@ -101,7 +101,7 @@ public class EditProductServlet extends HttpServlet {
                 MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
                 magazine = magazinedao.getMagazineByProductId(productID);
                 out.println(productID);
-           //     out.println(magazine.getIssueNo());
+                out.println(magazine.getIssueNo());
                 session.setAttribute("editmagazine", magazine);
                 
                 session.setAttribute("editaudio", null);

@@ -100,17 +100,6 @@ $(document).ready(function () {
                 "border-top-right-radius": "5px 5px",
         "border-bottom-right-radius": "5px 5px"
     });
-<<<<<<< HEAD
 
-=======
-    $('#viewProducts').css({
-       "position":"absolute",
-       "margin-top":"131px",
-       "margin-left":"150px",
-       "width":"700px",
-       "height":"300px",
-       "background-color":"#FFFFCC"
-    });
->>>>>>> b6f52b08b21b7afd9c833ec7049f169bda95d94b
 
 });//end of ready

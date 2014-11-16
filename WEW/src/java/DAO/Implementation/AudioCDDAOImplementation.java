@@ -58,7 +58,7 @@ public class AudioCDDAOImplementation implements AudioCDDAOInterface {
                 audiocdID = rs.getInt("audiocdID");
                 artist = rs.getString("artist");
                 recordCompany = rs.getString("recordCompany");
-                audiocd_productID = rs.getInt("audio_productID");
+                audiocd_productID = rs.getInt("audiocd_productID");
 
                 bean.setArtist(artist);
                 bean.setAudiocdID(audiocdID);
@@ -75,5 +75,23 @@ public class AudioCDDAOImplementation implements AudioCDDAOInterface {
         }
 
         return null;
+    }
+
+    @Override
+    public boolean deleteaudioCD(int id) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+
+            String query = "delete from audiocd where audiocd_productID=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
     }
 }

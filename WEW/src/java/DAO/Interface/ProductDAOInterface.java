@@ -14,5 +14,6 @@ import Beans.ProductBean;
 public interface ProductDAOInterface {
     
     public ProductBean getProductById(int id);
+    public boolean removeProduct(int id);
     
 }

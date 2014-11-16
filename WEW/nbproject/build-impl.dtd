@@ -1,0 +1,765 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/build-impl.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE project SYSTEM "build-impl.dtd">
+
+    <project>
+    ...
+    </project>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT project (import|fail|target|property)*>
+<!ATTLIST project
+    basedir CDATA #IMPLIED
+    default CDATA #IMPLIED
+    name CDATA #IMPLIED
+    xmlns:webproject1 CDATA #IMPLIED
+    xmlns:webproject2 CDATA #IMPLIED
+    xmlns:webproject3 CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT import EMPTY>
+<!ATTLIST import
+    file CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT fail (#PCDATA|condition)*>
+<!ATTLIST fail
+    message CDATA #IMPLIED
+    unless CDATA #IMPLIED
+    if CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT condition (not|or|and|isfalse|istrue|isset|available|matches|os)*>
+<!ATTLIST condition
+    property CDATA #IMPLIED
+    else CDATA #IMPLIED
+    value CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT not (antversion|isset|istrue|equals|os|matches)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT antversion EMPTY>
+<!ATTLIST antversion
+    atleast CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT target (basename|dirname|property|nbjpdaconnect|pathconvert|available|loadproperties|echo|nbprofiledirect|mkdir|java|exec|startprofiler|junit|nbstartserver|condition|copy|nbstartprofiledserver|path|manifest|fail|loadgenstart|copyfiles|javadoc|nbundeploy|macrodef|taskdef|nbverify|delete|nbbrowse|nbdeploy|antcall|jar|webproject2:javac|webproject2:test|webproject1:debug|webproject2:test-debug|webproject1:nbjpdaappreloaded|webproject1:nbjsdebugstart|webproject1:nbjpdastart|webproject1:java|webproject1:nbjpdareload)*>
+<!ATTLIST target
+    depends CDATA #IMPLIED
+    description CDATA #IMPLIED
+    name CDATA #IMPLIED
+    if CDATA #IMPLIED
+    unless CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT property EMPTY>
+<!ATTLIST property
+    file CDATA #IMPLIED
+    location CDATA #IMPLIED
+    name CDATA #IMPLIED
+    value CDATA #IMPLIED
+    environment CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT dirname EMPTY>
+<!ATTLIST dirname
+    file CDATA #IMPLIED
+    property CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT pathconvert (path|globmapper)*>
+<!ATTLIST pathconvert
+    dirsep CDATA #IMPLIED
+    property CDATA #IMPLIED
+    pathsep CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT path (filelist)*>
+<!ATTLIST path
+    path CDATA #IMPLIED
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT basename EMPTY>
+<!ATTLIST basename
+    file CDATA #IMPLIED
+    property CDATA #IMPLIED
+    suffix CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT available EMPTY>
+<!ATTLIST available
+    file CDATA #IMPLIED
+    property CDATA #IMPLIED
+    classname CDATA #IMPLIED
+    classpath CDATA #IMPLIED
+    type CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT loadproperties (filterchain)*>
+<!ATTLIST loadproperties
+    encoding CDATA #IMPLIED
+    srcfile CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT filterchain (replacestring|escapeunicode)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT replacestring EMPTY>
+<!ATTLIST replacestring
+    from CDATA #IMPLIED
+    to CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT escapeunicode EMPTY>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT or (available|not|istrue|and|isfalse|isset|contains)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT and (isset|istrue|not|or|length|matches)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT isset EMPTY>
+<!ATTLIST isset
+    property CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT isfalse EMPTY>
+<!ATTLIST isfalse
+    value CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT istrue EMPTY>
+<!ATTLIST istrue
+    value CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT equals EMPTY>
+<!ATTLIST equals
+    arg1 CDATA #IMPLIED
+    arg2 CDATA #IMPLIED
+    trim CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT length EMPTY>
+<!ATTLIST length
+    length CDATA #IMPLIED
+    string CDATA #IMPLIED
+    when CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT matches EMPTY>
+<!ATTLIST matches
+    pattern CDATA #IMPLIED
+    string CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT os EMPTY>
+<!ATTLIST os
+    family CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT macrodef (attribute|sequential|element)*>
+<!ATTLIST macrodef
+    name CDATA #IMPLIED
+    uri CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT attribute EMPTY>
+<!ATTLIST attribute
+    name CDATA #IMPLIED
+    default CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT sequential (javac|property|nbjpdastart|mkdir|nbjpdareload|depend|fail|nbjsdebugstart|pathconvert|tempfile|echo|delete|testng|junit|union|java|taskdef|nbjpdaappreloaded|condition|webproject2:junit-debug|webproject1:debug|webproject2:test-impl|webproject2:junit|webproject2:testng-debug-impl|webproject2:testng-debug|webproject2:testng|webproject2:test-debug-impl)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT element EMPTY>
+<!ATTLIST element
+    name CDATA #IMPLIED
+    optional CDATA #IMPLIED
+    implicit CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT mkdir EMPTY>
+<!ATTLIST mkdir
+    dir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT javac (src|classpath|compilerarg|customize)*>
+<!ATTLIST javac
+    debug CDATA #IMPLIED
+    deprecation CDATA #IMPLIED
+    destdir CDATA #IMPLIED
+    encoding CDATA #IMPLIED
+    excludes CDATA #IMPLIED
+    fork CDATA #IMPLIED
+    includeantruntime CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    source CDATA #IMPLIED
+    srcdir CDATA #IMPLIED
+    target CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT src (dirset)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT dirset (include)*>
+<!ATTLIST dirset
+    dir CDATA #IMPLIED
+    erroronmissingdir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT include EMPTY>
+<!ATTLIST include
+    name CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT classpath (path)*>
+<!ATTLIST classpath
+    path CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT compilerarg EMPTY>
+<!ATTLIST compilerarg
+    line CDATA #IMPLIED
+    value CDATA #IMPLIED
+    path CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT customize (classpath|jvmarg|customize2|arg|patternset)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT depend (classpath)*>
+<!ATTLIST depend
+    cache CDATA #IMPLIED
+    destdir CDATA #IMPLIED
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    srcdir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT filelist EMPTY>
+<!ATTLIST filelist
+    dir CDATA #IMPLIED
+    files CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT globmapper EMPTY>
+<!ATTLIST globmapper
+    from CDATA #IMPLIED
+    to CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT tempfile EMPTY>
+<!ATTLIST tempfile
+    deleteonexit CDATA #IMPLIED
+    property CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT echo (#PCDATA)>
+<!ATTLIST echo
+    file CDATA #IMPLIED
+    message CDATA #IMPLIED
+    level CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT delete (files|fileset)*>
+<!ATTLIST delete
+    file CDATA #IMPLIED
+    dir CDATA #IMPLIED
+    quiet CDATA #IMPLIED
+    includeEmptyDirs CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT files EMPTY>
+<!ATTLIST files
+    includesfile CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT junit (test|syspropertyset|formatter|jvmarg|customize|batchtest|env|classpath)*>
+<!ATTLIST junit
+    dir CDATA #IMPLIED
+    errorproperty CDATA #IMPLIED
+    failureproperty CDATA #IMPLIED
+    fork CDATA #IMPLIED
+    showoutput CDATA #IMPLIED
+    tempdir CDATA #IMPLIED
+    jvm CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT test EMPTY>
+<!ATTLIST test
+    methods CDATA #IMPLIED
+    name CDATA #IMPLIED
+    todir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT syspropertyset (propertyref|mapper)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT propertyref EMPTY>
+<!ATTLIST propertyref
+    prefix CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT mapper EMPTY>
+<!ATTLIST mapper
+    from CDATA #IMPLIED
+    to CDATA #IMPLIED
+    type CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT formatter EMPTY>
+<!ATTLIST formatter
+    type CDATA #IMPLIED
+    usefile CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT jvmarg EMPTY>
+<!ATTLIST jvmarg
+    value CDATA #IMPLIED
+    line CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT batchtest (fileset)*>
+<!ATTLIST batchtest
+    todir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT fileset (filename|include)*>
+<!ATTLIST fileset
+    dir CDATA #IMPLIED
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    erroronmissingdir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT filename EMPTY>
+<!ATTLIST filename
+    name CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT union (fileset)*>
+<!ATTLIST union
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT taskdef EMPTY>
+<!ATTLIST taskdef
+    classname CDATA #IMPLIED
+    classpath CDATA #IMPLIED
+    name CDATA #IMPLIED
+    resource CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT testng (xmlfileset|propertyset|customize)*>
+<!ATTLIST testng
+    classfilesetref CDATA #IMPLIED
+    failureProperty CDATA #IMPLIED
+    listeners CDATA #IMPLIED
+    methods CDATA #IMPLIED
+    mode CDATA #IMPLIED
+    outputdir CDATA #IMPLIED
+    suitename CDATA #IMPLIED
+    testname CDATA #IMPLIED
+    workingDir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT xmlfileset EMPTY>
+<!ATTLIST xmlfileset
+    dir CDATA #IMPLIED
+    includes CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT propertyset (propertyref|mapper)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:junit (customize)*>
+<!ATTLIST webproject2:junit
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    testincludes CDATA #IMPLIED
+    testmethods CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:testng (customize)*>
+<!ATTLIST webproject2:testng
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    testincludes CDATA #IMPLIED
+    testmethods CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:test-impl (customize)*>
+<!ATTLIST webproject2:test-impl
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    testincludes CDATA #IMPLIED
+    testmethods CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:junit-debug (customize)*>
+<!ATTLIST webproject2:junit-debug
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    testincludes CDATA #IMPLIED
+    testmethods CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject1:debug (customize)*>
+<!ATTLIST webproject1:debug
+    args CDATA #IMPLIED
+    classname CDATA #IMPLIED
+    classpath CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT customize2 (syspropertyset)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT arg EMPTY>
+<!ATTLIST arg
+    line CDATA #IMPLIED
+    value CDATA #IMPLIED
+    file CDATA #IMPLIED
+    path CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:testng-debug (customize2)*>
+<!ATTLIST webproject2:testng-debug
+    testClass CDATA #IMPLIED
+    testMethod CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:test-debug-impl (customize)*>
+<!ATTLIST webproject2:test-debug-impl
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    testincludes CDATA #IMPLIED
+    testmethods CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:testng-debug-impl (customize2)*>
+<!ATTLIST webproject2:testng-debug-impl
+    testClass CDATA #IMPLIED
+    testMethod CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT java (jvmarg|classpath|syspropertyset|customize|arg)*>
+<!ATTLIST java
+    classname CDATA #IMPLIED
+    fork CDATA #IMPLIED
+    failonerror CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbjsdebugstart EMPTY>
+<!ATTLIST nbjsdebugstart
+    urlPart CDATA #IMPLIED
+    webUrl CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbjpdastart (classpath)*>
+<!ATTLIST nbjpdastart
+    addressproperty CDATA #IMPLIED
+    name CDATA #IMPLIED
+    transport CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbjpdareload (fileset)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbjpdaappreloaded EMPTY>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT contains EMPTY>
+<!ATTLIST contains
+    string CDATA #IMPLIED
+    substring CDATA #IMPLIED
+    casesensitive CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT copy (fileset)*>
+<!ATTLIST copy
+    todir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:javac (customize)*>
+<!ATTLIST webproject2:javac
+    destdir CDATA #IMPLIED
+    gensrcdir CDATA #IMPLIED
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    classpath CDATA #IMPLIED
+    srcdir CDATA #IMPLIED
+    debug CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT patternset EMPTY>
+<!ATTLIST patternset
+    includes CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT antcall EMPTY>
+<!ATTLIST antcall
+    target CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT jar (fileset)*>
+<!ATTLIST jar
+    compress CDATA #IMPLIED
+    jarfile CDATA #IMPLIED
+    manifest CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT copyfiles EMPTY>
+<!ATTLIST copyfiles
+    files CDATA #IMPLIED
+    iftldtodir CDATA #IMPLIED
+    todir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT manifest EMPTY>
+<!ATTLIST manifest
+    file CDATA #IMPLIED
+    mode CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbdeploy EMPTY>
+<!ATTLIST nbdeploy
+    clientUrlPart CDATA #IMPLIED
+    debugmode CDATA #IMPLIED
+    forceRedeploy CDATA #IMPLIED
+    profilemode CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbverify EMPTY>
+<!ATTLIST nbverify
+    file CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbbrowse EMPTY>
+<!ATTLIST nbbrowse
+    url CDATA #IMPLIED
+    context CDATA #IMPLIED
+    urlPath CDATA #IMPLIED
+    file CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT exec (arg)*>
+<!ATTLIST exec
+    executable CDATA #IMPLIED
+    spawn CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject1:java EMPTY>
+<!ATTLIST webproject1:java
+    classname CDATA #IMPLIED
+    classpath CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject1:nbjpdaappreloaded EMPTY>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbstartserver EMPTY>
+<!ATTLIST nbstartserver
+    debugmode CDATA #IMPLIED
+    profilemode CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbjpdaconnect (classpath|sourcepath)*>
+<!ATTLIST nbjpdaconnect
+    address CDATA #IMPLIED
+    host CDATA #IMPLIED
+    listeningcp CDATA #IMPLIED
+    name CDATA #IMPLIED
+    transport CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT sourcepath (path)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject1:nbjsdebugstart EMPTY>
+<!ATTLIST webproject1:nbjsdebugstart
+    webUrl CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject1:nbjpdastart EMPTY>
+<!ATTLIST webproject1:nbjpdastart
+    classpath CDATA #IMPLIED
+    name CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject1:nbjpdareload EMPTY>
+<!ATTLIST webproject1:nbjpdareload
+    dir CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbstartprofiledserver (jvmarg)*>
+<!ATTLIST nbstartprofiledserver
+    forceRestart CDATA #IMPLIED
+    javaPlatform CDATA #IMPLIED
+    startupTimeout CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbprofiledirect (classpath)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT env EMPTY>
+<!ATTLIST env
+    key CDATA #IMPLIED
+    path CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT startprofiler EMPTY>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT loadgenstart EMPTY>
+<!ATTLIST loadgenstart
+    path CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT javadoc (classpath|fileset)*>
+<!ATTLIST javadoc
+    docencoding CDATA #IMPLIED
+    additionalparam CDATA #IMPLIED
+    author CDATA #IMPLIED
+    charset CDATA #IMPLIED
+    version CDATA #IMPLIED
+    destdir CDATA #IMPLIED
+    encoding CDATA #IMPLIED
+    splitindex CDATA #IMPLIED
+    failonerror CDATA #IMPLIED
+    noindex CDATA #IMPLIED
+    nonavbar CDATA #IMPLIED
+    source CDATA #IMPLIED
+    use CDATA #IMPLIED
+    windowtitle CDATA #IMPLIED
+    notree CDATA #IMPLIED
+    useexternalfile CDATA #IMPLIED
+    private CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:test EMPTY>
+<!ATTLIST webproject2:test
+    includes CDATA #IMPLIED
+    testincludes CDATA #IMPLIED
+    excludes CDATA #IMPLIED
+    testmethods CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT webproject2:test-debug EMPTY>
+<!ATTLIST webproject2:test-debug
+    excludes CDATA #IMPLIED
+    includes CDATA #IMPLIED
+    testClass CDATA #IMPLIED
+    testincludes CDATA #IMPLIED
+    testMethod CDATA #IMPLIED
+    testmethods CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT nbundeploy EMPTY>
+<!ATTLIST nbundeploy
+    failOnError CDATA #IMPLIED
+    startServer CDATA #IMPLIED
+  >

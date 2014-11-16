@@ -113,7 +113,6 @@
                         </td>
                     </tr>
 
-<<<<<<< HEAD
                     <%if (productManager.getProdType().equals("Audio CD")) {
                             out.println("<tr><td>Artist</td>"
                                     + "<td> <input type ='text' id ='cdArtist' name ='cdArtist' onfocus ='backWhite(this);'/></td ></tr>"
@@ -152,97 +151,6 @@
                     %>
 
 
-=======
-                    <%if (productManager.getProdType().equals("Audio CD")) {  %>
-                    <br/>
-                    <tr>
-                        <td>Artist</td>
-                        <td>
-                            <input type='text' id='cdArtist' name='cdArtist' onfocus='backWhite(this);'/>    
-                        </td>
-                    <tr>
-                        <td>
-                            Record Company:
-                        </td>
-                        <td>
-                            <input type='text' id='cdRecord' name ='cdRecord' onfocus='backWhite(this);'/>
-
-                        </td>
-                    </tr>
-
-                    <%}%>
-                    <%if (productManager.getProdType().equals("Books")) { %>
-                    <br/>
-                    <tr>
-                        <td>Author</td>
-                        <td>
-                            <input type='text' id='bookAuthor' name='bookAuthor' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Publisher:</td>
-                        <td>
-                            <input type='text' id='bookPublisher' name='bookPublisher' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Date Published:
-                        </td>
-                        <td>
-                            <input type='date' id='bookDatePublished' name='bookDatePublished' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-
-                    <%}%>
-                    <% if (productManager.getProdType().equals("DVD")) { %>
-                    <br/>
-                    <tr>
-                        <td>Director:</td>
-                        <td>
-                            <input type='text' id='dvdDirector' name='dvdDirector' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Actor:</td>
-                        <td><input type='text' id='dvdActor' name='dvdActor' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Producer:</td>
-                        <td>
-                            <input type='text' id='dvdProducer' name='dvdProducer' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <% } %>
-                    <% if (productManager.getProdType().equals("Magazine")) { %>
-                    <br/>
-                    <tr>
-                        <td>Volume No:</td>
-                        <td>
-                            <input type='text' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Issue No:</td>
-                        <td><input type='text' id='magazineIssue' name='magazineIssue' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Publisher:</td>
-                        <td>
-                            <input type='text' id='magazinePublisher' name='magazinePublisher' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Date Published</td>
-                        <td>
-                            <input type='date' id='magazineDate' name='magazineDate' onfocus='backWhite(this);'/>
-                        </td>
-                    </tr>
-                    <% }%>
-                    
->>>>>>> b6f52b08b21b7afd9c833ec7049f169bda95d94b
                 </table>
 
                 <input type='submit' value='Submit'/>

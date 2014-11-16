@@ -36,7 +36,7 @@ public class BookDAOImplementation implements BookDAOInterface {
             int bookID, book_productID;
             String publisher, author;
             Date datePublished;
-            
+
             while (resultSet.next()) {
                 bookID = resultSet.getInt("bookID");
                 book_productID = resultSet.getInt("book_productID");
@@ -57,6 +57,24 @@ public class BookDAOImplementation implements BookDAOInterface {
             Logger.getLogger(BookManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public boolean deleteBook(int id) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+
+            String query = "delete from book where book_productID=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
     }
 
 }

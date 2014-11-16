@@ -13,5 +13,6 @@ import Beans.DVDBean;
  */
 public interface DVDDAOInterface {
     public DVDBean getDVDByProductId(int id);
+    public boolean deleteDVD(int id);
     
 }

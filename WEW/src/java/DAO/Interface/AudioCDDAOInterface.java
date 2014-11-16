@@ -15,5 +15,6 @@ public interface AudioCDDAOInterface {
     
     public boolean addAudioCD(AudioCDBean audiocd);
     public AudioCDBean getAudioCDByProductId(int id);
+    public boolean deleteaudioCD(int id);
     
 }

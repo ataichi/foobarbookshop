@@ -58,4 +58,22 @@ public class DVDDAOImplementation implements DVDDAOInterface {
         return null;
     }
 
+    @Override
+    public boolean deleteDVD(int id) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+
+            String query = "delete from dvd where dvd_productID=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
+
 }
