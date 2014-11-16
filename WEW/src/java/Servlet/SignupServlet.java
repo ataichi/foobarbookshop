@@ -30,8 +30,7 @@ public class SignupServlet extends HttpServlet {
             CustomerBean customer = new CustomerBean();
             AccountDAOInterface userdao = new AccountDAOImplementation();
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
-            boolean checkAccount, checkCustomer;
-            boolean locked=false;
+            boolean checkAccount=false, checkCustomer=false;
 
             String firstname = request.getParameter("fname");
             String lastname = request.getParameter("lname");
@@ -47,7 +46,7 @@ public class SignupServlet extends HttpServlet {
             account.setEmailAdd(email);
             account.setUsername(username);
             account.setAccountType("customer");
-            account.setLocked(locked);
+            account.setLocked(false);
             
             checkAccount = userdao.addAccount(account);
             
