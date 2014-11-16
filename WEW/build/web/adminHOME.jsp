@@ -26,9 +26,7 @@
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 
 
-        <title>JSP Page</title>
-
-
+        <title>Admin Home</title>
 
     </head>
     <body>
@@ -50,8 +48,8 @@
         </nav>
 
         <div id="actions">
-            <br/>
-            <br/>
+            <br>
+            <br>
             <a href="signup_productmanager.html">Add Product Manager</a>
             <br>
             <br>
@@ -59,7 +57,8 @@
             <br>
             <br>
             <a href="viewlogs.html">View Activity Log </a>
-            <br/><br/>
+            <br>
+            <br>
             <a href="unlock_account.html">Unlock Account</a>
         </div>
 
