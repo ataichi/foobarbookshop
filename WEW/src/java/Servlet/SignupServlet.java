@@ -30,8 +30,7 @@ public class SignupServlet extends HttpServlet {
             CustomerBean customer = new CustomerBean();
             AccountDAOInterface userdao = new AccountDAOImplementation();
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
-            boolean checkAccount, checkCustomer;
-            boolean locked=false;
+            boolean checkAccount=false, checkCustomer=false;
 
             String firstname = request.getParameter("fname");
             String lastname = request.getParameter("lname");
@@ -85,9 +84,6 @@ public class SignupServlet extends HttpServlet {
             
             checkCustomer = customerdao.addCustomer(customer);
             
-            out.println(checkAccount);
-            out.println(checkCustomer);
-            /*
             if(checkAccount && checkCustomer){
 //                  out.println("HI");
                 response.sendRedirect("home.html");
@@ -96,7 +92,6 @@ public class SignupServlet extends HttpServlet {
 //                    out.println("NO");
                response.sendRedirect("loginfail.jsp");
             }
-            */
         } finally {
             out.close();
         }
