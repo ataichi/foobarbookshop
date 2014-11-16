@@ -14,7 +14,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
-        <script src="js-.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="wadesign.css">
         <link rel="stylesheet" type="text/css" href="category.css">
         <link rel="stylesheet" type="text/css" href="style4.css">

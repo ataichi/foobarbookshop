@@ -3,6 +3,7 @@
     Created on : Nov 9, 2014, 10:11:04 PM
     Author     : Giodee
 --%>
+<<<<<<< HEAD
 <%@page import="DAO.Implementation.AudioCDManagerDAOImplementation"%>
 <%@page import="DAO.Interface.DVDManagerDAOInterface"%>
 <%@page import="DAO.Implementation.DVDManagerDAOImplementation"%>
@@ -10,6 +11,8 @@
 <%@page import="DAO.Interface.MagazineManagerDAOInterface"%>
 <%@page import="DAO.Interface.AudioCDManagerDAOInterface"%>
 <%@page import="DAO.Implementation.BookManagerDAOImplementation"%>
+=======
+>>>>>>> b6f52b08b21b7afd9c833ec7049f169bda95d94b
 <%@page import="Beans.ProductBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.Interface.BookManagerDAOInterface"%>
@@ -27,6 +30,7 @@
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
     ProductManagerBean managerBean = pdao.getProductManagerBeanById(homeproduct.getAccountID());
     ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
+<<<<<<< HEAD
     BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
     AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
     MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
@@ -35,6 +39,12 @@
     ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
     ArrayList<MagazineBean> magazinelist = magazinedao.viewAllMagazine();
     ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
+=======
+    ArrayList<BookBean> booklist = (ArrayList<BookBean>) session.getAttribute("booklist");
+    ArrayList<AudioCDBean> audiocdlist = (ArrayList<AudioCDBean>) session.getAttribute("audiocdlist");
+    ArrayList<MagazineBean> magazinelist = (ArrayList<MagazineBean>) session.getAttribute("magazinelist");
+    ArrayList<DVDBean> dvdlist = (ArrayList<DVDBean>) session.getAttribute("dvdlist");
+>>>>>>> b6f52b08b21b7afd9c833ec7049f169bda95d94b
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -104,8 +114,12 @@
                 </td>
                 </tr>
                 <%
+<<<<<<< HEAD
                     int i;
                     for (i = 0; i < productlist.size(); i++) {
+=======
+                    for (int i = 0; i < productlist.size() - 1; i++) {
+>>>>>>> b6f52b08b21b7afd9c833ec7049f169bda95d94b
                         out.println("<tr>"
                                 + "<td><center>"
                                 + productlist.get(i).getTitle()

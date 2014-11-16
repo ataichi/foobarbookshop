@@ -15,6 +15,7 @@ $(document).ready(function () {
         "width": "700px",
         "position": "absolute"
     });
+<<<<<<< HEAD
     $('#viewProducts').css({
         "position": "absolute",
         "margin-top": "131px",
@@ -23,6 +24,8 @@ $(document).ready(function () {
         "height": "300px",
         "background-color": "#FFFFCC"
     });
+=======
+>>>>>>> b6f52b08b21b7afd9c833ec7049f169bda95d94b
 
 
 });

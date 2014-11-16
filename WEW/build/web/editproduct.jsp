@@ -84,24 +84,24 @@
         <div id="product">
             Edit <%out.println(editproduct.getTitle());%>:
             <br/><br/>
-            <form action="AddProductServlet">
+            <form id="editproduct" name="editproduct" action="AddProductServlet" onsubmit="return editproductcheck(this) method="post">
                 <table>
                     <tr>
                         <td>Title:*</td>
-                        <td><input type='text' id='productTitle' name='productTitle' value='<% out.println(editproduct.getTitle()); %>' onfocus='backWhite(this);'/>
+                        <td><input type='text' id='productTitle' name='productTitle' value='<% out.println(editproduct.getTitle()); %>' onblur="titleCheck()" onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Price:* </td>
                         <td>
-                            <input type='text' id='productPrice' name='productPrice'  value='<% out.println(editproduct.getPrice()); %>' onfocus='backWhite(this);'/>
+                            <input type='text' id='productPrice' name='productPrice'  value='<% out.println(editproduct.getPrice()); %>' onblur="priceCheck()" onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Summary:
                         </td>
                         <td>
-                            <input type='text' id='productSummary' name='productSummary'  value='<% out.println(editproduct.getSummary()); %>' onfocus='backWhite(this);'/>
+                            <input type='text' id='productSummary' name='productSummary'  value='<% out.println(editproduct.getSummary()); %>' onblur="summaryCheck()" onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
@@ -110,7 +110,7 @@
                             Genre:
                         </td>
                         <td>
-                            <input type='text' id='productGenre' name='productGenre'  value='<% out.println(editproduct.getGenre()); %>'onfocus='backWhite(this);'/>
+                            <input type='text' id='productGenre' name='productGenre'  value='<% out.println(editproduct.getGenre()); %>' onblur="genreCheck()" onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
@@ -118,7 +118,7 @@
                         <td>Year:
                         </td>
                         <td>
-                            <input type='text' id='productYear' name='productYear'  value='<% out.println(editproduct.getYear()); %>'onfocus='backWhite(this);'/>       
+                            <input type='text' id='productYear' name='productYear'  value='<% out.println(editproduct.getYear()); %>' onblur="yearCheck()" onfocus='backWhite(this);'/>       
 
                         </td>
                     </tr>
@@ -127,7 +127,7 @@
                             Stocks:
                         </td>
                         <td>
-                            <input type='text' id='productStocks' name='productStocks'  value='<% out.println(editproduct.getNumberStocks()); %>' onfocus='backWhite(this);'/>
+                            <input type='text' id='productStocks' name='productStocks'  value='<% out.println(editproduct.getNumberStocks()); %>' onblur="stocksCheck()" onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>

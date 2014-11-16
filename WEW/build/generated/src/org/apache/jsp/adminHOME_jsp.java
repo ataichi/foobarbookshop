@@ -44,7 +44,6 @@ public final class adminHOME_jsp extends org.apache.jasper.runtime.HttpJspBase
 
       out.write("\r\n");
       out.write("\r\n");
-      out.write("\r\n");
 
     AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
 
@@ -67,9 +66,7 @@ public final class adminHOME_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>\r\n");
       out.write("\r\n");
       out.write("\r\n");
-      out.write("        <title>JSP Page</title>\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
+      out.write("        <title>Admin Home</title>\r\n");
       out.write("\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
@@ -91,8 +88,8 @@ public final class adminHOME_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </nav>\r\n");
       out.write("\r\n");
       out.write("        <div id=\"actions\">\r\n");
-      out.write("            <br/>\r\n");
-      out.write("            <br/>\r\n");
+      out.write("            <br>\r\n");
+      out.write("            <br>\r\n");
       out.write("            <a href=\"signup_productmanager.html\">Add Product Manager</a>\r\n");
       out.write("            <br>\r\n");
       out.write("            <br>\r\n");
@@ -100,12 +97,10 @@ public final class adminHOME_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <br>\r\n");
       out.write("            <br>\r\n");
       out.write("            <a href=\"viewlogs.html\">View Activity Log </a>\r\n");
-      out.write("            <br/><br/>\r\n");
+      out.write("            <br>\r\n");
+      out.write("            <br>\r\n");
       out.write("            <a href=\"unlock_account.html\">Unlock Account</a>\r\n");
       out.write("        </div>\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {

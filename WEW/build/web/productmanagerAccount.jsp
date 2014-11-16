@@ -57,22 +57,50 @@
 
         <div id='editAccount'>
             <form action='EditProductManagerAccountServlet'>
-                First Name:* &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type='text' id='editfirst' name='editfirst' value='<% out.println(homeproduct.getFirstName()); %>' onblur='fnameCheck();' onfocus='backWhite(this);'/>
-                <br/>
-                Middle Name* &nbsp;
-                <input type='text' id='editmiddle' name='editmiddle' value='<% out.println(homeproduct.getMiddleInitial()); %>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
-                <br/>
-                Last Name:* &nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='editlast' type='text' name="editlast" value='<% out.println(homeproduct.getLastName()); %>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
-                <br/>
-                Username:*  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='edituser' type='text' name="edituser" value='<% out.println(homeproduct.getUsername()); %>' onblur='unameCheck();' onfocus='backWhite(this);'/>
-                <br/>
-                Email:*    &nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='editemail' type='email' name="editemail" value='<% out.println(homeproduct.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
-                <br/><br/>
+                <table>
+                    <tr>
+                        <td>First Name:
+                        </td>
+                        <td>
+                            <input type='text' id='editfirst' name='editfirst' value='<% out.println(homeproduct.getFirstName()); %>' onblur='fnameCheck();' onfocus='backWhite(this);'/>
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Middle Name:
+                        </td>
+                        <td>
+                            <input type='text' id='editmiddle' name='editmiddle' value='<% out.println(homeproduct.getMiddleInitial()); %>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Last Name:
+                        </td>
+                        <td>
+                            <input id='editlast' type='text' name="editlast" value='<% out.println(homeproduct.getLastName()); %>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Username:
+                        </td>
+                        <td>
+                            <input id='edituser' type='text' name="edituser" value='<% out.println(homeproduct.getUsername()); %>' onblur='unameCheck();' onfocus='backWhite(this);'/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input id='editemail' type='email' name="editemail" value='<% out.println(homeproduct.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
+
+                        </td>
+                    </tr>
+                </table>
                 <input type='submit' id='save' value='Save Changes'/>
             </form>
             <a href='productmanagerHOME.jsp'><button>Cancel</button></a>
