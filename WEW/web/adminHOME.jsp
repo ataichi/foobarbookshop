@@ -1,8 +1,3 @@
-<%-- 
-    Document   : adminHOME
-    Created on : Nov 9, 2014, 9:34:57 PM
-    Author     : Giodee
---%>
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -61,8 +56,5 @@
             <br>
             <a href="unlock_account.html">Unlock Account</a>
         </div>
-
-
-
     </body>
 </html>

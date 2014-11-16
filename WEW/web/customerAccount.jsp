@@ -1,4 +1,4 @@
-<%-- 
+a<%-- 
     Document   : customerAccount
     Created on : Nov 15, 2014, 10:27:25 AM
     Author     : Giodee
@@ -33,7 +33,7 @@
         <header>
             <div id="banner"> <a href="customerHOME.jsp"><img src="books.jpg"></a> </div>
         </header>
-        
+
         <nav>
             <ul>
                 <li><a href="customerHOME.jsp">Home</a>    </li>
@@ -46,21 +46,21 @@
                     </ul>
                 </li>
                 <li><a href='#'>Account</a>
-                        <ul>
-                            <li><a href='customerAccount.jsp'>Edit Account</a></li>
-                            <li><a href='#'>Log out</a></li>
-                        </ul>
+                    <ul>
+                        <li><a href='customerAccount.jsp'>Edit Account</a></li>
+                        <li><a href='#'>Log out</a></li>
+                    </ul>
                 </li>
             </ul>
         </nav>
-        
+
         <div id='actions'>
             <br>
             <br>
             <a href='customerBilling.jsp'>Manage Billing Information</a>
             <br/>
             <br>
-            
+
             <a href='customerPayments.jsp'>Manage Payment Information</a>
             <br/>
             <br>
@@ -70,22 +70,49 @@
 
         <div id='editAccount'>
             <form action='EditCustomerAccountServlet'>
-                First Name:* &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type='text' id='editfirst' name='editfirst' value='<% out.println(homeuser.getFirstName()); %>' onblur='fnameCheck();' onfocus='backWhite(this);'/>
-                <br/>
-                Middle Name* &nbsp;
-                <input type='text' id='editmiddle' name='editmiddle' value='<% out.println(homeuser.getMiddleInitial()); %>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
-                <br/>
-                Last Name:* &nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='editlast' type='text' name="editlast" value='<% out.println(homeuser.getLastName()); %>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
-                <br/>
-                Username:*  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='edituser' type='text' name="edituser" value='<% out.println(homeuser.getUsername()); %>' onblur='unameCheck();' onfocus='backWhite(this);'/>
-                <br/>
-                Email:*    &nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id='editemail' type='email' name="editemail" value='<% out.println(homeuser.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
-                <br/><br/>
+                <table>
+                    <tr>
+                        <td>First Name:
+                        </td>
+                        <td>
+                            <input type='text' id='editfirst' name='editfirst' value='<% out.println(homeuser.getFirstName()); %>' onblur='fnameCheck();' onfocus='backWhite(this);'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Middle Name:
+                        </td>
+                        <td>
+                            <input type='text' id='editmiddle' name='editmiddle' value='<% out.println(homeuser.getMiddleInitial()); %>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Last Name:
+                        </td>
+                        <td>
+                            <input id='editlast' type='text' name="editlast" value='<% out.println(homeuser.getLastName()); %>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Username:
+                        </td>
+                        <td>
+                            <input id='edituser' type='text' name="edituser" value='<% out.println(homeuser.getUsername()); %>' onblur='unameCheck();' onfocus='backWhite(this);'/>
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input id='editemail' type='email' name="editemail" value='<% out.println(homeuser.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
+
+                        </td>
+                    </tr>
+                </table>
                 <input type='submit' id='save' value='Save Changes'/>
             </form>
             <a href='customerHOME.jsp'><button>Cancel</button></a>

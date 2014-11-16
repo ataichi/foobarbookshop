@@ -1,7 +1,7 @@
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
+    AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
 %>
 <!DOCTYPE html>
 <html>
@@ -57,6 +57,7 @@
         </div>
         
                 <div id='editAccount'>
+<<<<<<< HEAD
             <form id="editadmin" name="editadmin" action='EditAdminAccountServlet' onsubmit="return editadmincheck(this)" method="post">
                 First Name:* &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type='text' id='editfirst' name='editfirst' value='<% out.println(homeuser.getFirstName()); %>' onblur='fnameAdminCheck();' onfocus='backWhite(this);'/>
@@ -73,7 +74,53 @@
                 Email:*    &nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input id='editemail' type='email' name="editemail" value='<% out.println(homeuser.getEmailAdd());%>' onblur='emailAdminCheck();' onfocus='backWhite(this);'/>
                 <br/><br/>
+=======
+            <form action='EditAdminAccountServlet'>
+                          <table>
+                    <tr>
+                        <td>First Name:
+                        </td>
+                        <td>
+                            <input type='text' id='editfirst' name='editfirst' value='<% out.println(homeadmin.getFirstName()); %>' onblur='fnameCheck();' onfocus='backWhite(this);'/>
+>>>>>>> c4553c48a84d37fbab48e59a2b662fe50ec50121
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Middle Name:
+                        </td>
+                        <td>
+                            <input type='text' id='editmiddle' name='editmiddle' value='<% out.println(homeadmin.getMiddleInitial()); %>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Last Name:
+                        </td>
+                        <td>
+                            <input id='editlast' type='text' name="editlast" value='<% out.println(homeadmin.getLastName()); %>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Username:
+                        </td>
+                        <td>
+                            <input id='edituser' type='text' name="edituser" value='<% out.println(homeadmin.getUsername()); %>' onblur='unameCheck();' onfocus='backWhite(this);'/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input id='editemail' type='email' name="editemail" value='<% out.println(homeadmin.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
+
+                        </td>
+                    </tr>
+                </table>
                 <input type='submit' id='save' value='Save Changes'/>
             </form>
             <a href='adminHOME.jsp'><button>Cancel</button></a>
