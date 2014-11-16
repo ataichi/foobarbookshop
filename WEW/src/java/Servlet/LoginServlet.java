@@ -91,6 +91,7 @@ public class LoginServlet extends HttpServlet {
                 }
                 
                 session.setAttribute("homeproduct", account);
+       //         out.println("HERE");
                 response.sendRedirect("productmanagerHOME.jsp");
             } else if (accountdao.doesUserExist(username, password) && "accounting manager".equals(account.getAccountType())) {
                 session.setAttribute("homeaccounting", account);
