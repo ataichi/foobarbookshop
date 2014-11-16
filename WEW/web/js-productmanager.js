@@ -15,6 +15,14 @@ $(document).ready(function () {
         "width": "700px",
         "position": "absolute"
     });
+    $('#viewProducts').css({
+        "position": "absolute",
+        "margin-top": "131px",
+        "margin-left": "150px",
+        "width": "700px",
+        "height": "300px",
+        "background-color": "#FFFFCC"
+    });
 
 
 });

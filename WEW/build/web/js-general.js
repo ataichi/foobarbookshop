@@ -54,8 +54,52 @@ $(document).ready(function () {
     $('#actions').css({
         //    "padding-left":"-20px",
         "background-color": "bisque",
-        "margin-top": "80px",
+        "margin-top": "70px",
         "height": "500px",
         "width": "150px",
-        "position": "absolute"});
+        "position": "absolute"
+    });
+
+    $('#tfheader').css({
+        "background-color": "#d0d0d0",
+        "margin-top": "70px",
+        "margin-left": "150px",
+        "width": "700px",
+        "position": "absolute"
+    });
+    $('#tfnewsearch').css({
+        "float": "right",
+        "padding": "20px"
+    });
+    $('.tftexinput2').css({
+        "margin": "0",
+        "padding": "5px 15px",
+        "font-family": "Arial, Helvetica, sans-serif",
+        "font-size": "14px",
+        "color": "#666",
+        "border": "1px solid #0076a3",
+        "border-right": "0px",
+        "border-top-left-radius": "5px 5px",
+        "border-bottom-left-radius": "5px 5px"
+    });
+    $('.tftbutton2').css({
+        "margin": "0",
+        "padding": "5px 7px",
+        "font-family": "Arial, Helvetica, sans-serif",
+        "font-size": "14px",
+        "outline": "none",
+        "cursor": "pointer",
+        "text-align": "center",
+        "text-decoration": "none",
+        "color": "#ffffff",
+        "border": "solid 1px #0076a3",
+        "border-right": "0px",
+        "background": "#0095cd",
+        "background":"-webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5)",
+                "background":"-moz-linear-gradient(top, #00adee, #0078a5)",
+                "border-top-right-radius": "5px 5px",
+        "border-bottom-right-radius": "5px 5px"
+    });
+
+
 });//end of ready

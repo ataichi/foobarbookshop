@@ -100,13 +100,6 @@ $(document).ready(function () {
                 "border-top-right-radius": "5px 5px",
         "border-bottom-right-radius": "5px 5px"
     });
-    $('#viewProducts').css({
-       "position":"absolute",
-       "margin-top":"131px",
-       "margin-left":"150px",
-       "width":"700px",
-       "height":"300px",
-       "background-color":"#FFFFCC"
-    });
+
 
 });//end of ready
