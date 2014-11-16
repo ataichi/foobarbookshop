@@ -1,20 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-function logcheck() {
-    var user = usernameCheck();
-    var pass = passwordCheck();
-    if (user == false || pass == false) {
-        return false;
-    }
-    else {
-        return true;
-    }
-}
-
 function signcheck() {
     var first = fnameCheck();
     var middle = mnameCheck();
