@@ -47,7 +47,7 @@ public class SignupServlet extends HttpServlet {
             account.setEmailAdd(email);
             account.setUsername(username);
             account.setAccountType("customer");
-            account.setLocked(locked);
+            account.setLocked(false);
             
             checkAccount = userdao.addAccount(account);
             
@@ -85,6 +85,9 @@ public class SignupServlet extends HttpServlet {
             
             checkCustomer = customerdao.addCustomer(customer);
             
+            out.println(checkAccount);
+            out.println(checkCustomer);
+            /*
             if(checkAccount && checkCustomer){
 //                  out.println("HI");
                 response.sendRedirect("home.html");
@@ -93,6 +96,7 @@ public class SignupServlet extends HttpServlet {
 //                    out.println("NO");
                response.sendRedirect("loginfail.jsp");
             }
+            */
         } finally {
             out.close();
         }
