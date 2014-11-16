@@ -1,18 +1,35 @@
 <%-- 
-    Document   : addproduct
-    Created on : Nov 16, 2014, 5:42:24 AM
+    Document   : editproduct
+    Created on : Nov 16, 2014, 6:08:38 PM
     Author     : Giodee
 --%>
 
+
+<%@page import="Beans.MagazineBean"%>
+<%@page import="Beans.DVDBean"%>
+<%@page import="Beans.BookBean"%>
+<%@page import="Beans.AudioCDBean"%>
 <%@page import="DAO.Implementation.ProductManagerDAOImplementation"%>
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
 <%@page import="Beans.ProductManagerBean"%>
+<%@page import="Beans.ProductBean"%>
 <%@page import="Beans.AccountBean"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
     ProductManagerBean productManager = new ProductManagerBean();
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
     productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
+
+    ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
+    AudioCDBean audiocd = (AudioCDBean) session.getAttribute("editaudio");
+    BookBean book = (BookBean) session.getAttribute("editbook");
+    DVDBean dvd = (DVDBean) session.getAttribute("editdvd");
+    MagazineBean magazine = (MagazineBean) session.getAttribute("editmagazine");
+    if (productManager.getProdType().equals("Audio CD")) {
+    } else if (productManager.getProdType().equals("Books")) {
+    } else if (productManager.getProdType().equals("DVD")) {
+    } else if (productManager.getProdType().equals("Magazine")) {
+    }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +41,6 @@
 
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
-        <script src="js-edit.js" type="text/javascript"></script>
         <script src="js-productmanager.js" type="text/javascript"></script>
 
         <link rel="stylesheet" type="text/css" href="wadesign.css">
@@ -35,11 +51,12 @@
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 
-        <title>Add Product</title>
+        <title> Edit Product</title>
+
     </head>
     <body>
         <header>
-            <div id="banner"> <a href="login.html"><img src="books.jpg"></a> </div>
+            <div id="banner"> <a href="productmanagerHOME.html"><img src="books.jpg"></a> </div>
         </header>
         <nav>
             <ul>
@@ -56,33 +73,35 @@
         <div id="actions">
             <br/>
             <br/>
+
             <a href="addproduct.jsp">Add Product</a>
+            <br>
             <br>
             <br>
             <br>
         </div>
 
         <div id="product">
-            Add <%out.println(productManager.getProdType());%>:
+            Edit <%out.println(editproduct.getTitle());%>:
             <br/><br/>
             <form action="AddProductServlet">
                 <table>
                     <tr>
                         <td>Title:*</td>
-                        <td><input type='text' id='productTitle' name='productTitle' onfocus='backWhite(this);'/>
+                        <td><input type='text' id='productTitle' name='productTitle' value='<% out.println(editproduct.getTitle()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Price:* </td>
                         <td>
-                            <input type='text' id='productPrice' name='productPrice' onfocus='backWhite(this);'/>
+                            <input type='text' id='productPrice' name='productPrice'  value='<% out.println(editproduct.getPrice()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Summary:
                         </td>
                         <td>
-                            <input type='text' id='productSummary' name='productSummary' onfocus='backWhite(this);'/>
+                            <input type='text' id='productSummary' name='productSummary'  value='<% out.println(editproduct.getSummary()); %>' onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
@@ -91,7 +110,7 @@
                             Genre:
                         </td>
                         <td>
-                            <input type='text' id='productGenre' name='productGenre' onfocus='backWhite(this);'/>
+                            <input type='text' id='productGenre' name='productGenre'  value='<% out.println(editproduct.getGenre()); %>'onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
@@ -99,7 +118,7 @@
                         <td>Year:
                         </td>
                         <td>
-                            <input type='text' id='productYear' name='productYear' onfocus='backWhite(this);'/>       
+                            <input type='text' id='productYear' name='productYear'  value='<% out.println(editproduct.getYear()); %>'onfocus='backWhite(this);'/>       
 
                         </td>
                     </tr>
@@ -108,7 +127,7 @@
                             Stocks:
                         </td>
                         <td>
-                            <input type='text' id='productStocks' name='productStocks' onfocus='backWhite(this);'/>
+                            <input type='text' id='productStocks' name='productStocks'  value='<% out.println(editproduct.getNumberStocks()); %>' onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
@@ -118,14 +137,14 @@
                     <tr>
                         <td>Artist</td>
                         <td>
-                            <input type='text' id='cdArtist' name='cdArtist' onfocus='backWhite(this);'/>    
+                            <input type='text' id='cdArtist' name='cdArtist' value='<% out.println(audiocd.getArtist()); %>' onfocus='backWhite(this);'/>    
                         </td>
                     <tr>
                         <td>
                             Record Company:
                         </td>
                         <td>
-                            <input type='text' id='cdRecord' name ='cdRecord' onfocus='backWhite(this);'/>
+                            <input type='text' id='cdRecord' name ='cdRecord' value='<% out.println(audiocd.getRecordCompany()); %>'  onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
@@ -136,13 +155,13 @@
                     <tr>
                         <td>Author</td>
                         <td>
-                            <input type='text' id='bookAuthor' name='bookAuthor' onfocus='backWhite(this);'/>
+                            <input type='text' id='bookAuthor' name='bookAuthor' value='<% out.println(book.getAuthor()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Publisher:</td>
                         <td>
-                            <input type='text' id='bookPublisher' name='bookPublisher' onfocus='backWhite(this);'/>
+                            <input type='text' id='bookPublisher' name='bookPublisher' value='<% out.println(book.getPublisher()); %>'onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
@@ -150,7 +169,7 @@
                             Date Published:
                         </td>
                         <td>
-                            <input type='date' id='bookDatePublished' name='bookDatePublished' onfocus='backWhite(this);'/>
+                            <input type='date' id='bookDatePublished' name='bookDatePublished' value='<% out.println(book.getDatePublished()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
 
@@ -160,18 +179,18 @@
                     <tr>
                         <td>Director:</td>
                         <td>
-                            <input type='text' id='dvdDirector' name='dvdDirector' onfocus='backWhite(this);'/>
+                            <input type='text' id='dvdDirector' name='dvdDirector' value='<% out.println(dvd.getDirector()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Actor:</td>
-                        <td><input type='text' id='dvdActor' name='dvdActor' onfocus='backWhite(this);'/>
+                        <td><input type='text' id='dvdActor' name='dvdActor' value='<% out.println(dvd.getMainActors()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Producer:</td>
                         <td>
-                            <input type='text' id='dvdProducer' name='dvdProducer' onfocus='backWhite(this);'/>
+                            <input type='text' id='dvdProducer' name='dvdProducer' value='<% out.println(dvd.getProductionCompany()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <% } %>
@@ -180,28 +199,28 @@
                     <tr>
                         <td>Volume No:</td>
                         <td>
-                            <input type='text' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);'/>
+                            <input type='text' id='magazineVolume' name='magazineVolume' value='<% out.println(magazine.getVolumeNo()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Issue No:</td>
-                        <td><input type='text' id='magazineIssue' name='magazineIssue' onfocus='backWhite(this);'/>
+                        <td><input type='text' id='magazineIssue' name='magazineIssue' value='<% out.println(magazine.getIssueNo()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Publisher:</td>
                         <td>
-                            <input type='text' id='magazinePublisher' name='magazinePublisher' onfocus='backWhite(this);'/>
+                            <input type='text' id='magazinePublisher' name='magazinePublisher'value='<% out.println(magazine.getPublisher()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Date Published</td>
                         <td>
-                            <input type='date' id='magazineDate' name='magazineDate' onfocus='backWhite(this);'/>
+                            <input type='date' id='magazineDate' name='magazineDate' value='<% out.println(magazine.getDatePublished()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <% }%>
-                    
+
                 </table>
 
                 <input type='submit' value='Submit'/>
@@ -212,5 +231,6 @@
         </form>
 
     </div>
+
 </body>
 </html>
