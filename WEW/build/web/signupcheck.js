@@ -14,6 +14,22 @@ function signcheck() {
     }
 }
 
+function editadmincheck() {
+    var first = fnameAdminCheck();
+    var middle = mnameAdminCheck();
+    var last = lnameAdminCheck();
+    var user = unameAdminCheck();
+    var email = emailAdminCheck();
+    //var pass = passAdminCheck();
+
+    if (first == false || last == false || middle == false || user == false || email == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function fnameCheck() {
     var first = document.forms["signin"]["fname"].value;
     if (first == "" || first == null || !(/^[A-z ]+$/.test(first))) {
