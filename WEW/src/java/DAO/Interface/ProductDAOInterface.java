@@ -6,6 +6,7 @@
 package DAO.Interface;
 
 import Beans.ProductBean;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,5 +16,6 @@ public interface ProductDAOInterface {
     
     public ProductBean getProductById(int id);
     public boolean removeProduct(int id);
+    public ArrayList<ProductBean> getAllProductsByType(String type);
     
 }

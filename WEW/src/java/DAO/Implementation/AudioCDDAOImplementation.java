@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,7 +55,7 @@ public class AudioCDDAOImplementation implements AudioCDDAOInterface {
             int audiocdID, audiocd_productID;
             String artist, recordCompany;
             AudioCDBean bean = new AudioCDBean();
-            while (rs.next()) {           
+            while (rs.next()) {
                 audiocdID = rs.getInt("audiocdID");
                 artist = rs.getString("artist");
                 recordCompany = rs.getString("recordCompany");
@@ -86,6 +87,7 @@ public class AudioCDDAOImplementation implements AudioCDDAOInterface {
             String query = "delete from audiocd where audiocd_productID=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
+            ps.executeUpdate();
             connection.close();
             return true;
         } catch (SQLException ex) {
@@ -93,5 +95,46 @@ public class AudioCDDAOImplementation implements AudioCDDAOInterface {
         }
         return false;
 
+    }
+
+    @Override
+    public ArrayList<AudioCDBean> getAllAudioCD() {
+        try {
+            String query = "select * from audiocd";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+            ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
+            AudioCDBean bean = new AudioCDBean();
+            
+            int audiocdID, audiocd_productID;
+            String artist, recordCompany;
+            while (rs.next()) {
+
+                bean = new AudioCDBean();
+
+                audiocdID = rs.getInt("audiocdID");
+                artist = rs.getString("artist");
+                recordCompany = rs.getString("recordCompany");
+                audiocd_productID = rs.getInt("audiocd_productID");
+
+                bean.setArtist(artist);
+                bean.setAudiocdID(audiocdID);
+                bean.setAudiocd_productID(audiocd_productID);
+                bean.setRecordCompany(recordCompany);
+
+                cdlist.add(bean);
+            }
+
+            connection.close();
+            return cdlist;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 }

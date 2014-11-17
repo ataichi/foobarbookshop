@@ -6,10 +6,12 @@
 package DAO.Interface;
 
 import Beans.MagazineBean;
+import java.util.ArrayList;
 
 public interface MagazineDAOInterface {
     
     public MagazineBean getMagazineByProductId(int id);
     public boolean deleteMagazine(int id);
+    public ArrayList<MagazineBean> getAllMagazine();
     
 }

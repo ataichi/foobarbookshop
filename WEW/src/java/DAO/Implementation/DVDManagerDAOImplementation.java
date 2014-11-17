@@ -112,6 +112,7 @@ public class DVDManagerDAOImplementation implements DVDManagerDAOInterface {
             query = "delete from dvd where dvdID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, DVD.getDvdID());
+            ps.executeUpdate();
             connection.close();
             return true;
         } catch (SQLException ex) {
@@ -140,7 +141,7 @@ public class DVDManagerDAOImplementation implements DVDManagerDAOInterface {
                 dvdID = rs.getInt("dvdID");
                 dvd_productID = rs.getInt("dvd_productID");
                 director = rs.getString("director");
-                productionCompany = rs.getString("productionCompany");
+                productionCompany = rs.getString("productCompany");
                 mainActors = rs.getString("actor");
                 
                 bean = new DVDBean();

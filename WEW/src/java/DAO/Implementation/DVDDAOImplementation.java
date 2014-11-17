@@ -67,6 +67,7 @@ public class DVDDAOImplementation implements DVDDAOInterface {
             String query = "delete from dvd where dvd_productID=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
+            ps.executeUpdate();
             connection.close();
             return true;
         } catch (SQLException ex) {

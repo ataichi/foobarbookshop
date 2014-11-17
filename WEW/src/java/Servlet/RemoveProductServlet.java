@@ -26,6 +26,7 @@ import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,6 +62,7 @@ public class RemoveProductServlet extends HttpServlet {
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
             ProductDAOInterface productdao = new ProductDAOImplementation();
             productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
+            ArrayList<ProductBean> plist = new ArrayList<ProductBean>();
 
             int productID = Integer.parseInt(request.getParameter("product"));
             ProductBean removeproduct = productdao.getProductById(productID);
@@ -72,6 +74,7 @@ public class RemoveProductServlet extends HttpServlet {
                 AudioCDBean removeaudio = new AudioCDBean();
                 AudioCDDAOInterface audiodao = new AudioCDDAOImplementation();
                 removeaudio = audiodao.getAudioCDByProductId(productID);
+                ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
 
                 check_removespecificproduct = audiodao.deleteaudioCD(productID);
                 if (check_removespecificproduct) {
@@ -79,6 +82,10 @@ public class RemoveProductServlet extends HttpServlet {
 
                     if (check_removeproduct) {
                         out.println("delete cd");
+                        plist = productdao.getAllProductsByType(type);
+                        cdlist = audiodao.getAllAudioCD();
+                        session.setAttribute("audiocdlist", cdlist);
+                        session.setAttribute("productlist", plist);
                         //response.sendRedirect("productmanagerHOME.jsp");
                     } else {
                         out.println("failed to remove cd");
@@ -90,12 +97,18 @@ public class RemoveProductServlet extends HttpServlet {
                 BookBean removebook = new BookBean();
                 BookDAOInterface bookdao = new BookDAOImplementation();
                 removebook = bookdao.getBookByProductId(productID);
-
+                ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+                
                 check_removespecificproduct = bookdao.deleteBook(productID);
                 if (check_removespecificproduct) {
                     check_removeproduct = productdao.removeProduct(productID);
 
                     if (check_removeproduct) {
+                        booklist= bookdao.getAllBooks();
+                        plist = productdao.getAllProductsByType(type);
+                        
+                        session.setAttribute("booklist", booklist);
+                        session.setAttribute("productlist", plist);
                         out.println("delete book");
                         //response.sendRedirect("productmanagerHOME.jsp");
                     } else {
@@ -107,7 +120,8 @@ public class RemoveProductServlet extends HttpServlet {
                 DVDBean removedvd = new DVDBean();
                 DVDDAOInterface dvddao = new DVDDAOImplementation();
                 removedvd = dvddao.getDVDByProductId(productID);
-
+                ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+                
                 check_removespecificproduct = dvddao.deleteDVD(productID);
                 if (check_removespecificproduct) {
                     check_removeproduct = productdao.removeProduct(productID);
@@ -132,6 +146,11 @@ public class RemoveProductServlet extends HttpServlet {
 
                     if (check_removeproduct) {
                         out.println("delete cd");
+                        ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                        magazinelist = magazinedao.getAllMagazine();
+                        plist = productdao.getAllProductsByType(type);
+                        session.setAttribute("magazinelist", magazinelist);
+                        
                         //response.sendRedirect("productmanagerHOME.jsp");
                     } else {
                         out.println("failed to remove cd");

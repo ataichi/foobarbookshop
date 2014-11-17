@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,6 +76,46 @@ public class BookDAOImplementation implements BookDAOInterface {
         }
         return false;
 
+    }
+
+    @Override
+    public ArrayList<BookBean> getAllBooks() {
+     try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from book";
+            PreparedStatement ps = connection.prepareStatement(query);
+            
+            ResultSet resultSet = ps.executeQuery();
+            ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+            BookBean bean = new BookBean();
+            int bookID, book_productID;
+            String publisher, author;
+            java.sql.Date datePublished;
+            while(resultSet.next()) {
+                bookID = resultSet.getInt("bookID");
+                book_productID = resultSet.getInt("book_productID");
+                publisher = resultSet.getString("publisher");
+                author = resultSet.getString("author");
+                datePublished = resultSet.getDate("datePublished");
+                
+                bean = new BookBean();
+                
+                bean.setAuthor(author);
+                bean.setBookID(bookID);
+                bean.setBook_productID(book_productID);
+                bean.setDatePublished(datePublished);
+                bean.setPublisher(publisher);
+                
+                booklist.add(bean);
+            }
+            connection.close();
+            return booklist;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BookManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }
