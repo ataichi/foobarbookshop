@@ -43,7 +43,7 @@
                 <li><a href='#'><% out.println(homeuser.getUsername()); %></a>
                     <ul>
                         <li><a href='customerAccount.jsp'>Edit Account</a></li>
-                        <li><a href='#'>Log out</a></li>
+                        <li><a href='logout.jsp'>Log out</a></li>
                     </ul>
                 </li>
             </ul>
