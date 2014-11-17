@@ -86,7 +86,7 @@ public class SignupServlet extends HttpServlet {
             
             if(checkAccount && checkCustomer){
 //                  out.println("HI");
-                response.sendRedirect("home.html");
+                response.sendRedirect("login.jsp");
             }
             else{
 //                    out.println("NO");

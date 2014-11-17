@@ -1,9 +1,9 @@
 
 <%@page import="Beans.AccountBean"%>
 <%@page import="Beans.CustomerBean"%>
-<%--
+<%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
---%>
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
     <body>
         
         <header>
-            <div id="banner"> <a href="home.html"><img src="books.jpg"></a> </div>
+            <div id="banner"> <a href="customerHOME.jsp"><img src="books.jpg"></a> </div>
         </header>
         <nav> 
             <ul>
@@ -38,7 +38,7 @@
                         <li><a href="#">DVDs</a></li>
                     </ul>
                 </li>
-                <li><a href='#'>Account</a>
+                <li><a href='#'><% out.println(homeuser.getUsername()); %></a>
                         <ul>
                             <li><a href='customerAccount.jsp'>Edit Account</a></li>
                             <li><a href='#'>Log out</a></li>

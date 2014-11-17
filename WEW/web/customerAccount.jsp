@@ -22,12 +22,12 @@
 
         <%@include file="customerHOME.jsp" %>
         <div id='editAccount' class="featuredadmin">
-            <form id="editadmin" action='EditCustomerAccountServlet'>
-                <br>First Name:<input type='text' id='editfirst' name='editfirst' value=' out.println(homeuser.getFirstName()); ' onblur='fnameCheck();' onfocus='backWhite(this);'/>
-                <br>Middle Name:<input type='text' id='editmiddle' name='editmiddle' value=' out.println(homeuser.getMiddleInitial()); ' onblur='fnameCheck();' onfocus='backWhite(this)'/>
-                <br>Last Name:<input id='editlast' type='text' name="editlast" value=' out.println(homeuser.getLastName()); ' onblur='lnameCheck();' onfocus='backWhite(this);'/>
-                <br>Username:<input id='edituser' type='text' name="edituser" value=' out.println(homeuser.getUsername()); ' onblur='unameCheck();' onfocus='backWhite(this);'/>
-                <br>Email:<input id='editemail' type='email' name="editemail" value=' out.println(homeuser.getEmailAdd());' onblur='emailCheck();' onfocus='backWhite(this);'/>
+            <form id="editadmin" action="EditCustomerAccountServlet" method="POST" name="customereditform">
+                <br>First Name:<input type='text' id='editfirst' name='editfirst' value='<% out.println(homeuser.getFirstName());%> ' onblur='fnameCheck();' onfocus='backWhite(this);'/>
+                <br>Middle Name:<input type='text' id='editmiddle' name='editmiddle' value='<% out.println(homeuser.getMiddleInitial());%>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
+                <br>Last Name:<input id='editlast' type='text' name="editlast" value='<%out.println(homeuser.getLastName());%>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
+                <br>Username:<input id='edituser' type='text' name="edituser" value='<%out.println(homeuser.getUsername());%>' onblur='unameCheck();' onfocus='backWhite(this);'/>
+                <br>Email:<input id='editemail' type='email' name="editemail" value='<%out.println(homeuser.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
                 <br>
                 <br>
                 <input type='submit' id='save' class="savechanges" value='Save Changes'/>
