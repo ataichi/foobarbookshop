@@ -386,3 +386,78 @@ nav ul li ul li li a:hover{
     left: 320px;
     box-shadow: 5px 5px 5px gray;
 }
+
+.editcustomerbill{
+    top: 40px;
+    left: 250px;
+    position: absolute;
+    font-family: Muli, sans-serif;
+    font-size: 16px;
+}
+
+.editcustomerbill input{
+    float: right;
+    left: 200px;
+}
+
+.savechangesbill {
+  background: bisque;
+  background-image: -webkit-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -moz-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -ms-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -o-linear-gradient(top, bisque, #8a5d5d);
+  background-image: linear-gradient(to bottom, bisque, #8a5d5d);
+  -webkit-border-radius: 40;
+  -moz-border-radius: 40;
+  border-radius: 40px;
+  font-family: Courier New;
+  color: #cbdeca;
+  font-size: 16px;
+  padding: 11px 28px 11px 28px;
+  text-decoration: none;
+  position: absolute;
+  bottom: 0.5px;
+}
+
+.savechangesbill:hover {
+  background: #3cfc43;
+  background-image: -webkit-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -moz-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -ms-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -o-linear-gradient(top, #3cfc43, #3498db);
+  background-image: linear-gradient(to bottom, #3cfc43, #3498db);
+  text-decoration: none;
+}
+
+.cancelbill {
+  background: bisque;
+  background-image: -webkit-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -moz-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -ms-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -o-linear-gradient(top, bisque, #8a5d5d);
+  background-image: linear-gradient(to bottom, bisque, #8a5d5d);
+  -webkit-border-radius: 40;
+  -moz-border-radius: 40;
+  border-radius: 40px;
+  font-family: Courier New;
+  color: #cbdeca;
+  font-size: 16px;
+  padding: 11px 28px 11px 28px;
+  text-decoration: none;
+  position: absolute;
+}
+
+.cancelbill:hover {
+  background: #ccc;
+  background-image: -webkit-linear-gradient(top, #ccc, #969696);
+  background-image: -moz-linear-gradient(top, #ccc, #969696);
+  background-image: -ms-linear-gradient(top, #ccc, #969696);
+  background-image: -o-linear-gradient(top, #ccc, #969696);
+  background-image: linear-gradient(to bottom, #ccc, #969696);
+  text-decoration: none;
+}
+
+#editBilling .savechangesbill{
+    left: 390px;
+    
+}
