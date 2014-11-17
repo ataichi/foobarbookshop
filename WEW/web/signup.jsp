@@ -1,3 +1,9 @@
+<%-- 
+    Document   : signup
+    Created on : 14/11/2014, 1:31:11 AM
+    Author     : Evy
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,23 +16,20 @@
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
-
         <title>Sign up now!</title>
 
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-signupcheck.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
-        <script src="js/customercheck.js" type="text/javascript"></script>
-
     </head>
     <body>
         <header>
-            <div id="banner"> <a href="login.jsp"><img src="images/books.jpg"></a> </div>
+            <div id="banner"> <a href="login.jsp"><img src="books.jpg"></a> </div>
         </header>
 
         <nav>
             <ul>
-                <li><a href="adWall3DFull.html">Home</a>    </li>
+                <li><a href="home.html">Home</a>    </li>
                 <li><a href="#">Category</a>
                     <ul>
                         <li><a href="#">Books</a></li>
@@ -40,7 +43,8 @@
         </nav>
 
         <div id="featured">
-            <form id="customercheck" name="customercheck" action="SignupServlet" onsubmit="return customerCheck(this);" method="post">
+            <form id="signform" name="signin" action="SignupServlet" onsubmit="return signcheck(this);" method="post">
+
                 <table>
                     <tr>
                         <td>First Name</td>
@@ -56,7 +60,7 @@
                     </tr>
                     <tr>
                         <td>Username</td>
-                        <td><input type='text' id='uname' name='uname' onblur="unameCheck();" onfocus="backWhite(this);"></td>
+                        <td><input type='text' id='user' name='uname' onblur="unameCheck();" onfocus="backWhite(this);"></td>
                     </tr>
                     <tr>
                         <td>Email</td>
@@ -73,6 +77,7 @@
                 </table>
                 <div id="billingadd">
                     <table>
+
                         <tr>
                             <td>Billing Address:</td>
                         </tr>
@@ -100,6 +105,11 @@
                             <td>Postal Code:</td>
                             <td><input type='text' id='postalcodeBA' name='postalcodeBA' onblur="postalcodeBACheck()" onfocus="backWhite()"></td>
                         </tr>
+                    </table>
+                </div>
+
+                <div id="deliveryadd">
+                    <table>
                         <tr>
                             <td>Delivery Address:</td>
                         </tr>
@@ -127,13 +137,19 @@
                             <td>Postal Code:</td>
                             <td><input type='text' id='postalcodeDA' name='postalcodeDA' onblur="postalcodeDACheck()" onfocus="backWhite()"></td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td><input type='submit' id='sign' value='Signup'></td>
-                        </tr>
-                    </table>
                 </div>
-            </form>
+                <tr>
+                    <td><input type='submit' id='sign' class="submitsignup" value=''></td>
+                </tr>
+
+                </table>
         </div>
-    </body>
+
+    </form>
+
+</div>
+
+
+
+</body>
 </html>

@@ -30,6 +30,31 @@ a {text-decoration: none;}
     left: 7em;
 }
 
+#editfirst{
+    position: absolute;  
+    left: 10em;
+}
+
+#editlast{
+    position: absolute;
+    left: 10em;
+}
+
+#editmiddle{
+    position: absolute;
+    left: 10em;    
+}
+
+#edituser{
+    position: absolute;
+    left: 10em;
+}
+
+#editemail{
+    position: absolute;
+    left: 10em;
+}
+
 .submitstyle2{
     border: none;
     background: #FFF url('submit.gif');
@@ -41,6 +66,16 @@ a {text-decoration: none;}
     box-shadow: 5px 5px 5px #1e1e1e;
 }
 
+.submitstyle2:hover{
+    border: none;
+    background: #FFF url('submit.gif');
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    margin-top:320px;
+    left: 500px;
+    box-shadow: 7px 5px 5px #1e1e1e;
+}
 /* Begin nav */
 nav { 
     /*background-color:transparent;*/
@@ -165,19 +200,19 @@ nav ul li ul li li a:hover{
 #billingadd{
     position: absolute;
     top: 0%;
-    left: 320px;
+    left: 310px;
 }
 
 #deliveryadd{
     position: absolute;
     top: 0%;
-    left: 320px;
+    left: 620px;
 }
 
 .submitsignup{
     position: absolute;
-    top: 250px;
-    left: 305px;
+    top: 200px;
+    left: 0px;
     border: none;
     background: #FFF url('submit.gif');
     width: 150px;
@@ -185,8 +220,21 @@ nav ul li ul li li a:hover{
     box-shadow: 5px 5px 5px #1e1e1e;
     overflow: hidden;
 }
+
+.submitsignup:hover{
+    position: absolute;
+    top: 200px;
+    left: 0px;
+    border: none;
+    background: #FFF url('submit.gif');
+    width: 150px;
+    height: 40px;
+    box-shadow: 7px 5px 5px #1e1e1e;
+    overflow: hidden;
+}
+
 #featured{
-    height: 450px;
+    height: 350px;
     width: 950px;
     background-color: white;
     position: absolute;
@@ -195,3 +243,146 @@ nav ul li ul li li a:hover{
     box-shadow: 5px 5px 5px gray;
 }
 
+#actions{
+    background-color: bisque;
+    margin-top: 70px;
+    height: 500px;
+    width: 300px;
+    position: absolute;
+    left : 0%;
+}
+
+#actions input{
+    position: absolute;
+    left: 30px;
+    top: 10px;
+}
+#actions ul{
+
+    margin-left:0;
+    position: fixed;
+
+}
+#actions ul a{
+    // text-align:center;
+    margin-top: 20px; //margin per box
+    font-family: 'Exo 2', sans-serif;
+    display: block;
+    text-decoration: none;
+    padding: 7px 40px 3px 40px;
+    color: #969696;
+    position: relative;
+}
+
+.search {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    //margin: 50px;
+    padding: 10px 20px;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 30px / 40px;
+    border-radius: 30px / 40px;
+    font: normal 16px/normal "Times New Roman", Times, serif;
+    color: rgba(1,5,10,1);
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(242,237,237,1);
+    -webkit-box-shadow: 0 0 9px 4px rgba(0,0,0,0.5) inset, 2px 2px 2px 0 rgba(0,0,0,0.5) inset;
+    box-shadow: 0 0 9px 4px rgba(0,0,0,0.5) inset, 2px 2px 2px 0 rgba(0,0,0,0.5) inset;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1); 
+    // margin-top: 100px;
+    outline: none;
+    background-color: bisque;
+    //background:#FFF url('searchbutton.jpg');
+}
+
+#actions ul a:hover { 
+    background: #812f13; //brown
+    color: rgba(0,0,0,0.6);
+    text-shadow: 6px 6px 0px rgba(0,0,0,0.2);
+}
+
+#editadmin{
+    top: 40px;
+    left: 250px;
+    position: absolute;
+    font-family: Muli, sans-serif;
+    font-size: 20px;
+}
+
+#editadmin input{
+    float: right;
+    left: 200px;
+}
+.savechanges {
+  background: bisque;
+  background-image: -webkit-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -moz-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -ms-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -o-linear-gradient(top, bisque, #8a5d5d);
+  background-image: linear-gradient(to bottom, bisque, #8a5d5d);
+  -webkit-border-radius: 40;
+  -moz-border-radius: 40;
+  border-radius: 40px;
+  font-family: Courier New;
+  color: #cbdeca;
+  font-size: 16px;
+  padding: 11px 28px 11px 28px;
+  text-decoration: none;
+  position: absolute;
+  
+}
+
+.savechanges:hover {
+  background: #3cfc43;
+  background-image: -webkit-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -moz-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -ms-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -o-linear-gradient(top, #3cfc43, #3498db);
+  background-image: linear-gradient(to bottom, #3cfc43, #3498db);
+  text-decoration: none;
+}
+
+.canceladmin {
+  background: bisque;
+  background-image: -webkit-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -moz-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -ms-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -o-linear-gradient(top, bisque, #8a5d5d);
+  background-image: linear-gradient(to bottom, bisque, #8a5d5d);
+  -webkit-border-radius: 40;
+  -moz-border-radius: 40;
+  border-radius: 40px;
+  font-family: Courier New;
+  color: #cbdeca;
+  font-size: 16px;
+  padding: 11px 28px 11px 28px;
+  text-decoration: none;
+  position: absolute;
+}
+
+.canceladmin:hover {
+  background: #ccc;
+  background-image: -webkit-linear-gradient(top, #ccc, #969696);
+  background-image: -moz-linear-gradient(top, #ccc, #969696);
+  background-image: -ms-linear-gradient(top, #ccc, #969696);
+  background-image: -o-linear-gradient(top, #ccc, #969696);
+  background-image: linear-gradient(to bottom, #ccc, #969696);
+  text-decoration: none;
+}
+
+.featuredadmin{
+    height: 420px;
+    width: 880px;
+    background-color: white;
+    position: absolute;
+    top: 200px;
+    left: 320px;
+    box-shadow: 5px 5px 5px gray;
+}
