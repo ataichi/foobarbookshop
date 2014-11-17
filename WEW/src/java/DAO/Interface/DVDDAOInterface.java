@@ -6,6 +6,7 @@
 package DAO.Interface;
 
 import Beans.DVDBean;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,5 +15,6 @@ import Beans.DVDBean;
 public interface DVDDAOInterface {
     public DVDBean getDVDByProductId(int id);
     public boolean deleteDVD(int id);
+    public ArrayList<DVDBean> getAllDVD();
     
 }

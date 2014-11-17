@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,6 +75,47 @@ public class DVDDAOImplementation implements DVDDAOInterface {
             Logger.getLogger(ProductDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+
+    }
+
+    @Override
+    public ArrayList<DVDBean> getAllDVD() {
+        try {
+            String query = "select * from dvd";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            int dvdID, dvd_productID;
+            String director, productionCompany, mainActors;
+
+            DVDBean bean = new DVDBean();
+            ArrayList<DVDBean> mlist = new ArrayList<DVDBean>();
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                dvdID = rs.getInt("dvdID");
+                dvd_productID = rs.getInt("dvd_productID");
+                director = rs.getString("director");
+                productionCompany = rs.getString("productCompany");
+                mainActors = rs.getString("actor");
+
+                bean = new DVDBean();
+                bean.setDirector(director);
+                bean.setDvdID(dvdID);
+                bean.setDvd_productID(dvd_productID);
+                bean.setMainActors(mainActors);
+                bean.setProductionCompany(productionCompany);
+
+                mlist.add(bean);
+            }
+            connection.close();
+            return mlist;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DVDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
 
     }
 

@@ -69,6 +69,7 @@ public class BookDAOImplementation implements BookDAOInterface {
             String query = "delete from book where book_productID=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
+            ps.executeUpdate();
             connection.close();
             return true;
         } catch (SQLException ex) {

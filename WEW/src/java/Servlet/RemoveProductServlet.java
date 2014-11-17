@@ -86,7 +86,7 @@ public class RemoveProductServlet extends HttpServlet {
                         cdlist = audiodao.getAllAudioCD();
                         session.setAttribute("audiocdlist", cdlist);
                         session.setAttribute("productlist", plist);
-                        //response.sendRedirect("productmanagerHOME.jsp");
+                        response.sendRedirect("productmanagerHOME.jsp");
                     } else {
                         out.println("failed to remove cd");
                         //response.sendRedirect("productmanagerHOME.jsp");
@@ -98,19 +98,20 @@ public class RemoveProductServlet extends HttpServlet {
                 BookDAOInterface bookdao = new BookDAOImplementation();
                 removebook = bookdao.getBookByProductId(productID);
                 ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-                
+
                 check_removespecificproduct = bookdao.deleteBook(productID);
                 if (check_removespecificproduct) {
                     check_removeproduct = productdao.removeProduct(productID);
 
                     if (check_removeproduct) {
-                        booklist= bookdao.getAllBooks();
+                        booklist = bookdao.getAllBooks();
                         plist = productdao.getAllProductsByType(type);
-                        
+
                         session.setAttribute("booklist", booklist);
                         session.setAttribute("productlist", plist);
+                        
                         out.println("delete book");
-                        //response.sendRedirect("productmanagerHOME.jsp");
+                        response.sendRedirect("productmanagerHOME.jsp");
                     } else {
                         out.println("failed to remove book");
                         //response.sendRedirect("productmanagerHOME.jsp");
@@ -121,14 +122,19 @@ public class RemoveProductServlet extends HttpServlet {
                 DVDDAOInterface dvddao = new DVDDAOImplementation();
                 removedvd = dvddao.getDVDByProductId(productID);
                 ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
-                
+
                 check_removespecificproduct = dvddao.deleteDVD(productID);
                 if (check_removespecificproduct) {
                     check_removeproduct = productdao.removeProduct(productID);
 
                     if (check_removeproduct) {
+                        dvdlist = dvddao.getAllDVD();
+                        plist = productdao.getAllProductsByType(type);
+
+                        session.setAttribute("dvdlist", dvdlist);
+                        session.setAttribute("productlist", plist);
                         out.println("delete dvd");
-                        //response.sendRedirect("productmanagerHOME.jsp");
+                        response.sendRedirect("productmanagerHOME.jsp");
                     } else {
                         out.println("failed to remove dvd");
                         //response.sendRedirect("productmanagerHOME.jsp");
@@ -145,13 +151,15 @@ public class RemoveProductServlet extends HttpServlet {
                     check_removeproduct = productdao.removeProduct(productID);
 
                     if (check_removeproduct) {
-                        out.println("delete cd");
+                        out.println("delete magazine");
                         ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
                         magazinelist = magazinedao.getAllMagazine();
                         plist = productdao.getAllProductsByType(type);
+
+                        session.setAttribute("productlist", plist);
                         session.setAttribute("magazinelist", magazinelist);
-                        
-                        //response.sendRedirect("productmanagerHOME.jsp");
+
+                        response.sendRedirect("productmanagerHOME.jsp");
                     } else {
                         out.println("failed to remove cd");
                         //response.sendRedirect("productmanagerHOME.jsp");
