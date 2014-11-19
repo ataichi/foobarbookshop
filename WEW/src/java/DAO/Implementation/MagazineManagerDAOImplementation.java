@@ -111,14 +111,14 @@ public class MagazineManagerDAOImplementation implements MagazineManagerDAOInter
     }
 
     @Override
-    public boolean deleteMagazine(MagazineBean magazine) {
+    public boolean deleteMagazine(int id) {
         
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
             query = "delete from magazine where magazineID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, magazine.getMagazineID());
+            ps.setInt(1, id);
             connection.close();
             return true;
         } catch (SQLException ex) {
@@ -130,7 +130,7 @@ public class MagazineManagerDAOImplementation implements MagazineManagerDAOInter
     }
 
     @Override
-    public ArrayList<MagazineBean> viewAllMagazine() {
+    public ArrayList<MagazineBean> getAllMagazine() {
         try {
             String query = "select * from magazine";
             Connector c = new Connector();
@@ -211,6 +211,46 @@ public class MagazineManagerDAOImplementation implements MagazineManagerDAOInter
             Logger.getLogger(MagazineManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        return null;
+    }
+
+    @Override
+    public MagazineBean getMagazineByProductId(int id) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from magazine where magazine_productID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet resultSet = ps.executeQuery();
+            MagazineBean bean = new MagazineBean();
+            int magazineID, magazine_productID, volumeNo, issueNo;
+            String publisher;
+            java.sql.Date datePublished;
+            while (resultSet.next()) {
+                magazineID = resultSet.getInt("magazineID");
+                magazine_productID = resultSet.getInt("magazine_productID");
+                volumeNo = resultSet.getInt("volumeNo");
+                issueNo = resultSet.getInt("issueNo");
+                publisher = resultSet.getString("publisher");
+                datePublished = resultSet.getDate("datePublished");
+
+                bean = new MagazineBean();
+                
+                bean.setMagazine_productID(magazine_productID);
+                bean.setMagazineID(magazineID);
+                bean.setIssueNo(issueNo);
+                bean.setVolumeNo(volumeNo);
+                bean.setPublisher(publisher);
+                bean.setDatePublished((Date) datePublished);
+            }
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MagazineManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
     

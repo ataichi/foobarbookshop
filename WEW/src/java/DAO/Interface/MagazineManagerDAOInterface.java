@@ -16,10 +16,11 @@ import java.util.ArrayList;
 public interface MagazineManagerDAOInterface {
     public boolean addMagazine (MagazineBean magazine);
     public boolean editMagazine (MagazineBean magazine);
-    public boolean deleteMagazine (MagazineBean magazine);
+    public boolean deleteMagazine (int id);
     
     public MagazineBean getMagazine (int ID);
-    public ArrayList<MagazineBean> viewAllMagazine();
+    public MagazineBean getMagazineByProductId(int id);
+    public ArrayList<MagazineBean> getAllMagazine();
     public boolean restockMagazine(int productID, int num);
     public ArrayList<MagazineBean> searchMagazinebyTitle(String title);
 }

@@ -15,13 +15,13 @@ import Beans.ProductManagerBean;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
-import DAO.Implementation.MagazineDAOImplementation;
+import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
 import DAO.Interface.AudioCDManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
-import DAO.Interface.MagazineDAOInterface;
+import DAO.Interface.MagazineManagerDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
@@ -98,7 +98,7 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editmagazine", null);
             } else if (editproduct.getType().equals("Magazine")) {
                 MagazineBean magazine = new MagazineBean();
-                MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
+                MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                 magazine = magazinedao.getMagazineByProductId(productID);
                 out.println(productID);
                 out.println(magazine.getIssueNo());

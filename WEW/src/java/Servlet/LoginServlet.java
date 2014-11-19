@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
                 }else if(productmanager.getProdType().equals("Magazine")){ //magazine manager
                     MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                     ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
-                    magazinelist = magazinedao.viewAllMagazine();
+                    magazinelist = magazinedao.getAllMagazine();
                     
                     productlist = pdao.getProductsByType(productmanager.getProdType());
                     session.setAttribute("productlist", productlist);
