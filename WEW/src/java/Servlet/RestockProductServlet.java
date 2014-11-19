@@ -44,7 +44,6 @@ public class RestockProductServlet extends HttpServlet {
             
             String stocks = request.getParameter("");
             
-            pdao
             
             
         }

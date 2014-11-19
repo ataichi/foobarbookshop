@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public interface DVDManagerDAOInterface {
     public boolean addDVD (DVDBean DVD);
     public boolean editDVD (DVDBean DVD);
-    public boolean deleteDVD (DVDBean DVD);
+    public boolean deleteDVD (int id);
     public DVDBean getDVD (int ID);
     public ArrayList<DVDBean> viewAllDVD();
     public boolean restockDVD(int productID, int num);

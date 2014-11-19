@@ -105,13 +105,13 @@ public class DVDManagerDAOImplementation implements DVDManagerDAOInterface {
     }
 
     @Override
-    public boolean deleteDVD(DVDBean DVD) {
+    public boolean deleteDVD(int id) {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
             query = "delete from dvd where dvdID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, DVD.getDvdID());
+            ps.setInt(1, id);
             ps.executeUpdate();
             connection.close();
             return true;

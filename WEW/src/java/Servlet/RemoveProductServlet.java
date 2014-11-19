@@ -14,13 +14,13 @@ import Beans.ProductBean;
 import Beans.ProductManagerBean;
 import DAO.Implementation.AudioCDDAOImplementation;
 import DAO.Implementation.BookDAOImplementation;
-import DAO.Implementation.DVDDAOImplementation;
+import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
 import DAO.Interface.AudioCDDAOInterface;
 import DAO.Interface.BookDAOInterface;
-import DAO.Interface.DVDDAOInterface;
+import DAO.Interface.DVDManagerDAOInterface;
 import DAO.Interface.MagazineDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
@@ -119,7 +119,7 @@ public class RemoveProductServlet extends HttpServlet {
                 }
             } else if (type.equals("DVD")) {
                 DVDBean removedvd = new DVDBean();
-                DVDDAOInterface dvddao = new DVDDAOImplementation();
+                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
                 removedvd = dvddao.getDVDByProductId(productID);
                 ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
 
@@ -128,7 +128,7 @@ public class RemoveProductServlet extends HttpServlet {
                     check_removeproduct = productdao.removeProduct(productID);
 
                     if (check_removeproduct) {
-                        dvdlist = dvddao.getAllDVD();
+                        //dvdlist = dvddao.deleteDVD();
                         plist = productdao.getAllProductsByType(type);
 
                         session.setAttribute("dvdlist", dvdlist);
