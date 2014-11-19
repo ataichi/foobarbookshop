@@ -3,7 +3,7 @@
     Created on : 14/11/2014, 12:16:10 AM
     Author     : Evy
 --%>
-
+<%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,8 +20,13 @@
 
     </head>
     <body>
+        <%
+        AccountBean loggedInUser = null;
+        loggedInUser = (AccountBean) session.getAttribute("user");
+        
+        %>
         <header>
-            <div id="banner"> <a href="login.jsp"><img src="images/books.jpg"/></a> </div>
+            <div id="banner"> <a href="login.jsp"><img src="books.jpg"/></a> </div>
         </header>
 
         <nav>
