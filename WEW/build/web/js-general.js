@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#title').css({"background": "#FD97BE", "font-family": "arial", "font-size": "80px",
+ /*   $('#title').css({"background": "#FD97BE", "font-family": "arial", "font-size": "80px",
         "color": "white", "margin": "-10px", "height": "100px"
     });
 
@@ -50,7 +50,7 @@ $(document).ready(function () {
         "font-weight": "bold"
     });
 
-
+*/
     $('#actions').css({
         //    "padding-left":"-20px",
         "background-color": "bisque",

@@ -51,6 +51,7 @@ nav {
     background-color: #812f13; //brown
     text-align: center;
     z-index: 19;
+    left: 0%;
 }
 
 nav ul {
@@ -167,9 +168,26 @@ nav ul li ul li li a:hover{
     left: 320px;
 }
 
+#deliveryadd{
+    position: absolute;
+    top: 0%;
+    left: 320px;
+}
+
+.submitsignup{
+    position: absolute;
+    top: 250px;
+    left: 305px;
+    border: none;
+    background: #FFF url('submit.gif');
+    width: 150px;
+    height: 40px;
+    box-shadow: 5px 5px 5px #1e1e1e;
+    overflow: hidden;
+}
 #featured{
     height: 450px;
-    width: 900px;
+    width: 950px;
     background-color: white;
     position: absolute;
     top: 40%;
