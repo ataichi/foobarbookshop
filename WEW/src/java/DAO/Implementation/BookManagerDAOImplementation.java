@@ -239,7 +239,7 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
     }
 
     @Override
-    public ArrayList<BookBean> viewAllBook() {
+    public ArrayList<BookBean> getAllBooks() {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
@@ -277,6 +277,43 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
     @Override
     public boolean restockBook(int productID, int num) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public BookBean getBookByProductId(int id) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from book where book_productID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet resultSet = ps.executeQuery();
+            BookBean bean = new BookBean();
+            int bookID, book_productID;
+            String publisher, author;
+            Date datePublished;
+
+            while (resultSet.next()) {
+                bookID = resultSet.getInt("bookID");
+                book_productID = resultSet.getInt("book_productID");
+                publisher = resultSet.getString("publisher");
+                author = resultSet.getString("author");
+                datePublished = resultSet.getDate("datePublished");
+
+                bean.setAuthor(author);
+                bean.setBookID(bookID);
+                bean.setBook_productID(book_productID);
+                bean.setDatePublished(datePublished);
+                bean.setPublisher(publisher);
+            }
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BookManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
 }

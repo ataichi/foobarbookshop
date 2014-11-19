@@ -159,7 +159,7 @@ public class AddProductServlet extends HttpServlet {
                     addBook = bdao.addBook(bean);
                     if (addBook) {
                         ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-                        booklist = bdao.viewAllBook();
+                        booklist = bdao.getAllBooks();
                         ArrayList<ProductBean> plist = pdao.getProductsByType(type);
 
                         session.setAttribute("booklist", booklist);

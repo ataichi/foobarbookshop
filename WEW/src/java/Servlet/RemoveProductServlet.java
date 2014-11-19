@@ -12,14 +12,15 @@ import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
 import Beans.ProductManagerBean;
-import DAO.Implementation.AudioCDDAOImplementation;
-import DAO.Implementation.BookDAOImplementation;
+import DAO.Implementation.AudioCDManagerDAOImplementation;
+import DAO.Implementation.BookManagerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
-import DAO.Interface.AudioCDDAOInterface;
-import DAO.Interface.BookDAOInterface;
+import DAO.Interface.AudioCDManagerDAOInterface;
+import DAO.Interface.BookManagerDAOInterface;
+import DAO.Interface.BookManagerDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
 import DAO.Interface.MagazineDAOInterface;
 import DAO.Interface.ProductDAOInterface;
@@ -72,11 +73,11 @@ public class RemoveProductServlet extends HttpServlet {
             String type = removeproduct.getType();
             if (type.equals("Audio CD")) {
                 AudioCDBean removeaudio = new AudioCDBean();
-                AudioCDDAOInterface audiodao = new AudioCDDAOImplementation();
+                AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
                 removeaudio = audiodao.getAudioCDByProductId(productID);
                 ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
 
-                check_removespecificproduct = audiodao.deleteaudioCD(productID);
+                check_removespecificproduct = audiodao.deleteAudioCD(productID);
                 if (check_removespecificproduct) {
                     check_removeproduct = productdao.removeProduct(productID);
 
@@ -95,7 +96,7 @@ public class RemoveProductServlet extends HttpServlet {
 
             } else if (type.equals("Books")) {
                 BookBean removebook = new BookBean();
-                BookDAOInterface bookdao = new BookDAOImplementation();
+                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                 removebook = bookdao.getBookByProductId(productID);
                 ArrayList<BookBean> booklist = new ArrayList<BookBean>();
 

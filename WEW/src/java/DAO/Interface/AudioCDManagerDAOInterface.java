@@ -23,5 +23,6 @@ public interface AudioCDManagerDAOInterface {
     public ArrayList<AudioCDBean> getAllAudioCDByArtist(String artist);
     public ArrayList<AudioCDBean> getAllAudioCDByRecordCompany(String recordCompany);
     public ArrayList<AudioCDBean> getAllAudioCD();
+    public AudioCDBean getAudioCDByProductId(int id);
     
 }

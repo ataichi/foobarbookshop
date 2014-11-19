@@ -237,5 +237,41 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
         
         return null;
     }
+
+    @Override
+    public AudioCDBean getAudioCDByProductId(int id) {
+        try {
+            String query = "select * from audiocd where audiocd_productID = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            int audiocdID, audiocd_productID;
+            String artist, recordCompany;
+            AudioCDBean bean = new AudioCDBean();
+            while (rs.next()) {
+                audiocdID = rs.getInt("audiocdID");
+                artist = rs.getString("artist");
+                recordCompany = rs.getString("recordCompany");
+                audiocd_productID = rs.getInt("audiocd_productID");
+
+                bean.setArtist(artist);
+                bean.setAudiocdID(audiocdID);
+                bean.setAudiocd_productID(audiocd_productID);
+                bean.setRecordCompany(recordCompany);
+
+            }
+
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
     
 }

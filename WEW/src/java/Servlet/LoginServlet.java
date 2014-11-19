@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet {
                 if (productmanager.getProdType().equals("Books")) { //book manager
                     BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                     ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-                    booklist = bookdao.viewAllBook();
+                    booklist = bookdao.getAllBooks();
                     session.setAttribute("booklist", booklist);
                     
                     productlist = pdao.getProductsByType(productmanager.getProdType());

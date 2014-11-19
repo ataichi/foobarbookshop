@@ -24,7 +24,8 @@ public interface BookManagerDAOInterface {
     public ArrayList<BookBean> getBookByAuthor(String author);
     public ArrayList<BookBean> getBookByPublisher(String publisher);
     public ArrayList<BookBean> getBookByDate(Date from, Date to);
+    public BookBean getBookByProductId(int id);
     
-    public ArrayList<BookBean> viewAllBook();
+    public ArrayList<BookBean> getAllBooks();
     public boolean restockBook(int productID, int num);
 }
