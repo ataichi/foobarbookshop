@@ -1,3 +1,8 @@
+<%-- 
+    Document   : productmanagerHOME
+    Created on : Nov 9, 2014, 10:11:04 PM
+    Author     : Giodee
+--%>
 <%@page import="DAO.Implementation.AudioCDManagerDAOImplementation"%>
 <%@page import="DAO.Interface.DVDManagerDAOInterface"%>
 <%@page import="DAO.Implementation.DVDManagerDAOImplementation"%>
@@ -14,19 +19,21 @@
 <%@page import="Beans.BookBean"%>
 <%@page import="DAO.Implementation.ProductManagerDAOImplementation"%>
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
+<%@page import="Beans.ProductManagerBean"%>
 <%@page import="Beans.AccountBean"%>
 
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+    ProductManagerBean managerBean = pdao.getProductManagerBeanById(homeproduct.getAccountID());
     ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
     BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
     AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
     MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
     DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-    ArrayList<BookBean> booklist = bookdao.getAllBooks();
+    ArrayList<BookBean> booklist = bookdao.viewAllBook();
     ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
-    ArrayList<MagazineBean> magazinelist = magazinedao.getAllMagazine();
+    ArrayList<MagazineBean> magazinelist = magazinedao.viewAllMagazine();
     ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -50,12 +57,12 @@
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 
 
-        <title>Product Manager Home</title>
+        <title>JSP Page</title>
     </head>
     <body>
 
         <header>
-            <div id="banner"> <a href="productmanagerHOME.html"><img src="images/books.jpg"></a> </div>
+            <div id="banner"> <a href="productmanagerHOME.html"><img src="books.jpg"></a> </div>
         </header>
         <nav>
             <ul>
@@ -63,7 +70,7 @@
                 <li><a href='#'>Account
                         <ul>
                             <li><a href='productmanagerAccount.jsp'>Edit Account</a></li>
-                            <li><a href='login.jsp'>Log out</a></li>
+                            <li><a href='#'>Log out</a></li>
                         </ul>
                 </li>
             </ul>
@@ -82,7 +89,7 @@
 
         <div id="tfheader">
             <form id="tfnewsearch" method="get" action="SearchProductServlet">
-                <input type="text" id="tfq" class="tftextinput2" name="searchstring" size="21" maxlength="120" value="Search our website">
+                <input type="text" id="tfq" class="tftextinput2" name="q" size="21" maxlength="120" value="Search our website">
                 <input type="submit" value=">" class="tfbutton2">
             </form>
         </div>
@@ -105,10 +112,6 @@
                                 + "</center></td><td><center>"
                                 + productlist.get(i).getNumberStocks()
                                 + "</center></td><td><center>"
-                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='ViewProductServlet'>"
-                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
-                                + "<input type='submit' id='submit' value='View Details' name='" + productlist.get(i).getProductID() + "' style='border-color: transparent; background-color: transparent'/>"
-                                + "</form>"
                                 + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='EditProductServlet'>"
                                 + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
                                 + "<input type='submit' id='submit' value='Edit' name='" + productlist.get(i).getProductID() + "' style='border-color: transparent; background-color: transparent'/>"

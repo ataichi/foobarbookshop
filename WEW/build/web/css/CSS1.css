@@ -76,11 +76,49 @@ margin:0;
     width: 178px;
     background-color: #812f13;
 }
+
+
 .main {
     position: absolute;
     left:178px; top:92px; right:0; bottom:0;
 }
 
+.main2 {
+    position: absolute;
+    left:0; top:92px; right:0; bottom:0;
+}
+
+.one {
+    position: absolute;
+    left:0px; top:86px; right:0; Bottom:100;
+    width: 680px;
+    height: 250px;
+    background-color: #848484;
+}
+
+.two {
+    position: absolute;
+    left:680px; top:86px; right:0; Bottom:100;
+    width: 300px;
+    height: 250px;
+    background-color: #aeaeae;
+}
+
+.three {
+    position: absolute;
+    left:980px; top:86px; right:0; Bottom:100;
+    width: 300px;
+    height: 250px;
+    background-color: #A4A4A4;
+}
+
+.four {
+    position: absolute;
+    left:0px; top:335px; right:0px; Bottom:0px;
+    width: 1279px;
+    height: 187px;
+    background-color: #BDBDBD;
+}
 /* Begin nav2 */
 nav2 { 
     /*background-color:transparent;*/
@@ -277,5 +315,48 @@ nav3 ul li ul li li a:hover{
 }
 /* End */
 
+.graph {
+	width: 300px;
+	height: 255px;
+	border: 1px solid #aeaeae;
+	background-color: #6E6E6E;
+}
+
+
+.barweek {
+	width: 30px;
+	margin: 3px;
+	display: inline-block;
+	position: relative;
+	background-color: white;
+	vertical-align: bottom;
+}
+
+.barmonth {
+	width: 18px;
+	margin: 1px;
+	display: inline-block;
+	position: relative;
+	background-color: white;
+	vertical-align: bottom;
+}
+
+.baryear {
+	width: 145px;
+	margin: 10px;
+	display: inline-block;
+	position: relative;
+	background-color: white;
+	vertical-align: bottom;
+}
+
+.bar {
+	width: 15px;
+	margin: 1px;
+	display: inline-block;
+	position: relative;
+	background-color: white;
+	vertical-align: bottom;
+}
 
 
