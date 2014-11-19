@@ -14,13 +14,13 @@ import Beans.ProductBean;
 import Beans.ProductManagerBean;
 import DAO.Implementation.AudioCDDAOImplementation;
 import DAO.Implementation.BookDAOImplementation;
-import DAO.Implementation.DVDDAOImplementation;
+import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
 import DAO.Interface.AudioCDDAOInterface;
 import DAO.Interface.BookDAOInterface;
-import DAO.Interface.DVDDAOInterface;
+import DAO.Interface.DVDManagerDAOInterface;
 import DAO.Interface.MagazineDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
@@ -88,7 +88,7 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editmagazine", null);
             } else if (editproduct.getType().equals("DVD")) {
                 DVDBean dvd = new DVDBean();
-                DVDDAOInterface dvddao = new DVDDAOImplementation();
+                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
                 dvd = dvddao.getDVDByProductId(productID);
 
                 session.setAttribute("editdvd", dvd);
