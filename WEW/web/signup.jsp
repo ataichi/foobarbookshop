@@ -44,104 +44,57 @@
 
         <div id="featured">
             <form id="signform" name="signin" action="SignupServlet" onsubmit="return signcheck(this);" method="post">
-                
+
+                <table>
+                    <tr>
+                        <td>First Name</td>
+                        <td><input type='text' id='fname' name='fname' onblur="fnameCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Middle Initial</td>
+                        <td><input type='text' id='mname' name='mname' onblur='mnameCheck()' onfocus='backWhite(this)'></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td><input type='text' id='lname' name='lname' onblur="lnameCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><input type='text' id='user' name='uname' onblur="unameCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type='text' id='email' name='email' onblur="emailCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type='password' id='pass1' name='pass1' onblur="passCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Verify Password</td>
+                        <td><input type='password' id='pass2' name='pass2' onblur="passCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                </table>
+                <div id="address">
                     <table>
+
                         <tr>
-                            <td>First Name</td>
-                            <td><input type='text' id='fname' name='fname' onblur="fnameCheck();" onfocus="backWhite(this);"></td>
+                            <td>Billing Address:</td>
+                            <td><input type='text' id='billingAddress' name='billingAddress' onblur="apartmentnoBACheck()" onfocus="backWhite()"></td>
                         </tr>
                         <tr>
-                            <td>Middle Initial</td>
-                            <td><input type='text' id='mname' name='mname' onblur='mnameCheck()' onfocus='backWhite(this)'></td>
+                            <td>Shipping Address:</td>
+                            <td><input type='text' id='shippingAddress' name='shippingAddress' onblur="streetBACheck()" onfocus="backWhite()"></td>
                         </tr>
                         <tr>
-                            <td>Last Name</td>
-                            <td><input type='text' id='lname' name='lname' onblur="lnameCheck();" onfocus="backWhite(this);"></td>
-                        </tr>
-                        <tr>
-                            <td>Username</td>
-                            <td><input type='text' id='user' name='uname' onblur="unameCheck();" onfocus="backWhite(this);"></td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td><input type='text' id='email' name='email' onblur="emailCheck();" onfocus="backWhite(this);"></td>
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td><input type='password' id='pass1' name='pass1' onblur="passCheck();" onfocus="backWhite(this);"></td>
-                        </tr>
-                        <tr>
-                            <td>Verify Password</td>
-                            <td><input type='password' id='pass2' name='pass2' onblur="passCheck();" onfocus="backWhite(this);"></td>
+                            <td></td>
+                            <td><input type='submit' id='sign' value='Signup'></td>
                         </tr>
                     </table>
-                <div id="billingadd">
-                        <table>
-                            <tr>
-                                <td>Billing Address:</td>
-                            </tr>
-                            <tr>
-                                <td>Apartment No:</td>
-                                <td><input type='text' id='apartmentnoBA' name='apartmentnoBA' onblur="apartmentnoBACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>
-                                <td>Street:</td>
-                                <td><input type='text' id='streetBA' name='streetBA' onblur="streetBACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>
-                                <td>Subdivision:</td>
-                                <td><input type='text' id='subdivisionBA' name='subdivisionBA' onblur="subdivisionBACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>
-                                <td>City:</td>
-                                <td><input type='text' id='cityBA' name='cityBA' onblur="cityBACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>      
-                                <td>Country:</td> 
-                                <td><input type='text' id='countryBA' name='countryBA' onblur="countryBACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>
-                                <td>Postal Code:</td>
-                                <td><input type='text' id='postalcodeBA' name='postalcodeBA' onblur="postalcodeBACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <div/>
-                            <tr>
-                                <td>Delivery Address:</td>
-                            </tr>
-                            <tr>
-                                <td>Apartment No:</td>
-                                <td><input type='text' id='apartmentnoDA' name='apartmentnoDA' onblur="apartmentnoDACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>
-                                <td>Street:</td>
-                                <td><input type='text' id='streetDA' name='streetDA' onblur="streetDACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>
-                                <td>Subdivision:</td>
-                                <td><input type='text' id='subdivisionDA' name='subdivisionDA' onblur="subdivisionDACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>
-                                <td>City:</td>
-                                <td><input type='text' id='cityDA' name='cityDA' onblur="cityDACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>      
-                                <td>Country:</td> 
-                                <td><input type='text' id='countryDA' name='countryDA' onblur="countryDACheck()" onfocus="backWhite()"></td>
-                            </tr>
-                            <tr>
-                                <td>Postal Code:</td>
-                                <td><input type='text' id='postalcodeDA' name='postalcodeDA' onblur="postalcodeDACheck()" onfocus="backWhite()"></td>
-                            </tr>
 
-                            <tr>
-                                <td></td>
-                                <td><input type='submit' id='sign' value='Signup'></td>
-                            </tr>
-                        </table>
-                
-                
+
             </form>
-           
+
         </div>
 
 
