@@ -186,9 +186,19 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
   `customerID` int(11) NOT NULL AUTO_INCREMENT,
-  `shippingAddress` varchar(45) NOT NULL,
-  `billingAddress` varchar(45) NOT NULL,
- `customer_accountID` int(11) NOT NULL,
+  `apartmentnoBA` varchar(45) NOT NULL,
+  `streetBA` varchar(45) NOT NULL,
+  `subdivisionBA` varchar(45) NOT NULL,
+  `cityBA` varchar(45) NOT NULL,
+  `postalcodeBA` int(11) NOT NULL,
+  `countryBA` varchar(45) NOT NULL,
+  `apartmentnoDA` varchar(45) NOT NULL,
+  `streetDA` varchar(45) NOT NULL,
+  `subdivisionDA` varchar(45) NOT NULL,
+  `cityDA` varchar(45) NOT NULL,
+  `postalcodeDA` int(11) NOT NULL,
+  `countryDA` varchar(45) NOT NULL,
+  `customer_accountID` int(11) NOT NULL,
   PRIMARY KEY (`customerID`),
   KEY `customer_accountID_idx` (`customer_accountID`),
   CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION

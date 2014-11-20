@@ -23,13 +23,24 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "insert into customer (shippingAddress, billingAddress, customer_accountID) "
-                    + "values(?, ?, ?, ?)";
+            String query = "insert into customer (apartmentnoBA, streetBA, subdivisionBA, cityBA, postalcodeBA, countryBA,"
+                    + " apartmentnoDA, streetDA, subdivisionDA, cityDA, postalcodeDA, countryDA, customer_accountID) "
+                    + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, customerBean.getShippingAddress());
-            ps.setString(2, customerBean.getBillingAddress());
-            ps.setInt(3, customerBean.getCustomer_accountID());
+            ps.setString(1, customerBean.getApartmentNoBA());
+            ps.setString(2, customerBean.getStreetBA());
+            ps.setString(3, customerBean.getSubdivisionBA());
+            ps.setString(4, customerBean.getCityBA());
+            ps.setInt(5, customerBean.getPostalCodeBA());
+            ps.setString(6, customerBean.getCountryBA());
 
+            ps.setString(7, customerBean.getApartmentNoBA());
+            ps.setString(8, customerBean.getStreetBA());
+            ps.setString(9, customerBean.getSubdivisionBA());
+            ps.setString(10, customerBean.getCityBA());
+            ps.setInt(11, customerBean.getPostalCodeBA());
+            ps.setString(12, customerBean.getCountryBA());
+            ps.setInt(13, customerBean.getCustomer_accountID());
             ps.executeUpdate();
             connection.close();
 
@@ -52,23 +63,49 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             ResultSet rs = ps.executeQuery();
 
             CustomerBean bean = new CustomerBean();
-            String billingAddress, shippingAddress;
-            int customer_accountID;
+          int customerID1, customer_accountID;
+            String streetBA, subdivisionBA, cityBA, countryBA;
+            int apartmentnoBA, postalcodeBA;
+            
+            String streetDA, subdivisionDA, cityDA, countryDA;
+            int apartmentnoDA, postalcodeDA;
+            
 
             while (rs.next()) {
-                billingAddress = rs.getString("billingAddress");
-                shippingAddress = rs.getString("shippingAddress");
-
+                streetBA = rs.getString("streetBA");
+                subdivisionBA = rs.getString("subdivisionBA");
+                cityBA = rs.getString("cityBA");
+                countryBA = rs.getString("countryBA");
+                apartmentnoBA = rs.getInt("apartmentnoBA");
+                postalcodeBA = rs.getInt("postalcodeBA");
+                
+                streetDA = rs.getString("streetDA");
+                subdivisionDA = rs.getString("subdivsionDA");
+                cityDA = rs.getString("cityDA");
+                countryDA = rs.getString("countryDA");
+                apartmentnoDA = rs.getInt("apartmentnoDA");
+                postalcodeDA = rs.getInt("postalcodeDA");
+                
                 customer_accountID = rs.getInt("customerID");
-                customerID = rs.getInt("customerID");
+                customerID1 = rs.getInt("customerID");
 
                 bean = new CustomerBean();
 
-                bean.setBillingAddress(billingAddress);
-                bean.setShippingAddress(shippingAddress);
-
+                bean.setApartmentNoBA(streetBA);
+                bean.setCityBA(cityBA);
+                bean.setCountryBA(countryBA);
+                bean.setPostalCodeBA(postalcodeBA);
+                bean.setStreetBA(streetBA);
+                bean.setSubdivisionBA(subdivisionBA);
+                
+                bean.setCityDA(cityDA);
+                bean.setCountryDA(countryDA);
+                bean.setPostalCodeDA(postalcodeDA);
+                bean.setStreetDA(streetDA);
+                bean.setSubdivisionDA(subdivisionDA);
+                
                 bean.setCustomer_accountID(customer_accountID);
-                bean.setCustomerID(customerID);
+                bean.setCustomerID(customerID1);
 
             }
 
@@ -93,24 +130,51 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
             CustomerBean bean = new CustomerBean();
             ArrayList<CustomerBean> clist = new ArrayList<CustomerBean>();
-            String shippingAddress, billingAddress;
-            int customerID, customer_accountID;
             
-            while (rs.next()) {
-                shippingAddress = rs.getString("shippingAddress");
-                billingAddress = rs.getString("billingAddress");
+            int customerID, customer_accountID;
+            String streetBA, subdivisionBA, cityBA, countryBA;
+            int apartmentnoBA, postalcodeBA;
+            
+            String streetDA, subdivisionDA, cityDA, countryDA;
+            int apartmentnoDA, postalcodeDA;
+            
 
+            while (rs.next()) {
+                streetBA = rs.getString("streetBA");
+                subdivisionBA = rs.getString("subdivisionBA");
+                cityBA = rs.getString("cityBA");
+                countryBA = rs.getString("countryBA");
+                apartmentnoBA = rs.getInt("apartmentnoBA");
+                postalcodeBA = rs.getInt("postalcodeBA");
+                
+                streetDA = rs.getString("streetDA");
+                subdivisionDA = rs.getString("subdivsionDA");
+                cityDA = rs.getString("cityDA");
+                countryDA = rs.getString("countryDA");
+                apartmentnoDA = rs.getInt("apartmentnoDA");
+                postalcodeDA = rs.getInt("postalcodeDA");
+                
                 customer_accountID = rs.getInt("customerID");
                 customerID = rs.getInt("customerID");
 
                 bean = new CustomerBean();
 
-                bean.setBillingAddress(billingAddress);
-                bean.setShippingAddress(shippingAddress);
-
+                bean.setApartmentNoBA(streetBA);
+                bean.setCityBA(cityBA);
+                bean.setCountryBA(countryBA);
+                bean.setPostalCodeBA(postalcodeBA);
+                bean.setStreetBA(streetBA);
+                bean.setSubdivisionBA(subdivisionBA);
+                
+                bean.setCityDA(cityDA);
+                bean.setCountryDA(countryDA);
+                bean.setPostalCodeDA(postalcodeDA);
+                bean.setStreetDA(streetDA);
+                bean.setSubdivisionDA(subdivisionDA);
+                
                 bean.setCustomer_accountID(customer_accountID);
                 bean.setCustomerID(customerID);
-                
+
                 clist.add(bean);
 
             }
