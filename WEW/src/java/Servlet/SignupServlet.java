@@ -55,8 +55,8 @@ public class SignupServlet extends HttpServlet {
             
             int customer_accountID = userdao.getUserByUsername(username).getAccountID();
             
-            customer.setBillingAddress(billingAddress);
-            customer.setShippingAddress(shippingAddress);
+        // setb illing address
+            // set delivery address
             
             customer.setCustomer_accountID(customer_accountID);
             
