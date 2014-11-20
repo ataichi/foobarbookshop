@@ -31,9 +31,9 @@
     AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
     MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
     DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-    ArrayList<BookBean> booklist = bookdao.viewAllBook();
+    ArrayList<BookBean> booklist = bookdao.getAllBooks();
     ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
-    ArrayList<MagazineBean> magazinelist = magazinedao.viewAllMagazine();
+    ArrayList<MagazineBean> magazinelist = magazinedao.getAllMagazine();
     ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

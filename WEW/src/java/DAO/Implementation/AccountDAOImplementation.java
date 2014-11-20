@@ -422,4 +422,57 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         }
         return false;
     }
+
+    @Override
+    public ArrayList<AccountBean> getAllLockedAccounts() {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from account where locked = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setBoolean(1, true);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            String firstName, lastName, middleInitial, uname, password, emailAdd, type;
+            int accountID;
+            boolean locked;
+
+            ArrayList<AccountBean> alist = new ArrayList<AccountBean>();
+            AccountBean bean = new AccountBean();
+
+            while (resultSet.next()) {
+                firstName = resultSet.getString("firstName");
+                lastName = resultSet.getString("lastName");
+                middleInitial = resultSet.getString("middleInitial");
+                uname = resultSet.getString("username");
+                password = resultSet.getString("password");
+                emailAdd = resultSet.getString("emailAdd");
+                type = resultSet.getString("accounttype");
+                accountID = resultSet.getInt("accountID");
+                locked=resultSet.getBoolean("locked");
+
+                bean = new AccountBean();
+                
+                bean.setAccountID(accountID);
+                bean.setAccountType(type);
+                bean.setEmailAdd(emailAdd);
+                bean.setFirstName(firstName);
+                bean.setLastName(lastName);
+                bean.setMiddleInitial(middleInitial);
+                bean.setPassword(password);
+                bean.setUsername(uname);
+                bean.setLocked(locked);
+
+                alist.add(bean);
+            }
+            connection.close();
+            return alist;
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    
+    }
 }

@@ -15,6 +15,7 @@ public interface AccountDAOInterface {
     public ArrayList<AccountBean> getAccountByFirstName(String firstname);
     public ArrayList<AccountBean> getAccountByLastName(String lastname);
     public ArrayList<AccountBean> getAllAccounts();
+    public ArrayList<AccountBean> getAllLockedAccounts();
     public boolean deleteAccount(int accountID);
 
     /*
