@@ -50,15 +50,37 @@ public class SignupServlet extends HttpServlet {
             
             checkAccount = userdao.addAccount(account);
             
-            String billingAddress = request.getParameter("billingAddress");
-            String shippingAddress = request.getParameter("shippingAddress");
+            String apartmentnoBA = request.getParameter("apartmentnoBA");
+            String streetBA = request.getParameter("streetBA");
+            String subdivisionBA = request.getParameter("subdivisionBA");
+            String cityBA = request.getParameter("cityBA");
+            int postalcodeBA = Integer.valueOf(request.getParameter("postalcodeBA"));
+            String countryBA = request.getParameter("countryBA");
+            
+            String apartmentnoDA = request.getParameter("apartmentnoDA");
+            String streetDA = request.getParameter("streetDA");
+            String subdivisionDA = request.getParameter("subdivisionDA");
+            String cityDA = request.getParameter("cityDA");
+            int postalcodeDA = Integer.valueOf(request.getParameter("postalcodeDA"));
+            String countryDA = request.getParameter("countryDA");
             
             int customer_accountID = userdao.getUserByUsername(username).getAccountID();
             
-        // setb illing address
-            // set delivery address
+            customer.setApartmentNoBA(apartmentnoBA);
+            customer.setApartmentNoDA(apartmentnoDA);
+            customer.setCityBA(cityBA);
+            customer.setCityDA(cityDA);
+            customer.setCountryBA(countryBA);
+            customer.setCountryDA(countryDA);
             
             customer.setCustomer_accountID(customer_accountID);
+            
+            customer.setPostalCodeBA(postalcodeBA);
+            customer.setPostalCodeDA(postalcodeDA);
+            customer.setStreetBA(streetBA);
+            customer.setStreetDA(streetDA);
+            customer.setSubdivisionBA(subdivisionBA);
+            customer.setSubdivisionDA(subdivisionDA);
             
             checkCustomer = customerdao.addCustomer(customer);
             

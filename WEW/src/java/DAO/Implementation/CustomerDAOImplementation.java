@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Giodee
- */
 public class CustomerDAOImplementation implements CustomerDAOInterface {
 
     @Override
