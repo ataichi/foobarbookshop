@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import DAO.Implementation.AdminDAOImplementation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,6 +39,18 @@ public class UnlockAccountServlet extends HttpServlet {
             HttpSession session = request.getSession();
             
             int accountID = Integer.parseInt(request.getParameter("accountid"));
+            
+            AdminDAOImplementation admindao = new AdminDAOImplementation();
+            
+            int unlockcheck = 0;
+            
+            if(admindao.unlockAccount(accountID)) {
+                response.sendRedirect("unlock_account.jsp");
+            }
+            else {
+                out.println("failed unlock");
+            }
+                    
         }
         catch(Exception e) {
             
