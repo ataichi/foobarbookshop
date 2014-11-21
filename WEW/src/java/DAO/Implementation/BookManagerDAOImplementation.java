@@ -81,6 +81,7 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
             query = "delete from book where bookID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, bookID);
+            ps.executeUpdate();
             connection.close();
             return true;
         } catch (SQLException ex) {

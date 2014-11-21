@@ -8,12 +8,18 @@ package Servlet;
 import Beans.AccountBean;
 import Beans.AudioCDBean;
 import Beans.BookBean;
+import Beans.DVDBean;
+import Beans.MagazineBean;
 import Beans.ProductBean;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
+import DAO.Implementation.DVDManagerDAOImplementation;
+import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
 import DAO.Interface.AudioCDManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
+import DAO.Interface.DVDManagerDAOInterface;
+import DAO.Interface.MagazineManagerDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -144,7 +150,68 @@ public class FinalEditProductServlet extends HttpServlet {
 
             } else if (type.equals("DVD")) {
 
+                DVDBean dvd = new DVDBean();
+                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+                dvd = dvddao.getDVDByProductId(editproduct.getProductID());
+
+                String director, actor, productCompany;
+
+                director = request.getParameter("dvdDirector");
+                actor = request.getParameter("dvdActor");
+                productCompany = request.getParameter("dvdProducer");
+
+                boolean editProduct = productdao.editProduct(editproduct);
+                boolean editDVD = dvddao.editDVD(dvd);
+
+                out.println(editProduct);
+                out.println(editDVD);
+
+                if (editProduct && editDVD) {
+                    productlist = productdao.getProductsByType(type);
+                    session.setAttribute("productlist", productlist);
+                    response.sendRedirect("productmanagerHOME.jsp");
+                } else {
+                    out.println("fail");
+                }
+
             } else if (type.equals("Magazine")) {
+
+                MagazineBean magazine = new MagazineBean();
+                MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+                magazine = magazinedao.getMagazineByProductId(editproduct.getProductID());
+
+                int volumeNo, issueNo;
+                String publisher, datePublished;
+                java.util.Date date;
+                java.sql.Date sqlDate;
+
+                volumeNo = Integer.valueOf(request.getParameter("magazineVolume"));
+                issueNo = Integer.valueOf(request.getParameter("magazineIssue"));
+                datePublished = request.getParameter("magazineDate");
+
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    date = formatter.parse(datePublished);
+                    sqlDate = new java.sql.Date(date.getTime());
+                    magazine.setDatePublished(sqlDate);
+                    out.println(formatter.format(sqlDate));
+                } catch (ParseException ex) {
+                    Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                boolean editProduct = productdao.editProduct(editproduct);
+                boolean editMagazine = magazinedao.editMagazine(magazine);
+
+                out.println(editProduct);
+                out.println(editMagazine);
+
+                if (editProduct && editMagazine) {
+                    productlist = productdao.getProductsByType(type);
+                    session.setAttribute("productlist", productlist);
+                    response.sendRedirect("productmanagerHOME.jsp");
+                } else {
+                    out.println("fail");
+                }
 
             }
 

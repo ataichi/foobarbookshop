@@ -16,10 +16,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Danica
- */
 public class DVDManagerDAOImplementation implements DVDManagerDAOInterface {
     DVDBean bean = new DVDBean();
     int dvdID, dvd_productID;
@@ -89,7 +85,7 @@ public class DVDManagerDAOImplementation implements DVDManagerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            query = "update dvd set director = ?, actor = ?, productCompany = ? where dvdID = ?";
+            query = "update dvd set director = ?, actor = ?, productCompany = ? where dvd_productID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, DVD.getDirector());
             ps.setString(2, DVD.getMainActors());

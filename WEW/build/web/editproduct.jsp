@@ -51,6 +51,13 @@
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 
+
+        <script>
+            $(document).ready(function(){
+               $('#bookDatePublished').value("01-01-2001"); 
+            });
+            </script>
+
         <title> Edit Product</title>
 
     </head>
@@ -84,8 +91,8 @@
         <div id="product">
             Edit <%out.println(editproduct.getTitle());%>:
             <br/><br/>
-            <form id="editproduct" name="editproduct" action="FinalEditProductServlet" onsubmit="return editproductcheck(this) method="post">
-                <table>
+            <form id="editproduct" name="editproduct" action="FinalEditProductServlet" onsubmit="return editproductcheck(this) method ="post">
+                  <table>
                     <tr>
                         <td>Title:*</td>
                         <td><input type='text' id='productTitle' name='productTitle' value='<% out.println(editproduct.getTitle()); %>' onblur="titleCheck()" onfocus='backWhite(this);'/>
@@ -169,7 +176,7 @@
                             Date Published:
                         </td>
                         <td>
-                            <input type='text' id='bookDatePublished' name='bookDatePublished' value='<% out.println(book.getDatePublished()); %>' onfocus='backWhite(this);'/>
+                            <input type='text' id='bookDatePublished' name='bookDatePublished'  value='<% out.println(1900+book.getDatePublished().getYear()+ "-"+ (1+book.getDatePublished().getMonth()) + "-" + (7+book.getDatePublished().getDay()) );%>' onfocus='backWhite(this);'/> 
                         </td>
                     </tr>
 
@@ -216,7 +223,7 @@
                     <tr>
                         <td>Date Published</td>
                         <td>
-                            <input type='date' id='magazineDate' name='magazineDate' value='<% out.println(magazine.getDatePublished()); %>' onfocus='backWhite(this);'/>
+                            <input type='date' id='magazineDate' name='magazineDate' value='<% out.println(magazine.getDatePublished().getYear()+"-"+magazine.getDatePublished().getMonth()+"-"+magazine.getDatePublished().getDate()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <% }%>

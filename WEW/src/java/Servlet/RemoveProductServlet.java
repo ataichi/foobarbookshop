@@ -74,7 +74,7 @@ public class RemoveProductServlet extends HttpServlet {
                 removeaudio = audiodao.getAudioCDByProductId(productID);
                 ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
 
-                check_removespecificproduct = audiodao.deleteAudioCD(productID);
+                check_removespecificproduct = audiodao.deleteAudioCD(removeaudio.getAudiocdID());
                 if (check_removespecificproduct) {
                     check_removeproduct = pdao.removeProduct(productID);
 
@@ -97,7 +97,7 @@ public class RemoveProductServlet extends HttpServlet {
                 removebook = bookdao.getBookByProductId(productID);
                 ArrayList<BookBean> booklist = new ArrayList<BookBean>();
 
-                check_removespecificproduct = bookdao.deleteBook(productID);
+                check_removespecificproduct = bookdao.deleteBook(removebook.getBookID());
                 if (check_removespecificproduct) {
                     check_removeproduct = pdao.removeProduct(productID);
 
@@ -121,7 +121,7 @@ public class RemoveProductServlet extends HttpServlet {
                 removedvd = dvddao.getDVDByProductId(productID);
                 ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
 
-                check_removespecificproduct = dvddao.deleteDVD(productID);
+                check_removespecificproduct = dvddao.deleteDVD(removedvd.getDvdID());
                 if (check_removespecificproduct) {
                     check_removeproduct = pdao.removeProduct(productID);
 
@@ -144,7 +144,7 @@ public class RemoveProductServlet extends HttpServlet {
                 MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                 removemagazine = magazinedao.getMagazineByProductId(productID);
 
-                check_removespecificproduct = magazinedao.deleteMagazine(productID);
+                check_removespecificproduct = magazinedao.deleteMagazine(removemagazine.getMagazineID());
                 if (check_removespecificproduct) {
                     check_removeproduct = pdao.removeProduct(productID);
 

@@ -93,13 +93,13 @@ public class MagazineManagerDAOImplementation implements MagazineManagerDAOInter
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            query = "update magazine set volumeNo = ?, issueNo = ?, publisher = ? datePublished = ? where magazineID = ?";
+            query = "update magazine set volumeNo = ?, issueNo = ?, publisher = ? datePublished = ? where magazine_productID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, magazine.getVolumeNo());
             ps.setInt(2, magazine.getIssueNo());
             ps.setString(3, magazine.getPublisher());
             ps.setDate(4, magazine.getDatePublished());
-            ps.setInt(5, magazine.getMagazineID());
+            ps.setInt(5, magazine.getMagazine_productID());
             ps.executeUpdate();
             
             connection.close();
