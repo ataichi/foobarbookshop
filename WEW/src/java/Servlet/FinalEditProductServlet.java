@@ -160,6 +160,12 @@ public class FinalEditProductServlet extends HttpServlet {
                 actor = request.getParameter("dvdActor");
                 productCompany = request.getParameter("dvdProducer");
 
+                dvd.setDirector(director);
+                dvd.setDvdID(dvd.getDvdID());
+                dvd.setDvd_productID(dvd.getDvd_productID());
+                dvd.setMainActors(actor);
+                dvd.setProductionCompany(productCompany);
+                
                 boolean editProduct = productdao.editProduct(editproduct);
                 boolean editDVD = dvddao.editDVD(dvd);
 
