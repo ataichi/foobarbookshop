@@ -33,9 +33,9 @@ CREATE TABLE `account` (
   `password` varchar(45) NOT NULL,
   `emailAdd` varchar(45) NOT NULL,
   `accounttype` varchar(45) NOT NULL,
-  `locked` binary(1) NOT NULL,
+  `locked` int(1) NOT NULL,
   PRIMARY KEY (`accountID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE `customer` (
   KEY `customer_creditcardID_idx` (`customer_creditcardID`),
   CONSTRAINT `customer_creditcardID` FOREIGN KEY (`customer_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,4 +426,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-21 23:30:47
+-- Dump completed on 2014-11-22  0:04:20
