@@ -57,13 +57,12 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            query = "update book set author = ?, publisher = ?, datePublished = ? book_productID = ? where bookID = ?";
+            query = "update book set author = ?, publisher = ?, datePublished = ? where book_productID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, book.getAuthor());
             ps.setString(2, book.getPublisher());
             ps.setDate(3, book.getDatePublished());
             ps.setInt(4, book.getBook_productID());
-            ps.setInt(5, book.getBookID());
             ps.executeUpdate();
             
             connection.close();

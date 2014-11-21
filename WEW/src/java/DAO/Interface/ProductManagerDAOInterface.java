@@ -15,8 +15,14 @@ public interface ProductManagerDAOInterface {
 
     public boolean addProduct(ProductBean product);
 
+    public boolean editProduct(ProductBean product);
+
     public ProductBean getLastProduct();
 
     public ArrayList<ProductBean> getProductsByType(String type);
+
+    public ProductBean getProductById(int id);
+
+    public boolean removeProduct(int id);
 
 }

@@ -6,7 +6,8 @@
 package Servlet;
 
 import Beans.ProductBean;
-import DAO.Implementation.ProductDAOImplementation;
+import DAO.Implementation.ProductManagerDAOImplementation;
+import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -39,7 +40,7 @@ public class RestockProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             ProductBean product = new ProductBean();
-            ProductDAOImplementation pdao = new ProductDAOImplementation();
+            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
             
             
             String stocks = request.getParameter("");

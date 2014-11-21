@@ -84,7 +84,7 @@
         <div id="product">
             Edit <%out.println(editproduct.getTitle());%>:
             <br/><br/>
-            <form id="editproduct" name="editproduct" action="AddProductServlet" onsubmit="return editproductcheck(this) method="post">
+            <form id="editproduct" name="editproduct" action="FinalEditProductServlet" onsubmit="return editproductcheck(this) method="post">
                 <table>
                     <tr>
                         <td>Title:*</td>
@@ -169,7 +169,7 @@
                             Date Published:
                         </td>
                         <td>
-                            <input type='date' id='bookDatePublished' name='bookDatePublished' value='<% out.println(book.getDatePublished()); %>' onfocus='backWhite(this);'/>
+                            <input type='text' id='bookDatePublished' name='bookDatePublished' value='<% out.println(book.getDatePublished()); %>' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
 

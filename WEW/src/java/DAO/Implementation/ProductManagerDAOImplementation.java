@@ -51,7 +51,7 @@ public class ProductManagerDAOImplementation implements ProductManagerDAOInterfa
             return bean;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -76,7 +76,7 @@ public class ProductManagerDAOImplementation implements ProductManagerDAOInterfa
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -123,7 +123,7 @@ public class ProductManagerDAOImplementation implements ProductManagerDAOInterfa
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -145,40 +145,133 @@ public class ProductManagerDAOImplementation implements ProductManagerDAOInterfa
 
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-            
+
                 productID = resultSet.getInt("productID");
                 year = resultSet.getInt("year");
                 stocks = resultSet.getInt("stocks");
-                
+
                 price = resultSet.getDouble("price");
-                
+
                 prodtype = resultSet.getString("type");
                 title = resultSet.getString("title");
                 summary = resultSet.getString("summary");
                 genre = resultSet.getString("genre");
-                
+
                 bean = new ProductBean();
-               
+
                 bean.setProductID(productID);
                 bean.setYear(year);
                 bean.setNumberStocks(stocks);
-                
+
                 bean.setPrice(price);
-                
+
                 bean.setType(type);
                 bean.setTitle(title);
                 bean.setSummary(summary);
                 bean.setGenre(genre);
-                
+
                 plist.add(bean);
             }
             connection.close();
             return plist;
 
         } catch (SQLException ex) {
-            Logger.getLogger(DVDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+
+    }
+
+    @Override
+    public boolean editProduct(ProductBean product) {
+        String query = "UPDATE product SET title=?, price=?, summary=?, genre=?, year=?, stocks=? WHERE productID=?";
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, product.getTitle());
+            ps.setDouble(2, product.getPrice());
+            ps.setString(3, product.getSummary());
+            ps.setString(4, product.getGenre());
+            ps.setInt(5, product.getYear());
+            ps.setInt(6, product.getNumberStocks());
+            ps.setInt(7, product.getProductID());
+            
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
+
+    @Override
+    public ProductBean getProductById(int id) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from product where productID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ProductBean bean = new ProductBean();
+            String type, title, summary, genre;
+            int year, stocks, productID;
+            double price;
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                type = resultSet.getString("type");
+                title = resultSet.getString("title");
+                summary = resultSet.getString("summary");
+                genre = resultSet.getString("genre");
+
+                year = resultSet.getInt("year");
+                stocks = resultSet.getInt("stocks");
+                productID = resultSet.getInt("productID");
+
+                price = resultSet.getDouble("price");
+
+                bean.setType(type);
+                bean.setTitle(title);
+                bean.setSummary(summary);
+                bean.setGenre(genre);
+
+                bean.setYear(year);
+                bean.setNumberStocks(stocks);
+                bean.setProductID(productID);
+
+                bean.setPrice(price);
+            }
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+
+    @Override
+    public boolean removeProduct(int id) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+
+            String query = "delete from product where productID=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
 
     }
 

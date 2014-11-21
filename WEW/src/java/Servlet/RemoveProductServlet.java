@@ -16,14 +16,12 @@ import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
-import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
 import DAO.Interface.AudioCDManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
-import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,12 +59,11 @@ public class RemoveProductServlet extends HttpServlet {
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
             ProductManagerBean productManager = new ProductManagerBean();
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
             productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
             ArrayList<ProductBean> plist = new ArrayList<ProductBean>();
 
             int productID = Integer.parseInt(request.getParameter("product"));
-            ProductBean removeproduct = productdao.getProductById(productID);
+            ProductBean removeproduct = pdao.getProductById(productID);
             boolean check_removeproduct = false;
             boolean check_removespecificproduct = false;
 
@@ -79,11 +76,11 @@ public class RemoveProductServlet extends HttpServlet {
 
                 check_removespecificproduct = audiodao.deleteAudioCD(productID);
                 if (check_removespecificproduct) {
-                    check_removeproduct = productdao.removeProduct(productID);
+                    check_removeproduct = pdao.removeProduct(productID);
 
                     if (check_removeproduct) {
                         out.println("delete cd");
-                        plist = productdao.getAllProductsByType(type);
+                        plist = pdao.getProductsByType(type);
                         cdlist = audiodao.getAllAudioCD();
                         session.setAttribute("audiocdlist", cdlist);
                         session.setAttribute("productlist", plist);
@@ -102,11 +99,11 @@ public class RemoveProductServlet extends HttpServlet {
 
                 check_removespecificproduct = bookdao.deleteBook(productID);
                 if (check_removespecificproduct) {
-                    check_removeproduct = productdao.removeProduct(productID);
+                    check_removeproduct = pdao.removeProduct(productID);
 
                     if (check_removeproduct) {
                         booklist = bookdao.getAllBooks();
-                        plist = productdao.getAllProductsByType(type);
+                        plist = pdao.getProductsByType(type);
 
                         session.setAttribute("booklist", booklist);
                         session.setAttribute("productlist", plist);
@@ -126,11 +123,11 @@ public class RemoveProductServlet extends HttpServlet {
 
                 check_removespecificproduct = dvddao.deleteDVD(productID);
                 if (check_removespecificproduct) {
-                    check_removeproduct = productdao.removeProduct(productID);
+                    check_removeproduct = pdao.removeProduct(productID);
 
                     if (check_removeproduct) {
                         //dvdlist = dvddao.deleteDVD();
-                        plist = productdao.getAllProductsByType(type);
+                        plist = pdao.getProductsByType(type);
 
                         session.setAttribute("dvdlist", dvdlist);
                         session.setAttribute("productlist", plist);
@@ -149,13 +146,13 @@ public class RemoveProductServlet extends HttpServlet {
 
                 check_removespecificproduct = magazinedao.deleteMagazine(productID);
                 if (check_removespecificproduct) {
-                    check_removeproduct = productdao.removeProduct(productID);
+                    check_removeproduct = pdao.removeProduct(productID);
 
                     if (check_removeproduct) {
                         out.println("delete magazine");
                         ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
                         magazinelist = magazinedao.getAllMagazine();
-                        plist = productdao.getAllProductsByType(type);
+                        plist = pdao.getProductsByType(type);
 
                         session.setAttribute("productlist", plist);
                         session.setAttribute("magazinelist", magazinelist);

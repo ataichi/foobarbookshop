@@ -1,4 +1,3 @@
-
 package DAO.Interface;
 
 import Beans.AccountBean;

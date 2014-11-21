@@ -16,13 +16,11 @@ import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
-import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
 import DAO.Interface.AudioCDManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
-import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,10 +31,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "EditProductServlet", urlPatterns = {"/EditProductServlet"})
 public class EditProductServlet extends HttpServlet {
 
@@ -59,13 +53,13 @@ public class EditProductServlet extends HttpServlet {
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
             ProductManagerBean productManager = new ProductManagerBean();
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
             productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
 
             int productID = Integer.parseInt(request.getParameter("product"));
             ProductBean editproduct = new ProductBean();
-            editproduct = productdao.getProductById(productID);
+            editproduct = pdao.getProductById(productID);
 
+            
             if (editproduct.getType().equals("Audio CD")) {
                 AudioCDBean audiocd = new AudioCDBean();
                 AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
@@ -108,9 +102,9 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editbook", null);
                 session.setAttribute("editdvd", null);
             }
-
+            
             session.setAttribute("editproduct", editproduct);
-           // response.sendRedirect("editproduct.jsp");
+            response.sendRedirect("editproduct.jsp");
 
         }
     }

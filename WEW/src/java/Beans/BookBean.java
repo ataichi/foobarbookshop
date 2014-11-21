@@ -1,9 +1,15 @@
-
 package Beans;
 
+import Servlet.AddProductServlet;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BookBean {
+
     private int bookID;
     private String author;
     private String publisher;
@@ -13,7 +19,7 @@ public class BookBean {
     public String getAuthor() {
         return author;
     }
-     
+
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -55,5 +61,5 @@ public class BookBean {
     public void setBook_productID(int book_productID) {
         this.book_productID = book_productID;
     }
-    
+
 }
