@@ -33,7 +33,7 @@ CREATE TABLE `account` (
   `password` varchar(45) NOT NULL,
   `emailAdd` varchar(45) NOT NULL,
   `accounttype` varchar(45) NOT NULL,
-  `locked` BINARY(1) NOT NULL,
+  `locked` binary(1) NOT NULL,
   PRIMARY KEY (`accountID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -200,8 +200,11 @@ CREATE TABLE `customer` (
   `postalcodeDA` int(11) NOT NULL,
   `countryDA` varchar(45) NOT NULL,
   `customer_accountID` int(11) NOT NULL,
+  `customer_creditcardID` int(11) DEFAULT NULL,
   PRIMARY KEY (`customerID`),
   KEY `customer_accountID_idx` (`customer_accountID`),
+  KEY `customer_creditcardID_idx` (`customer_creditcardID`),
+  CONSTRAINT `customer_creditcardID` FOREIGN KEY (`customer_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -423,4 +426,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-10 10:23:46
+-- Dump completed on 2014-11-21 23:30:47
