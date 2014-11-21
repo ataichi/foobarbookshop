@@ -159,7 +159,7 @@ public class RemoveProductServlet extends HttpServlet {
 
                         response.sendRedirect("productmanagerHOME.jsp");
                     } else {
-                        out.println("failed to remove cd");
+                        out.println("failed to remove magazine");
                         //response.sendRedirect("productmanagerHOME.jsp");
                     }
                 }

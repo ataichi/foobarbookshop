@@ -119,6 +119,7 @@ public class MagazineManagerDAOImplementation implements MagazineManagerDAOInter
             query = "delete from magazine where magazineID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
+            ps.executeUpdate();
             connection.close();
             return true;
         } catch (SQLException ex) {
