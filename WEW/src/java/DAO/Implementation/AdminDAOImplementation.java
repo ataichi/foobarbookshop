@@ -133,6 +133,7 @@ public class AdminDAOImplementation implements AdminDAOInterface {
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setBoolean(1, false);
+            ps.setInt(2, AccountID);
             ps.executeUpdate();
             connection.close();
             return true;

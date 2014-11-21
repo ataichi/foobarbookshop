@@ -50,7 +50,8 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("customerHOME.jsp");
             } else if (accountdao.doesUserExist(username, password) && "admin".equals(account.getAccountType())) {
                 session.setAttribute("homeadmin", account);
-                response.sendRedirect("adminHOME.jsp");
+                out.println("here");
+             //   response.sendRedirect("adminHOME.jsp");
             } else if (accountdao.doesUserExist(username, password) && "product manager".equals(account.getAccountType())) {
                 ProductManagerBean productmanager = new ProductManagerBean();
                 ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
