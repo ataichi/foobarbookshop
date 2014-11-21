@@ -285,8 +285,8 @@ CREATE TABLE `magazine` (
   `datePublished` date NOT NULL,
   `issueNo` int(11) NOT NULL,
   PRIMARY KEY (`magazineID`),
-  KEY `magazine_accountID_idx` (`magazine_productID`),
-  CONSTRAINT `magazine_accountID` FOREIGN KEY (`magazine_productID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `magazine_productID_idx` (`magazine_productID`),
+  CONSTRAINT `magazine_accountID` FOREIGN KEY (`magazine_productID`) REFERENCES `product` (`productID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

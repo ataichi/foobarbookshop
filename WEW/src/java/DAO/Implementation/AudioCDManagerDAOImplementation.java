@@ -16,10 +16,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Danica
- */
 public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterface {
 
     AudioCDBean bean = new AudioCDBean();
