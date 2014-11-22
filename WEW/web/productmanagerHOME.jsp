@@ -89,7 +89,7 @@
 
         <div id="tfheader">
             <form id="tfnewsearch" method="get" action="SearchProductServlet">
-                <input type="text" id="tfq" class="tftextinput2" name="q" size="21" maxlength="120" value="Search our website">
+                <input type="text" id="tfq" class="tftextinput2" name="searchstring" size="21" maxlength="120" value="Search our website">
                 <input type="submit" value=">" class="tfbutton2">
             </form>
         </div>

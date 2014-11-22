@@ -196,7 +196,7 @@ public class ProductManagerDAOImplementation implements ProductManagerDAOInterfa
             ps.setInt(5, product.getYear());
             ps.setInt(6, product.getNumberStocks());
             ps.setInt(7, product.getProductID());
-            
+
             ps.executeUpdate();
             connection.close();
             return true;

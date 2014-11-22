@@ -10,10 +10,6 @@ import Beans.CustomerBean;
 import Beans.ProductBean;
 import java.util.ArrayList;
 
-/**
- *
- * @author Giodee
- */
 public interface CustomerDAOInterface {
        public boolean addCustomer(CustomerBean customerBean);
        //public boolean removeCustomer(int customerID);

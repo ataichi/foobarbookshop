@@ -8,14 +8,15 @@ package DAO.Interface;
 import Beans.ProductBean;
 import java.util.ArrayList;
 
-/**
- *
- * @author Giodee
- */
 public interface ProductDAOInterface {
     
     public ProductBean getProductById(int id);
-    public boolean removeProduct(int id);
+    
     public ArrayList<ProductBean> getAllProductsByType(String type);
+    public ArrayList<ProductBean> getProductsByTitle(String title);
+    public ArrayList<ProductBean> getProductsBySummary(String summary);
+    public ArrayList<ProductBean> getProductsByGenre(String genre);
+    public ArrayList<ProductBean> getProductsByYear(int year);
+    
     
 }

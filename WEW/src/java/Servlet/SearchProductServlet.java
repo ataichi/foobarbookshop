@@ -5,13 +5,34 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
+import Beans.AudioCDBean;
+import Beans.BookBean;
+import Beans.DVDBean;
+import Beans.MagazineBean;
+import Beans.ProductBean;
+import Beans.ProductManagerBean;
+import DAO.Implementation.AudioCDManagerDAOImplementation;
+import DAO.Implementation.BookManagerDAOImplementation;
+import DAO.Implementation.DVDManagerDAOImplementation;
+import DAO.Implementation.MagazineManagerDAOImplementation;
+import DAO.Implementation.ProductDAOImplementation;
+import DAO.Implementation.ProductManagerDAOImplementation;
+import DAO.Interface.AudioCDManagerDAOInterface;
+import DAO.Interface.BookManagerDAOInterface;
+import DAO.Interface.DVDManagerDAOInterface;
+import DAO.Interface.MagazineManagerDAOInterface;
+import DAO.Interface.ProductDAOInterface;
+import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,15 +55,58 @@ public class SearchProductServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SearchProductServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SearchProductServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+            HttpSession session = request.getSession();
+            AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            String searchstring = request.getParameter("searchstring");
+            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+            ProductDAOInterface productdao = new ProductDAOImplementation();
+            
+       
+            if (homeproduct.getAccountID() != 0) { // product manager searches for a product
+                out.println("here");
+                ProductManagerBean productmanager = new ProductManagerBean();
+                ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+                productmanager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
+
+                if (productmanager.getProdType().equals("Books")) { //book manager
+                    BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+                    ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+                    //              booklist = bookdao.getAllBooks();
+                    session.setAttribute("booklist", booklist);
+
+                    session.setAttribute("productlist", productlist);
+
+                } else if (productmanager.getProdType().equals("Audio CD")) { // audio cd manager
+                    AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
+                    ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
+                    //             audiocdlist = cddao.getAllAudioCD();
+                    session.setAttribute("audiocdlist", audiocdlist);
+
+                    productlist = pdao.getProductsByType(productmanager.getProdType());
+                    session.setAttribute("productlist", productlist);
+
+                } else if (productmanager.getProdType().equals("DVD")) { //dvd manager
+                    DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+                    ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+                    //            dvdlist = dvddao.viewAllDVD();
+                    session.setAttribute("dvdlist", dvdlist);
+
+                    productlist = pdao.getProductsByType(productmanager.getProdType());
+                    session.setAttribute("productlist", productlist);
+
+                } else if (productmanager.getProdType().equals("Magazine")) { //magazine manager
+                    MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+                    ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                    //             magazinelist = magazinedao.getAllMagazine();
+
+                    productlist = pdao.getProductsByType(productmanager.getProdType());
+                    session.setAttribute("productlist", productlist);
+
+                }
+
+            }
+
         }
     }
 

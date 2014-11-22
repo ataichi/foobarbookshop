@@ -29,7 +29,7 @@
             <div id="banner"> <a href="home.html"><img src="books.jpg"></a> </div>
         </header>
         <nav>
-               
+
             <ul>
                 <li><a href="customerHOME.jsp">Home</a>    </li>
                 <li><a href="#">Category</a>
@@ -48,14 +48,19 @@
                 </li>
             </ul>
         </nav>
-        
+        <div id="tfheader">
+            <form id="tfnewsearch" method="get" action="CustomerSearchProductServlet">
+                <input type="text" id="tfq" class="tftextinput2" name="searchstring" size="21" maxlength="120" value="Search our website">
+                <input type="submit" value=">" class="tfbutton2">
+            </form>
+        </div>
         <div id='actions'>
             <br>
             <br>
             <a href='customerBilling.jsp'>Manage Billing Information</a>
             <br/>
             <br>
-            
+
             <a href='customerPayments.jsp'>Manage Payment Information</a>
             <br/>
             <br>
@@ -63,6 +68,6 @@
             <br/>
         </div>
 
-    
+
     </body>
 </html>
