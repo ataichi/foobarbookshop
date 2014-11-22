@@ -25,5 +25,6 @@ public interface CreditCardDAOInterface {
     public ArrayList<CreditCardBean> getCreditCardByCardType(String cardType);
     public ArrayList<CreditCardBean> getCreditCardByExpDate (Date from, Date to);
     
+    public CreditCardBean getLastCreditCard();
     public ArrayList<CreditCardBean> getUserCreditCard (int customerID);
 }

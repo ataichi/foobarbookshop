@@ -5,11 +5,6 @@
  */
 package DAO.Interface;
 
-/**
- *
- * @author jao
- */
-
 import Beans.DVDBean;
 import java.util.ArrayList;
 

@@ -5,10 +5,6 @@
  */
 package DAO.Interface;
 
-/**
- *
- * @author jao
- */
 
 import Beans.AudioCDBean;
 import java.util.ArrayList;

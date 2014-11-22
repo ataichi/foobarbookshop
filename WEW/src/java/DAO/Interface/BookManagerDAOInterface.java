@@ -5,11 +5,6 @@
  */
 package DAO.Interface;
 
-/**
- *
- * @author jao
- */
-
 import Beans.BookBean;
 import java.sql.Date;
 import java.util.ArrayList;
