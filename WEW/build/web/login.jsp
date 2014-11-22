@@ -1,3 +1,9 @@
+<%-- 
+    Document   : login
+    Created on : 14/11/2014, 12:16:10 AM
+    Author     : Evy
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,14 +12,11 @@
         <link rel="stylesheet" type="text/css" href="css/wadesign.css">
         <link rel="stylesheet" type="text/css" href="css/category.css">
         <link rel="stylesheet" type="text/css" href="css/style4.css">
-        
+        <script src="js/logincheck.js" type="text/javascript"></script>
         <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
-        
-        <script src="js/logincheck.js" type="text/javascript"></script>
-        
         <title>Foobar Log In</title>
 
     </head>
@@ -24,7 +27,7 @@
 
         <nav>
             <ul>
-                <li><a href="adWall3DFull.html">Home</a>    </li>
+                <li><a href="home.html">Home</a>    </li>
                 <li><a href="#">Category</a>
                     <ul>
                         <li><a href="#">Books</a></li>
@@ -47,7 +50,7 @@
 
                 <center>
                     <div id="button2">
-                        <input type="submit" id="log" class="images/submitstyle2" value="" />
+                        <input type="submit" id="log" class="submitstyle2" value="" />
                     </div></center>
             </form>
         </div>
