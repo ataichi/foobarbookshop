@@ -96,35 +96,35 @@
             <table>
                 <tr>
                     <td>Title</td>
-                    <td><input type="text" id="productTitle" name="productTitle" value="<% productBean.getTitle(); %>"/></td>
+                    <td><input type="text" id="productTitle" name="productTitle" value="<% out.println(productBean.getTitle()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td><input type="hidden" id="productPrice" name="productPrice" value="<% productBean.getPrice(); %>"/></td>
+                    <td><input type="text" id="productPrice" name="productPrice" value="<% out.println(productBean.getPrice()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Summary</td>
-                    <td><input type="hidden" id="productSummary" name="productSummary" value="<% productBean.getSummary(); %>"/></td>
+                    <td><input type="text" id="productSummary" name="productSummary" value="<% out.println(productBean.getSummary()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Genre</td>
-                    <td><input type="hidden" id="productGenre" name="productGenre" value="<% productBean.getGenre(); %>"/></td>
+                    <td><input type="text" id="productGenre" name="productGenre" value="<% out.println(productBean.getGenre()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Year</td>
-                    <td><input type="hidden" id="productYear" name="productYear" value="<% productBean.getYear(); %>"/></td>
+                    <td><input type="text" id="productYear" name="productYear" value="<% out.println(productBean.getYear()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Stocks</td>
-                    <td><input type="hidden" id="productStocks" name="productStocks" value="<% productBean.getNumberStocks(); %>"/></td>
+                    <td><input type="text" id="productStocks" name="productStocks" value="<% out.println(productBean.getNumberStocks()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Artist</td>
-                    <td><input type="hidden" id="productArtist" name="productArtist" value="<% audiocdbean.getArtist(); %>"/></td>
+                    <td><input type="text" id="productArtist" name="productArtist" value="<% out.println(audiocdbean.getArtist()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Record Company</td>
-                    <td><input type="hidden" id="productRecordCompany" name="productRecordCompany" value="<% audiocdbean.getRecordCompany(); %>"/></td>
+                    <td><input type="text" id="productRecordCompany" name="productRecordCompany" value="<% out.println(audiocdbean.getRecordCompany()); %>" readonly/></td>
                 </tr>
             </table>
 
@@ -137,39 +137,39 @@
             <table>
                 <tr>
                     <td>Title</td>
-                    <td><input type="text" id="productTitle" name="productTitle" value="<% productBean.getTitle(); %>"/></td>
+                    <td><input type="text" id="productTitle" name="productTitle" value="<% out.println(productBean.getTitle()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td><input type="hidden" id="productPrice" name="productPrice" value="<% productBean.getPrice(); %>"/></td>
+                    <td><input type="text" id="productPrice" name="productPrice" value="<% out.println(productBean.getPrice()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Summary</td>
-                    <td><input type="hidden" id="productSummary" name="productSummary" value="<% productBean.getSummary(); %>"/></td>
+                    <td><input type="text" id="productSummary" name="productSummary" value="<% out.println(productBean.getSummary()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Genre</td>
-                    <td><input type="hidden" id="productGenre" name="productGenre" value="<% productBean.getGenre(); %>"/></td>
+                    <td><input type="text" id="productGenre" name="productGenre" value="<% out.println(productBean.getGenre()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Year</td>
-                    <td><input type="hidden" id="productYear" name="productYear" value="<% productBean.getYear(); %>"/></td>
+                    <td><input type="text" id="productYear" name="productYear" value="<% out.println(productBean.getYear()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Stocks</td>
-                    <td><input type="hidden" id="productStocks" name="productStocks" value="<% productBean.getNumberStocks(); %>"/></td>
+                    <td><input type="text" id="productStocks" name="productStocks" value="<% out.println(productBean.getNumberStocks()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Author</td>
-                    <td><input type="hidden" id="productAuthor" name="productAuthor" value="<% bookbean.getAuthor(); %>"/></td>
+                    <td><input type="text" id="productAuthor" name="productAuthor" value="<% out.println(bookbean.getAuthor()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Publisher</td>
-                    <td><input type="hidden" id="productPublisher" name="productPublisher" value="<% bookbean.getPublisher(); %>"/></td>
+                    <td><input type="text" id="productPublisher" name="productPublisher" value="<% out.println(bookbean.getPublisher()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Date Published</td>
-                    <td><input type="hidden" id="productDate" name="productDate" value="<% bookbean.getDatePublished(); %>"></td>
+                    <td><input type="text" id="productDate" name="productDate" value="<% out.println(bookbean.getDatePublished()); %>" readonly/></td>
                 </tr>
             </table>
             <%
@@ -180,39 +180,39 @@
             <table>
                 <tr>
                     <td>Title</td>
-                    <td><input type="text" id="productTitle" name="productTitle" value="<% productBean.getTitle(); %>"/></td>
+                    <td><input type="text" id="productTitle" name="productTitle" value="<% out.println(productBean.getTitle()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td><input type="hidden" id="productPrice" name="productPrice" value="<% productBean.getPrice(); %>"/></td>
+                    <td><input type="text" id="productPrice" name="productPrice" value="<% out.println(productBean.getPrice()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Summary</td>
-                    <td><input type="hidden" id="productSummary" name="productSummary" value="<% productBean.getSummary(); %>"/></td>
+                    <td><input type="text" id="productSummary" name="productSummary" value="<% out.println(productBean.getSummary()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Genre</td>
-                    <td><input type="hidden" id="productGenre" name="productGenre" value="<% productBean.getGenre(); %>"/></td>
+                    <td><input type="text" id="productGenre" name="productGenre" value="<% out.println(productBean.getGenre()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Year</td>
-                    <td><input type="hidden" id="productYear" name="productYear" value="<% productBean.getYear(); %>"/></td>
+                    <td><input type="text" id="productYear" name="productYear" value="<% out.println(productBean.getYear()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Stocks</td>
-                    <td><input type="hidden" id="productStocks" name="productStocks" value="<% productBean.getNumberStocks(); %>"/></td>
+                    <td><input type="text" id="productStocks" name="productStocks" value="<% out.println(productBean.getNumberStocks()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Director</td>
-                    <td><input type="hidden" id="productDirector" name="productDirector" value="<% dvdbean.getDirector(); %>"/></td>
+                    <td><input type="text" id="productDirector" name="productDirector" value="<% out.println(dvdbean.getDirector()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Actor</td>
-                    <td><input type="hidden" id="productActor" name="productActor" value="<% dvdbean.getMainActors(); %>"/></td>
+                    <td><input type="text" id="productActor" name="productActor" value="<% out.println(dvdbean.getMainActors()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Product Company</td>
-                    <td><input type="hidden" id="productCompany" name="productCompany" value="<% dvdbean.getProductionCompany(); %>"></td>
+                    <td><input type="text" id="productCompany" name="productCompany" value="<% out.println(dvdbean.getProductionCompany()); %>" readonly/></td>
                 </tr>
             </table>
             
@@ -226,43 +226,43 @@
             <table>
                 <tr>
                     <td>Title</td>
-                    <td><input type="text" id="productTitle" name="productTitle" value="<% productBean.getTitle(); %>"/></td>
+                    <td><input type="text" id="productTitle" name="productTitle" value="<% out.println(productBean.getTitle()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td><input type="hidden" id="productPrice" name="productPrice" value="<% productBean.getPrice(); %>"/></td>
+                    <td><input type="text" id="productPrice" name="productPrice" value="<% out.println(productBean.getPrice()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Summary</td>
-                    <td><input type="hidden" id="productSummary" name="productSummary" value="<% productBean.getSummary(); %>"/></td>
+                    <td><input type="text" id="productSummary" name="productSummary" value="<% out.println(productBean.getSummary()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Genre</td>
-                    <td><input type="hidden" id="productGenre" name="productGenre" value="<% productBean.getGenre(); %>"/></td>
+                    <td><input type="text" id="productGenre" name="productGenre" value="<% out.println(productBean.getGenre()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Year</td>
-                    <td><input type="hidden" id="productYear" name="productYear" value="<% productBean.getYear(); %>"/></td>
+                    <td><input type="text" id="productYear" name="productYear" value="<% out.println(productBean.getYear()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Stocks</td>
-                    <td><input type="hidden" id="productStocks" name="productStocks" value="<% productBean.getNumberStocks(); %>"/></td>
+                    <td><input type="text" id="productStocks" name="productStocks" value="<% out.println(productBean.getNumberStocks()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Volume No</td>
-                    <td><input type="hidden" id="productVolume" name="productVolume" value="<% magbean.getVolumeNo(); %>"/></td>
+                    <td><input type="text" id="productVolume" name="productVolume" value="<% out.println(magbean.getVolumeNo()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Issue No</td>
-                    <td><input type="hidden" id="productIssue" name="productIssue" value="<% magbean.getIssueNo(); %>"/></td>
+                    <td><input type="text" id="productIssue" name="productIssue" value="<% out.println(magbean.getIssueNo()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Publisher</td>
-                    <td><input type="hidden" id="productPublisher" name="productPublisher" value="<% magbean.getPublisher(); %>"/></td>
+                    <td><input type="text" id="productPublisher" name="productPublisher" value="<% out.println(magbean.getPublisher()); %>" readonly/></td>
                 </tr>
                 <tr>
                     <td>Date Published</td>
-                    <td><input type="hidden" id="productDate" name="productDate" value="<% magbean.getDatePublished(); %>"></td>
+                    <td><input type="text" id="productDate" name="productDate" value="<% out.println(magbean.getDatePublished()); %>" readonly/></td>
                 </tr>
             </table>
             <%                    
