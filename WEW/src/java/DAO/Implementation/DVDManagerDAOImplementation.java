@@ -22,40 +22,7 @@ public class DVDManagerDAOImplementation implements DVDManagerDAOInterface {
     String director, actor, productCompany;
     String query;
     
-    @Override
-    public DVDBean getDVD(int ID) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            query = "select * from dvd where dvdID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, ID);
-            
-            bean = new DVDBean();
-            
-            ResultSet resultset = ps.executeQuery();
-            
-            while(resultset.next()) {
-                dvdID = resultset.getInt("dvdID");
-                dvd_productID = resultset.getInt("dvd_productID");
-                director = resultset.getString("director");
-                actor = resultset.getString("actor");
-                productCompany = resultset.getString("productCompany");
-            
-                bean.setDvdID(dvdID);
-                bean.setDirector(director);
-                bean.setProductionCompany(productCompany);
-                bean.setDvd_productID(dvd_productID);
-                bean.setMainActors(actor);
-            }
-            connection.close();
-            return bean;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DVDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+ 
 
     @Override
     public boolean addDVD(DVDBean DVD) {
@@ -161,85 +128,9 @@ public class DVDManagerDAOImplementation implements DVDManagerDAOInterface {
     }
 
     @Override
-    public ArrayList<DVDBean> searchDVDbyTitle(String title) {
-        try {
-            String query = "select * from dvd where title = ?";
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, title);
-            
-            int dvdID, dvd_productID;
-            String director, productionCompany, mainActors;
-            
-            DVDBean bean = new DVDBean();
-            ArrayList<DVDBean> mlist = new ArrayList<DVDBean>();
-            
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                dvdID = rs.getInt("dvdID");
-                dvd_productID = rs.getInt("dvd_productID");
-                director = rs.getString("director");
-                productionCompany = rs.getString("productionCompany");
-                mainActors = rs.getString("actor");
-                
-                bean = new DVDBean();
-                bean.setDirector(director);
-                bean.setDvdID(dvdID);
-                bean.setDvd_productID(dvd_productID);
-                bean.setMainActors(mainActors);
-                bean.setProductionCompany(productionCompany);
-                
-                mlist.add(bean);
-            }
-            connection.close();
-            return mlist;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DVDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    @Override
     public boolean restockDVD(int productID, int num) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public DVDBean getDVDByProductId(int id) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "select * from dvd where dvd_productID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, id);
-
-            DVDBean bean = new DVDBean();
-            int dvdID, dvd_productID;
-            String director, actor, productCompany;
-
-            ResultSet resultset = ps.executeQuery();
-
-            while (resultset.next()) {
-                dvdID = resultset.getInt("dvdID");
-                dvd_productID = resultset.getInt("dvd_productID");
-                director = resultset.getString("director");
-                actor = resultset.getString("actor");
-                productCompany = resultset.getString("productCompany");
-
-                bean.setDvdID(dvdID);
-                bean.setDirector(director);
-                bean.setProductionCompany(productCompany);
-                bean.setDvd_productID(dvd_productID);
-                bean.setMainActors(actor);
-            }
-            connection.close();
-            return bean;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DVDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+ 
 }

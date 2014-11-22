@@ -10,8 +10,7 @@ import java.util.ArrayList;
 
 
 public interface AudioCDDAOInterface {
-
-           
+    
        public AudioCDBean getAudioCDByID(int id);
        public AudioCDBean getAudioCDByProductID(int productID);
        public ArrayList<AudioCDBean> getAudioCDByArtist(String artist);

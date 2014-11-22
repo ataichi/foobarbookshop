@@ -12,12 +12,16 @@ import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
 import Beans.ProductManagerBean;
+import DAO.Implementation.AudioCDDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
+import DAO.Implementation.BookDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
+import DAO.Interface.AudioCDDAOInterface;
 import DAO.Interface.AudioCDManagerDAOInterface;
+import DAO.Interface.BookDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
@@ -62,8 +66,8 @@ public class EditProductServlet extends HttpServlet {
             
             if (editproduct.getType().equals("Audio CD")) {
                 AudioCDBean audiocd = new AudioCDBean();
-                AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
-                audiocd = audiodao.getAudioCDByProductId(productID);
+                AudioCDDAOInterface audiodao = new AudioCDDAOImplementation();
+                audiocd = audiodao.getAudioCDByProductID(productID);
 
                 session.setAttribute("editaudio", audiocd);
 
@@ -72,7 +76,7 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editmagazine", null);
             } else if (editproduct.getType().equals("Books")) {
                 BookBean book = new BookBean();
-                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+                BookDAOInterface bookdao = new BookDAOImplementation();
                 book = bookdao.getBookByProductId(productID);
 
                 session.setAttribute("editbook", book);

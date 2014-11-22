@@ -183,7 +183,7 @@ public class BookDAOImplementation implements BookDAOInterface{
 
  
     @Override
-    public BookBean getBookByProductId(int id) {
+    public BookBean getBookByProductID(int id) {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();

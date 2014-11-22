@@ -15,5 +15,5 @@ public interface BookDAOInterface {
     public ArrayList<BookBean> getBookByAuthor(String author);
     public ArrayList<BookBean> getBookByPublisher(String publisher);
     public ArrayList<BookBean> getBookByDate(Date from, Date to);
-    public BookBean getBookByProductId(int id);
+    public BookBean getBookByProductID(int id);
 }
