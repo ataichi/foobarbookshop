@@ -57,7 +57,7 @@
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 
 
-        <title>JSP Page</title>
+        <title>Product Manager Home</title>
     </head>
     <body>
 
@@ -70,7 +70,7 @@
                 <li><a href='#'>Account
                         <ul>
                             <li><a href='productmanagerAccount.jsp'>Edit Account</a></li>
-                            <li><a href='#'>Log out</a></li>
+                            <li><a href='login.jsp'>Log out</a></li>
                         </ul>
                 </li>
             </ul>
@@ -112,6 +112,10 @@
                                 + "</center></td><td><center>"
                                 + productlist.get(i).getNumberStocks()
                                 + "</center></td><td><center>"
+                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='ViewProductServlet'>"
+                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
+                                + "<input type='submit' id='submit' value='View Details' name='" + productlist.get(i).getProductID() + "' style='border-color: transparent; background-color: transparent'/>"
+                                + "</form>"
                                 + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='EditProductServlet'>"
                                 + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
                                 + "<input type='submit' id='submit' value='Edit' name='" + productlist.get(i).getProductID() + "' style='border-color: transparent; background-color: transparent'/>"
