@@ -12,10 +12,13 @@
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-edit.js" type="text/javascript"></script>
         <script src="signupcheck.js" type="text/javascript"></script>
+        <script src="editadmincheck.js" type="text/javascript"></script>
 
-        <link rel="stylesheet" type="text/css" href="wadesign.css">
-        <link rel="stylesheet" type="text/css" href="category.css">
-        <link rel="stylesheet" type="text/css" href="style4.css">
+        <link rel="stylesheet" type="text/css" href="css/wadesign.css">
+        <link rel="stylesheet" type="text/css" href="css/category.css">
+        <link rel="stylesheet" type="text/css" href="css/style4.css">
+        <link rel="stylesheet" type="text/css" href="js/editadmincheck.js">
+
         <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
@@ -78,9 +81,6 @@
                 <input type='submit' id='save' value='Save Changes'/>
             </form>
             <a href='adminHOME.jsp'><button>Cancel</button></a>
-
         </div>
-
-
     </body>
 </html>

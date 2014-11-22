@@ -9,12 +9,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-edit.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="wadesign.css">
-        <link rel="stylesheet" type="text/css" href="category.css">
-        <link rel="stylesheet" type="text/css" href="style4.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/wadesign.css">
+        <link rel="stylesheet" type="text/css" href="css/category.css">
+        <link rel="stylesheet" type="text/css" href="css/style4.css">
         <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
