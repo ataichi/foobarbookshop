@@ -12,7 +12,7 @@
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
         <script src="js-edit.js" type="text/javascript"></script>
-        <script src="js/editmanager.js" type="text/javascript"></script>
+        <script src="js/managercheck.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="wadesign.css">
         <link rel="stylesheet" type="text/css" href="category.css">
         <link rel="stylesheet" type="text/css" href="style4.css">
@@ -51,37 +51,37 @@
         </div>
 
         <div id='editAccount'>
-            <form id="editmanager" name="editmanager" onsubmit="return editmanagerCheck(this)" action='EditAccountingManagerAccountServlet' method="post">
+            <form id="managercheck" name="managercheck" onsubmit="return managerCheck(this)" action='EditAccountingManagerAccountServlet' method="post">
                 <table>
                     <tr>
                         <td>First Name:</td>
                         <td>
-                            <input type='text' id='editfirst' name='editfirst' value='<% out.println(homeaccounting.getFirstName()); %>' onblur='fnameManagerCheck();' onfocus='backWhite(this);'/>
+                            <input type='text' id='first' name='first' value='<% out.println(homeaccounting.getFirstName()); %>' onblur='fnameManagerCheck();' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Middle Name:</td>
                         <td>
-                            <input type='text' id='editmiddle' name='editmiddle' value='<% out.println(homeaccounting.getMiddleInitial()); %>' onblur='mnameManagerCheck();' onfocus='backWhite(this)'/>
+                            <input type='text' id='middle' name='middle' value='<% out.println(homeaccounting.getMiddleInitial()); %>' onblur='mnameManagerCheck();' onfocus='backWhite(this)'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Last Name:</td>
                         <td>
-                            <input id='editlast' type='text' name="editlast" value='<% out.println(homeaccounting.getLastName()); %>' onblur='lnameManagerCheck();' onfocus='backWhite(this);'/>
+                            <input id='last' type='text' name="last" value='<% out.println(homeaccounting.getLastName()); %>' onblur='lnameManagerCheck();' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Username:</td>
                         <td>
-                            <input id='edituser' type='text' name="edituser" value='<% out.println(homeaccounting.getUsername()); %>' onblur='unameManagerCheck();' onfocus='backWhite(this);'/>
+                            <input id='user' type='text' name="user" value='<% out.println(homeaccounting.getUsername()); %>' onblur='unameManagerCheck();' onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
                     <tr>
                         <td>Email:</td>
                         <td>
-                            <input id='editemail' type='email' name="editemail" value='<% out.println(homeaccounting.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
+                            <input id='email' type='email' name="email" value='<% out.println(homeaccounting.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                 </table>
