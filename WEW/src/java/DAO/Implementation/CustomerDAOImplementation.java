@@ -2,6 +2,7 @@ package DAO.Implementation;
 
 import Beans.AudioCDBean;
 import Beans.CustomerBean;
+import Beans.CustomerCreditCardBean;
 import Beans.ProductBean;
 import DAO.Interface.CustomerDAOInterface;
 import DBConnection.Connector;
@@ -285,7 +286,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
     public boolean editAddress(CustomerBean bean) {
         try {
             String query = "update customer set apartmentnoBA=?, streetBA=?, subdivisionBA=?, cityBA=?, postalcodeBA=?, countryBA=?,"
-                    + " apartmentnoDA=?, streetDA=?, subdivisionDA=?, cityDA=?, postalcodeDA=?, countryDA=? where customerID=?";         
+                    + " apartmentnoDA=?, streetDA=?, subdivisionDA=?, cityDA=?, postalcodeDA=?, countryDA=? where customerID=?";
             Connector c = new Connector();
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
@@ -305,11 +306,53 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             ps.executeUpdate();
             connection.close();
             return true;
-        
+
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    @Override
+    public boolean addCustomerCreditCard(CustomerCreditCardBean customercreditcard) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "insert into customercreditcard (customercreditcard_accountID, customercreditcard_creditcardID)"
+                    + "values(?, ?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+         
+            ps.setInt(1, customercreditcard.getCustomercreditcard_accountID());
+            ps.setInt(2, customercreditcard.getCustomercreditcard_creditcardID());
+           
+            ps.executeUpdate();
+            connection.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeCustomerCreditCard(int customercreditcardid) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean removeCustomerCreditCardByAccountID(int accountID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean removeCustomerCreditCardByCreditCardID(int creditcardID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<CustomerCreditCardBean> getCustomerCreditCardByAccountID(int accountID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
