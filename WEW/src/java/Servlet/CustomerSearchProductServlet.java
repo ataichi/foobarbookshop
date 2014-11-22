@@ -75,7 +75,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
             out.println("title:");
             productlist = productdao.getProductsByTitle(searchstring);
             for (int i = 0; i < productlist.size(); i++) {
-                out.println(productlist.get(i).getTitle());
+                out.println(productlist.get(i).getProductID() +":" +productlist.get(i).getTitle());
             }
 
             out.println("\nSummary:");
