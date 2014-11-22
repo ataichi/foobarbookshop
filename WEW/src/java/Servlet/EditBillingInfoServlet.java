@@ -5,10 +5,12 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
 import Beans.CustomerBean;
 import DAO.Implementation.CustomerDAOImplementation;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +44,7 @@ public class EditBillingInfoServlet extends HttpServlet {
             
             CustomerDAOImplementation cdao = new CustomerDAOImplementation();
             CustomerBean cbean = new CustomerBean();
-            CustomerBean oldbean = (CustomerBean) session.getAttribute("homeuser");
+            AccountBean oldbean = (AccountBean) session.getAttribute("homeuser");
             
             String apartmentnoBA, streetBA, subBA, cityBA, countryBA;
             int postalcodeBA;
@@ -63,9 +65,9 @@ public class EditBillingInfoServlet extends HttpServlet {
             countryDA = request.getParameter("countryDA");
             postalcodeDA = Integer.parseInt(request.getParameter("postalcodeDA"));
             
-            cbean.setCustomerID(oldbean.getCustomerID());
-            cbean.setCustomer_accountID(oldbean.getCustomer_accountID());
-            cbean.setCustomer_creditCardID(oldbean.getCustomer_creditCardID());
+            cbean.setCustomerID(oldbean.getAccountID());
+            //cbean.setCustomer_accountID(oldbean.getCustomer_accountID());
+            //cbean.setCustomer_creditCardID(oldbean.getCustomer_creditCardID());
         
             cbean.setApartmentNoBA(apartmentnoBA);
             cbean.setApartmentNoDA(apartmentnoDA);
@@ -90,6 +92,9 @@ public class EditBillingInfoServlet extends HttpServlet {
                 response.sendRedirect("customerHOME.jsp");
                 out.println("bye");
             }
+        }
+        catch(Exception e) {
+            out.println("error");
         }
     }
 

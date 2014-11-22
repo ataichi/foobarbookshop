@@ -116,7 +116,7 @@ function passCheck() {
 
 function apartmentnoBACheck() {
     var aptnoBA = document.forms["customercheck"]["apartmentnoBA"].value;
-    if (aptnoBA == "" || aptnoBA == null) { //kulang pa ng pag check kung digit
+    if (aptnoBA == "" || aptnoBA == null || !(/^[A-z ]+$/.test(aptnoBA))) {
         document.forms["customercheck"]["apartmentnoBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -186,7 +186,7 @@ function postalcodeBACheck() {
 
 function apartmentnoDACheck() {
     var aptnoDA = document.forms["customercheck"]["apartmentnoDA"].value;
-    if (aptnoDA == "" || aptnoDA == null) { //kulang pa ng pag check kung digit
+    if (aptnoDA == "" || aptnoDA == null || !(/^[A-z ]+$/.test(aptnoDA))) {
         document.forms["customercheck"]["apartmentnoDA"].style.backgroundColor = "pink";
         return false;
     }
