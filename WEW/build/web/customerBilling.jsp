@@ -84,7 +84,7 @@
                     </tr>
                     <tr>
                         <td>Apartment No:</td>
-                        <td><input type='text' id='apartmentnoBA' name='apartmentnoBA' onblur="apartmentnoBACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getApartmentNoBA()); %>"></td>
+                        <td><input type='text' id='apartmentnoBA' name='apartmentnoBA'  onfocus="backWhite(this)" value="<% out.println(cbean.getApartmentNoBA()); %>"></td>
                     </tr>
                     <tr>
                         <td>Street:</td>
@@ -112,7 +112,7 @@
                     </tr>
                     <tr>
                         <td>Apartment No:</td>
-                        <td><input type='text' id='apartmentnoDA' name='apartmentnoDA' onblur="apartmentnoDACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getApartmentNoDA()); %>"></td>
+                        <td><input type='text' id='apartmentnoDA' name='apartmentnoDA' onfocus="backWhite(this)" value="<% out.println(cbean.getApartmentNoDA()); %>"></td>
                     </tr>
                     <tr>
                         <td>Street:</td>
@@ -124,7 +124,7 @@
                     </tr>
                     <tr>
                         <td>City:</td>
-                        <td><input type='text' id='cityDA' name='cityBA' onblur="cityDACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getCityDA()); %>"></td>
+                        <td><input type='text' id='cityDA' name='cityDA' onblur="cityDACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getCityDA()); %>"></td>
                     </tr>
                     <tr>      
                         <td>Country:</td> 

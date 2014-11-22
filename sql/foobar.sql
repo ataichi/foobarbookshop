@@ -200,11 +200,8 @@ CREATE TABLE `customer` (
   `postalcodeDA` int(11) NOT NULL,
   `countryDA` varchar(45) NOT NULL,
   `customer_accountID` int(11) NOT NULL,
-  `customer_creditcardID` int(11) DEFAULT NULL,
   PRIMARY KEY (`customerID`),
   KEY `customer_accountID_idx` (`customer_accountID`),
-  KEY `customer_creditcardID_idx` (`customer_creditcardID`),
-  CONSTRAINT `customer_creditcardID` FOREIGN KEY (`customer_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -217,6 +214,31 @@ LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `customercreditcard`
+--
+DROP TABLE IF EXISTS `customercreditcard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `foobar`.`customercreditcard` (
+  `customercreditcardID` INT NOT NULL AUTO_INCREMENT,
+  `customercreditcard_accountID` INT NOT NULL,
+  `customercreditcard_creditcardID` INT NOT NULL,
+  PRIMARY KEY (`customercreditcardID`),
+  INDEX `customercreditcard_creditcardID_idx` (`customercreditcard_creditcardID` ASC),
+  CONSTRAINT `customercreditcard_accountID`
+    FOREIGN KEY (`customercreditcardID`)
+    REFERENCES `foobar`.`account` (`accountID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `customercreditcard_creditcardID`
+    FOREIGN KEY (`customercreditcard_creditcardID`)
+    REFERENCES `foobar`.`creditcard` (`creditcardID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
 
 --
 -- Table structure for table `dvd`

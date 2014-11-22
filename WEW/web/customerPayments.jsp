@@ -25,7 +25,7 @@
     <body>
 
         <header>
-            <div id="banner"> <a href="home.html"><img src="images/books.jpg"></a> </div>
+            <div id="banner"> <a href="customerHOME.jsp"><img src="images/books.jpg"></a> </div>
         </header>
         <nav>
             <ul>
@@ -61,5 +61,9 @@
             <a href='customerTransactions.jsp'>View Transactions</a>
             <br/>
         </div>
-    </body>
+        
+        
+        
+         
+   </body>
 </html>

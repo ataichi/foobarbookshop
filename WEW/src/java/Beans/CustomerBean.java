@@ -16,15 +16,6 @@ public class CustomerBean {
     protected String countryDA;
     protected int customer_accountID;
     protected int customerID;
-    protected int customer_creditCardID;
-
-    public int getCustomer_creditCardID() {
-        return customer_creditCardID;
-    }
-
-    public void setCustomer_creditCardID(int customer_creditCardID) {
-        this.customer_creditCardID = customer_creditCardID;
-    }
     
     public int getCustomerID() {
         return customerID;

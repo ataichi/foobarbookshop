@@ -18,11 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Danica
- */
-@WebServlet(name = "EditBillingInformation", urlPatterns = {"/EditBillingInformation"})
+@WebServlet(name = "EditBillingInfoServlet", urlPatterns = {"/EditBillingInfoServlet"})
 public class EditBillingInfoServlet extends HttpServlet {
 
     /**
@@ -46,6 +42,8 @@ public class EditBillingInfoServlet extends HttpServlet {
             CustomerBean cbean = new CustomerBean();
             AccountBean oldbean = (AccountBean) session.getAttribute("homeuser");
             
+            cbean = cdao.getCustomerByAccountID(oldbean.getAccountID());
+                    
             String apartmentnoBA, streetBA, subBA, cityBA, countryBA;
             int postalcodeBA;
             String apartmentnoDA, streetDA, subDA, cityDA, countryDA;
@@ -65,8 +63,8 @@ public class EditBillingInfoServlet extends HttpServlet {
             countryDA = request.getParameter("countryDA");
             postalcodeDA = Integer.parseInt(request.getParameter("postalcodeDA"));
             
-            cbean.setCustomerID(oldbean.getAccountID());
-            //cbean.setCustomer_accountID(oldbean.getCustomer_accountID());
+  //          cbean.setCustomerID(cbean.getCustomerID());
+   //         cbean.setCustomer_accountID(oldbean.getAccountID());
             //cbean.setCustomer_creditCardID(oldbean.getCustomer_creditCardID());
         
             cbean.setApartmentNoBA(apartmentnoBA);
@@ -89,7 +87,7 @@ public class EditBillingInfoServlet extends HttpServlet {
                 out.println("yehey");
             }
             else {
-                response.sendRedirect("customerHOME.jsp");
+          //      response.sendRedirect("customerHOME.jsp");
                 out.println("bye");
             }
         }
