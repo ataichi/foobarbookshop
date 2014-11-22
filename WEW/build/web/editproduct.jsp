@@ -35,7 +35,9 @@
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
         <script src="js-productmanager.js" type="text/javascript"></script>
-
+        <script src="js/productcheck.js" type="text/javascript"></script>
+        
+        
         <link rel="stylesheet" type="text/css" href="wadesign.css">
         <link rel="stylesheet" type="text/css" href="category.css">
         <link rel="stylesheet" type="text/css" href="style4.css">
@@ -84,7 +86,7 @@
         <div id="product">
             Edit <%out.println(editproduct.getTitle());%>:
             <br/><br/>
-            <form id="editproduct" name="editproduct" action="FinalEditProductServlet" onsubmit="return editproductcheck(this) method ="post">
+            <form id="productcheck" name="productcheck" action="FinalEditProductServlet" onsubmit="return productCheck(this)" method="post">
                   <table>
                     <tr>
                         <td>Title:*</td>
@@ -98,20 +100,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Summary:
-                        </td>
+                        <td>Summary:</td>
                         <td>
                             <input type='text' id='productSummary' name='productSummary'  value='<% out.println(editproduct.getSummary()); %>' onblur="summaryCheck()" onfocus='backWhite(this);'/>
-
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Genre:
-                        </td>
+                        <td>Genre:</td>
                         <td>
                             <input type='text' id='productGenre' name='productGenre'  value='<% out.println(editproduct.getGenre()); %>' onblur="genreCheck()" onfocus='backWhite(this);'/>
-
                         </td>
                     </tr>
                     <tr>
@@ -119,7 +116,6 @@
                         </td>
                         <td>
                             <input type='text' id='productYear' name='productYear'  value='<% out.println(editproduct.getYear()); %>' onblur="yearCheck()" onfocus='backWhite(this);'/>       
-
                         </td>
                     </tr>
                     <tr>
@@ -128,10 +124,8 @@
                         </td>
                         <td>
                             <input type='text' id='productStocks' name='productStocks'  value='<% out.println(editproduct.getNumberStocks()); %>' onblur="stocksCheck()" onfocus='backWhite(this);'/>
-
                         </td>
                     </tr>
-
                     <%if (productManager.getProdType().equals("Audio CD")) {  %>
                     <br/>
                     <tr>
@@ -140,15 +134,11 @@
                             <input type='text' id='cdArtist' name='cdArtist' value='<% out.println(audiocd.getArtist()); %>' onfocus='backWhite(this);'/>    
                         </td>
                     <tr>
-                        <td>
-                            Record Company:
-                        </td>
+                        <td>Record Company:</td>
                         <td>
                             <input type='text' id='cdRecord' name ='cdRecord' value='<% out.println(audiocd.getRecordCompany()); %>'  onfocus='backWhite(this);'/>
-
                         </td>
                     </tr>
-
                     <%}%>
                     <%if (productManager.getProdType().equals("Books")) { %>
                     <br/>
@@ -165,14 +155,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Date Published:
-                        </td>
+                        <td>Date Published:</td>
                         <td>
                             <input type='text' id='bookDatePublished' name='bookDatePublished'  value='<% out.println(1900+book.getDatePublished().getYear()+ "-"+ (1+book.getDatePublished().getMonth()) + "-" + (7+book.getDatePublished().getDay()) );%>' onfocus='backWhite(this);'/> 
                         </td>
                     </tr>
-
                     <%}%>
                     <% if (productManager.getProdType().equals("DVD")) { %>
                     <br/>
@@ -220,17 +207,11 @@
                         </td>
                     </tr>
                     <% }%>
-
                 </table>
-
                 <input type='submit' value='Submit'/>
             </form>
-
             <a href='productmanagerHOME.jsp'><button>Cancel</button></a>
-
         </form>
-
     </div>
-
 </body>
 </html>

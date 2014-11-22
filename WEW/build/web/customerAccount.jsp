@@ -55,7 +55,6 @@
             <a href='customerBilling.jsp'>Manage Billing Information</a>
             <br/>
             <br>
-
             <a href='customerPayments.jsp'>Manage Payment Information</a>
             <br/>
             <br>
@@ -67,52 +66,39 @@
             <form name="customercheck" id="customercheck" onsubmit="return customerCheck(this)" action='EditCustomerAccountServlet' method="post">
                 <table>
                     <tr>
-                        <td>First Name:
-                        </td>
+                        <td>First Name:</td>
                         <td>
                             <input type='text' id='fname' name='fname' value='<% out.println(homeuser.getFirstName()); %>' onblur='fnameCheck();' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Middle Name:
-                        </td>
+                        <td>Middle Name:</td>
                         <td>
                             <input type='text' id='mname' name='fname' value='<% out.println(homeuser.getMiddleInitial()); %>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Last Name:
-                        </td>
+                        <td>Last Name:</td>
                         <td>
                             <input id='lname' type='text' name="fname" value='<% out.println(homeuser.getLastName()); %>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Username:
-                        </td>
+                        <td>Username:</td>
                         <td>
                             <input id='uname' type='text' name="uname" value='<% out.println(homeuser.getUsername()); %>' onblur='unameCheck();' onfocus='backWhite(this);'/>
-
                         </td>
                     </tr>
                     <tr>
+                        <td>Email:</td>
                         <td>
-                            Email:
-                        </td>
-                        <td>
-                            <input id='email' type='email' name="email" value='<% out.println(homeuser.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
-
+                            <input id='email' type='email' name="emailF" value='<% out.println(homeuser.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                 </table>
                 <input type='submit' id='save' value='Save Changes'/>
             </form>
             <a href='customerHOME.jsp'><button>Cancel</button></a>
-
         </div>
-
     </body>
 </html>

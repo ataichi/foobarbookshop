@@ -10,7 +10,7 @@
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
-        
+
         <title>Sign up now!</title>
 
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
@@ -41,7 +41,6 @@
 
         <div id="featured">
             <form id="customercheck" name="customercheck" action="SignupServlet" onsubmit="return customerCheck(this);" method="post">
-
                 <table>
                     <tr>
                         <td>First Name</td>
@@ -57,7 +56,7 @@
                     </tr>
                     <tr>
                         <td>Username</td>
-                        <td><input type='text' id='user' name='uname' onblur="unameCheck();" onfocus="backWhite(this);"></td>
+                        <td><input type='text' id='uname' name='uname' onblur="unameCheck();" onfocus="backWhite(this);"></td>
                     </tr>
                     <tr>
                         <td>Email</td>
@@ -129,7 +128,6 @@
                             <td>Postal Code:</td>
                             <td><input type='text' id='postalcodeDA' name='postalcodeDA' onblur="postalcodeDACheck()" onfocus="backWhite()"></td>
                         </tr>
-
                         <tr>
                             <td></td>
                             <td><input type='submit' id='sign' value='Signup'></td>
