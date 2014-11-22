@@ -213,4 +213,72 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public CustomerBean getCustomerByAccountID(int id) {
+        try {
+            String query = "select * from customer where customer_accountID = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            CustomerBean bean = new CustomerBean();
+            int customerID1, customer_accountID;
+            String streetBA, subdivisionBA, cityBA, countryBA, apartmentnoBA;
+            int postalcodeBA;
+
+            String streetDA, subdivisionDA, cityDA, countryDA, apartmentnoDA;
+            int postalcodeDA;
+
+            while (rs.next()) {
+                streetBA = rs.getString("streetBA");
+                subdivisionBA = rs.getString("subdivisionBA");
+                cityBA = rs.getString("cityBA");
+                countryBA = rs.getString("countryBA");
+                apartmentnoBA = rs.getString("apartmentnoBA");
+                postalcodeBA = rs.getInt("postalcodeBA");
+
+                streetDA = rs.getString("streetDA");
+                subdivisionDA = rs.getString("subdivisionDA");
+                cityDA = rs.getString("cityDA");
+                countryDA = rs.getString("countryDA");
+                apartmentnoDA = rs.getString("apartmentnoDA");
+                postalcodeDA = rs.getInt("postalcodeDA");
+
+                customer_accountID = rs.getInt("customerID");
+                customerID1 = rs.getInt("customerID");
+
+                bean = new CustomerBean();
+
+                bean.setApartmentNoBA(streetBA);
+                bean.setCityBA(cityBA);
+                bean.setCountryBA(countryBA);
+                bean.setPostalCodeBA(postalcodeBA);
+                bean.setStreetBA(streetBA);
+                bean.setSubdivisionBA(subdivisionBA);
+                bean.setApartmentNoBA(apartmentnoBA);
+
+                bean.setCityDA(cityDA);
+                bean.setCountryDA(countryDA);
+                bean.setPostalCodeDA(postalcodeDA);
+                bean.setStreetDA(streetDA);
+                bean.setSubdivisionDA(subdivisionDA);
+                bean.setApartmentNoDA(apartmentnoDA);
+
+                bean.setCustomer_accountID(customer_accountID);
+                bean.setCustomerID(customerID1);
+
+            }
+
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

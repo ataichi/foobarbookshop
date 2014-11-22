@@ -14,6 +14,10 @@ function customerCheck() {
     }
 }
 
+function billingCheck() {
+    return true;
+}
+
 function fnameCheck() {
     var first = document.forms["customercheck"]["fname"].value;
     if (first == "" || first == null || !(/^[A-z ]+$/.test(first))) {

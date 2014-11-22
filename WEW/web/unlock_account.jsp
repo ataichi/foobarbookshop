@@ -1,9 +1,3 @@
-<%-- 
-    Document   : unlock_account
-    Created on : Nov 20, 2014, 9:55:58 PM
-    Author     : Danica
---%>
-
 <%@page import="Beans.AccountBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>

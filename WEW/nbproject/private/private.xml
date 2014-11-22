@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/js/editmanager.js</file>
-            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/accountingmanagerAccount.jsp</file>
-            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/js/editadmincheck.js</file>
-            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/addproduct.jsp</file>
-            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/js/addproductcheck.js</file>
-            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/addproduct.html</file>
-            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/adminAccount.jsp</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/unlock_account.jsp</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/customerBilling.jsp</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/src/java/Servlet/EditBillingInfoServlet.java</file>
         </group>
     </open-files>
 </project-private>

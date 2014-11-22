@@ -100,7 +100,6 @@
                             <td>Postal Code:</td>
                             <td><input type='text' id='postalcodeBA' name='postalcodeBA' onblur="postalcodeBACheck()" onfocus="backWhite()"></td>
                         </tr>
-                        <div/>
                         <tr>
                             <td>Delivery Address:</td>
                         </tr>
@@ -133,6 +132,7 @@
                             <td><input type='submit' id='sign' value='Signup'></td>
                         </tr>
                     </table>
+                </div>
             </form>
         </div>
     </body>
