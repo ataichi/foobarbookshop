@@ -6,8 +6,11 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.AudioCDBean;
 import Beans.ProductBean;
+import DAO.Implementation.AudioCDDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
+import DAO.Interface.AudioCDDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,6 +44,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
             String searchstring = request.getParameter("searchstring");
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ProductDAOInterface productdao = new ProductDAOImplementation();
+            ProductBean productbean = new ProductBean();
 
             out.println("Product:");
             out.println("title:");
@@ -60,6 +64,27 @@ public class CustomerSearchProductServlet extends HttpServlet {
             for (int i = 0; i < productlist.size(); i++) {
                 out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
             }
+
+            out.println("\n\nAUDIO CD:");
+            AudioCDDAOInterface audiocddao = new AudioCDDAOImplementation();
+            ArrayList<AudioCDBean> audiolist = new ArrayList<AudioCDBean>();
+
+            audiolist = audiocddao.getAudioCDByArtist(searchstring);
+            out.println("\nArtist");
+            for (int i = 0; i < audiolist.size(); i++) {
+                productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
+                out.println(productbean.getTitle() + audiolist.get(i).getArtist());
+            }
+            
+            audiolist = audiocddao.getAudioCDByRecordCompany(searchstring);
+            out.println("\nRecord Company:");
+            for(int i=0;i<audiolist.size();i++){
+                productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
+                out.println(productbean.getTitle() + audiolist.get(i).getRecordCompany());
+            }
+            
+            out.println("\n\nBOOKS:");
+            
         }
     }
 
