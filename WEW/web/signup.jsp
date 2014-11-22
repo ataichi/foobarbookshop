@@ -15,7 +15,7 @@
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-signupcheck.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
-        <script src="js/signupcheck.js" type="text/javascript"></script>
+        <script src="js/customercheck.js" type="text/javascript"></script>
         
     </head>
     <body>
@@ -39,7 +39,7 @@
         </nav>
 
         <div id="featured">
-            <form id="signin" name="signin" action="SignupServlet" onsubmit="return signcheck(this);" method="post">
+            <form id="customercheck" name="customercheck" action="SignupServlet" onsubmit="return customerCheck(this);" method="post">
 
                 <table>
                     <tr>

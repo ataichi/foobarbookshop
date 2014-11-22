@@ -12,6 +12,7 @@
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
         <script src="js-edit.js" type="text/javascript"></script>
+        <script src="js/customercheck.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="wadesign.css">
         <link rel="stylesheet" type="text/css" href="category.css">
         <link rel="stylesheet" type="text/css" href="style4.css">
@@ -63,7 +64,7 @@
         </div>
 
         <div id='editAccount'>
-            <form action='EditCustomerAccountServlet'>
+            <form name="customercheck" id="customercheck" onsubmit="return customerCheck(this)" action='EditCustomerAccountServlet' method="post">
                 <table>
                     <tr>
                         <td>First Name:
