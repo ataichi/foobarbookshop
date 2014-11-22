@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
 import Beans.ProductBean;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
@@ -12,6 +13,7 @@ import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "RestockProductServlet", urlPatterns = {"/RestockProductServlet"})
-public class RestockProductServlet extends HttpServlet {
+@WebServlet(name = "ConfirmRestockProductServlet", urlPatterns = {"/ConfirmRestockProductServlet"})
+public class ConfirmRestockProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,20 +39,23 @@ public class RestockProductServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            ProductBean productbean = new ProductBean();
-            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+            ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
+            ProductManagerDAOInterface productmanagerdao = new ProductManagerDAOImplementation();
             ProductDAOInterface productdao = new ProductDAOImplementation();
             
-            int product = Integer.valueOf(request.getParameter("product"));
-            productbean = productdao.getProductById(product);
+            int newstocks = Integer.valueOf(request.getParameter("numberstocks"));
             
-            session.setAttribute("restockproduct", productbean);
-            response.sendRedirect("restockproduct.jsp");
+            out.println(newstocks);
+            boolean checkRestock = productmanagerdao.restockProduct(newstocks, restockproduct.getProductID());
             
-            
-        }
-        catch(Exception e) {
-            
+            if(checkRestock){
+                productlist = productmanagerdao.getProductsByType(restockproduct.getType());
+                session.setAttribute("productlist", productlist);
+                response.sendRedirect("productmanagerHOME.jsp");
+            }else{
+                out.println("not successful");
+            }
         }
     }
 
