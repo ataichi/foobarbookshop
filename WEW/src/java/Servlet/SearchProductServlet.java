@@ -72,7 +72,6 @@ public class SearchProductServlet extends HttpServlet {
                 if (productmanager.getProdType().equals("Books")) { //book manager
                     BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                     ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-                    //              booklist = bookdao.getAllBooks();
                     session.setAttribute("booklist", booklist);
 
                     session.setAttribute("productlist", productlist);
@@ -80,7 +79,6 @@ public class SearchProductServlet extends HttpServlet {
                 } else if (productmanager.getProdType().equals("Audio CD")) { // audio cd manager
                     AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
                     ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
-                    //             audiocdlist = cddao.getAllAudioCD();
                     session.setAttribute("audiocdlist", audiocdlist);
 
                     productlist = pdao.getProductsByType(productmanager.getProdType());
@@ -89,7 +87,6 @@ public class SearchProductServlet extends HttpServlet {
                 } else if (productmanager.getProdType().equals("DVD")) { //dvd manager
                     DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
                     ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
-                    //            dvdlist = dvddao.viewAllDVD();
                     session.setAttribute("dvdlist", dvdlist);
 
                     productlist = pdao.getProductsByType(productmanager.getProdType());
@@ -98,8 +95,7 @@ public class SearchProductServlet extends HttpServlet {
                 } else if (productmanager.getProdType().equals("Magazine")) { //magazine manager
                     MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                     ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
-                    //             magazinelist = magazinedao.getAllMagazine();
-
+                
                     productlist = pdao.getProductsByType(productmanager.getProdType());
                     session.setAttribute("productlist", productlist);
 

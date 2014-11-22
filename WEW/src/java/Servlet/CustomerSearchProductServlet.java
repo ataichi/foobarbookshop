@@ -7,10 +7,19 @@ package Servlet;
 
 import Beans.AccountBean;
 import Beans.AudioCDBean;
+import Beans.BookBean;
+import Beans.DVDBean;
+import Beans.MagazineBean;
 import Beans.ProductBean;
 import DAO.Implementation.AudioCDDAOImplementation;
+import DAO.Implementation.BookDAOImplementation;
+import DAO.Implementation.DVDDAOImplementation;
+import DAO.Implementation.MagazineDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Interface.AudioCDDAOInterface;
+import DAO.Interface.BookDAOInterface;
+import DAO.Interface.DVDDAOInterface;
+import DAO.Interface.MagazineDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +54,23 @@ public class CustomerSearchProductServlet extends HttpServlet {
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ProductDAOInterface productdao = new ProductDAOImplementation();
             ProductBean productbean = new ProductBean();
-
+            
+            AudioCDDAOInterface audiocddao = new AudioCDDAOImplementation();
+            ArrayList<AudioCDBean> audiolist = new ArrayList<AudioCDBean>();
+            AudioCDBean audio = new AudioCDBean();
+            
+            BookDAOInterface bookdao = new BookDAOImplementation();
+            ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+            BookBean book = new BookBean();
+            
+            DVDDAOInterface dvddao = new DVDDAOImplementation();
+            ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+            DVDBean dvd = new DVDBean();
+            
+            MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
+            ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+            MagazineBean magazine = new MagazineBean();
+            
             out.println("Product:");
             out.println("title:");
             productlist = productdao.getProductsByTitle(searchstring);
@@ -66,8 +91,6 @@ public class CustomerSearchProductServlet extends HttpServlet {
             }
 
             out.println("\n\nAUDIO CD:");
-            AudioCDDAOInterface audiocddao = new AudioCDDAOImplementation();
-            ArrayList<AudioCDBean> audiolist = new ArrayList<AudioCDBean>();
 
             audiolist = audiocddao.getAudioCDByArtist(searchstring);
             out.println("\nArtist");
@@ -75,16 +98,86 @@ public class CustomerSearchProductServlet extends HttpServlet {
                 productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
                 out.println(productbean.getTitle() + audiolist.get(i).getArtist());
             }
-            
+
             audiolist = audiocddao.getAudioCDByRecordCompany(searchstring);
             out.println("\nRecord Company:");
-            for(int i=0;i<audiolist.size();i++){
+            for (int i = 0; i < audiolist.size(); i++) {
                 productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
                 out.println(productbean.getTitle() + audiolist.get(i).getRecordCompany());
             }
-            
+
             out.println("\n\nBOOKS:");
             
+            booklist = bookdao.getBookByAuthor(searchstring);
+            out.println("\nAuthor:");
+            for(int i =0;i<booklist.size();i++){
+                productbean = productdao.getProductById(booklist.get(i).getBook_productID());
+                out.println(productbean.getTitle()+booklist.get(i).getAuthor());
+            }
+            
+            booklist=bookdao.getBookByPublisher(searchstring);
+            out.println("\nPublisher");
+            for(int i=0;i<booklist.size();i++){
+                productbean = productdao.getProductById(booklist.get(i).getBook_productID());
+                out.println(productbean.getTitle()+booklist.get(i).getPublisher());
+            }
+            
+            //datePublished
+            
+            
+            out.println("\n\nDVD:");
+            
+            dvdlist = dvddao.getDVDByActor(searchstring);
+            out.println("\nActor");
+            for(int i=0;i<dvdlist.size();i++){
+                productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                out.println(productbean.getTitle() + dvdlist.get(i).getMainActors());
+            }
+            
+            dvdlist=dvddao.getDVDByDirector(searchstring);
+            out.println("\nDirector");
+            for(int i=0;i<dvdlist.size();i++){
+                productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                out.println(productbean.getTitle() + dvdlist.get(i).getDirector());
+            }
+            
+            dvdlist = dvddao.getDVDByProducer(searchstring);
+            out.println("\nProduction Company:");
+            for(int i=0;i<dvdlist.size();i++){
+                productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                out.println(productbean.getTitle()+dvdlist.get(i).getProductionCompany());
+            }
+            
+            out.println("\n\nMagazine");
+            
+            out.println("\nIssue No:");
+            /*
+            - convert stringsearch to integer
+            magazinelist=magazinedao.getMagazineByIssueNo(stringsearch);
+            for(int i=0;i<magazinelist.size();i++){
+                productbean=productdao.getProductById(magazinelist.get(i).getMagazine_productID());
+                out.println(productbean.getTitle()+magazinelist.get(i).getIssueNo());
+            }
+            */
+            
+            out.println("\nVolume No:");
+            /*
+            -convert stringsearch to integer
+            magazinelist = magazinedao.getMagazineByIssueNo(stringsearch);
+            for(int i=0;i<magazinelist.size();i++){
+                productbean = productdao.getProductById(magazinelist.get(i).getMagazine_productID());
+                out.println(productbean.getTitle()+magazinelist.get(i).getVolumeNo());
+            }
+            */
+            
+            out.println("\nPublisher");
+            magazinelist = magazinedao.getMagazineByPublisher(searchstring);
+            for(int i=0;i<magazinelist.size();i++){
+                productbean = productdao.getProductById(magazinelist.get(i).getMagazine_productID());
+                out.println(productbean.getTitle()+magazinelist.get(i).getPublisher());
+            }
+            
+
         }
     }
 
