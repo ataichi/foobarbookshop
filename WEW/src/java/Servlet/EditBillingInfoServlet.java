@@ -83,12 +83,12 @@ public class EditBillingInfoServlet extends HttpServlet {
             boolean check = cdao.editAddress(cbean);
             
             if(check) {
-                //response.sendRedirect("customerHOME.jsp");
-                out.println("yehey");
+                response.sendRedirect("customerHOME.jsp");
+                //out.println("yehey");
             }
             else {
-          //      response.sendRedirect("customerHOME.jsp");
-                out.println("bye");
+                response.sendRedirect("customerHOME.jsp");
+                //out.println("bye");
             }
         }
         catch(Exception e) {
