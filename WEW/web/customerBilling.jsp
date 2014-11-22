@@ -76,7 +76,7 @@
             <br/>
         </div>
 
-        <div>
+        <div id="editBilling">
             <form id="customercheck" name="customercheck" onsubmit="return billingCheck(this)" action="EditBillingInforServlet" method="post">
                 <table>
                     <tr>
@@ -131,10 +131,14 @@
                     </tr>
                     <tr>
                         <td>Postal Code:</td>
-                        <td><input type='text' id='postalcodeDA' name='postalcodeDA' onblur="postalcodeDACheck()" onfocus="backWhite()" value="<% out.println(cbean.getPostalCodeDA()); %>"></td>
+                        <td><input type='text' id='postalcodeDA' name='postalcodeDA' onblur="postalcodeDACheck()" onfocus="backWhite()" value="<% out.println(cbean.getPostalCodeDA());%>"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" id="save" value="Save Changes"/></td>
                     </tr>
                 </table>
             </form>
+                    <a href='customerHOME.jsp'><button>Cancel</button></a>
         </div>
     </body>
 </html>

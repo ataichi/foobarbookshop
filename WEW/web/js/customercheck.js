@@ -15,7 +15,26 @@ function customerCheck() {
 }
 
 function billingCheck() {
-    return true;
+    var apartmentnoBA = apartmentnoBACheck();
+    var streetBA = streetBACheck();
+    var subBA = subdivisionBACheck();
+    var cityBA = cityBACheck();
+    var countryBA = countryBACheck();
+    var postalcodeBA = postalcodeBACheck();
+    var apartmentnoDA = apartmentnoDACheck();
+    var streetDA = streetDACheck();
+    var subDA = subdivisionDACheck();
+    var cityDA = cityDACheck();
+    var countryDA = countryDACheck();
+    var postalcodeDA = postalcodeDACheck();
+    
+    if (apartmentnoBA == false || streetBA == false || subBA == false || cityBA == false || cityBA == false || cityBA == false || countryBA == false || postalcodeBA == false || apartmentnoDA == false || streetDA == false || subDA == false || cityDA == false || countryDA == false || postalcodeDA == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+    
 }
 
 function fnameCheck() {
