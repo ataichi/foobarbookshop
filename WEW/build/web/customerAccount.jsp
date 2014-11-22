@@ -1,9 +1,3 @@
-a<%-- 
-    Document   : customerAccount
-    Created on : Nov 15, 2014, 10:27:25 AM
-    Author     : Giodee
---%>
-
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -31,7 +25,7 @@ a<%--
     <body>
 
         <header>
-            <div id="banner"> <a href="customerHOME.jsp"><img src="books.jpg"></a> </div>
+            <div id="banner"> <a href="customerHOME.jsp"><img src="images/books.jpg"></a> </div>
         </header>
 
         <nav>

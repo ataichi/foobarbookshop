@@ -1,9 +1,3 @@
-<%-- 
-    Document   : accountingmanagerHOME
-    Created on : Nov 9, 2014, 10:11:21 PM
-    Author     : Giodee
---%>
-
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%

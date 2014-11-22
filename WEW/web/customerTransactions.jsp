@@ -1,9 +1,3 @@
-<%-- 
-    Document   : customerTransactions
-    Created on : Nov 15, 2014, 5:28:14 PM
-    Author     : Giodee
---%>
-
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -27,12 +21,10 @@
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 
         <title>View Transactions</title>
-
     </head>
     <body>
-
         <header>
-            <div id="banner"> <a href="home.html"><img src="books.jpg"></a> </div>
+            <div id="banner"> <a href="home.html"><img src="images/books.jpg"></a> </div>
         </header>
         <nav>
             <ul>
@@ -61,7 +53,6 @@
             <a href='customerBilling.jsp'>Manage Billing Information</a>
             <br/>
             <br>
-
             <a href='customerPayments.jsp'>Manage Payment Information</a>
             <br/>
             <br>

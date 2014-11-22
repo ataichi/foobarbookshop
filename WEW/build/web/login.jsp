@@ -21,7 +21,7 @@
     </head>
     <body>
         <header>
-            <div id="banner"> <a href="login.jsp"><img src="books.jpg"/></a> </div>
+            <div id="banner"> <a href="login.jsp"><img src="images/books.jpg"/></a> </div>
         </header>
 
         <nav>
@@ -49,7 +49,7 @@
 
                 <center>
                     <div id="button2">
-                        <input type="submit" id="log" class="submitstyle2" value="" />
+                        <input type="submit" id="log" class="images/submitstyle2" value="" />
                     </div></center>
             </form>
         </div>

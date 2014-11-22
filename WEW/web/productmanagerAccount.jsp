@@ -1,8 +1,3 @@
-<%-- 
-    Document   : productmanagerAccount
-    Created on : Nov 15, 2014, 11:44:42 PM
-    Author     : Giodee
---%>
 <%@page import="Beans.AccountBean"%>
 
 <%
@@ -32,7 +27,7 @@
     </head>
     <body>
         <header>
-            <div id="banner"> <a href="login.html"><img src="books.jpg"></a> </div>
+            <div id="banner"> <a href="login.html"><img src="images/books.jpg"></a> </div>
         </header>
         <nav>
             <ul>

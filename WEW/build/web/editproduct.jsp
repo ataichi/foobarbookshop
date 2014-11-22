@@ -1,10 +1,3 @@
-<%-- 
-    Document   : editproduct
-    Created on : Nov 16, 2014, 6:08:38 PM
-    Author     : Giodee
---%>
-
-
 <%@page import="Beans.MagazineBean"%>
 <%@page import="Beans.DVDBean"%>
 <%@page import="Beans.BookBean"%>

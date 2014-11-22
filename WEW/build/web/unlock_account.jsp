@@ -25,7 +25,7 @@
     <body>
 
         <header>
-            <div id="banner"> <a href="adminHOME.html"><img src="books.jpg"></a> </div>
+            <div id="banner"> <a href="adminHOME.html"><img src="images/books.jpg"></a> </div>
         </header>
         <nav>
             <ul>

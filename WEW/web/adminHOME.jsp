@@ -28,7 +28,7 @@
 
 
         <header>
-            <div id="banner"> <a href="adminHOME.jsp"><img src="books.jpg"></a> </div>
+            <div id="banner"> <a href="adminHOME.jsp"><img src="images/books.jpg"></a> </div>
         </header>
 
 <nav>

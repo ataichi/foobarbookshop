@@ -1,9 +1,3 @@
-<%-- 
-    Document   : shop
-    Created on : Nov 7, 2014, 10:25:30 PM
-    Author     : Giodee
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +6,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <header>
+            <div id="banner"> <a href="productmanagerHOME.html"><img src="images/books.jpg"></a> </div>
+        </header>
     </body>
 </html>
