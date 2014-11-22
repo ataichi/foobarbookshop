@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/src/java/Beans/CustomerBean.java</file>
-            <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/src/java/DAO/Implementation/CustomerDAOImplementation.java</file>
-            <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/web/signup.jsp</file>
-            <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/src/java/Servlet/SignupServlet.java</file>
-            <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/web/signup.html</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/js/editmanager.js</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/accountingmanagerAccount.jsp</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/js/editadmincheck.js</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/addproduct.jsp</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/js/addproductcheck.js</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/addproduct.html</file>
+            <file>file:/C:/Users/Danica/Documents/GitHub/foobarbookshop/WEW/web/adminAccount.jsp</file>
         </group>
     </open-files>
 </project-private>

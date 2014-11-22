@@ -51,7 +51,7 @@
         </div>
 
         <div id='editAccount'>
-            <form id="editmanager" name=editmanager"" onsubmit="return editmanagerCheck()" action='EditAccountingManagerAccountServlet' method="post">
+            <form id="editmanager" name="editmanager" onsubmit="return editmanagerCheck(this)" action='EditAccountingManagerAccountServlet' method="post">
                 <table>
                     <tr>
                         <td>First Name:</td>

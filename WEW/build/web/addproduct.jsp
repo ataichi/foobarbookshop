@@ -1,9 +1,3 @@
-<%-- 
-    Document   : addproduct
-    Created on : Nov 16, 2014, 5:42:24 AM
-    Author     : Giodee
---%>
-
 <%@page import="DAO.Implementation.ProductManagerDAOImplementation"%>
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
 <%@page import="Beans.ProductManagerBean"%>
@@ -26,6 +20,7 @@
         <script src="js-general.js" type="text/javascript"></script>
         <script src="js-edit.js" type="text/javascript"></script>
         <script src="js-productmanager.js" type="text/javascript"></script>
+        <script sec="js/productcheck.js" type="text/javascript"></script>
 
         <link rel="stylesheet" type="text/css" href="wadesign.css">
         <link rel="stylesheet" type="text/css" href="category.css">
@@ -65,51 +60,43 @@
         <div id="product">
             Add <%out.println(productManager.getProdType());%>:
             <br/><br/>
-            <form action="AddProductServlet">
+            <form name="productcheck" id="productcheck" action='AddProductServlet' onsubmit="return productcheck(this)"  method="post">
                 <table>
                     <tr>
                         <td>Title:*</td>
-                        <td><input type='text' id='productTitle' name='productTitle' onfocus='backWhite(this);'/>
+                        <td><input type='text' id='productTitle' name='productTitle' onblur="productTitleCheck()" onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
                         <td>Price:* </td>
                         <td>
-                            <input type='text' id='productPrice' name='productPrice' onfocus='backWhite(this);'/>
+                            <input type='text' id='productPrice' name='productPrice' onblur="productPriceCheck()" onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
-                        <td>Summary:
-                        </td>
+                        <td>Summary:</td>
                         <td>
-                            <input type='text' id='productSummary' name='productSummary' onfocus='backWhite(this);'/>
+                            <input type='text' id='productSummary' name='productSummary' onblur="productSummaryCheck()" onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
                     <tr>
+                        <td>Genre:</td>
                         <td>
-                            Genre:
-                        </td>
-                        <td>
-                            <input type='text' id='productGenre' name='productGenre' onfocus='backWhite(this);'/>
+                            <input type='text' id='productGenre' name='productGenre' onblur="productGenreCheck()" onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
                     <tr>
-                        <td>Year:
-                        </td>
+                        <td>Year:</td>
                         <td>
-                            <input type='text' id='productYear' name='productYear' onfocus='backWhite(this);'/>       
-
+                            <input type='text' id='productYear' name='productYear' onblur="productYearCheck()" onfocus='backWhite(this);'/>       
                         </td>
                     </tr>
                     <tr>
+                        <td>Stocks:</td>
                         <td>
-                            Stocks:
-                        </td>
-                        <td>
-                            <input type='text' id='productStocks' name='productStocks' onfocus='backWhite(this);'/>
-
+                            <input type='text' id='productStocks' name='productStocks' onblur="productStocksCheck()" onfocus='backWhite(this);'/>
                         </td>
                     </tr>
 
@@ -139,27 +126,21 @@
                             );
 
                         } else if (productManager.getProdType().equals("Magazine")) {
-                           out.println("<tr><td>Volume No:</td>"
-                                   + "<td><input type='text' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);'/></td></tr>"
-                                   + "<tr><td>Issue No:</td>"
-                                   + "<td><input type='text' id='magazineIssue' name='magazineIssue' onfocus='backWhite(this);'/></td></tr>"
-                                   + "<tr><td>Publisher</td>"
-                                   + "<td><input type='text' id='magazinePublisher' name='magazinePublisher' onfocus='backWhite(this);'/></td></tr>"
-                                   + "<tr><td>Date Published</td>"
-                                   + "<td><input type='date' id='magazineDate' name='magazineDate' onfocus='backWhite(this);'/></td></tr>");
+                            out.println("<tr><td>Volume No:</td>"
+                                    + "<td><input type='text' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);'/></td></tr>"
+                                    + "<tr><td>Issue No:</td>"
+                                    + "<td><input type='text' id='magazineIssue' name='magazineIssue' onfocus='backWhite(this);'/></td></tr>"
+                                    + "<tr><td>Publisher</td>"
+                                    + "<td><input type='text' id='magazinePublisher' name='magazinePublisher' onfocus='backWhite(this);'/></td></tr>"
+                                    + "<tr><td>Date Published</td>"
+                                    + "<td><input type='date' id='magazineDate' name='magazineDate' onfocus='backWhite(this);'/></td></tr>");
                         }
                     %>
-
-
                 </table>
-
                 <input type='submit' value='Submit'/>
             </form>
-
             <a href='productmanagerHOME.jsp'><button>Cancel</button></a>
-
         </form>
-
     </div>
 </body>
 </html>
