@@ -10,8 +10,10 @@ import java.util.ArrayList;
 
 public interface MagazineDAOInterface {
     
-    public MagazineBean getMagazineByProductId(int id);
-    public boolean deleteMagazine(int id);
-    public ArrayList<MagazineBean> getAllMagazine();
-    
+    public MagazineBean getMagazineByProductID(int id);
+    public MagazineBean getMagazineByID(int id);
+    public ArrayList<MagazineBean> getMagazineByPublisher(String publisher);
+    public ArrayList<MagazineBean> getMagazineByIssueNo(int issueNo);
+    public ArrayList<MagazineBean> getmagazineByVolumeNo(int volumeNo);
+      
 }

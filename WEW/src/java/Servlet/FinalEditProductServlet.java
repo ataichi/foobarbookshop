@@ -11,14 +11,22 @@ import Beans.BookBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
+import DAO.Implementation.AudioCDDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
+import DAO.Implementation.BookDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
+import DAO.Implementation.DVDDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
+import DAO.Implementation.MagazineDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
+import DAO.Interface.AudioCDDAOInterface;
 import DAO.Interface.AudioCDManagerDAOInterface;
+import DAO.Interface.BookDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
+import DAO.Interface.DVDDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
+import DAO.Interface.MagazineDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
@@ -84,8 +92,9 @@ public class FinalEditProductServlet extends HttpServlet {
             if (type.equals("Audio CD")) {
 
                 AudioCDBean audiocd = new AudioCDBean();
-                AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
-                audiocd = audiodao.getAudioCDByProductId(editproduct.getProductID());
+                AudioCDDAOInterface audiodao = new AudioCDDAOImplementation();
+                AudioCDManagerDAOInterface audiomanagerdao = new AudioCDManagerDAOImplementation();
+                audiocd = audiodao.getAudioCDByProductID(editproduct.getProductID());
 
                 String cdArtist = request.getParameter("cdArtist");
                 String cdRecord = request.getParameter("cdRecord");
@@ -94,7 +103,7 @@ public class FinalEditProductServlet extends HttpServlet {
                 audiocd.setRecordCompany(cdRecord);
 
                 boolean editProduct = productdao.editProduct(editproduct);
-                boolean editCD = audiodao.editAudioCD(audiocd);
+                boolean editCD = audiomanagerdao.editAudioCD(audiocd);
 
                 out.println(editProduct);
                 out.println(editCD);
@@ -109,8 +118,9 @@ public class FinalEditProductServlet extends HttpServlet {
             } else if (type.equals("Books")) {
                 BookBean book = new BookBean();
 
-                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-                book = bookdao.getBookByProductId(editproduct.getProductID());
+                BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
+                BookDAOInterface bookdao = new BookDAOImplementation();
+                book = bookdao.getBookByProductID(editproduct.getProductID());
 
                 String author, publisher, bookDatePublished;
                 java.util.Date date;
@@ -135,7 +145,7 @@ public class FinalEditProductServlet extends HttpServlet {
                 }
 
                 boolean editProduct = productdao.editProduct(editproduct);
-                boolean editBook = bookdao.editBook(book);
+                boolean editBook = bookmanagerdao.editBook(book);
 
                 out.println(editProduct);
                 out.println(editBook);
@@ -151,8 +161,9 @@ public class FinalEditProductServlet extends HttpServlet {
             } else if (type.equals("DVD")) {
 
                 DVDBean dvd = new DVDBean();
-                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-                dvd = dvddao.getDVDByProductId(editproduct.getProductID());
+                DVDManagerDAOInterface dvdmanagerdao = new DVDManagerDAOImplementation();
+                DVDDAOInterface dvddao = new DVDDAOImplementation();
+                dvd = dvddao.getDVDByProductID(editproduct.getProductID());
 
                 String director, actor, productCompany;
 
@@ -167,7 +178,7 @@ public class FinalEditProductServlet extends HttpServlet {
                 dvd.setProductionCompany(productCompany);
                 
                 boolean editProduct = productdao.editProduct(editproduct);
-                boolean editDVD = dvddao.editDVD(dvd);
+                boolean editDVD = dvdmanagerdao.editDVD(dvd);
 
                 out.println(editProduct);
                 out.println(editDVD);
@@ -183,8 +194,9 @@ public class FinalEditProductServlet extends HttpServlet {
             } else if (type.equals("Magazine")) {
 
                 MagazineBean magazine = new MagazineBean();
-                MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
-                magazine = magazinedao.getMagazineByProductId(editproduct.getProductID());
+                MagazineManagerDAOInterface magazinemanagerdao = new MagazineManagerDAOImplementation();
+                MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
+                magazine = magazinedao.getMagazineByProductID(editproduct.getProductID());
 
                 int volumeNo, issueNo;
                 String publisher, datePublished;
@@ -206,7 +218,7 @@ public class FinalEditProductServlet extends HttpServlet {
                 }
 
                 boolean editProduct = productdao.editProduct(editproduct);
-                boolean editMagazine = magazinedao.editMagazine(magazine);
+                boolean editMagazine = magazinemanagerdao.editMagazine(magazine);
 
                 out.println(editProduct);
                 out.println(editMagazine);
