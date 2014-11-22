@@ -77,26 +77,33 @@ public class SearchProductServlet extends HttpServlet {
                 ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
                 productmanager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
 
-                out.println("Product:");
-                out.println("title:");
-                productlist = productdao.getProductsByTitle(searchstring);
-                for (int i = 0; i < productlist.size(); i++) {
-                    out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
-                }
-
-                out.println("\nSummary:");
-                productlist = productdao.getProductsBySummary(searchstring);
-                for (int i = 0; i < productlist.size(); i++) {
-                    out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
-                }
-                out.println("Genre:");
-                productlist = productdao.getProductsByGenre(searchstring);
-
-                for (int i = 0; i < productlist.size(); i++) {
-                    out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
-                }
-
                 if (productmanager.getProdType().equals("Books")) { //book manager
+
+                    out.println("Product:");
+                    out.println("title:");
+                    productlist = productdao.getProductsByTitle(searchstring);
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Books")) {
+                            out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+                        }
+                    }
+
+                    out.println("\nSummary:");
+                    productlist = productdao.getProductsBySummary(searchstring);
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Books")) {
+                            out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+                        }
+                    }
+                    out.println("Genre:");
+                    productlist = productdao.getProductsByGenre(searchstring);
+
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Books")) {
+                            out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+                        }
+                    }
+
                     BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
                     BookDAOInterface bookdao = new BookDAOImplementation();
                     ArrayList<BookBean> booklist = new ArrayList<BookBean>();
@@ -126,6 +133,31 @@ public class SearchProductServlet extends HttpServlet {
                     AudioCDDAOInterface audiocddao = new AudioCDDAOImplementation();
                     ArrayList<AudioCDBean> audiolist = new ArrayList<AudioCDBean>();
 
+                    out.println("Product:");
+                    out.println("title:");
+                    productlist = productdao.getProductsByTitle(searchstring);
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Audio CD")) {
+                            out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+                        }
+                    }
+
+                    out.println("\nSummary:");
+                    productlist = productdao.getProductsBySummary(searchstring);
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Audio CD")) {
+                            out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+                        }
+                    }
+                    out.println("Genre:");
+                    productlist = productdao.getProductsByGenre(searchstring);
+
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Audio CD")) {
+                            out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+                        }
+                    }
+
                     out.println("\n\nAUDIO CD:");
 
                     audiolist = audiocddao.getAudioCDByArtist(searchstring);
@@ -151,6 +183,32 @@ public class SearchProductServlet extends HttpServlet {
                     DVDManagerDAOInterface dvdmanagerdao = new DVDManagerDAOImplementation();
                     DVDDAOInterface dvddao = new DVDDAOImplementation();
                     ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+
+                    out.println("Product:");
+                    out.println("title:");
+                    productlist = productdao.getProductsByTitle(searchstring);
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("DVD")) {
+                            out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+                        }
+                    }
+
+                    out.println("\nSummary:");
+                    productlist = productdao.getProductsBySummary(searchstring);
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("DVD")) {
+                            out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+                        }
+                    }
+                    out.println("Genre:");
+                    productlist = productdao.getProductsByGenre(searchstring);
+
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("DVD")) {
+                            out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+                        }
+                    }
+
                     out.println("\n\nDVD:");
 
                     dvdlist = dvddao.getDVDByActor(searchstring);
@@ -183,6 +241,32 @@ public class SearchProductServlet extends HttpServlet {
                     MagazineManagerDAOInterface magazinemanagerdao = new MagazineManagerDAOImplementation();
                     MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
                     ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+
+                    out.println("Product:");
+                    out.println("title:");
+                    productlist = productdao.getProductsByTitle(searchstring);
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Magazine")) {
+                            out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+                        }
+                    }
+
+                    out.println("\nSummary:");
+                    productlist = productdao.getProductsBySummary(searchstring);
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Magazine")) {
+                            out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+                        }
+                    }
+                    out.println("Genre:");
+                    productlist = productdao.getProductsByGenre(searchstring);
+
+                    for (int i = 0; i < productlist.size(); i++) {
+                        if (productlist.get(i).getType().equals("Magazine")) {
+                            out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+                        }
+                    }
+
                     out.println("\n\nMagazine");
 
                     out.println("\nIssue No:");
