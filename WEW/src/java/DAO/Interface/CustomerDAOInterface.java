@@ -19,6 +19,7 @@ public interface CustomerDAOInterface {
     public CustomerBean getCustomerByAccountID(int id);
     public ArrayList<CustomerBean> getAllCustomers();
     public boolean addToCart(ProductBean product);
+    public boolean editAddress(CustomerBean bean);
     public boolean removeFromCart(ProductBean product);
     public ArrayList<ProductBean> viewCart();
     public boolean purchase(int productID);

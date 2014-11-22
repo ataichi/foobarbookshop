@@ -5,6 +5,8 @@
  */
 package Servlet;
 
+import Beans.CustomerBean;
+import DAO.Implementation.CustomerDAOImplementation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,15 +37,59 @@ public class EditBillingInfoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditBillingInformation</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditBillingInformation at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            HttpSession session = request.getSession();
+            
+            CustomerDAOImplementation cdao = new CustomerDAOImplementation();
+            CustomerBean cbean = new CustomerBean();
+            CustomerBean oldbean = (CustomerBean) session.getAttribute("homeuser");
+            
+            String apartmentnoBA, streetBA, subBA, cityBA, countryBA;
+            int postalcodeBA;
+            String apartmentnoDA, streetDA, subDA, cityDA, countryDA;
+            int postalcodeDA;
+            
+            apartmentnoBA = request.getParameter("apartmentnoBA");
+            streetBA = request.getParameter("streetBA");
+            subBA = request.getParameter("subdivisionBA");
+            cityBA = request.getParameter("cityBA");
+            countryBA = request.getParameter("countryBA");
+            postalcodeBA = Integer.parseInt(request.getParameter("postalcodeBA"));
+            
+            apartmentnoDA = request.getParameter("apartmentnoDA");
+            streetDA = request.getParameter("streetDA");
+            subDA = request.getParameter("subdivisionDA");
+            cityDA = request.getParameter("cityDA");
+            countryDA = request.getParameter("countryDA");
+            postalcodeDA = Integer.parseInt(request.getParameter("postalcodeDA"));
+            
+            cbean.setCustomerID(oldbean.getCustomerID());
+            cbean.setCustomer_accountID(oldbean.getCustomer_accountID());
+            cbean.setCustomer_creditCardID(oldbean.getCustomer_creditCardID());
+        
+            cbean.setApartmentNoBA(apartmentnoBA);
+            cbean.setApartmentNoDA(apartmentnoDA);
+            cbean.setCityBA(cityBA);
+            cbean.setCityDA(cityDA);
+            cbean.setCountryBA(countryBA);
+            cbean.setCountryDA(countryDA);
+            cbean.setPostalCodeBA(postalcodeBA);
+            cbean.setPostalCodeDA(postalcodeDA);
+            cbean.setStreetBA(streetBA);
+            cbean.setStreetDA(streetDA);
+            cbean.setSubdivisionBA(subBA);
+            cbean.setSubdivisionDA(subDA);
+            
+            boolean check = cdao.editAddress(cbean);
+            
+            if(check) {
+                //response.sendRedirect("customerHOME.jsp");
+                out.println("yehey");
+            }
+            else {
+                response.sendRedirect("customerHOME.jsp");
+                out.println("bye");
+            }
         }
     }
 

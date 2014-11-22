@@ -281,4 +281,35 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         return null;
     }
 
+    @Override
+    public boolean editAddress(CustomerBean bean) {
+        try {
+            String query = "update customer set apartmentnoBA=?, streetBA=?, subdivisionBA=?, cityBA=?, postalcodeBA=?, countryBA=?,"
+                    + " apartmentnoDA=?, streetDA=?, subdivisionDA=?, cityDA=?, postalcodeDA=?, countryDA=? where customerID=?";         
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, bean.getApartmentNoBA());
+            ps.setString(2, bean.getStreetBA());
+            ps.setString(3, bean.getSubdivisionBA());
+            ps.setString(4, bean.getCityBA());
+            ps.setInt(5, bean.getPostalCodeBA());
+            ps.setString(6, bean.getCountryBA());
+            ps.setString(7, bean.getApartmentNoDA());
+            ps.setString(8, bean.getStreetDA());
+            ps.setString(9, bean.getSubdivisionDA());
+            ps.setString(10, bean.getCityDA());
+            ps.setInt(11, bean.getPostalCodeDA());
+            ps.setString(12, bean.getCountryDA());
+            ps.setInt(13, bean.getCustomerID());
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }
