@@ -70,7 +70,7 @@
                         <td>First Name:
                         </td>
                         <td>
-                            <input type='text' id='editfirst' name='editfirst' value='<% out.println(homeuser.getFirstName()); %>' onblur='fnameCheck();' onfocus='backWhite(this);'/>
+                            <input type='text' id='fname' name='fname' value='<% out.println(homeuser.getFirstName()); %>' onblur='fnameCheck();' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
@@ -78,7 +78,7 @@
                             Middle Name:
                         </td>
                         <td>
-                            <input type='text' id='editmiddle' name='editmiddle' value='<% out.println(homeuser.getMiddleInitial()); %>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
+                            <input type='text' id='mname' name='fname' value='<% out.println(homeuser.getMiddleInitial()); %>' onblur='fnameCheck();' onfocus='backWhite(this)'/>
                         </td>
                     </tr>
                     <tr>
@@ -86,7 +86,7 @@
                             Last Name:
                         </td>
                         <td>
-                            <input id='editlast' type='text' name="editlast" value='<% out.println(homeuser.getLastName()); %>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
+                            <input id='lname' type='text' name="fname" value='<% out.println(homeuser.getLastName()); %>' onblur='lnameCheck();' onfocus='backWhite(this);'/>
                         </td>
                     </tr>
                     <tr>
@@ -94,7 +94,7 @@
                             Username:
                         </td>
                         <td>
-                            <input id='edituser' type='text' name="edituser" value='<% out.println(homeuser.getUsername()); %>' onblur='unameCheck();' onfocus='backWhite(this);'/>
+                            <input id='uname' type='text' name="uname" value='<% out.println(homeuser.getUsername()); %>' onblur='unameCheck();' onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>
@@ -103,7 +103,7 @@
                             Email:
                         </td>
                         <td>
-                            <input id='editemail' type='email' name="editemail" value='<% out.println(homeuser.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
+                            <input id='email' type='email' name="email" value='<% out.println(homeuser.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);'/>
 
                         </td>
                     </tr>

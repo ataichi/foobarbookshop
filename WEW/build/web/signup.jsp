@@ -10,13 +10,14 @@
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+        
         <title>Sign up now!</title>
 
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="js-signupcheck.js" type="text/javascript"></script>
         <script src="js-general.js" type="text/javascript"></script>
         <script src="js/customercheck.js" type="text/javascript"></script>
-        
+
     </head>
     <body>
         <header>
