@@ -275,4 +275,24 @@ public class ProductManagerDAOImplementation implements ProductManagerDAOInterfa
 
     }
 
+    @Override
+    public boolean restockProduct(int newstocks, int id) {
+        String query = "UPDATE product SET stocks=? WHERE productID=?";
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, newstocks);
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
+
 }

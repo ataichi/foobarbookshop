@@ -71,8 +71,7 @@
         </div>
 
         <div id='creditcard'>
-            hi
-            
+            <a href='addCreditCard.jsp'>Add Credit Card</a>
         </div>
 
 

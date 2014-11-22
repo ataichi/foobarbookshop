@@ -7,6 +7,7 @@ package DAO.Interface;
 
 import Beans.AudioCDBean;
 import Beans.CustomerBean;
+import Beans.CustomerCreditCardBean;
 import Beans.ProductBean;
 import java.util.ArrayList;
 
@@ -25,4 +26,10 @@ public interface CustomerDAOInterface {
     public boolean purchase(int productID);
     public ProductBean viewProduct(int ProductID);
     public ProductBean searchProduct(int ProductID);
+    
+    public boolean addCustomerCreditCard(CustomerCreditCardBean customercreditcard);
+    public boolean removeCustomerCreditCard(int customercreditcardid);
+    public boolean removeCustomerCreditCardByAccountID(int accountID);
+    public boolean removeCustomerCreditCardByCreditCardID(int creditcardID);
+    public ArrayList<CustomerCreditCardBean> getCustomerCreditCardByAccountID(int accountID);
 }

@@ -24,5 +24,7 @@ public interface ProductManagerDAOInterface {
     public ProductBean getProductById(int id);
 
     public boolean removeProduct(int id);
+    
+    public boolean restockProduct(int newstocks, int id);
 
 }

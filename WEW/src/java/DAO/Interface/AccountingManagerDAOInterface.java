@@ -5,10 +5,6 @@
  */
 package DAO.Interface;
 
-/**
- *
- * @author jao
- */
 
 import Beans.AccountingManagerBean;
 import Beans.ProductManagerBean;

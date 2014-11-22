@@ -7,7 +7,7 @@ public class CreditCardBean {
     protected String cardname;
     protected String cardno;
     protected String cardtype;
-    protected Date cardexpdate;
+    protected String cardexpdate;
     protected int creditcardID;
 
     public int getCreditcardID() {
@@ -42,11 +42,11 @@ public class CreditCardBean {
         this.cardtype = cardtype;
     }
 
-    public Date getCardexpdate() {
+    public String getCardexpdate() {
         return cardexpdate;
     }
 
-    public void setCardexpdate(Date cardexpdate) {
+    public void setCardexpdate(String cardexpdate) {
         this.cardexpdate = cardexpdate;
     }
     

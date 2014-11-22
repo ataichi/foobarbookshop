@@ -5,11 +5,13 @@
  */
 package Servlet;
 
-import Beans.ProductBean;
-import DAO.Implementation.ProductDAOImplementation;
-import DAO.Implementation.ProductManagerDAOImplementation;
-import DAO.Interface.ProductDAOInterface;
-import DAO.Interface.ProductManagerDAOInterface;
+import Beans.AccountBean;
+import Beans.CreditCardBean;
+import Beans.CustomerCreditCardBean;
+import DAO.Implementation.CreditCardDAOImplementation;
+import DAO.Implementation.CustomerDAOImplementation;
+import DAO.Interface.CreditCardDAOInterface;
+import DAO.Interface.CustomerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "RestockProductServlet", urlPatterns = {"/RestockProductServlet"})
-public class RestockProductServlet extends HttpServlet {
+@WebServlet(name = "AddCreditCardServlet", urlPatterns = {"/AddCreditCardServlet"})
+public class AddCreditCardServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,19 +39,38 @@ public class RestockProductServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            ProductBean productbean = new ProductBean();
-            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+            CustomerDAOInterface customerdao = new CustomerDAOImplementation();
+            CreditCardBean creditcard = new CreditCardBean();
+            CustomerCreditCardBean customercreditcardbean = new CustomerCreditCardBean();
+            CreditCardDAOInterface creditcarddao = new CreditCardDAOImplementation();
+            String cardName, cardNo, cardType, cardExpDate;
             
-            int product = Integer.valueOf(request.getParameter("product"));
-            productbean = productdao.getProductById(product);
+            cardName = request.getParameter("cardName");
+            cardNo = request.getParameter("cardNo");
+            cardType = request.getParameter("cardType");
+            cardExpDate = request.getParameter("cardExpDate");
             
-            session.setAttribute("restockproduct", productbean);
-            response.sendRedirect("restockproduct.jsp");
+            creditcard.setCardname(cardName);
+            creditcard.setCardno(cardNo);
+            creditcard.setCardtype(cardType);
+            creditcard.setCardexpdate(cardExpDate);
             
+            boolean addCreditcard = creditcarddao.addCreditCard(creditcard);
             
-        }
-        catch(Exception e) {
+            if(addCreditcard){
+                
+                customercreditcardbean.setCustomercreditcard_accountID(homeuser.getAccountID());
+                int last = creditcarddao.getLastCreditCard().getCreditcardID();
+                
+                customercreditcardbean.setCustomercreditcard_creditcardID(last);
+                boolean addCustomercreditcard = customerdao.addCustomerCreditCard(customercreditcardbean);
+                if(addCustomercreditcard){
+                    out.println("YES");
+                }else{
+                    out.println("NO");
+                }
+            }
             
         }
     }
