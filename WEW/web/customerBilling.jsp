@@ -77,7 +77,7 @@
         </div>
 
         <div id="editBilling">
-            <form id="customercheck" name="customercheck" onsubmit="return billingCheck(this)" action="EditBillingInfoServlet" method="post">
+            <form id="customercheck" name="customercheck" action="EditBillingInfoServlet" method="post">
                 <table>
                     <tr>
                         <td>Billing Address:</td>

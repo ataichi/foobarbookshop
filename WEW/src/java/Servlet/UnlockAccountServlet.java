@@ -45,10 +45,12 @@ public class UnlockAccountServlet extends HttpServlet {
             int unlockcheck = 0;
             
             if(admindao.unlockAccount(accountID)) {
+                //out.println("yehey");
                 response.sendRedirect("unlock_account.jsp");
             }
             else {
-                out.println("failed unlock");
+                //out.println("bye");
+                response.sendRedirect("unlock_account.jsp");
             }
                     
         }
