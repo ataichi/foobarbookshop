@@ -29,6 +29,14 @@ $(document).ready(function () {
         "height": "500px",
         "width": "400px"
     });
-
+    
+    $('#unlockaccount').css({
+        "position": "absolute",
+        "background-color": "bisque",
+        "margin-top":"150px",
+        "margin-left": "151px",
+        "height": "500px",
+        "width": "400px"
+    });
 });//end of ready
 

@@ -14,6 +14,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
+        <script src="js-edit.js" type="text/javascript"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/wadesign.css">
+        <link rel="stylesheet" type="text/css" href="css/category.css">
+        <link rel="stylesheet" type="text/css" href="css/style4.css">
+        <link rel="stylesheet" type="text/css" href="js/editadmincheck.js">
+
+        <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+
         <title>Unlock Account</title>
     </head>
     <body>
@@ -43,30 +58,41 @@
             <br>
             <br>
             <a href="viewlogs.html">View Activity Log </a>
-            <br/><br/>
+            <br>
+            <br>
             <a href="unlock_account.jsp">Unlock Account</a>
         </div>
 
         <div id="unlockaccount">
 
-            <%
-                int i = 0;
-                for (i = 0; i < accountlist.size(); i++) {
-            %>
-            <form id="unlock <% accountlist.get(i).getAccountID(); %>" name="unlock<% accountlist.get(i).getAccountID(); %>" action="UnlockAccountServlet" method="post">
-                <input type="text" id="accountid" name="accountid" value="<% accountlist.get(i).getAccountID(); %>"/>
-                <input type="text" id="fname" name="fname" value="<% accountlist.get(i).getFirstName();%> "></input>
-                <input type="text" id="lname" name="lname" value="<% accountlist.get(i).getLastName();%> "></input>
-                <input type="text" id="type" name="type" value="<% accountlist.get(i).getAccountType();%> "></input>
-                <input type="submit" value="unlock" name="unlock<% accountlist.get(i).getAccountID(); %>"/>
-                <br>
-                <input type="">
-            </form>
-            <%
-                }
-            %>
+            <table>
+                <tr>
+                    <td>Account ID</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Account Type</td>
+                    <td>Unlock</td>
+                </tr> 
+                <%
+                    int i = 0;
+                    for (i = 0; i < accountlist.size(); i++) {
+                %>
+                <form id="unlock <% accountlist.get(i).getAccountID(); %>" name="unlock<% accountlist.get(i).getAccountID(); %>" action="UnlockAccountServlet" method="post">
 
+                    <tr>
+                    <input type="text" id="accountid" name="accountid" value="<% accountlist.get(i).getAccountID(); %>"/>
+                    <input type="text" id="fname" name="fname" value="<% accountlist.get(i).getFirstName();%> "></input>
+                    <input type="text" id="lname" name="lname" value="<% accountlist.get(i).getLastName();%> "></input>
+                    <input type="text" id="type" name="type" value="<% accountlist.get(i).getAccountType();%> "></input>
+                    <input type="submit" value="unlock" name="unlock<% accountlist.get(i).getAccountID(); %>"/>
+                    </tr>
 
+                </form>
+                <%
+                    }
+                %>
+
+            </table>
 
 
         </div>
