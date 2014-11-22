@@ -12,15 +12,23 @@ import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
 import Beans.ProductManagerBean;
+import DAO.Implementation.AudioCDDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
+import DAO.Implementation.BookDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
+import DAO.Implementation.DVDDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
+import DAO.Implementation.MagazineDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
+import DAO.Interface.AudioCDDAOInterface;
 import DAO.Interface.AudioCDManagerDAOInterface;
+import DAO.Interface.BookDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
+import DAO.Interface.DVDDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
+import DAO.Interface.MagazineDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
@@ -61,41 +69,149 @@ public class SearchProductServlet extends HttpServlet {
             String searchstring = request.getParameter("searchstring");
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ProductDAOInterface productdao = new ProductDAOImplementation();
-            
-       
+            ProductBean productbean = new ProductBean();
+
             if (homeproduct.getAccountID() != 0) { // product manager searches for a product
                 out.println("here");
                 ProductManagerBean productmanager = new ProductManagerBean();
                 ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
                 productmanager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
 
-                if (productmanager.getProdType().equals("Books")) { //book manager
-                    BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-                    ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-                    session.setAttribute("booklist", booklist);
+                out.println("Product:");
+                out.println("title:");
+                productlist = productdao.getProductsByTitle(searchstring);
+                for (int i = 0; i < productlist.size(); i++) {
+                    out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+                }
 
+                out.println("\nSummary:");
+                productlist = productdao.getProductsBySummary(searchstring);
+                for (int i = 0; i < productlist.size(); i++) {
+                    out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+                }
+                out.println("Genre:");
+                productlist = productdao.getProductsByGenre(searchstring);
+
+                for (int i = 0; i < productlist.size(); i++) {
+                    out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+                }
+
+                if (productmanager.getProdType().equals("Books")) { //book manager
+                    BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
+                    BookDAOInterface bookdao = new BookDAOImplementation();
+                    ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+
+                    out.println("\n\nBOOKS:");
+
+                    booklist = bookdao.getBookByAuthor(searchstring);
+                    out.println("\nAuthor:");
+                    for (int i = 0; i < booklist.size(); i++) {
+                        productbean = productdao.getProductById(booklist.get(i).getBook_productID());
+                        out.println(productbean.getTitle() + booklist.get(i).getAuthor());
+                    }
+
+                    booklist = bookdao.getBookByPublisher(searchstring);
+                    out.println("\nPublisher");
+                    for (int i = 0; i < booklist.size(); i++) {
+                        productbean = productdao.getProductById(booklist.get(i).getBook_productID());
+                        out.println(productbean.getTitle() + booklist.get(i).getPublisher());
+                    }
+
+                    //datePublished
+                    session.setAttribute("booklist", booklist);
                     session.setAttribute("productlist", productlist);
 
                 } else if (productmanager.getProdType().equals("Audio CD")) { // audio cd manager
                     AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
-                    ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
-                    session.setAttribute("audiocdlist", audiocdlist);
+                    AudioCDDAOInterface audiocddao = new AudioCDDAOImplementation();
+                    ArrayList<AudioCDBean> audiolist = new ArrayList<AudioCDBean>();
+
+                    out.println("\n\nAUDIO CD:");
+
+                    audiolist = audiocddao.getAudioCDByArtist(searchstring);
+                    out.println("\nArtist");
+                    for (int i = 0; i < audiolist.size(); i++) {
+                        productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
+                        out.println(productbean.getTitle() + audiolist.get(i).getArtist());
+                    }
+
+                    audiolist = audiocddao.getAudioCDByRecordCompany(searchstring);
+                    out.println("\nRecord Company:");
+                    for (int i = 0; i < audiolist.size(); i++) {
+                        productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
+                        out.println(productbean.getTitle() + audiolist.get(i).getRecordCompany());
+                    }
+
+                    session.setAttribute("audiocdlist", audiolist);
 
                     productlist = pdao.getProductsByType(productmanager.getProdType());
                     session.setAttribute("productlist", productlist);
 
                 } else if (productmanager.getProdType().equals("DVD")) { //dvd manager
-                    DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+                    DVDManagerDAOInterface dvdmanagerdao = new DVDManagerDAOImplementation();
+                    DVDDAOInterface dvddao = new DVDDAOImplementation();
                     ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+                    out.println("\n\nDVD:");
+
+                    dvdlist = dvddao.getDVDByActor(searchstring);
+                    out.println("\nActor");
+                    for (int i = 0; i < dvdlist.size(); i++) {
+                        productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                        out.println(productbean.getTitle() + dvdlist.get(i).getMainActors());
+                    }
+
+                    dvdlist = dvddao.getDVDByDirector(searchstring);
+                    out.println("\nDirector");
+                    for (int i = 0; i < dvdlist.size(); i++) {
+                        productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                        out.println(productbean.getTitle() + dvdlist.get(i).getDirector());
+                    }
+
+                    dvdlist = dvddao.getDVDByProducer(searchstring);
+                    out.println("\nProduction Company:");
+                    for (int i = 0; i < dvdlist.size(); i++) {
+                        productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                        out.println(productbean.getTitle() + dvdlist.get(i).getProductionCompany());
+                    }
+
                     session.setAttribute("dvdlist", dvdlist);
 
                     productlist = pdao.getProductsByType(productmanager.getProdType());
                     session.setAttribute("productlist", productlist);
 
                 } else if (productmanager.getProdType().equals("Magazine")) { //magazine manager
-                    MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+                    MagazineManagerDAOInterface magazinemanagerdao = new MagazineManagerDAOImplementation();
+                    MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
                     ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
-                
+                    out.println("\n\nMagazine");
+
+                    out.println("\nIssue No:");
+                    /*
+                     - convert stringsearch to integer
+                     magazinelist=magazinedao.getMagazineByIssueNo(stringsearch);
+                     for(int i=0;i<magazinelist.size();i++){
+                     productbean=productdao.getProductById(magazinelist.get(i).getMagazine_productID());
+                     out.println(productbean.getTitle()+magazinelist.get(i).getIssueNo());
+                     }
+                     */
+
+                    out.println("\nVolume No:");
+                    /*
+                     -convert stringsearch to integer
+                     magazinelist = magazinedao.getMagazineByIssueNo(stringsearch);
+                     for(int i=0;i<magazinelist.size();i++){
+                     productbean = productdao.getProductById(magazinelist.get(i).getMagazine_productID());
+                     out.println(productbean.getTitle()+magazinelist.get(i).getVolumeNo());
+                     }
+                     */
+
+                    out.println("\nPublisher");
+                    magazinelist = magazinedao.getMagazineByPublisher(searchstring);
+                    for (int i = 0; i < magazinelist.size(); i++) {
+                        productbean = productdao.getProductById(magazinelist.get(i).getMagazine_productID());
+                        out.println(productbean.getTitle() + magazinelist.get(i).getPublisher());
+                    }
+
                     productlist = pdao.getProductsByType(productmanager.getProdType());
                     session.setAttribute("productlist", productlist);
 

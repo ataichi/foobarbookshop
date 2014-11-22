@@ -21,6 +21,14 @@
         <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 
         <title>Edit Payment Information</title>
+
+        <style>
+            #creditcard{
+                border:1px solid black;
+                margin-left:250px;
+                margin-top:250px;
+            };
+        </style>
     </head>
     <body>
 
@@ -61,9 +69,12 @@
             <a href='customerTransactions.jsp'>View Transactions</a>
             <br/>
         </div>
-        
-        
-        
-         
-   </body>
+
+        <div id='creditcard'>
+            hi
+            
+        </div>
+
+
+    </body>
 </html>
