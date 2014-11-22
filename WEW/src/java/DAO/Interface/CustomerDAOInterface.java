@@ -6,6 +6,7 @@
 
 package DAO.Interface;
 
+import Beans.AudioCDBean;
 import Beans.CustomerBean;
 import Beans.ProductBean;
 import java.util.ArrayList;
@@ -22,6 +23,11 @@ public interface CustomerDAOInterface {
        public boolean purchase(int productID);
        public ProductBean viewProduct (int ProductID);
        public ProductBean searchProduct (int ProductID);
+       
+       public AudioCDBean getAudioCDByID(int id);
+       public AudioCDBean getAudioCDByProductID(int productID);
+       public ArrayList<AudioCDBean> getAudioCDByArtist(String artist);
+       public ArrayList<AudioCDBean> getAudioCDByRecordCompany(String recordCompany);
        
        
        

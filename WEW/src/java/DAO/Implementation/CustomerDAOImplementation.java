@@ -1,5 +1,6 @@
 package DAO.Implementation;
 
+import Beans.AudioCDBean;
 import Beans.CustomerBean;
 import Beans.ProductBean;
 import DAO.Interface.CustomerDAOInterface;
@@ -59,13 +60,12 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             ResultSet rs = ps.executeQuery();
 
             CustomerBean bean = new CustomerBean();
-          int customerID1, customer_accountID;
+            int customerID1, customer_accountID;
             String streetBA, subdivisionBA, cityBA, countryBA;
             int apartmentnoBA, postalcodeBA;
-            
+
             String streetDA, subdivisionDA, cityDA, countryDA;
             int apartmentnoDA, postalcodeDA;
-            
 
             while (rs.next()) {
                 streetBA = rs.getString("streetBA");
@@ -74,14 +74,14 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
                 countryBA = rs.getString("countryBA");
                 apartmentnoBA = rs.getInt("apartmentnoBA");
                 postalcodeBA = rs.getInt("postalcodeBA");
-                
+
                 streetDA = rs.getString("streetDA");
                 subdivisionDA = rs.getString("subdivsionDA");
                 cityDA = rs.getString("cityDA");
                 countryDA = rs.getString("countryDA");
                 apartmentnoDA = rs.getInt("apartmentnoDA");
                 postalcodeDA = rs.getInt("postalcodeDA");
-                
+
                 customer_accountID = rs.getInt("customerID");
                 customerID1 = rs.getInt("customerID");
 
@@ -93,13 +93,13 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
                 bean.setPostalCodeBA(postalcodeBA);
                 bean.setStreetBA(streetBA);
                 bean.setSubdivisionBA(subdivisionBA);
-                
+
                 bean.setCityDA(cityDA);
                 bean.setCountryDA(countryDA);
                 bean.setPostalCodeDA(postalcodeDA);
                 bean.setStreetDA(streetDA);
                 bean.setSubdivisionDA(subdivisionDA);
-                
+
                 bean.setCustomer_accountID(customer_accountID);
                 bean.setCustomerID(customerID1);
 
@@ -126,14 +126,13 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
             CustomerBean bean = new CustomerBean();
             ArrayList<CustomerBean> clist = new ArrayList<CustomerBean>();
-            
+
             int customerID, customer_accountID;
             String streetBA, subdivisionBA, cityBA, countryBA;
             int apartmentnoBA, postalcodeBA;
-            
+
             String streetDA, subdivisionDA, cityDA, countryDA;
             int apartmentnoDA, postalcodeDA;
-            
 
             while (rs.next()) {
                 streetBA = rs.getString("streetBA");
@@ -142,14 +141,14 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
                 countryBA = rs.getString("countryBA");
                 apartmentnoBA = rs.getInt("apartmentnoBA");
                 postalcodeBA = rs.getInt("postalcodeBA");
-                
+
                 streetDA = rs.getString("streetDA");
                 subdivisionDA = rs.getString("subdivsionDA");
                 cityDA = rs.getString("cityDA");
                 countryDA = rs.getString("countryDA");
                 apartmentnoDA = rs.getInt("apartmentnoDA");
                 postalcodeDA = rs.getInt("postalcodeDA");
-                
+
                 customer_accountID = rs.getInt("customerID");
                 customerID = rs.getInt("customerID");
 
@@ -161,13 +160,13 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
                 bean.setPostalCodeBA(postalcodeBA);
                 bean.setStreetBA(streetBA);
                 bean.setSubdivisionBA(subdivisionBA);
-                
+
                 bean.setCityDA(cityDA);
                 bean.setCountryDA(countryDA);
                 bean.setPostalCodeDA(postalcodeDA);
                 bean.setStreetDA(streetDA);
                 bean.setSubdivisionDA(subdivisionDA);
-                
+
                 bean.setCustomer_accountID(customer_accountID);
                 bean.setCustomerID(customerID);
 
@@ -212,6 +211,164 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
     @Override
     public ProductBean searchProduct(int ProductID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AudioCDBean getAudioCDByID(int id) {
+        try {
+            String query = "select * from audiocd where audiocdID = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            AudioCDBean bean = new AudioCDBean();
+            int audiocdID, audiocd_productID;
+            String artist, recordCompany;
+            while (rs.next()) {
+
+                audiocdID = rs.getInt("audiocdID");
+                artist = rs.getString("artist");
+                recordCompany = rs.getString("recordCompany");
+                audiocd_productID = rs.getInt("audio_productID");
+
+                bean.setArtist(artist);
+                bean.setAudiocdID(audiocdID);
+                bean.setAudiocd_productID(audiocd_productID);
+                bean.setRecordCompany(recordCompany);
+
+            }
+
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    @Override
+    public AudioCDBean getAudioCDByProductID(int productID) {
+        try {
+            String query = "select * from audiocd where audiocd_productID = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, productID);
+
+            ResultSet rs = ps.executeQuery();
+            int audiocdID, audiocd_productID;
+            String artist, recordCompany;
+            AudioCDBean bean = new AudioCDBean();
+            while (rs.next()) {
+                audiocdID = rs.getInt("audiocdID");
+                artist = rs.getString("artist");
+                recordCompany = rs.getString("recordCompany");
+                audiocd_productID = rs.getInt("audiocd_productID");
+
+                bean.setArtist(artist);
+                bean.setAudiocdID(audiocdID);
+                bean.setAudiocd_productID(audiocd_productID);
+                bean.setRecordCompany(recordCompany);
+
+            }
+
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+
+    }
+
+    @Override
+    public ArrayList<AudioCDBean> getAudioCDByArtist(String artist) {
+        try {
+            String query = "select * from audiocd where artist = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, "%" + artist + "%");
+
+            ResultSet rs = ps.executeQuery();
+            AudioCDBean bean = new AudioCDBean();
+            ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
+            int audiocdID, audiocd_productID;
+            String artist1, recordCompany;
+
+            while (rs.next()) {
+
+                bean = new AudioCDBean();
+
+                audiocdID = rs.getInt("audiocdID");
+                artist1 = rs.getString("artist");
+                recordCompany = rs.getString("recordCompany");
+                audiocd_productID = rs.getInt("audio_productID");
+
+                bean.setArtist(artist1);
+                bean.setAudiocdID(audiocdID);
+                bean.setAudiocd_productID(audiocd_productID);
+                bean.setRecordCompany(recordCompany);
+
+                audiocdlist.add(bean);
+            }
+
+            connection.close();
+            return audiocdlist;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    @Override
+    public ArrayList<AudioCDBean> getAudioCDByRecordCompany(String recordCompany) {
+        try {
+            String query = "select * from audiocd where artist = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, "%" + recordCompany + "%");
+
+            ResultSet rs = ps.executeQuery();
+            AudioCDBean bean = new AudioCDBean();
+            ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
+            int audiocdID, audiocd_productID;
+            String artist, recordCompany1;
+
+            while (rs.next()) {
+
+                bean = new AudioCDBean();
+
+                audiocdID = rs.getInt("audiocdID");
+                artist = rs.getString("artist");
+                recordCompany1 = rs.getString("recordCompany");
+                audiocd_productID = rs.getInt("audio_productID");
+
+                bean.setArtist(artist);
+                bean.setAudiocdID(audiocdID);
+                bean.setAudiocd_productID(audiocd_productID);
+                bean.setRecordCompany(recordCompany1);
+
+                audiocdlist.add(bean);
+            }
+
+            connection.close();
+            return audiocdlist;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 
 }
