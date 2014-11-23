@@ -48,7 +48,10 @@
         </nav>
         
         <div id='actions'>
-            <input class="search" placeholder="Search" />
+            <form id='formsearch' action='CustomerSearchProductServlet' method='post'>
+            <input type='text' name='searchstring' class="search" placeholder="Search"/>
+            <input type='submit' value='submit'/>
+            </form>
             <br>
             <br>
             <ul>
