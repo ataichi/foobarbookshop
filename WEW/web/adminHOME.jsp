@@ -15,9 +15,9 @@
         <title>Admin Home</title>
     </head>
     <body>
-        <%--<%
-    AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
-%>--%>
+        <%
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
+        %>
 
         <header>
             <div id="banner"> <a href="adminHOME.jsp"><img src="books.jpg"/></a> </div>
@@ -31,7 +31,7 @@
                         <li><a href="adminAccount.jsp">Edit Account</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Log Out</a>
+                <li><a href="logout.jsp">Log Out</a>
             </ul>
         </nav>
         <div id="actions">           
