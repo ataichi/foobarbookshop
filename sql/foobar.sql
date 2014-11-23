@@ -375,6 +375,7 @@ CREATE TABLE `productorder` (
   `productorder_productID` int(11) NOT NULL,
   `price` double NOT NULL,
   `quantity` int(11) NOT NULL,
+  `reviews` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`productorderID`),
   KEY `productorder_shoppingcartID_idx` (`productorder_shoppingcartID`),
   KEY `productorder_productID_idx` (`productorder_productID`),
@@ -432,4 +433,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-23 14:49:20
+-- Dump completed on 2014-11-23 15:00:27
