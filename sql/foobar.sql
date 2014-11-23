@@ -406,7 +406,6 @@ CREATE TABLE `shoppingcart` (
   `shoppingcart_creditcardID` int(11) NOT NULL,
   `total` double NOT NULL,
   `orderDate` date NOT NULL,
-  `review` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`shoppingcartID`),
   KEY `shoppingcart_customerID_idx` (`shoppingcart_customerID`),
   KEY `shoppingcart_creditcardID_idx` (`shoppingcart_creditcardID`),
@@ -433,4 +432,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-23 15:00:27
+-- Dump completed on 2014-11-23 15:04:19
