@@ -21,7 +21,7 @@
     </head>
     <body>
         <header>
-            <div id="banner"> <a href="login.jsp"><img src="books.jpg"/></a> </div>
+            <div id="banner"> <a href="login.jsp"><img src="images/books.jpg"/></a> </div>
         </header>
 
         <nav>
