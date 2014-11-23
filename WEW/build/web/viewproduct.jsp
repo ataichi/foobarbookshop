@@ -109,6 +109,9 @@
                     out.println("<td><input type='text' name='productArtist' value='" + audiocdbean.getArtist() + "' readonly/></td></tr>"
                             + "<tr><td>Record Company</td>"
                             + "<td><input type='text' name='productRecordCompany' value='" + audiocdbean.getArtist() + "'readonly/></td></tr>"
+                            + "<td><form action='AddToShoppingCartServlet' method='post'>"
+                            + "<input type='submit' value='Add to Cart'"
+                            + "<td><input type='hidden' name='productid' value='" + audiocdbean.getAudiocd_productID() + "'/></td></form>"
                             + "</table>");
 
                 } else if (productBean.getType().matches("Books")) {
@@ -118,7 +121,11 @@
                             + "<tr><td>Publisher</td>"
                             + "<td><input type='text' name='productPublisher' value='" + bookbean.getPublisher() + "' readonly /></td></tr>"
                             + "<tr><td>Date Published</td>"
-                            + "<td><input type='text' name='productDate' value'" + bookbean.getDatePublished() + "' readonly/></td></tr>");
+                            + "<td><input type='text' name='productDate' value'" + bookbean.getDatePublished() + "' readonly/></td></tr>"
+                            + "<td><form action='AddToShoppingCartServlet' method='post'>"
+                            + "<input type='submit' value='Add to Cart'"
+                            + "<td><input type='hidden' name='productid' value='" + bookbean.getBook_productID() + "'/></td></form>"
+                    );
 
                 } else if (productBean.getType().matches("DVD")) {
                     dvdbean = (DVDBean) session.getAttribute("viewdvd");
@@ -127,21 +134,30 @@
                             + "<tr><td>Actor</td>"
                             + "<input type='text' name='productActor' value='" + dvdbean.getMainActors() + "' readonly/></td></tr>"
                             + "<tr><td>Production Company</td>"
-                            + "<td><input type='text' name-'productCompany' value='" + dvdbean.getProductionCompany() + "' readonly/></td></tr>");
+                            + "<td><input type='text' name-'productCompany' value='" + dvdbean.getProductionCompany() + "' readonly/></td></tr>"
+                            + "<td><form action='AddToShoppingCartServlet' method='post'>"
+                            + "<input type='submit' value='Add to Cart'"
+                            + "<td><input type='hidden' name='productid' value='" + dvdbean.getDvd_productID() + "'/></td></form>"
+                    );
                 } else if (productBean.getType().matches("Magazine")) {
                     magbean = (MagazineBean) session.getAttribute("viewmagazine");
                     //out.println("magazine"); 
                     out.println("<tr><td>Volume No</td>"
-                            + "<td><input type='text' name='productVolume' value='"+magbean.getVolumeNo()+"' readonly/></td></tr>"
+                            + "<td><input type='text' name='productVolume' value='" + magbean.getVolumeNo() + "' readonly/></td></tr>"
                             + "<tr><td>Issue No</td>"
-                            + "<td><input type='text' name='productIssue' value='"+magbean.getIssueNo()+"' readonly/></td></tr>"
+                            + "<td><input type='text' name='productIssue' value='" + magbean.getIssueNo() + "' readonly/></td></tr>"
                             + "<tr><td>Publisher</td>"
-                            + "<td><input type='text' name='productPublisher' value='"+magbean.getPublisher()+"'readonly/></td></tr>"
+                            + "<td><input type='text' name='productPublisher' value='" + magbean.getPublisher() + "'readonly/></td></tr>"
                             + "<tr><td>Date Published</td>"
-                            + "<td><input type='text' name='productDate' value='"+magbean.getDatePublished()+"' readonly/> </td></tr>");
+                            + "<td><input type='text' name='productDate' value='" + magbean.getDatePublished() + "' readonly/> </td></tr>"
+                             + "<td><form action='AddToShoppingCartServlet' method='post'>"
+                            + "<input type='submit' value='Add to Cart'"
+                            + "<td><input type='hidden' name='productid' value='"+magbean.getMagazine_productID()+"'/></td></form>"
+                   
+                    );
                 }
                 out.println("</table>");
             %>         
-</div>
-</body>
+        </div>
+    </body>
 </html>

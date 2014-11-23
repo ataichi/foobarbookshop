@@ -79,8 +79,23 @@ public class CustomerSearchProductServlet extends HttpServlet {
             out.println("Product:");
             out.println("title:");
             productlist = productdao.getProductsByTitle(searchstring);
+            int productID;
             for (int i = 0; i < productlist.size(); i++) {
                 out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+                productID = productlist.get(i).getProductID();
+                if (productlist.get(i).getType().equals("Audio CD")) {
+                    audio = audiocddao.getAudioCDByProductID(productID);
+                    searchaudiocdlist.add(audio);
+                } else if (productlist.get(i).getType().equals("Book")) {
+                    book = bookdao.getBookByProductID(productID);
+                    searchbooklist.add(book);
+                } else if (productlist.get(i).getType().equals("DVD")) {
+                    dvd = dvddao.getDVDByProductID(productID);
+                    searchdvdlist.add(dvd);
+                } else if (productlist.get(i).getType().equals("Magazine")) {
+                    magazine = magazinedao.getMagazineByProductID(productID);
+                    searchmagazinelist.add(magazine);
+                }
                 searchproductlist.add(productlist.get(i));
             }
 
@@ -88,6 +103,20 @@ public class CustomerSearchProductServlet extends HttpServlet {
             productlist = productdao.getProductsBySummary(searchstring);
             for (int i = 0; i < productlist.size(); i++) {
                 out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+                productID = productlist.get(i).getProductID();
+                if (productlist.get(i).getType().equals("Audio CD")) {
+                    audio = audiocddao.getAudioCDByProductID(productID);
+                    searchaudiocdlist.add(audio);
+                } else if (productlist.get(i).getType().equals("Book")) {
+                    book = bookdao.getBookByProductID(productID);
+                    searchbooklist.add(book);
+                } else if (productlist.get(i).getType().equals("DVD")) {
+                    dvd = dvddao.getDVDByProductID(productID);
+                    searchdvdlist.add(dvd);
+                } else if (productlist.get(i).getType().equals("Magazine")) {
+                    magazine = magazinedao.getMagazineByProductID(productID);
+                    searchmagazinelist.add(magazine);
+                }
                 searchproductlist.add(productlist.get(i));
             }
             out.println("Genre:");
@@ -95,6 +124,20 @@ public class CustomerSearchProductServlet extends HttpServlet {
 
             for (int i = 0; i < productlist.size(); i++) {
                 out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+                productID = productlist.get(i).getProductID();
+                if (productlist.get(i).getType().equals("Audio CD")) {
+                    audio = audiocddao.getAudioCDByProductID(productID);
+                    searchaudiocdlist.add(audio);
+                } else if (productlist.get(i).getType().equals("Book")) {
+                    book = bookdao.getBookByProductID(productID);
+                    searchbooklist.add(book);
+                } else if (productlist.get(i).getType().equals("DVD")) {
+                    dvd = dvddao.getDVDByProductID(productID);
+                    searchdvdlist.add(dvd);
+                } else if (productlist.get(i).getType().equals("Magazine")) {
+                    magazine = magazinedao.getMagazineByProductID(productID);
+                    searchmagazinelist.add(magazine);
+                }
                 searchproductlist.add(productlist.get(i));
             }
 
@@ -105,6 +148,20 @@ public class CustomerSearchProductServlet extends HttpServlet {
             for (int i = 0; i < audiolist.size(); i++) {
                 productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
                 out.println(productbean.getTitle() + audiolist.get(i).getArtist());
+                productID = productlist.get(i).getProductID();
+                if (productlist.get(i).getType().equals("Audio CD")) {
+                    audio = audiocddao.getAudioCDByProductID(productID);
+                    searchaudiocdlist.add(audio);
+                } else if (productlist.get(i).getType().equals("Book")) {
+                    book = bookdao.getBookByProductID(productID);
+                    searchbooklist.add(book);
+                } else if (productlist.get(i).getType().equals("DVD")) {
+                    dvd = dvddao.getDVDByProductID(productID);
+                    searchdvdlist.add(dvd);
+                } else if (productlist.get(i).getType().equals("Magazine")) {
+                    magazine = magazinedao.getMagazineByProductID(productID);
+                    searchmagazinelist.add(magazine);
+                }
                 searchaudiocdlist.add(audiolist.get(i));
             }
 
@@ -113,6 +170,20 @@ public class CustomerSearchProductServlet extends HttpServlet {
             for (int i = 0; i < audiolist.size(); i++) {
                 productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
                 out.println(productbean.getTitle() + audiolist.get(i).getRecordCompany());
+                productID = productlist.get(i).getProductID();
+                if (productlist.get(i).getType().equals("Audio CD")) {
+                    audio = audiocddao.getAudioCDByProductID(productID);
+                    searchaudiocdlist.add(audio);
+                } else if (productlist.get(i).getType().equals("Book")) {
+                    book = bookdao.getBookByProductID(productID);
+                    searchbooklist.add(book);
+                } else if (productlist.get(i).getType().equals("DVD")) {
+                    dvd = dvddao.getDVDByProductID(productID);
+                    searchdvdlist.add(dvd);
+                } else if (productlist.get(i).getType().equals("Magazine")) {
+                    magazine = magazinedao.getMagazineByProductID(productID);
+                    searchmagazinelist.add(magazine);
+                }
                 searchaudiocdlist.add(audiolist.get(i));
             }
 
@@ -190,14 +261,13 @@ public class CustomerSearchProductServlet extends HttpServlet {
                 out.println(productbean.getTitle() + magazinelist.get(i).getPublisher());
                 searchmagazinelist.add(magazinelist.get(i));
             }
-            
-            
+
             session.setAttribute("searchproductlist", searchproductlist);
             session.setAttribute("searchaudiocdlist", searchaudiocdlist);
             session.setAttribute("searchbooklist", searchbooklist);
             session.setAttribute("searchdvdlist", searchdvdlist);
             session.setAttribute("searchmagazinelist", searchmagazinelist);
-            
+
             response.sendRedirect("customerSearchProduct.jsp");
 
         }
