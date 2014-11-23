@@ -5,13 +5,20 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
+import Beans.ProductBean;
+import Beans.ProductOrderBean;
+import DAO.Implementation.ProductDAOImplementation;
+import DAO.Interface.ProductDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,12 +44,36 @@ public class AddToShoppingCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToShoppingCartServlet</title>");            
+            out.println("<title>Servlet AddToShoppingCartServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AddToShoppingCartServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+
+            HttpSession session = request.getSession();
+            ArrayList<ProductOrderBean> order = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+            ProductOrderBean temporder = new ProductOrderBean();
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+            ProductBean productbean = new ProductBean();
+            ProductDAOInterface productdao = new ProductDAOImplementation();
+
+            int product = Integer.valueOf(request.getParameter("product"));
+            productbean = productdao.getProductById(product);
+
+            int quantity = Integer.valueOf(request.getParameter("quantity"));
+            out.println(product + "\n");
+            out.println(quantity);
+
+            temporder.setProductorder_productID(product);
+            temporder.setQuantity(quantity);
+            temporder.setPrice(productbean.getPrice() * quantity);
+
+            order.add(temporder);
+
+            out.println(order.size());
+            session.setAttribute("temporder", order);
+            response.sendRedirect("customerHOME.jsp");
         }
     }
 

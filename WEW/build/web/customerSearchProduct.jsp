@@ -42,9 +42,15 @@
                             + "<form action='ViewProductServlet' method='post'>"
                             + "<input type='hidden' name='product' value='"+searchproductlist.get(i).getProductID()+"'/>"
                             + "<input type='submit' value='View' name='viewProduct'/></form>"
+                            + "<form action='AddToShoppingCartServlet' method='post'>"
+                            + "<input type='hidden' name='product' value='"+searchproductlist.get(i).getProductID()+"'/>"
+                            + "<input type='number' name='quantity'/>"
+                            + "<input type='submit' value='Add to Cart'/></form>"
                             +"<br/><br/>"
                     );
                 }
+                out.println("<form action='ShoppingServlet' method='post'>"
+                        + "<input type='submit' value='Buy'/></form>");
             }
 
 

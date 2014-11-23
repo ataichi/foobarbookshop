@@ -59,6 +59,12 @@
             <a href='customerPayments.jsp'>Manage Payment Information</a>
             <a href='customerTransactions.jsp'>View Transactions</a>
             <ul/>
+            
+            <form action="ShoppingServlet" method="post">
+                <input type="submit" value="Buy"/>
+            </form>
         </div>
+                        
+                        
     </body>
 </html>

@@ -7,6 +7,7 @@ import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
 import Beans.ProductManagerBean;
+import Beans.ProductOrderBean;
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
@@ -39,6 +40,7 @@ public class LoginServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             AccountBean account = new AccountBean();
+            
             String username = request.getParameter("loguser");
             String password = request.getParameter("logpass");
 
@@ -46,7 +48,9 @@ public class LoginServlet extends HttpServlet {
             account = accountdao.getUserByUsername(username);
 
             if (accountdao.doesUserExist(username, password) && "customer".equals(account.getAccountType())) {
+               ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
                 session.setAttribute("homeuser", account);
+                session.setAttribute("temporder", temporder);
                 response.sendRedirect("customerHOME.jsp");
             } else if (accountdao.doesUserExist(username, password) && "admin".equals(account.getAccountType())) {
                 session.setAttribute("homeadmin", account);

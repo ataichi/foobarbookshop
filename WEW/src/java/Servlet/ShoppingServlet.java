@@ -5,9 +5,11 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
 import Beans.ProductOrderBean;
 import Beans.ShoppingCartBean;
 import DAO.Implementation.CustomerDAOImplementation;
+import DAO.Interface.CustomerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,10 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Danica
- */
 @WebServlet(name = "ShoppingServlet", urlPatterns = {"/ShoppingServlet"})
 public class ShoppingServlet extends HttpServlet {
 
@@ -41,10 +39,11 @@ public class ShoppingServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
 
-            ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("orderlist");
+            ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
             ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            CustomerDAOImplementation cdao = new CustomerDAOImplementation();
+            CustomerDAOInterface cdao = new CustomerDAOImplementation();
 
             boolean shopcartcheck = false;
             int i = 0, shoppingcartID;
@@ -52,9 +51,11 @@ public class ShoppingServlet extends HttpServlet {
 
             shopcartcheck = cdao.purchase(cartbean);
             if (shopcartcheck) {
+                cartbean.setShoppingcart_customerID(homeuser.getAccountID());
                 for (i = 0; i < orderlist.size(); i++) {
                     cdao.addProductsToCart(orderlist.get(i), shoppingcartID);
                 }
+                out.println("yehey");
                 //response.sendRedirect("");
             } else {
                 //response.sendRedirect("");
