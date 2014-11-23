@@ -89,185 +89,60 @@
         </div>
 
         <div id="viewProducts">
-            <% if (productBean.getType().matches("Audio CD")) {
+            <%
+                out.println("<table><tr>"
+                        + "<td>Tite</td>"
+                        + "<td><input type='text' name='productTitle=' value='" + productBean.getTitle() + "' readonly/></td></tr>"
+                        + "<tr><td>Summary</td>"
+                        + "<td><input type='text' name='productSummary' value ='" + productBean.getSummary() + "' readonly/></td></tr>"
+                        + "<tr><td>Genre</td>"
+                        + "<td><input type='text' name='productGenre' value ='" + productBean.getGenre() + "' readonly/></td></tr>"
+                        + "<tr><td>Year</td>"
+                        + "<td><input type='text' name='productYear' value='" + productBean.getYear() + "' readonly/></td></tr>"
+                        + "<td>Stocks</td>"
+                        + "<td><input type='text' name='productStocks' value='" + productBean.getNumberStocks() + "' readonly/></td></tr>"
+                        + "<tr><td>Artist</td>");
+
+                if (productBean.getType().matches("Audio CD")) {
                     audiocdbean = (AudioCDBean) session.getAttribute("viewaudiocd");
                     //out.println("audiocd");
-            %>
-            <table>
-                <tr>
-                    <td>Title</td>
-                    <td><input type="text" id="productTitle" name="productTitle" value="<% out.println(productBean.getTitle()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td><input type="text" id="productPrice" name="productPrice" value="<% out.println(productBean.getPrice()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Summary</td>
-                    <td><input type="text" id="productSummary" name="productSummary" value="<% out.println(productBean.getSummary()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Genre</td>
-                    <td><input type="text" id="productGenre" name="productGenre" value="<% out.println(productBean.getGenre()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Year</td>
-                    <td><input type="text" id="productYear" name="productYear" value="<% out.println(productBean.getYear()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Stocks</td>
-                    <td><input type="text" id="productStocks" name="productStocks" value="<% out.println(productBean.getNumberStocks()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Artist</td>
-                    <td><input type="text" id="productArtist" name="productArtist" value="<% out.println(audiocdbean.getArtist()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Record Company</td>
-                    <td><input type="text" id="productRecordCompany" name="productRecordCompany" value="<% out.println(audiocdbean.getRecordCompany()); %>" readonly/></td>
-                </tr>
-            </table>
+                    out.println("<td><input type='text' name='productArtist' value='" + audiocdbean.getArtist() + "' readonly/></td></tr>"
+                            + "<tr><td>Record Company</td>"
+                            + "<td><input type='text' name='productRecordCompany' value='" + audiocdbean.getArtist() + "'readonly/></td></tr>"
+                            + "</table>");
 
-
-            <%
                 } else if (productBean.getType().matches("Books")) {
                     bookbean = (BookBean) session.getAttribute("viewbook");
-                    //out.println("book");
-            %>
-            <table>
-                <tr>
-                    <td>Title</td>
-                    <td><input type="text" id="productTitle" name="productTitle" value="<% out.println(productBean.getTitle()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td><input type="text" id="productPrice" name="productPrice" value="<% out.println(productBean.getPrice()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Summary</td>
-                    <td><input type="text" id="productSummary" name="productSummary" value="<% out.println(productBean.getSummary()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Genre</td>
-                    <td><input type="text" id="productGenre" name="productGenre" value="<% out.println(productBean.getGenre()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Year</td>
-                    <td><input type="text" id="productYear" name="productYear" value="<% out.println(productBean.getYear()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Stocks</td>
-                    <td><input type="text" id="productStocks" name="productStocks" value="<% out.println(productBean.getNumberStocks()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Author</td>
-                    <td><input type="text" id="productAuthor" name="productAuthor" value="<% out.println(bookbean.getAuthor()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Publisher</td>
-                    <td><input type="text" id="productPublisher" name="productPublisher" value="<% out.println(bookbean.getPublisher()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Date Published</td>
-                    <td><input type="text" id="productDate" name="productDate" value="<% out.println(bookbean.getDatePublished()); %>" readonly/></td>
-                </tr>
-            </table>
-            <%
+                    out.println("<td>Author</td>"
+                            + "<td><input type='text' name='productAuthor' value='" + bookbean.getAuthor() + "' readonly /></td></tr>"
+                            + "<tr><td>Publisher</td>"
+                            + "<td><input type='text' name='productPublisher' value='" + bookbean.getPublisher() + "' readonly /></td></tr>"
+                            + "<tr><td>Date Published</td>"
+                            + "<td><input type='text' name='productDate' value'" + bookbean.getDatePublished() + "' readonly/></td></tr>");
+
                 } else if (productBean.getType().matches("DVD")) {
                     dvdbean = (DVDBean) session.getAttribute("viewdvd");
-                    //out.println("dvd");
-            %>
-            <table>
-                <tr>
-                    <td>Title</td>
-                    <td><input type="text" id="productTitle" name="productTitle" value="<% out.println(productBean.getTitle()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td><input type="text" id="productPrice" name="productPrice" value="<% out.println(productBean.getPrice()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Summary</td>
-                    <td><input type="text" id="productSummary" name="productSummary" value="<% out.println(productBean.getSummary()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Genre</td>
-                    <td><input type="text" id="productGenre" name="productGenre" value="<% out.println(productBean.getGenre()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Year</td>
-                    <td><input type="text" id="productYear" name="productYear" value="<% out.println(productBean.getYear()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Stocks</td>
-                    <td><input type="text" id="productStocks" name="productStocks" value="<% out.println(productBean.getNumberStocks()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Director</td>
-                    <td><input type="text" id="productDirector" name="productDirector" value="<% out.println(dvdbean.getDirector()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Actor</td>
-                    <td><input type="text" id="productActor" name="productActor" value="<% out.println(dvdbean.getMainActors()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Product Company</td>
-                    <td><input type="text" id="productCompany" name="productCompany" value="<% out.println(dvdbean.getProductionCompany()); %>" readonly/></td>
-                </tr>
-            </table>
-            
-            
-            <%
-                    
+                    out.println("<tr><td>Director</td>"
+                            + "<td><input type='text' name='productDirector' value='" + dvdbean.getDirector() + "' readonly/></td></tr>"
+                            + "<tr><td>Actor</td>"
+                            + "<input type='text' name='productActor' value='" + dvdbean.getMainActors() + "' readonly/></td></tr>"
+                            + "<tr><td>Production Company</td>"
+                            + "<td><input type='text' name-'productCompany' value='" + dvdbean.getProductionCompany() + "' readonly/></td></tr>");
                 } else if (productBean.getType().matches("Magazine")) {
                     magbean = (MagazineBean) session.getAttribute("viewmagazine");
-                    //out.println("magazine");
-            %>
-            <table>
-                <tr>
-                    <td>Title</td>
-                    <td><input type="text" id="productTitle" name="productTitle" value="<% out.println(productBean.getTitle()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td><input type="text" id="productPrice" name="productPrice" value="<% out.println(productBean.getPrice()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Summary</td>
-                    <td><input type="text" id="productSummary" name="productSummary" value="<% out.println(productBean.getSummary()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Genre</td>
-                    <td><input type="text" id="productGenre" name="productGenre" value="<% out.println(productBean.getGenre()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Year</td>
-                    <td><input type="text" id="productYear" name="productYear" value="<% out.println(productBean.getYear()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Stocks</td>
-                    <td><input type="text" id="productStocks" name="productStocks" value="<% out.println(productBean.getNumberStocks()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Volume No</td>
-                    <td><input type="text" id="productVolume" name="productVolume" value="<% out.println(magbean.getVolumeNo()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Issue No</td>
-                    <td><input type="text" id="productIssue" name="productIssue" value="<% out.println(magbean.getIssueNo()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Publisher</td>
-                    <td><input type="text" id="productPublisher" name="productPublisher" value="<% out.println(magbean.getPublisher()); %>" readonly/></td>
-                </tr>
-                <tr>
-                    <td>Date Published</td>
-                    <td><input type="text" id="productDate" name="productDate" value="<% out.println(magbean.getDatePublished()); %>" readonly/></td>
-                </tr>
-            </table>
-            <%                    
+                    //out.println("magazine"); 
+                    out.println("<tr><td>Volume No</td>"
+                            + "<td><input type='text' name='productVolume' value='"+magbean.getVolumeNo()+"' readonly/></td></tr>"
+                            + "<tr><td>Issue No</td>"
+                            + "<td><input type='text' name='productIssue' value='"+magbean.getIssueNo()+"' readonly/></td></tr>"
+                            + "<tr><td>Publisher</td>"
+                            + "<td><input type='text' name='productPublisher' value='"+magbean.getPublisher()+"'readonly/></td></tr>"
+                            + "<tr><td>Date Published</td>"
+                            + "<td><input type='text' name='productDate' value='"+magbean.getDatePublished()+"' readonly/> </td></tr>");
                 }
-            %>
-        </div>
-    </body>
+                out.println("</table>");
+            %>         
+
+</div>
+</body>
 </html>

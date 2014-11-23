@@ -12,7 +12,6 @@
         <link rel="stylesheet" type="text/css" href="css/wadesign.css">
         <link rel="stylesheet" type="text/css" href="css/category.css">
         <link rel="stylesheet" type="text/css" href="css/style4.css">
-        <script src="js/logincheck.js" type="text/javascript"></script>
         <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
@@ -22,7 +21,7 @@
     </head>
     <body>
         <header>
-            <div id="banner"> <a href="login.jsp"><img src="images/books.jpg"/></a> </div>
+            <div id="banner"> <a href="login.jsp"><img src="books.jpg"/></a> </div>
         </header>
 
         <nav>
@@ -42,7 +41,7 @@
 
 
         <div id="loginform">
-            <form id="login" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">
+            <form id="logform" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">
                 <div id="block2">
                     <div id="un">Username: <input type='text' id='loguser' name='loguser' onblur="usernameCheck();" onfocus="backWhite(this);" required /></div>
                     <div id="pw">Password: <input type='password' id='logpass' name='logpass' onblur="passwordCheck();" onfocus="backWhite(this);" required /></div>
