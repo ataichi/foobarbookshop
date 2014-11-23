@@ -402,20 +402,38 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             Connection connection = c.getConnection();
             String query = "select shoppingcartID from shoppingcart order by shoppingcartID DESC";
             PreparedStatement ps = connection.prepareStatement(query);
-            
+
             int shoppingcartID;
-            
+
             ResultSet resultSet = ps.executeQuery();
-            
-            while(resultSet.next()) {
+
+            while (resultSet.next()) {
                 shoppingcartID = resultSet.getInt("shoppingcartID");
                 return shoppingcartID;
             }
-        
+
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return 0;
+    }
+
+    @Override
+    public boolean writeReview(int productorderID, String review) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "update productorder set reviews=? where productorderID=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, review);
+            ps.setInt(2, productorderID);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }
