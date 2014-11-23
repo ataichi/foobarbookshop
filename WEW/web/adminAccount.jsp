@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
         <script src="signupcheck.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="css/style4.css">
+        <link rel="stylesheet" type="text/css" href="./css/style4.css">
         <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>

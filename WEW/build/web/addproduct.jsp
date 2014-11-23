@@ -22,9 +22,9 @@
         <script src="js-productmanager.js" type="text/javascript"></script>
         <script sec="js/productcheck.js" type="text/javascript"></script>
 
-        <link rel="stylesheet" type="text/css" href="wadesign.css">
-        <link rel="stylesheet" type="text/css" href="category.css">
-        <link rel="stylesheet" type="text/css" href="style4.css">
+        <link rel="stylesheet" type="text/css" href="css/wadesign.css">
+        <link rel="stylesheet" type="text/css" href="css/category.css">
+        <link rel="stylesheet" type="text/css" href="css/style4.css">
         <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
