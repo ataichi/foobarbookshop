@@ -4,26 +4,11 @@ package Beans;
 import java.sql.Date;
 
 public class ShoppingCartBean {
-    protected int cartID;
-    protected CustomerBean customer;
-    protected double total;
-    protected Date orderDate;
-
-    public int getCartID() {
-        return cartID;
-    }
-
-    public void setCartID(int cartID) {
-        this.cartID = cartID;
-    }
-
-    public CustomerBean getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerBean customer) {
-        this.customer = customer;
-    }
+    private int shoppingcartID;
+    private int shoppingcart_customerID;
+    private int shoppingcart_creditcardID;
+    private double total;
+    private Date orderDate;
 
     public double getTotal() {
         return total;
@@ -39,5 +24,29 @@ public class ShoppingCartBean {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public int getShoppingcartID() {
+        return shoppingcartID;
+    }
+
+    public void setShoppingcartID(int shoppingcartID) {
+        this.shoppingcartID = shoppingcartID;
+    }
+
+    public int getShoppingcart_customerID() {
+        return shoppingcart_customerID;
+    }
+
+    public void setShoppingcart_customerID(int shoppingcart_customerID) {
+        this.shoppingcart_customerID = shoppingcart_customerID;
+    }
+
+    public int getShoppingcart_creditcardID() {
+        return shoppingcart_creditcardID;
+    }
+
+    public void setShoppingcart_creditcardID(int shoppingcart_creditcardID) {
+        this.shoppingcart_creditcardID = shoppingcart_creditcardID;
     }
 }

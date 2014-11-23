@@ -4,6 +4,8 @@ import Beans.AudioCDBean;
 import Beans.CustomerBean;
 import Beans.CustomerCreditCardBean;
 import Beans.ProductBean;
+import Beans.ProductOrderBean;
+import Beans.ShoppingCartBean;
 import DAO.Interface.CustomerDAOInterface;
 import DBConnection.Connector;
 import java.sql.Connection;
@@ -183,25 +185,41 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         }
         return null;
     }
+    /*
+     @Override
+     public boolean addToCart(ProductBean product) {
+     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     }
+
+     @Override
+     public boolean removeFromCart(ProductBean product) {
+     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     }
+
+     @Override
+     public ArrayList<ProductBean> viewCart() {
+     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     }
+     */
 
     @Override
-    public boolean addToCart(ProductBean product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean removeFromCart(ProductBean product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<ProductBean> viewCart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean purchase(int productID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean purchase(ProductOrderBean orderbean, ShoppingCartBean shopbean) {
+        try {
+            boolean check;
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "insert into shoppingcart (shoppingcart_customerID,shoppingcart_creditcardID,total,orderDate) value(?, ?, ?, ?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, shopbean.getShoppingcart_customerID());
+            ps.setInt(2, shopbean.getShoppingcart_creditcardID());
+            ps.setDouble(3, shopbean.getTotal());
+            ps.setDate(4, shopbean.getOrderDate());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -321,10 +339,10 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             String query = "insert into customercreditcard (customercreditcard_accountID, customercreditcard_creditcardID)"
                     + "values(?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
-         
+
             ps.setInt(1, customercreditcard.getCustomercreditcard_accountID());
             ps.setInt(2, customercreditcard.getCustomercreditcard_creditcardID());
-           
+
             ps.executeUpdate();
             connection.close();
 
@@ -353,6 +371,28 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
     @Override
     public ArrayList<CustomerCreditCardBean> getCustomerCreditCardByAccountID(int accountID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean addProductsToCart(ProductOrderBean orderbean, int shoppingcardID) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "insert into productorder (productorder_shoppingcartID, productorder_productID, price, quantity, reviews) "
+                    + "values (?, ?, ?, ?, ?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, shoppingcardID);
+            ps.setInt(2, orderbean.getProductorder_productID());
+            ps.setDouble(3, orderbean.getPrice());
+            ps.setInt(4, orderbean.getQuantity());
+            ps.setString(5, orderbean.getReview());
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }
