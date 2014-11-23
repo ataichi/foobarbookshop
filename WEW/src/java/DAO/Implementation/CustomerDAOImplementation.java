@@ -203,7 +203,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
      */
 
     @Override
-    public boolean purchase(ProductOrderBean orderbean, ShoppingCartBean shopbean) {
+    public boolean purchase(ShoppingCartBean shopbean) {
         try {
             boolean check;
             Connector c = new Connector();
@@ -393,6 +393,29 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    @Override
+    public int getShoppingCartID() {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select shoppingcartID from shoppingcart order by shoppingcartID DESC";
+            PreparedStatement ps = connection.prepareStatement(query);
+            
+            int shoppingcartID;
+            
+            ResultSet resultSet = ps.executeQuery();
+            
+            while(resultSet.next()) {
+                shoppingcartID = resultSet.getInt("shoppingcartID");
+                return shoppingcartID;
+            }
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return 0;
     }
 
 }

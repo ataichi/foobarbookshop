@@ -26,8 +26,10 @@ public interface CustomerDAOInterface {
     public boolean editAddress(CustomerBean bean);
     //public boolean removeFromCart(ProductBean product);
     //public ArrayList<ProductBean> viewCart();
-    public boolean purchase(ProductOrderBean orderbean, ShoppingCartBean shopbean);
+    public boolean purchase(ShoppingCartBean shopbean);
     public boolean addProductsToCart(ProductOrderBean orderbean, int shoppingcardID);
+    public int getShoppingCartID();
+    
     public ProductBean viewProduct(int ProductID);
     public ProductBean searchProduct(int ProductID);
     
