@@ -35,7 +35,7 @@ CREATE TABLE `account` (
   `accounttype` varchar(45) NOT NULL,
   `locked` int(1) NOT NULL,
   PRIMARY KEY (`accountID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,6 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (3,'Danica','Corpuz','D','danicacorpuz','danica','dccorpuz1@yahoo.com','customer',1),(4,'Ruth','Corpuz','D','ruthy','ruth','ruthy@y.com','product manager',0);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +112,7 @@ CREATE TABLE `audiocd` (
   PRIMARY KEY (`audiocdID`),
   KEY `audiocd_accountID_idx` (`audiocd_productID`),
   CONSTRAINT `audiocd_accountID` FOREIGN KEY (`audiocd_productID`) REFERENCES `product` (`productID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +121,6 @@ CREATE TABLE `audiocd` (
 
 LOCK TABLES `audiocd` WRITE;
 /*!40000 ALTER TABLE `audiocd` DISABLE KEYS */;
-INSERT INTO `audiocd` VALUES (1,'taylor swift','big machines',1);
 /*!40000 ALTER TABLE `audiocd` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,13 +200,10 @@ CREATE TABLE `customer` (
   `postalcodeDA` int(11) NOT NULL,
   `countryDA` varchar(45) NOT NULL,
   `customer_accountID` int(11) NOT NULL,
-  `customer_creditcardID` int(11) DEFAULT NULL,
   PRIMARY KEY (`customerID`),
   KEY `customer_accountID_idx` (`customer_accountID`),
-  KEY `customer_creditcardID_idx` (`customer_creditcardID`),
-  CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `customer_creditcardID` FOREIGN KEY (`customer_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,9 +212,33 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (3,'407','Bacood','Sta. Mesa','Manila',1016,'Philippines','407','Bacood','Sta. Mesa','Manila',1016,'Philippines',3,NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `customercreditcard`
+--
+DROP TABLE IF EXISTS `customercreditcard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `foobar`.`customercreditcard` (
+  `customercreditcardID` INT NOT NULL AUTO_INCREMENT,
+  `customercreditcard_accountID` INT NOT NULL,
+  `customercreditcard_creditcardID` INT NOT NULL,
+  PRIMARY KEY (`customercreditcardID`),
+  INDEX `customercreditcard_creditcardID_idx` (`customercreditcard_creditcardID` ASC),
+  CONSTRAINT `customercreditcard_accountID`
+    FOREIGN KEY (`customercreditcardID`)
+    REFERENCES `foobar`.`account` (`accountID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `customercreditcard_creditcardID`
+    FOREIGN KEY (`customercreditcard_creditcardID`)
+    REFERENCES `foobar`.`creditcard` (`creditcardID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
 
 --
 -- Table structure for table `dvd`
@@ -322,7 +341,7 @@ CREATE TABLE `product` (
   `year` int(11) NOT NULL,
   `stocks` int(11) NOT NULL,
   PRIMARY KEY (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,7 +350,6 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Audio CD','1989',850,'taylor swift','pop',2014,3);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +367,7 @@ CREATE TABLE `productmanager` (
   PRIMARY KEY (`productmanagerID`),
   KEY `prodmanager_accountID_idx` (`prodmanager_accountID`),
   CONSTRAINT `prodmanager_accountID` FOREIGN KEY (`prodmanager_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,7 +376,6 @@ CREATE TABLE `productmanager` (
 
 LOCK TABLES `productmanager` WRITE;
 /*!40000 ALTER TABLE `productmanager` DISABLE KEYS */;
-INSERT INTO `productmanager` VALUES (1,'Audio CD',4);
 /*!40000 ALTER TABLE `productmanager` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,7 +392,6 @@ CREATE TABLE `productorder` (
   `productorder_productID` int(11) NOT NULL,
   `price` double NOT NULL,
   `quantity` int(11) NOT NULL,
-  `reviews` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`productorderID`),
   KEY `productorder_shoppingcartID_idx` (`productorder_shoppingcartID`),
   KEY `productorder_productID_idx` (`productorder_productID`),
@@ -432,4 +448,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-23 15:04:19
+-- Dump completed on 2014-11-22  0:04:20

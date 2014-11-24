@@ -12,7 +12,10 @@ import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Interface.CustomerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +51,13 @@ public class ShoppingServlet extends HttpServlet {
             boolean shopcartcheck = false;
             int i = 0, shoppingcartID;
             shoppingcartID = cdao.getShoppingCartID();
-
+            
+            cartbean.setShoppingcart_customerID(homeuser.getAccountID());
+            cartbean.setShoppingcart_creditcardID(5);
+            // set date
+               Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
+               cartbean.setOrderDate(timeNow);
+               
             shopcartcheck = cdao.purchase(cartbean);
             if (shopcartcheck) {
                 cartbean.setShoppingcart_customerID(homeuser.getAccountID());
