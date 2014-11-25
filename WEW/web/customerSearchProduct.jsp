@@ -40,17 +40,16 @@
                             + "<br/>Price:" + searchproductlist.get(i).getPrice()
                             + "<br/>Product Type:" + searchproductlist.get(i).getType()
                             + "<form action='ViewProductServlet' method='post'>"
-                            + "<input type='hidden' name='product' value='"+searchproductlist.get(i).getProductID()+"'/>"
+                            + "<input type='hidden' name='product' value='" + searchproductlist.get(i).getProductID() + "'/>"
                             + "<input type='submit' value='View' name='viewProduct'/></form>"
                             + "<form action='AddToShoppingCartServlet' method='post'>"
-                            + "<input type='hidden' name='product' value='"+searchproductlist.get(i).getProductID()+"'/>"
+                            + "<input type='hidden' name='product' value='" + searchproductlist.get(i).getProductID() + "'/>"
                             + "<input type='number' name='quantity'/>"
-                            + "<input type='submit' value='Add to Cart'/></form>"
-                            +"<br/><br/>"
+                            + "<input type='submit' name='action' value='Add to Cart'/>"
+                            + "<input type='submit' name='action' value='Buy'/></form>"
+                            + "<br/><br/>"
                     );
                 }
-                out.println("<form action='ShoppingServlet' method='post'>"
-                        + "<input type='submit' value='Buy'/></form>");
             }
 
 
