@@ -8,6 +8,7 @@ import Beans.MagazineBean;
 import Beans.ProductBean;
 import Beans.ProductManagerBean;
 import Beans.ProductOrderBean;
+import Beans.ShoppingCartBean;
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
@@ -46,9 +47,12 @@ public class LoginServlet extends HttpServlet {
 
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             account = accountdao.getUserByUsername(username);
+            
+            ShoppingCartBean shoppingcart = new ShoppingCartBean();
 
             if (accountdao.doesUserExist(username, password) && "customer".equals(account.getAccountType())) {
                ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
+               session.setAttribute("shoppingcart", shoppingcart);
                 session.setAttribute("homeuser", account);
                 session.setAttribute("temporder", temporder);
                 response.sendRedirect("customerHOME.jsp");

@@ -51,14 +51,25 @@ public class ShoppingServlet extends HttpServlet {
             boolean shopcartcheck = false;
             int i = 0, shoppingcartID;
             shoppingcartID = cdao.getShoppingCartID();
-            
+
+            out.println(homeuser.getAccountID());
+
             cartbean.setShoppingcart_customerID(homeuser.getAccountID());
-            cartbean.setShoppingcart_creditcardID(5);
-            // set date
-               Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
-               cartbean.setOrderDate(timeNow);
-               
+
+            cartbean.setShoppingcart_creditcardID(1);
+            double total=0;
+
+            for (i = 0; i < orderlist.size(); i++) { // update total
+                total += orderlist.get(i).getPrice() * orderlist.get(i).getQuantity();
+            }
+            cartbean.setTotal(total);
+            Timestamp orderTime;
+            java.util.Date date = new java.util.Date();
+            orderTime = new Timestamp(date.getTime());
+            cartbean.setOrderDate(orderTime);
+
             shopcartcheck = cdao.purchase(cartbean);
+
             if (shopcartcheck) {
                 cartbean.setShoppingcart_customerID(homeuser.getAccountID());
                 for (i = 0; i < orderlist.size(); i++) {
@@ -70,6 +81,7 @@ public class ShoppingServlet extends HttpServlet {
                 //response.sendRedirect("");
                 out.println("unable to purchase");
             }
+
         }
     }
 

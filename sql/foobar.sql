@@ -421,7 +421,7 @@ CREATE TABLE `shoppingcart` (
   `shoppingcart_customerID` int(11) NOT NULL,
   `shoppingcart_creditcardID` int(11) NOT NULL,
   `total` double NOT NULL,
-  `orderDate` date NOT NULL,
+  `orderDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`shoppingcartID`),
   KEY `shoppingcart_customerID_idx` (`shoppingcart_customerID`),
   KEY `shoppingcart_creditcardID_idx` (`shoppingcart_creditcardID`),

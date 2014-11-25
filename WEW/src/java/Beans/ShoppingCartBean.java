@@ -1,14 +1,15 @@
 
 package Beans;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 public class ShoppingCartBean {
     private int shoppingcartID;
     private int shoppingcart_customerID;
     private int shoppingcart_creditcardID;
     private double total;
-    private Date orderDate;
+    private Timestamp orderDate;
 
     public double getTotal() {
         return total;
@@ -18,11 +19,11 @@ public class ShoppingCartBean {
         this.total = total;
     }
 
-    public Date getOrderDate() {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
     }
 

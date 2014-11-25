@@ -213,7 +213,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             ps.setInt(1, shopbean.getShoppingcart_customerID());
             ps.setInt(2, shopbean.getShoppingcart_creditcardID());
             ps.setDouble(3, shopbean.getTotal());
-            ps.setDate(4, shopbean.getOrderDate());
+            ps.setTimestamp(4, shopbean.getOrderDate());
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -378,14 +378,14 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "insert into productorder (productorder_shoppingcartID, productorder_productID, price, quantity, reviews) "
-                    + "values (?, ?, ?, ?, ?)";
+            String query = "insert into productorder (productorder_shoppingcartID, productorder_productID, price, quantity) "
+                    + "values (?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, shoppingcardID);
             ps.setInt(2, orderbean.getProductorder_productID());
             ps.setDouble(3, orderbean.getPrice());
             ps.setInt(4, orderbean.getQuantity());
-            ps.setString(5, orderbean.getReview());
+       //     ps.setString(5, orderbean.getReview());
             ps.executeUpdate();
             connection.close();
             return true;

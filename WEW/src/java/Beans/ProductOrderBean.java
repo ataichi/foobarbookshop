@@ -7,7 +7,6 @@ public class ProductOrderBean {
     private int productorder_productID;
     private double price;
     private int quantity;
-    private String review;
     
     public int getQuantity() {
         return quantity;
@@ -49,11 +48,4 @@ public class ProductOrderBean {
         this.productorder_productID = productorder_productID;
     }
 
-    public String getReview() {
-        return review;
-    }
-
-    public void setReview(String review) {
-        this.review = review;
-    }
 }
