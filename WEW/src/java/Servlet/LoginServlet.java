@@ -3,6 +3,7 @@ package Servlet;
 import Beans.AccountBean;
 import Beans.AudioCDBean;
 import Beans.BookBean;
+import Beans.CustomerBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
@@ -52,6 +53,8 @@ public class LoginServlet extends HttpServlet {
 
             if (accountdao.doesUserExist(username, password) && "customer".equals(account.getAccountType())) {
                ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
+               CustomerBean tempcustomer = new CustomerBean();
+               session.setAttribute("tempcustomer", tempcustomer);
                session.setAttribute("shoppingcart", shoppingcart);
                 session.setAttribute("homeuser", account);
                 session.setAttribute("temporder", temporder);

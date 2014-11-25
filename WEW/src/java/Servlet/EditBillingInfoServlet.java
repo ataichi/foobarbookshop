@@ -35,38 +35,36 @@ public class EditBillingInfoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
             HttpSession session = request.getSession();
-            
+
             CustomerDAOImplementation cdao = new CustomerDAOImplementation();
-            CustomerBean cbean = new CustomerBean();
+            CustomerBean cbean = (CustomerBean) session.getAttribute("tempcustomer");
             AccountBean oldbean = (AccountBean) session.getAttribute("homeuser");
-            
+
             cbean = cdao.getCustomerByAccountID(oldbean.getAccountID());
-                    
+
             String apartmentnoBA, streetBA, subBA, cityBA, countryBA;
             int postalcodeBA;
             String apartmentnoDA, streetDA, subDA, cityDA, countryDA;
             int postalcodeDA;
-            
+
             apartmentnoBA = request.getParameter("apartmentnoBA");
             streetBA = request.getParameter("streetBA");
             subBA = request.getParameter("subdivisionBA");
             cityBA = request.getParameter("cityBA");
             countryBA = request.getParameter("countryBA");
             postalcodeBA = Integer.parseInt(request.getParameter("postalcodeBA"));
-            
+
             apartmentnoDA = request.getParameter("apartmentnoDA");
             streetDA = request.getParameter("streetDA");
             subDA = request.getParameter("subdivisionDA");
             cityDA = request.getParameter("cityDA");
             countryDA = request.getParameter("countryDA");
             postalcodeDA = Integer.parseInt(request.getParameter("postalcodeDA"));
-            
-  //          cbean.setCustomerID(cbean.getCustomerID());
-   //         cbean.setCustomer_accountID(oldbean.getAccountID());
-            //cbean.setCustomer_creditCardID(oldbean.getCustomer_creditCardID());
-        
+
+            cbean.setCustomer_accountID(oldbean.getAccountID());
+
             cbean.setApartmentNoBA(apartmentnoBA);
             cbean.setApartmentNoDA(apartmentnoDA);
             cbean.setCityBA(cityBA);
@@ -79,19 +77,30 @@ public class EditBillingInfoServlet extends HttpServlet {
             cbean.setStreetDA(streetDA);
             cbean.setSubdivisionBA(subBA);
             cbean.setSubdivisionDA(subDA);
-            
-            boolean check = cdao.editAddress(cbean);
-            
-            if(check) {
-                response.sendRedirect("customerHOME.jsp");
-                //out.println("yehey");
+
+            out.println(cbean.getCustomerID());
+            boolean check;
+            if (cbean.getCustomerID() == 0) {
+                check = cdao.addCustomer(cbean);
+                if (check) {
+                    response.sendRedirect("customerHOME.jsp");
+                    out.println("yes");
+                } else {
+                    response.sendRedirect("customerAccount.jsp");
+                    out.println("np");
+                }
+            } else {
+                check = cdao.editAddress(cbean);
+                if (check) {
+                    response.sendRedirect("customerHOME.jsp");
+                    out.println("yehey");
+                } else {
+                    response.sendRedirect("customerAccount.jsp");
+                    out.println("bye");
+                }
             }
-            else {
-                response.sendRedirect("customerHOME.jsp");
-                //out.println("bye");
-            }
-        }
-        catch(Exception e) {
+
+        } catch (Exception e) {
             out.println("error");
         }
     }
