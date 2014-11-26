@@ -84,6 +84,21 @@ public class AddCreditCardServlet extends HttpServlet {
             } else { // edit existing creditcard
                 creditcardid = creditcarddao.getUserCreditCard(customer.getCustomerID());
                 creditcard = creditcarddao.getCreditCardByCreditCardID(creditcardid);
+
+                cardName = request.getParameter("cardName");
+                cardNo = request.getParameter("cardNo");
+                cardType = request.getParameter("cardType");
+                cardExpDate = request.getParameter("cardExpDate");
+
+                creditcard.setCardname(cardName);
+                creditcard.setCardno(cardNo);
+                creditcard.setCardtype(cardType);
+                creditcard.setCardexpdate(cardExpDate);
+                
+                out.println(creditcard.getCreditcardID() + "\n");
+                out.println(creditcard.getCardexpdate() + "\n");
+                out.println(creditcard.getCardno() + "\n");
+                out.println(creditcard.getCardtype() + "\n");
                 boolean editCreditcard = creditcarddao.editCreditCard(creditcard);
                 if (editCreditcard) {
                     out.println("yesyes");
