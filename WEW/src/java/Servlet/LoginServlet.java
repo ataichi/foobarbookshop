@@ -3,21 +3,27 @@ package Servlet;
 import Beans.AccountBean;
 import Beans.AudioCDBean;
 import Beans.BookBean;
+import Beans.CreditCardBean;
 import Beans.CustomerBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
+import Beans.ProductManagerBean;
 import Beans.ProductOrderBean;
 import Beans.ShoppingCartBean;
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
+import DAO.Implementation.CreditCardDAOImplementation;
+import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.AudioCDManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
+import DAO.Interface.CreditCardDAOInterface;
+import DAO.Interface.CustomerDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
@@ -53,8 +59,16 @@ public class LoginServlet extends HttpServlet {
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
             if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType())) {
+                CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
+                CreditCardDAOImplementation creditcarddao = CreditCardDAOImplementation();
                 ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
-                CustomerBean tempcustomer = new CustomerBean();
+                CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
+                int creditcardID = creditcarddao.getUserCreditCard(tempcustomer.getCustomerID());
+                creditcard = creditcarddao.getCreditCardByCreditCardID(creditcardID);
+                out.println(tempcustomer.getCustomerID());
+                out.println(creditcardID);
+                session.setAttribute("creditcard", creditcard);
+
                 session.setAttribute("tempcustomer", tempcustomer);
                 session.setAttribute("shoppingcart", shoppingcart);
                 session.setAttribute("homeuser", account);
@@ -64,6 +78,47 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("homeadmin", account);
                 out.println("here");
                 response.sendRedirect("adminHOME.jsp");
+
+            } else if (accountdao.doesUserExist(username, password) && "product manager".equals(account.getAccountType())) {
+                ProductManagerBean productmanager = new ProductManagerBean();
+                productmanager = pdao.getProductManagerBeanById(account.getAccountID());
+               
+                if (productmanager.getProdType().equals("Books")) { //book manager
+                    BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+                    ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+                    booklist = bookdao.getAllBooks();
+                    session.setAttribute("booklist", booklist);
+
+                    productlist = pdao.getProductsByType(productmanager.getProdType());
+                    session.setAttribute("productlist", productlist);
+                } else if (productmanager.getProdType().equals("Audio CD")) { // audio cd manager
+                    AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
+                    ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
+                    audiocdlist = cddao.getAllAudioCD();
+                    session.setAttribute("audiocdlist", audiocdlist);
+
+                    productlist = pdao.getProductsByType(productmanager.getProdType());
+                    session.setAttribute("productlist", productlist);
+                } else if (productmanager.getProdType().equals("DVD")) { //dvd manager
+                    DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+                    ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+                    dvdlist = dvddao.viewAllDVD();
+                    session.setAttribute("dvdlist", dvdlist);
+
+                    productlist = pdao.getProductsByType(productmanager.getProdType());
+                    session.setAttribute("productlist", productlist);
+                } else if (productmanager.getProdType().equals("Magazine")) { //magazine manager
+                    MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+                    ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                    magazinelist = magazinedao.getAllMagazine();
+
+                    productlist = pdao.getProductsByType(productmanager.getProdType());
+                    session.setAttribute("productlist", productlist);
+                }
+
+                session.setAttribute("homeproduct", account);
+                //         out.println("HERE");
+
             } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType())) {
                 BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                 ArrayList<BookBean> booklist = new ArrayList<BookBean>();

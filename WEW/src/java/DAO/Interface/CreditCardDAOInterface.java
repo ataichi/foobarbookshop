@@ -21,10 +21,12 @@ public interface CreditCardDAOInterface {
     public boolean deleteCreditCard (int creditCardID);
     
     public ArrayList<CreditCardBean> getCreditCardByCardName(String cardName);
-    public CreditCardBean getCreditCardByCardNo(String cardNo); 
+    public CreditCardBean getCreditCardByCardNo(String cardNo);
+    public CreditCardBean getCreditCardByCreditCardID(int creditcardID);
+    
     public ArrayList<CreditCardBean> getCreditCardByCardType(String cardType);
     public ArrayList<CreditCardBean> getCreditCardByExpDate (Date from, Date to);
     
     public CreditCardBean getLastCreditCard();
-    public ArrayList<CreditCardBean> getUserCreditCard (int customerID);
+    public int getUserCreditCard (int customerID);
 }

@@ -5,8 +5,7 @@
 
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-    CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
-    CustomerBean cbean = customerdao.getCustomerByAccountID(homeuser.getAccountID());
+    CustomerBean cbean = (CustomerBean) session.getAttribute("tempcustomer");
 %>
 <!DOCTYPE html>
 <html>

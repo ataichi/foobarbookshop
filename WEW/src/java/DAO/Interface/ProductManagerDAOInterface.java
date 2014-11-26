@@ -6,6 +6,7 @@
 package DAO.Interface;
 
 import Beans.ProductBean;
+import Beans.ProductManagerBean;
 import java.util.ArrayList;
 
 public interface ProductManagerDAOInterface {
@@ -23,5 +24,7 @@ public interface ProductManagerDAOInterface {
     public boolean removeProduct(int id);
     
     public boolean restockProduct(int newstocks, int id);
+    
+    public ProductManagerBean getProductManagerBeanById(int accountID);
 
 }
