@@ -6,7 +6,6 @@
 package DAO.Implementation;
 
 import Beans.ProductBean;
-import Beans.ProductManagerBean;
 import DAO.Interface.ProductManagerDAOInterface;
 import DBConnection.Connector;
 import java.sql.Connection;
@@ -257,41 +256,4 @@ public class ProductManagerDAOImplementation implements ProductManagerDAOInterfa
         return false;
 
     }
-
-    @Override
-    public ProductManagerBean getProductManagerBeanById(int accountID) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "select * from productmanger where prodmanager_accountID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, accountID);
-
-            ProductManagerBean productmanager = new ProductManagerBean();
-            int productmanagerID, prodmanager_accountID;
-            String prodType;
-
-            ResultSet resultSet = ps.executeQuery();
-
-            while (resultSet.next()) {
-                productmanagerID = resultSet.getInt("productmanagerID");
-                prodmanager_accountID = resultSet.getInt("prodmanager_ID");
-
-                prodType = resultSet.getString("prodType");
-
-                productmanager.setProdType(prodType);
-                productmanager.setProdmanager_accountID(prodmanager_accountID);
-                productmanager.setProductmanagerID(productmanagerID);
-
-            }
-            connection.close();
-            return productmanager;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-
-    }
-
 }
