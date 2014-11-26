@@ -38,5 +38,14 @@ $(document).ready(function () {
         "height": "500px",
         "width": "400px"
     });
+    
+    $('#managersignup').css ({
+        "position": "absolute",
+        "background-color": "bisque",
+        "margin-top":"150px",
+        "margin-left":"150px",
+        "height":"500px",
+        "width": "500px"
+    });
 });//end of ready
 

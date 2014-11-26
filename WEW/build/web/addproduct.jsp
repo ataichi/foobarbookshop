@@ -1,12 +1,10 @@
 <%@page import="DAO.Implementation.ProductManagerDAOImplementation"%>
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
-<%@page import="Beans.ProductManagerBean"%>
 <%@page import="Beans.AccountBean"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-    ProductManagerBean productManager = new ProductManagerBean();
-    ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-    productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
+    String accountType = homeproduct.getAccountType();
+    String productType = null;
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -58,7 +56,21 @@
         </div>
 
         <div id="product">
-            Add <%out.println(productManager.getProdType());%>:
+            Add <% if (accountType.equals("Audio CD Manager")) {
+                    productType = "Audio CD";
+                    out.println("Audio CD");
+                } else if (accountType.equals("Book Manager")) {
+                    productType = "Book";
+                    out.println("Book");
+                } else if(accountType.equals("DVD Manager")) {
+                    productType = "DVD";
+                    out.println("DVD");
+                } else if(accountType.equals("Magazine Manager")) {
+                    productType = "Magazine";
+                    out.println("Magazine");
+                }
+
+            %>:
             <br/><br/>
             <form name="productcheck" id="productcheck" action='AddProductServlet' onsubmit="return productcheck(this)"  method="post">
                 <table>
@@ -100,14 +112,14 @@
                         </td>
                     </tr>
 
-                    <%if (productManager.getProdType().equals("Audio CD")) {
+                    <%if (productType.equals("Audio CD")) {
                             out.println("<tr><td>Artist</td>"
                                     + "<td> <input type ='text' id ='cdArtist' name ='cdArtist' onfocus ='backWhite(this);'/></td ></tr>"
                                     + "<tr><td>Record Company:</td>"
                                     + "<td><input type='text' id='cdRecord' name='cdRecord' onfocus='backWhite(this);'/></td></tr>"
                             );
 
-                        } else if (productManager.getProdType().equals("Books")) {
+                        } else if (productType.equals("Book")) {
                             out.println("<tr><td>Author</td>"
                                     + "<td><input type='text' id='bookAuthor' name='bookAuthor' onfocus='backWhite(this);'/></td></tr>"
                                     + "<tr><td>Publisher</td>"
@@ -116,7 +128,7 @@
                                     + "<td><input type='date' id='bookDatePublished' name='bookDatePublished' onfocus='backWhite(this);'/></td></tr>"
                             );
 
-                        } else if (productManager.getProdType().equals("DVD")) {
+                        } else if (productType.equals("DVD")) {
                             out.println("<tr><td>Director:</td>"
                                     + "<td><input type='text' id='dvdDirector' name='dvdDirector' onfocus='backWhite(this);'/></td></tr>"
                                     + "<tr><td>Actor:</td>"
@@ -125,7 +137,7 @@
                                     + "<td><input type='text' id='dvdProducer' name='dvdProducer' onfocus='backWhite(this);'/></td></tr>"
                             );
 
-                        } else if (productManager.getProdType().equals("Magazine")) {
+                        } else if (productType.equals("Magazine")) {
                             out.println("<tr><td>Volume No:</td>"
                                     + "<td><input type='text' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);'/></td></tr>"
                                     + "<tr><td>Issue No:</td>"

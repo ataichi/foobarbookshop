@@ -11,20 +11,13 @@ import Beans.BookBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
-import Beans.ProductManagerBean;
-import DAO.Implementation.AudioCDDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
-import DAO.Implementation.BookDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
-import DAO.Implementation.DVDDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
-import DAO.Interface.AudioCDDAOInterface;
 import DAO.Interface.AudioCDManagerDAOInterface;
-import DAO.Interface.BookDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
-import DAO.Interface.DVDDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
@@ -57,9 +50,21 @@ public class EditProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-            ProductManagerBean productManager = new ProductManagerBean();
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-            productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
+            
+            String prodType = null;
+            if(homeproduct.getAccountType().equals("Audio CD Manager")) {
+                prodType = "Audio CD";
+            }
+            else if(homeproduct.getAccountType().equals("Book Manager")) {
+                prodType = "Book";
+            }
+            else if(homeproduct.getAccountType().equals("DVD Manager")) {
+                prodType = "DVD";
+            }
+            else if(homeproduct.getAccountType().equals("Magazine Manager")) {
+                prodType = "Magazine";
+            }
 
             int productID = Integer.parseInt(request.getParameter("product"));
             ProductBean editproduct = new ProductBean();
@@ -68,7 +73,7 @@ public class EditProductServlet extends HttpServlet {
             
             if (editproduct.getType().equals("Audio CD")) {
                 AudioCDBean audiocd = new AudioCDBean();
-                AudioCDDAOInterface audiodao = new AudioCDDAOImplementation();
+                AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
                 audiocd = audiodao.getAudioCDByProductID(productID);
 
                 session.setAttribute("editaudio", audiocd);
@@ -76,9 +81,9 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editbook", null);
                 session.setAttribute("editdvd", null);
                 session.setAttribute("editmagazine", null);
-            } else if (editproduct.getType().equals("Books")) {
+            } else if (editproduct.getType().equals("Book")) {
                 BookBean book = new BookBean();
-                BookDAOInterface bookdao = new BookDAOImplementation();
+                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                 book = bookdao.getBookByProductID(productID);
 
                 session.setAttribute("editbook", book);
@@ -88,7 +93,7 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editmagazine", null);
             } else if (editproduct.getType().equals("DVD")) {
                 DVDBean dvd = new DVDBean();
-                DVDDAOInterface dvddao = new DVDDAOImplementation();
+                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
                 dvd = dvddao.getDVDByProductID(productID);
 
                 session.setAttribute("editdvd", dvd);
@@ -99,7 +104,7 @@ public class EditProductServlet extends HttpServlet {
             } else if (editproduct.getType().equals("Magazine")) {
                 MagazineBean magazine = new MagazineBean();
                 MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
-                magazine = magazinedao.getMagazineByProductId(productID);
+                magazine = magazinedao.getMagazineByProductID(productID);
                 out.println(productID);
                 out.println(magazine.getIssueNo());
                 session.setAttribute("editmagazine", magazine);

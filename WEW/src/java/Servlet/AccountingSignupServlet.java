@@ -1,7 +1,6 @@
 package Servlet;
 
 import Beans.AccountBean;
-import Beans.AccountingManagerBean;
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AccountingManagerDAOImplementation;
 import DAO.Implementation.AdminDAOImplementation;
@@ -41,7 +40,6 @@ public class AccountingSignupServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = new AccountBean();
-            AccountingManagerBean accountingManager = new AccountingManagerBean();
             AccountDAOInterface userdao = new AccountDAOImplementation();
             AdminDAOInterface adao = new AdminDAOImplementation();
             
@@ -59,17 +57,21 @@ public class AccountingSignupServlet extends HttpServlet {
             account.setPassword(pass1);
             account.setEmailAdd(email);
             account.setUsername(username);
-            account.setAccountType("accounting manager");
+            account.setAccountType("Accounting Manager");
             account.setLocked(locked);
 
             int accountingmanager_accountID;
             
             boolean addUser = userdao.addAccount(account);
             if(addUser){
-                accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
+                //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
+                //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
+                response.sendRedirect("adminHOME.jsp");
             }
-
+            else {
+                response.sendRedirect("signupfail.jsp");
+            }
+            /*
             boolean addAccountingManager = adao.addAccountingManager(accountingManager);
             if (addUser && addAccountingManager) {
                 response.sendRedirect("adminHOME.jsp");
@@ -77,7 +79,7 @@ public class AccountingSignupServlet extends HttpServlet {
             } else {
                 response.sendRedirect("signupfail.jsp");
             }
-
+            */
         } finally {
             out.close();
         }

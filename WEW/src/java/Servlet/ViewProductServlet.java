@@ -11,10 +11,10 @@ import Beans.BookBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
-import DAO.Implementation.AudioCDDAOImplementation;
-import DAO.Implementation.BookDAOImplementation;
-import DAO.Implementation.DVDDAOImplementation;
-import DAO.Implementation.MagazineDAOImplementation;
+import DAO.Implementation.AudioCDManagerDAOImplementation;
+import DAO.Implementation.BookManagerDAOImplementation;
+import DAO.Implementation.DVDManagerDAOImplementation;
+import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,13 +50,13 @@ public class ViewProductServlet extends HttpServlet {
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
             
             ProductDAOImplementation pdao = new ProductDAOImplementation();
-            AudioCDDAOImplementation audiocddao = new AudioCDDAOImplementation();
+            AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
             AudioCDBean audiocdbean = new AudioCDBean();
-            BookDAOImplementation bookdao = new BookDAOImplementation();
+            BookManagerDAOImplementation bookdao = new BookManagerDAOImplementation();
             BookBean bookbean = new BookBean();
-            DVDDAOImplementation dvddao = new DVDDAOImplementation();
+            DVDManagerDAOImplementation dvddao = new DVDManagerDAOImplementation();
             DVDBean dvdbean = new DVDBean();
-            MagazineDAOImplementation magdao = new MagazineDAOImplementation();
+            MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
             MagazineBean magbean = new MagazineBean();  
             
             int productID = Integer.parseInt(request.getParameter("product"));
@@ -65,22 +65,22 @@ public class ViewProductServlet extends HttpServlet {
             productBean = pdao.getProductById(productID);
             session.setAttribute("viewproduct", productBean);
             
-            if(productBean.getType().matches("Audio CD")) {
+            if(productBean.getType().equals("Audio CD")) {
                 audiocdbean = audiocddao.getAudioCDByProductID(productID);
                 session.setAttribute("viewaudiocd", audiocdbean);
                 response.sendRedirect("viewproduct.jsp");
             }
-            else if(productBean.getType().matches("Books")) {
+            else if(productBean.getType().equals("Books")) {
                 bookbean = bookdao.getBookByProductID(productID);
                 session.setAttribute("viewbook", bookbean);
                 response.sendRedirect("viewproduct.jsp");
             }
-            else if(productBean.getType().matches("DVD")) {
+            else if(productBean.getType().equals("DVD")) {
                 dvdbean = dvddao.getDVDByProductID(productID);
                 session.setAttribute("viewdvd", dvdbean);
                 response.sendRedirect("viewproduct.jsp");
             }
-            else if(productBean.getType().matches("Magazine")) {
+            else if(productBean.getType().equals("Magazine")) {
                 magbean = magdao.getMagazineByProductID(productID);
                 session.setAttribute("viewmagazine", magbean);
                 response.sendRedirect("viewproduct.jsp");

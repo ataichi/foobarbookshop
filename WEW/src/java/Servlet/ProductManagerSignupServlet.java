@@ -1,7 +1,6 @@
 package Servlet;
 
 import Beans.AccountBean;
-import Beans.ProductManagerBean;
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AdminDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
@@ -30,7 +29,6 @@ public class ProductManagerSignupServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean account = new AccountBean();
-            ProductManagerBean productManager = new ProductManagerBean();
             AccountDAOInterface userdao = new AccountDAOImplementation();
             AdminDAOInterface admindao = new AdminDAOImplementation();
 
@@ -40,29 +38,33 @@ public class ProductManagerSignupServlet extends HttpServlet {
             account.setPassword(request.getParameter("pass1"));
             account.setEmailAdd(request.getParameter("email1"));
             account.setUsername(request.getParameter("uname"));
-            account.setAccountType("product manager");
+            //account.setAccountType("product manager");
+            account.setAccountType(request.getParameter("prodType") + " Manager");
             account.setLocked(false);
 
             int productmanager_accountID;
             boolean addUser = userdao.addAccount(account);
             if (addUser) {
-                productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                productManager.setProdmanager_accountID(productmanager_accountID);
+                //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
+                //productManager.setProdmanager_accountID(productmanager_accountID);
+                response.sendRedirect("adminHOME.jsp");
 
             }
+            else {
+                response.sendRedirect("signupfail.jsp");
+            }
 
-            productManager.setProdType(request.getParameter("prodType"));
+            //productManager.setProdType(request.getParameter("prodType"));
+            /*
 
             boolean addProductmanager = admindao.addProductManager(productManager);
 
-      //      out.println(userdao.addAccount(account));
-            //      out.println(admindao.addProductManager(productManager));
             if (addUser && addProductmanager) {
                 response.sendRedirect("adminHOME.jsp");
             } else {
                 response.sendRedirect("signupfail.jsp");
             }
-
+            */
         } finally {
             out.close();
         }

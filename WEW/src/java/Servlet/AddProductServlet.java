@@ -11,11 +11,11 @@ import Beans.BookBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
-import Beans.ProductManagerBean;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
+import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
 import DAO.Interface.AudioCDManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
@@ -62,16 +62,29 @@ public class AddProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-            ProductManagerBean productManager = new ProductManagerBean();
-            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-            productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
+            ProductManagerDAOImplementation pdao = new ProductManagerDAOImplementation();
+            
+            String prodType = null;
+            if(homeproduct.getAccountType().equals("Audio CD Manager")) {
+                prodType = "Audio CD";
+            }
+            else if(homeproduct.getAccountType().equals("Book Manager")) {
+                prodType = "Book";
+            }
+            else if(homeproduct.getAccountType().equals("DVD Manager")) {
+                prodType = "DVD";
+            }
+            else if(homeproduct.getAccountType().equals("Magazine Manager")) {
+                prodType = "Magazine";
+            }
+            
 
             ProductBean product = new ProductBean();
             String type, title, summary, genre;
             double price;
             int year, numberStocks;
 
-            type = productManager.getProdType();
+            type = prodType;
             title = request.getParameter("productTitle");
             summary = request.getParameter("productSummary");
             genre = request.getParameter("productGenre");
@@ -124,7 +137,7 @@ public class AddProductServlet extends HttpServlet {
                     response.sendRedirect("productmanagerHOME.jsp");
                 }
 
-            } else if (type.equals("Books")) {// add books
+            } else if (type.equals("Book")) {// add books
                 BookManagerDAOInterface bdao = new BookManagerDAOImplementation();
 
                 BookBean bean = new BookBean();

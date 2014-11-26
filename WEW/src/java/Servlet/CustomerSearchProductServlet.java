@@ -11,15 +11,15 @@ import Beans.BookBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
-import DAO.Implementation.AudioCDDAOImplementation;
-import DAO.Implementation.BookDAOImplementation;
-import DAO.Implementation.DVDDAOImplementation;
-import DAO.Implementation.MagazineDAOImplementation;
+import DAO.Implementation.AudioCDManagerDAOImplementation;
+import DAO.Implementation.BookManagerDAOImplementation;
+import DAO.Implementation.DVDManagerDAOImplementation;
+import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
-import DAO.Interface.AudioCDDAOInterface;
-import DAO.Interface.BookDAOInterface;
-import DAO.Interface.DVDDAOInterface;
-import DAO.Interface.MagazineDAOInterface;
+import DAO.Interface.AudioCDManagerDAOInterface;
+import DAO.Interface.BookManagerDAOInterface;
+import DAO.Interface.DVDManagerDAOInterface;
+import DAO.Interface.MagazineManagerDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -60,19 +60,19 @@ public class CustomerSearchProductServlet extends HttpServlet {
             ProductDAOInterface productdao = new ProductDAOImplementation();
             ProductBean productbean = new ProductBean();
 
-            AudioCDDAOInterface audiocddao = new AudioCDDAOImplementation();
+            AudioCDManagerDAOInterface audiocddao = new AudioCDManagerDAOImplementation();
             ArrayList<AudioCDBean> audiolist = new ArrayList<AudioCDBean>();
             AudioCDBean audio = new AudioCDBean();
 
-            BookDAOInterface bookdao = new BookDAOImplementation();
+            BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
             ArrayList<BookBean> booklist = new ArrayList<BookBean>();
             BookBean book = new BookBean();
 
-            DVDDAOInterface dvddao = new DVDDAOImplementation();
+            DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
             ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
             DVDBean dvd = new DVDBean();
 
-            MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
+            MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
             ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
             MagazineBean magazine = new MagazineBean();
 
