@@ -84,7 +84,7 @@ public class EditCustomerAccountServlet extends HttpServlet {
             bean.setEmailAdd(emailAdd);
             bean.setLocked(locked);
             bean.setPassword(password);
-            bean.setAccountType("customer");
+            bean.setAccountType("Customer");
             
             boolean edit = accountdao.updateAccount(bean);
             if(edit){

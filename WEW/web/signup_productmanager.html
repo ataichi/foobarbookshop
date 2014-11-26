@@ -36,7 +36,7 @@
                     </ul>
                 </li>
         </nav>
-        
+
         <div id="actions">
             <br/>
             <br/>
@@ -51,51 +51,53 @@
             <br>
             <a href="unlock_account.jsp">Unlock Account</a>
         </div>
-        <form id="managercheck" name="managercheck" action="ProductManagerSignupServlet" onsubmit="return managerCheck(this);" method="post">
-            <table>
-                <tr>
-                    <td>First Name</td>
-                    <td><input type='text' id='fname' name='fname' onblur="fnameManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Middle Initial</td>
-                    <td><input type='text' id='mname' name='mname' onblur='mnameManagerCheck()' onfocus='backWhite(this)'></td>
-                </tr>
-                <tr>
-                    <td>Last Name</td>
-                    <td><input type='text' id='lname' name='lname' onblur="lnameManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td><input type='text' id='email1' name='email1' onblur="emailManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Username</td>
-                    <td><input type='text' id='user' name='uname' onblur="unameManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td><input type='password' id='pass1' name='pass1' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Verify Password</td>
-                    <td><input type='password' id='pass2' name='pass2' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
+        <div id="managersignup">
+            <form id="managercheck" name="managercheck" action="ProductManagerSignupServlet" onsubmit="return managerCheck(this);" method="post">
+                <table>
+                    <tr>
+                        <td>First Name</td>
+                        <td><input type='text' id='fname' name='fname' onblur="fnameManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Middle Initial</td>
+                        <td><input type='text' id='mname' name='mname' onblur='mnameManagerCheck()' onfocus='backWhite(this)'></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td><input type='text' id='lname' name='lname' onblur="lnameManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type='text' id='email1' name='email1' onblur="emailManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><input type='text' id='user' name='uname' onblur="unameManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type='password' id='pass1' name='pass1' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Verify Password</td>
+                        <td><input type='password' id='pass2' name='pass2' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
 
-                <tr><td>Product Type:</td>
-                <td>
-                    <select name="prodType" id="prodType">
-                        <option value="Audio CD" name="prodType" id="prodType">Audio CD</option>
-                        <option value="Book" name="prodType" id="prodType">Book</option>
-                        <option value="DVD" name="prodType" id="prodType">DVD</option>
-                        <option value="Magazine" name="prodType" id="prodType">Magazine</option>
-                    </select>
-                <td>
-                </tr>
-                <tr>
-                    <td><input type='submit' id='sign' value='Signup'></td>
-                </tr>
-            </table>
-        </form>
+                    <tr><td>Product Type:</td>
+                        <td>
+                            <select name="prodType" id="prodType">
+                                <option value="Audio CD" name="prodType" id="prodType">Audio CD</option>
+                                <option value="Book" name="prodType" id="prodType">Book</option>
+                                <option value="DVD" name="prodType" id="prodType">DVD</option>
+                                <option value="Magazine" name="prodType" id="prodType">Magazine</option>
+                            </select>
+                        <td>
+                    </tr>
+                    <tr>
+                        <td><input type='submit' id='sign' value='Signup'></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </body>
 </html>

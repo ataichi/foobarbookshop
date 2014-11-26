@@ -8,6 +8,7 @@
         <script src="js-general.js" type="text/javascript"></script>
         <script src="js-adminhome.js" type="text/javascript"></script>
         <script src="js/managercheck.js" type="text/javascript"></script>
+        <script src="js-edit.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="wadesign.css">
         <link rel="stylesheet" type="text/css" href="category.css">
         <link rel="stylesheet" type="text/css" href="style4.css">
@@ -48,41 +49,43 @@
             <br>
             <a href="unlock_account.jsp">Unlock Account</a>
         </div>
-        <form id="managercheck" name="managercheck" action="AccountingSignupServlet" onsubmit="return managerCheck(this);" method="post">
-            <table>
-                <tr>
-                    <td>First Name</td>
-                    <td><input type='text' id='fname' name='fname' onblur="fnameManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Middle Initial</td>
-                    <td><input type='text' id='mname' name='mname' onblur='mnameManagerCheck()' onfocus='backWhite(this)'></td>
-                </tr>
-                <tr>
-                    <td>Last Name</td>
-                    <td><input type='text' id='lname' name='lname' onblur="lnameManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td><input type='text' id='email1' name='email1' onblur="emailManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Username</td>
-                    <td><input type='text' id='user' name='uname' onblur="unameManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td><input type='password' id='pass1' name='pass1' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td>Verify Password</td>
-                    <td><input type='password' id='pass2' name='pass2' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type='submit' id='sign' value='Signup'></td>
-                </tr>
-            </table>
-        </form>
+        <div id="managersignup">
+            <form id="managercheck" name="managercheck" action="AccountingSignupServlet" onsubmit="return managerCheck(this);" method="post">
+                <table>
+                    <tr>
+                        <td>First Name</td>
+                        <td><input type='text' id='fname' name='fname' onblur="fnameManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Middle Initial</td>
+                        <td><input type='text' id='mname' name='mname' onblur='mnameManagerCheck()' onfocus='backWhite(this)'></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td><input type='text' id='lname' name='lname' onblur="lnameManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type='text' id='email1' name='email1' onblur="emailManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><input type='text' id='user' name='uname' onblur="unameManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type='password' id='pass1' name='pass1' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td>Verify Password</td>
+                        <td><input type='password' id='pass2' name='pass2' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type='submit' id='sign' value='Signup'></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </body>
 </html>

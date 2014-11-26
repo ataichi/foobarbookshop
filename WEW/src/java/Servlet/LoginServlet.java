@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
-            if (accountdao.doesUserExist(username, password) && "customer".equals(account.getAccountType())) {
+            if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType())) {
                 ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
                 CustomerBean tempcustomer = new CustomerBean();
                 session.setAttribute("tempcustomer", tempcustomer);
