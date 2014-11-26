@@ -223,13 +223,13 @@ DROP TABLE IF EXISTS `customercreditcard`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `foobar`.`customercreditcard` (
   `customercreditcardID` INT NOT NULL AUTO_INCREMENT,
-  `customercreditcard_accountID` INT NOT NULL,
+  `customercreditcard_customerID` INT NOT NULL,
   `customercreditcard_creditcardID` INT NOT NULL,
   PRIMARY KEY (`customercreditcardID`),
   INDEX `customercreditcard_creditcardID_idx` (`customercreditcard_creditcardID` ASC),
-  CONSTRAINT `customercreditcard_accountID`
+  CONSTRAINT `customercreditcard_customerID`
     FOREIGN KEY (`customercreditcardID`)
-    REFERENCES `foobar`.`account` (`accountID`)
+    REFERENCES `foobar`.`customer` (`customerID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `customercreditcard_creditcardID`

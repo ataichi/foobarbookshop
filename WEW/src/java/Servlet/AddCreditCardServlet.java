@@ -7,6 +7,7 @@ package Servlet;
 
 import Beans.AccountBean;
 import Beans.CreditCardBean;
+import Beans.CustomerBean;
 import Beans.CustomerCreditCardBean;
 import DAO.Implementation.CreditCardDAOImplementation;
 import DAO.Implementation.CustomerDAOImplementation;
@@ -40,38 +41,60 @@ public class AddCreditCardServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+            CustomerBean customer = (CustomerBean) session.getAttribute("tempcustomer");
+            CreditCardBean creditcard = (CreditCardBean) session.getAttribute("creditcard");
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
-            CreditCardBean creditcard = new CreditCardBean();
+
             CustomerCreditCardBean customercreditcardbean = new CustomerCreditCardBean();
             CreditCardDAOInterface creditcarddao = new CreditCardDAOImplementation();
             String cardName, cardNo, cardType, cardExpDate;
-            
-            cardName = request.getParameter("cardName");
-            cardNo = request.getParameter("cardNo");
-            cardType = request.getParameter("cardType");
-            cardExpDate = request.getParameter("cardExpDate");
-            
-            creditcard.setCardname(cardName);
-            creditcard.setCardno(cardNo);
-            creditcard.setCardtype(cardType);
-            creditcard.setCardexpdate(cardExpDate);
-            
-            boolean addCreditcard = creditcarddao.addCreditCard(creditcard);
-            
-            if(addCreditcard){
-                
-                customercreditcardbean.setCustomercreditcard_accountID(homeuser.getAccountID());
-                int last = creditcarddao.getLastCreditCard().getCreditcardID();
-                
-                customercreditcardbean.setCustomercreditcard_creditcardID(last);
-                boolean addCustomercreditcard = customerdao.addCustomerCreditCard(customercreditcardbean);
-                if(addCustomercreditcard){
-                    out.println("YES");
-                }else{
-                    out.println("NO");
+
+            int creditcardid = 0;
+            creditcardid = creditcarddao.getUserCreditCard(customer.getCustomerID());
+
+            if (creditcardid == 0) { // add new creditcard
+                cardName = request.getParameter("cardName");
+                cardNo = request.getParameter("cardNo");
+                cardType = request.getParameter("cardType");
+                cardExpDate = request.getParameter("cardExpDate");
+
+                creditcard.setCardname(cardName);
+                creditcard.setCardno(cardNo);
+                creditcard.setCardtype(cardType);
+                creditcard.setCardexpdate(cardExpDate);
+                boolean addCreditcard = creditcarddao.addCreditCard(creditcard);
+
+                if (addCreditcard) {
+
+                    int last = creditcarddao.getLastCreditCard().getCreditcardID();
+                    customercreditcardbean.setCustomercreditcard_customerID(customer.getCustomerID());
+                    customercreditcardbean.setCustomercreditcard_creditcardID(last);
+                    out.println(customercreditcardbean.getCustomercreditcard_customerID());
+                    boolean addCustomercreditcard = customerdao.addCustomerCreditCard(customercreditcardbean);
+                    if (addCustomercreditcard) {
+
+                        session.setAttribute("creditcard", creditcard);
+
+                    } else {
+                        out.println("NO");
+                    }
+
                 }
+
+            } else { // edit existing creditcard
+                creditcardid = creditcarddao.getUserCreditCard(customer.getCustomerID());
+                creditcard = creditcarddao.getCreditCardByCreditCardID(creditcardid);
+                boolean editCreditcard = creditcarddao.editCreditCard(creditcard);
+                if (editCreditcard) {
+                    out.println("yesyes");
+                    session.setAttribute("creditcard", creditcard);
+                    response.sendRedirect("customerHOME.jsp");
+                } else {
+                    out.println("nope");
+                }
+
             }
-            
+
         }
     }
 

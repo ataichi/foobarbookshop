@@ -336,13 +336,14 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "insert into customercreditcard (customercreditcard_accountID, customercreditcard_creditcardID)"
+            String query = "insert into customercreditcard (customercreditcard_customerID, customercreditcard_creditcardID)"
                     + "values(?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
 
-            ps.setInt(1, customercreditcard.getCustomercreditcard_accountID());
+            ps.setInt(1, customercreditcard.getCustomercreditcard_customerID());
             ps.setInt(2, customercreditcard.getCustomercreditcard_creditcardID());
-
+            System.out.println(customercreditcard.getCustomercreditcard_creditcardID());
+            System.out.println(customercreditcard.getCustomercreditcard_customerID());
             ps.executeUpdate();
             connection.close();
 
@@ -369,7 +370,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
     }
 
     @Override
-    public ArrayList<CustomerCreditCardBean> getCustomerCreditCardByAccountID(int accountID) {
+    public CustomerCreditCardBean getCustomerCreditCardByCustomerID(int customerID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -385,7 +386,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             ps.setInt(2, orderbean.getProductorder_productID());
             ps.setDouble(3, orderbean.getPrice());
             ps.setInt(4, orderbean.getQuantity());
-       //     ps.setString(5, orderbean.getReview());
+            //     ps.setString(5, orderbean.getReview());
             ps.executeUpdate();
             connection.close();
             return true;
