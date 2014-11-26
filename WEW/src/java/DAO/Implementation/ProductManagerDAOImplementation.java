@@ -20,43 +20,6 @@ import java.util.logging.Logger;
 public class ProductManagerDAOImplementation implements ProductManagerDAOInterface {
 
     @Override
-    public ProductManagerBean getProductManagerBeanById(int id) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "select * from productmanager where prodmanager_accountID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, id);
-
-            ResultSet resultSet = ps.executeQuery();
-
-            int productmanagerID, productmanager_accountID;
-            String prodType;
-
-            ProductManagerBean bean = new ProductManagerBean();
-
-            while (resultSet.next()) {
-                productmanagerID = resultSet.getInt("productmanagerID");
-                productmanager_accountID = resultSet.getInt("prodmanager_accountID");
-                prodType = resultSet.getString("prodType");
-
-                bean.setProdType(prodType);
-                bean.setProdmanager_accountID(productmanager_accountID);
-                bean.setProductmanagerID(productmanagerID);
-
-                System.out.println("hssere");
-
-            }
-            connection.close();
-            return bean;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    @Override
     public boolean addProduct(ProductBean product) {
         try {
             Connector c = new Connector();
@@ -292,6 +255,42 @@ public class ProductManagerDAOImplementation implements ProductManagerDAOInterfa
             Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+
+    }
+
+    @Override
+    public ProductManagerBean getProductManagerBeanById(int accountID) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from productmanger where prodmanager_accountID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, accountID);
+
+            ProductManagerBean productmanager = new ProductManagerBean();
+            int productmanagerID, prodmanager_accountID;
+            String prodType;
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                productmanagerID = resultSet.getInt("productmanagerID");
+                prodmanager_accountID = resultSet.getInt("prodmanager_ID");
+
+                prodType = resultSet.getString("prodType");
+
+                productmanager.setProdType(prodType);
+                productmanager.setProdmanager_accountID(prodmanager_accountID);
+                productmanager.setProductmanagerID(productmanagerID);
+
+            }
+            connection.close();
+            return productmanager;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
 
     }
 

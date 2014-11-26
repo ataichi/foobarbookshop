@@ -2,6 +2,7 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/src/java/Servlet/LoginServlet.java</file>
             <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/web/addCreditCard.jsp</file>
@@ -14,5 +15,8 @@
             <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/src/java/Beans/ProductOrderBean.java</file>
             <file>file:/C:/Users/Giodee/Desktop/SECPROG/foobarbookshop/WEW/src/java/DAO/Implementation/CreditCardDAOImplementation.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> 8d62a035726729a10baefb1c14b2d825879eaaef
     </open-files>
 </project-private>

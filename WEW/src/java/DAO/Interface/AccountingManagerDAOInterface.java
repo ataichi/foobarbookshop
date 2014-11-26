@@ -6,12 +6,7 @@
 package DAO.Interface;
 
 
-import Beans.AccountingManagerBean;
-import Beans.ProductManagerBean;
-import java.util.ArrayList;
-
 public interface AccountingManagerDAOInterface {
-  public boolean addAccountingManager (AccountingManagerBean accountingManager);
   
   /*public viewSales ();
   public viewSalesByProductType ();

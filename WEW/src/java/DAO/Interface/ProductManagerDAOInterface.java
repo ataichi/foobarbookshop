@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public interface ProductManagerDAOInterface {
 
-    public ProductManagerBean getProductManagerBeanById(int id);
-
     public boolean addProduct(ProductBean product);
 
     public boolean editProduct(ProductBean product);
@@ -26,5 +24,7 @@ public interface ProductManagerDAOInterface {
     public boolean removeProduct(int id);
     
     public boolean restockProduct(int newstocks, int id);
+    
+    public ProductManagerBean getProductManagerBeanById(int accountID);
 
 }

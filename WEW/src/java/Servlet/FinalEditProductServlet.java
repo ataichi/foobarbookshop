@@ -11,22 +11,16 @@ import Beans.BookBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
-import DAO.Implementation.AudioCDDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
-import DAO.Implementation.BookDAOImplementation;
+import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
-import DAO.Implementation.DVDDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
-import DAO.Implementation.MagazineDAOImplementation;
+import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
-import DAO.Interface.AudioCDDAOInterface;
 import DAO.Interface.AudioCDManagerDAOInterface;
-import DAO.Interface.BookDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
-import DAO.Interface.DVDDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
-import DAO.Interface.MagazineDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
@@ -92,7 +86,7 @@ public class FinalEditProductServlet extends HttpServlet {
             if (type.equals("Audio CD")) {
 
                 AudioCDBean audiocd = new AudioCDBean();
-                AudioCDDAOInterface audiodao = new AudioCDDAOImplementation();
+                AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
                 AudioCDManagerDAOInterface audiomanagerdao = new AudioCDManagerDAOImplementation();
                 audiocd = audiodao.getAudioCDByProductID(editproduct.getProductID());
 
@@ -119,7 +113,7 @@ public class FinalEditProductServlet extends HttpServlet {
                 BookBean book = new BookBean();
 
                 BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
-                BookDAOInterface bookdao = new BookDAOImplementation();
+                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                 book = bookdao.getBookByProductID(editproduct.getProductID());
 
                 String author, publisher, bookDatePublished;
@@ -162,7 +156,7 @@ public class FinalEditProductServlet extends HttpServlet {
 
                 DVDBean dvd = new DVDBean();
                 DVDManagerDAOInterface dvdmanagerdao = new DVDManagerDAOImplementation();
-                DVDDAOInterface dvddao = new DVDDAOImplementation();
+                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
                 dvd = dvddao.getDVDByProductID(editproduct.getProductID());
 
                 String director, actor, productCompany;
@@ -195,7 +189,7 @@ public class FinalEditProductServlet extends HttpServlet {
 
                 MagazineBean magazine = new MagazineBean();
                 MagazineManagerDAOInterface magazinemanagerdao = new MagazineManagerDAOImplementation();
-                MagazineDAOInterface magazinedao = new MagazineDAOImplementation();
+                MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                 magazine = magazinedao.getMagazineByProductID(editproduct.getProductID());
 
                 int volumeNo, issueNo;

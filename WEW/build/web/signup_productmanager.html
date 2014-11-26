@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Signup Product Manger</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
@@ -9,6 +9,7 @@
         <script src="js-general.js" type="text/javascript"></script>
         <script src="js-adminhome.js" type="text/javascript"></script>
         <script src="js/managercheck.js" type="text/javascript"></script>
+        <script src="js-edit.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="wadesign.css">
         <link rel="stylesheet" type="text/css" href="category.css">
         <link rel="stylesheet" type="text/css" href="style4.css">
@@ -81,18 +82,17 @@
                     <td><input type='password' id='pass2' name='pass2' onblur="passManagerCheck();" onfocus="backWhite(this);"></td>
                 </tr>
 
-                <td>Product Type:</td>
+                <tr><td>Product Type:</td>
                 <td>
                     <select name="prodType" id="prodType">
                         <option value="Audio CD" name="prodType" id="prodType">Audio CD</option>
-                        <option value="Books" name="prodType" id="prodType">Books</option>
+                        <option value="Book" name="prodType" id="prodType">Book</option>
                         <option value="DVD" name="prodType" id="prodType">DVD</option>
                         <option value="Magazine" name="prodType" id="prodType">Magazine</option>
                     </select>
                 <td>
-                    </tr>
+                </tr>
                 <tr>
-                    <td></td>
                     <td><input type='submit' id='sign' value='Signup'></td>
                 </tr>
             </table>

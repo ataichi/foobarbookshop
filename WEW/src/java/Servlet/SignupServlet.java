@@ -45,7 +45,7 @@ public class SignupServlet extends HttpServlet {
             account.setPassword(pass1);
             account.setEmailAdd(email);
             account.setUsername(username);
-            account.setAccountType("customer");
+            account.setAccountType("Customer");
             account.setLocked(false);
             
             checkAccount = userdao.addAccount(account);

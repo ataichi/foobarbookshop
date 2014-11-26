@@ -4,25 +4,31 @@
 <%@page import="Beans.AudioCDBean"%>
 <%@page import="DAO.Implementation.ProductManagerDAOImplementation"%>
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
-<%@page import="Beans.ProductManagerBean"%>
 <%@page import="Beans.ProductBean"%>
 <%@page import="Beans.AccountBean"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-    ProductManagerBean productManager = new ProductManagerBean();
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-    productManager = pdao.getProductManagerBeanById(homeproduct.getAccountID());
 
     ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
     AudioCDBean audiocd = (AudioCDBean) session.getAttribute("editaudio");
     BookBean book = (BookBean) session.getAttribute("editbook");
     DVDBean dvd = (DVDBean) session.getAttribute("editdvd");
     MagazineBean magazine = (MagazineBean) session.getAttribute("editmagazine");
-    if (productManager.getProdType().equals("Audio CD")) {
-    } else if (productManager.getProdType().equals("Books")) {
-    } else if (productManager.getProdType().equals("DVD")) {
-    } else if (productManager.getProdType().equals("Magazine")) {
-    }
+    
+    String prodType=null;
+    if(homeproduct.getAccountType().equals("Audio CD Manager")) {
+                prodType = "Audio CD";
+            }
+            else if(homeproduct.getAccountType().equals("Book Manager")) {
+                prodType = "Book";
+            }
+            else if(homeproduct.getAccountType().equals("DVD Manager")) {
+                prodType = "DVD";
+            }
+            else if(homeproduct.getAccountType().equals("Magazine Manager")) {
+                prodType = "Magazine";
+            }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -126,7 +132,7 @@
                             <input type='text' id='productStocks' name='productStocks'  value='<% out.println(editproduct.getNumberStocks()); %>' onblur="stocksCheck()" onfocus='backWhite(this);'/>
                         </td>
                     </tr>
-                    <%if (productManager.getProdType().equals("Audio CD")) {  %>
+                    <%if (prodType.equals("Audio CD")) {  %>
                     <br/>
                     <tr>
                         <td>Artist</td>
@@ -140,7 +146,7 @@
                         </td>
                     </tr>
                     <%}%>
-                    <%if (productManager.getProdType().equals("Books")) { %>
+                    <%if (prodType.equals("Book")) { %>
                     <br/>
                     <tr>
                         <td>Author</td>
@@ -161,7 +167,7 @@
                         </td>
                     </tr>
                     <%}%>
-                    <% if (productManager.getProdType().equals("DVD")) { %>
+                    <% if (prodType.equals("DVD")) { %>
                     <br/>
                     <tr>
                         <td>Director:</td>
@@ -181,7 +187,7 @@
                         </td>
                     </tr>
                     <% } %>
-                    <% if (productManager.getProdType().equals("Magazine")) { %>
+                    <% if (prodType.equals("Magazine")) { %>
                     <br/>
                     <tr>
                         <td>Volume No:</td>

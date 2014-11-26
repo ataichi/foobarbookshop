@@ -55,6 +55,8 @@ public class LoginServlet extends HttpServlet {
             account = accountdao.getUserByUsername(username);
 
             ShoppingCartBean shoppingcart = new ShoppingCartBean();
+            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
             CreditCardBean creditcard = new CreditCardBean();
@@ -68,6 +70,7 @@ public class LoginServlet extends HttpServlet {
                 out.println(tempcustomer.getCustomerID());
                 out.println(creditcardID);
                 session.setAttribute("creditcard", creditcard);
+
                 session.setAttribute("tempcustomer", tempcustomer);
                 session.setAttribute("shoppingcart", shoppingcart);
                 session.setAttribute("homeuser", account);
@@ -77,12 +80,11 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("homeadmin", account);
                 out.println("here");
                 response.sendRedirect("adminHOME.jsp");
+
             } else if (accountdao.doesUserExist(username, password) && "product manager".equals(account.getAccountType())) {
                 ProductManagerBean productmanager = new ProductManagerBean();
-                ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
                 productmanager = pdao.getProductManagerBeanById(account.getAccountID());
-                ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
-
+               
                 if (productmanager.getProdType().equals("Books")) { //book manager
                     BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                     ArrayList<BookBean> booklist = new ArrayList<BookBean>();
@@ -118,6 +120,45 @@ public class LoginServlet extends HttpServlet {
 
                 session.setAttribute("homeproduct", account);
                 //         out.println("HERE");
+
+            } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType())) {
+                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+                ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+                booklist = bookdao.getAllBooks();
+                session.setAttribute("booklist", booklist);
+
+                productlist = pdao.getProductsByType("Book");
+                session.setAttribute("productlist", productlist);
+                session.setAttribute("homeproduct", account);
+                response.sendRedirect("productmanagerHOME.jsp");
+            } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType())) {
+                AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
+                ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
+                audiocdlist = cddao.getAllAudioCD();
+                session.setAttribute("audiocdlist", audiocdlist);
+
+                productlist = pdao.getProductsByType("Audio CD");
+                session.setAttribute("productlist", productlist);
+                session.setAttribute("homeproduct", account);
+                response.sendRedirect("productmanagerHOME.jsp");
+            } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType())) {
+                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+                ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+                dvdlist = dvddao.viewAllDVD();
+                session.setAttribute("dvdlist", dvdlist);
+
+                productlist = pdao.getProductsByType("DVD");
+                session.setAttribute("productlist", productlist);
+                session.setAttribute("homeproduct", account);
+                response.sendRedirect("productmanagerHOME.jsp");
+            } else if (accountdao.doesUserExist(username, password) && "Magazine".equals(account.getAccountType())) {
+                MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+                ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                magazinelist = magazinedao.getAllMagazine();
+
+                productlist = pdao.getProductsByType("Magazine");
+                session.setAttribute("productlist", productlist);
+                session.setAttribute("homeproduct", account);
                 response.sendRedirect("productmanagerHOME.jsp");
             } else if (accountdao.doesUserExist(username, password) && "accounting manager".equals(account.getAccountType())) {
                 session.setAttribute("homeaccounting", account);
@@ -127,7 +168,6 @@ public class LoginServlet extends HttpServlet {
                 out.println(account.getAccountType());
                 response.sendRedirect("loginfail.jsp");
             }
-
         } finally {
             out.close();
         }

@@ -94,11 +94,12 @@ public class AddCreditCardServlet extends HttpServlet {
                 creditcard.setCardno(cardNo);
                 creditcard.setCardtype(cardType);
                 creditcard.setCardexpdate(cardExpDate);
-                
+                /*
                 out.println(creditcard.getCreditcardID() + "\n");
                 out.println(creditcard.getCardexpdate() + "\n");
                 out.println(creditcard.getCardno() + "\n");
                 out.println(creditcard.getCardtype() + "\n");
+                */
                 boolean editCreditcard = creditcarddao.editCreditCard(creditcard);
                 if (editCreditcard) {
                     out.println("yesyes");

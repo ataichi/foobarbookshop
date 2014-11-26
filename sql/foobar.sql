@@ -48,56 +48,6 @@ LOCK TABLES `account` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `accountingmanager`
---
-
-DROP TABLE IF EXISTS `accountingmanager`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `accountingmanager` (
-  `accountingmanagerID` int(11) NOT NULL AUTO_INCREMENT,
-  `accounting_accountID` int(11) NOT NULL,
-  PRIMARY KEY (`accountingmanagerID`),
-  KEY `accounting_accountID_idx` (`accounting_accountID`),
-  CONSTRAINT `accounting_accountID` FOREIGN KEY (`accounting_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `accountingmanager`
---
-
-LOCK TABLES `accountingmanager` WRITE;
-/*!40000 ALTER TABLE `accountingmanager` DISABLE KEYS */;
-/*!40000 ALTER TABLE `accountingmanager` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `admin`
---
-
-DROP TABLE IF EXISTS `admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `admin` (
-  `adminID` int(11) NOT NULL AUTO_INCREMENT,
-  `admin_accountID` int(11) NOT NULL,
-  PRIMARY KEY (`adminID`),
-  KEY `admin_accountID_idx` (`admin_accountID`),
-  CONSTRAINT `admin_accountID` FOREIGN KEY (`admin_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admin`
---
-
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `audiocd`
 --
 
@@ -218,9 +168,11 @@ UNLOCK TABLES;
 --
 -- Table structure for table `customercreditcard`
 --
+
 DROP TABLE IF EXISTS `customercreditcard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+<<<<<<< HEAD
 CREATE TABLE `foobar`.`customercreditcard` (
   `customercreditcardID` INT NOT NULL AUTO_INCREMENT,
   `customercreditcard_customerID` INT NOT NULL,
@@ -237,8 +189,27 @@ CREATE TABLE `foobar`.`customercreditcard` (
     REFERENCES `foobar`.`creditcard` (`creditcardID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+=======
+CREATE TABLE `customercreditcard` (
+  `customercreditcardID` int(11) NOT NULL AUTO_INCREMENT,
+  `customercreditcard_accountID` int(11) NOT NULL,
+  `customercreditcard_creditcardID` int(11) NOT NULL,
+  PRIMARY KEY (`customercreditcardID`),
+  KEY `customercreditcard_creditcardID_idx` (`customercreditcard_creditcardID`),
+  CONSTRAINT `customercreditcard_accountID` FOREIGN KEY (`customercreditcardID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `customercreditcard_creditcardID` FOREIGN KEY (`customercreditcard_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+>>>>>>> 8d62a035726729a10baefb1c14b2d825879eaaef
 
+--
+-- Dumping data for table `customercreditcard`
+--
 
+LOCK TABLES `customercreditcard` WRITE;
+/*!40000 ALTER TABLE `customercreditcard` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customercreditcard` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `dvd`
@@ -354,32 +325,6 @@ LOCK TABLES `product` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `productmanager`
---
-
-DROP TABLE IF EXISTS `productmanager`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `productmanager` (
-  `productmanagerID` int(11) NOT NULL AUTO_INCREMENT,
-  `prodType` varchar(45) NOT NULL,
-  `prodmanager_accountID` int(11) NOT NULL,
-  PRIMARY KEY (`productmanagerID`),
-  KEY `prodmanager_accountID_idx` (`prodmanager_accountID`),
-  CONSTRAINT `prodmanager_accountID` FOREIGN KEY (`prodmanager_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `productmanager`
---
-
-LOCK TABLES `productmanager` WRITE;
-/*!40000 ALTER TABLE `productmanager` DISABLE KEYS */;
-/*!40000 ALTER TABLE `productmanager` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `productorder`
 --
 
@@ -421,7 +366,7 @@ CREATE TABLE `shoppingcart` (
   `shoppingcart_customerID` int(11) NOT NULL,
   `shoppingcart_creditcardID` int(11) NOT NULL,
   `total` double NOT NULL,
-  `orderDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `orderDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`shoppingcartID`),
   KEY `shoppingcart_customerID_idx` (`shoppingcart_customerID`),
   KEY `shoppingcart_creditcardID_idx` (`shoppingcart_creditcardID`),
@@ -448,4 +393,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-22  0:04:20
+-- Dump completed on 2014-11-26 11:05:45

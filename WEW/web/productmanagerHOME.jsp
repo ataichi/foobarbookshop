@@ -1,8 +1,3 @@
-<%-- 
-    Document   : productmanagerHOME
-    Created on : Nov 9, 2014, 10:11:04 PM
-    Author     : Giodee
---%>
 <%@page import="DAO.Implementation.AudioCDManagerDAOImplementation"%>
 <%@page import="DAO.Interface.DVDManagerDAOInterface"%>
 <%@page import="DAO.Implementation.DVDManagerDAOImplementation"%>
@@ -19,13 +14,11 @@
 <%@page import="Beans.BookBean"%>
 <%@page import="DAO.Implementation.ProductManagerDAOImplementation"%>
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
-<%@page import="Beans.ProductManagerBean"%>
 <%@page import="Beans.AccountBean"%>
 
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-    ProductManagerBean managerBean = pdao.getProductManagerBeanById(homeproduct.getAccountID());
     ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
     BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
     AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();

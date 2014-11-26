@@ -15,10 +15,10 @@ public interface AudioCDManagerDAOInterface {
     public boolean editAudioCD (AudioCDBean audioCD);
     public boolean deleteAudioCD (int audioCDID);
     
-    public AudioCDBean getAudioCDById (int ID);
-    public ArrayList<AudioCDBean> getAllAudioCDByArtist(String artist);
-    public ArrayList<AudioCDBean> getAllAudioCDByRecordCompany(String recordCompany);
     public ArrayList<AudioCDBean> getAllAudioCD();
-    public AudioCDBean getAudioCDByProductId(int id);
+    public AudioCDBean getAudioCDByID(int id);
+    public AudioCDBean getAudioCDByProductID(int productID);
+    public ArrayList<AudioCDBean> getAudioCDByArtist(String artist);
+    public ArrayList<AudioCDBean> getAudioCDByRecordCompany(String recordCompany);
     
 }

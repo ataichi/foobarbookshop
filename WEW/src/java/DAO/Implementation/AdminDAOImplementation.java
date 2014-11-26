@@ -1,10 +1,8 @@
 package DAO.Implementation;
 
 import Beans.AccountBean;
-import Beans.AccountingManagerBean;
 import Beans.AdminBean;
 import Beans.ProductBean;
-import Beans.ProductManagerBean;
 import DAO.Interface.AdminDAOInterface;
 import DBConnection.Connector;
 import java.sql.Connection;
@@ -21,7 +19,6 @@ import java.util.logging.Logger;
  */
 public class AdminDAOImplementation implements AdminDAOInterface {
 
-    ProductManagerBean prodmngrbean = new ProductManagerBean();
     ProductBean prodbean = new ProductBean();
     int productmanagerID, prodmanager_accountID;
     String prodType;
@@ -144,59 +141,7 @@ public class AdminDAOImplementation implements AdminDAOInterface {
         }
         return false;
     }
-
-    @Override
-    public ProductManagerBean getProductManager(int ID) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            query = "select * from productmanager where productmanagerID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, ID);
-
-            ResultSet resultSet = ps.executeQuery();
-
-            while (resultSet.next()) {
-                productmanagerID = resultSet.getInt("productmanagerID");
-                prodmanager_accountID = resultSet.getInt("prodmanager_accountID");
-                prodType = resultSet.getString("prodType");
-
-                prodmngrbean = new ProductManagerBean();
-
-                prodmngrbean.setProdType(prodType);
-                prodmngrbean.setProdmanager_accountID(prodmanager_accountID);
-                prodmngrbean.setProductmanagerID(productmanagerID);
-            }
-            connection.close();
-            return prodmngrbean;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminDAOImplementation.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    @Override
-    public boolean addProductManager(ProductManagerBean productManager) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "insert into productmanager (prodmanager_accountID, prodType) values (?, ?)";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, productManager.getProdmanager_accountID());
-            ps.setString(2, productManager.getProdType());
-            ps.executeUpdate();
-            connection.close();
-            return true;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminDAOImplementation.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
+    
     @Override
     public void viewActivityLog() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -234,59 +179,4 @@ public class AdminDAOImplementation implements AdminDAOInterface {
         }
         return null;
     }
-
-    @Override
-    public AccountingManagerBean getAccountingManager(int ID) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "select * from accountingmanager where accountingmanagerID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, ID);
-
-            ResultSet resultSet = ps.executeQuery();
-
-            int accountingManagerID, accountingManager_accountID;
-
-            AccountingManagerBean bean = new AccountingManagerBean();
-
-            while (resultSet.next()) {
-                accountingManagerID = resultSet.getInt("accountingmanagerID");
-                accountingManager_accountID = resultSet.getInt("accounting_accountID");
-
-                bean.setAccountingManagerID(accountingManagerID);
-                bean.setAccountingManager_accountID(accountingManager_accountID);
-
-                System.out.println("hssere");
-
-            }
-            connection.close();
-            return bean;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-
-    }
-
-    @Override
-    public boolean addAccountingManager(AccountingManagerBean accountingManager) {
-        try {
-            Connector c = new Connector();
-
-            Connection connection = c.getConnection();
-            String query = "insert into accountingmanager (accounting_accountID) values (?)";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, accountingManager.getAccountingManager_accountID());
-            
-            ps.executeUpdate();
-            connection.close();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountingManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
 }
