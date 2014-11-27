@@ -5,12 +5,9 @@
  */
 package Servlet;
 
-import Beans.AccountBean;
-import Beans.ProductBean;
-import DAO.Implementation.ProductDAOImplementation;
-import DAO.Implementation.ProductManagerDAOImplementation;
-import DAO.Interface.ProductDAOInterface;
-import DAO.Interface.ProductManagerDAOInterface;
+import Beans.*;
+import DAO.Implementation.*;
+import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

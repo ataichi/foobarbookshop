@@ -5,14 +5,9 @@
  */
 package Servlet;
 
-import Beans.AccountBean;
-import Beans.ProductBean;
-import Beans.ProductOrderBean;
-import Beans.ShoppingCartBean;
-import DAO.Implementation.CustomerDAOImplementation;
-import DAO.Implementation.ProductDAOImplementation;
-import DAO.Interface.CustomerDAOInterface;
-import DAO.Interface.ProductDAOInterface;
+import Beans.*;
+import DAO.Implementation.*;
+import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;

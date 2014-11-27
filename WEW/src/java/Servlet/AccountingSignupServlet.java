@@ -1,12 +1,8 @@
 package Servlet;
 
-import Beans.AccountBean;
-import DAO.Implementation.AccountDAOImplementation;
-import DAO.Implementation.AccountingManagerDAOImplementation;
-import DAO.Implementation.AdminDAOImplementation;
-import DAO.Interface.AccountDAOInterface;
-import DAO.Interface.AccountingManagerDAOInterface;
-import DAO.Interface.AdminDAOInterface;
+import Beans.*;
+import DAO.Implementation.*;
+import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

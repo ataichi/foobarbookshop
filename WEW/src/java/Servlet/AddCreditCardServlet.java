@@ -5,14 +5,9 @@
  */
 package Servlet;
 
-import Beans.AccountBean;
-import Beans.CreditCardBean;
-import Beans.CustomerBean;
-import Beans.CustomerCreditCardBean;
-import DAO.Implementation.CreditCardDAOImplementation;
-import DAO.Implementation.CustomerDAOImplementation;
-import DAO.Interface.CreditCardDAOInterface;
-import DAO.Interface.CustomerDAOInterface;
+import Beans.*;
+import DAO.Implementation.*;
+import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

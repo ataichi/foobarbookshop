@@ -11,10 +11,10 @@ public class AccountBean {
     protected String emailAdd;
     protected boolean locked;
 
-    public void setLocked(boolean locked){
-        this.locked=locked;
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
-    
+
     public boolean getLocked(){
         return locked;
     }

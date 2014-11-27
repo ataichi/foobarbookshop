@@ -5,22 +5,9 @@
  */
 package Servlet;
 
-import Beans.AccountBean;
-import Beans.AudioCDBean;
-import Beans.BookBean;
-import Beans.DVDBean;
-import Beans.MagazineBean;
-import Beans.ProductBean;
-import DAO.Implementation.AudioCDManagerDAOImplementation;
-import DAO.Implementation.BookManagerDAOImplementation;
-import DAO.Implementation.DVDManagerDAOImplementation;
-import DAO.Implementation.MagazineManagerDAOImplementation;
-import DAO.Implementation.ProductDAOImplementation;
-import DAO.Interface.AudioCDManagerDAOInterface;
-import DAO.Interface.BookManagerDAOInterface;
-import DAO.Interface.DVDManagerDAOInterface;
-import DAO.Interface.MagazineManagerDAOInterface;
-import DAO.Interface.ProductDAOInterface;
+import Beans.*;
+import DAO.Implementation.*;
+import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
