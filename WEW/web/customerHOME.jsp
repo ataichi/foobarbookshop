@@ -23,7 +23,7 @@
         <title>Customer Home Page</title>
     </head>
     <body>
-        
+
         <header>
             <div id="banner"> <a href="customerHOME.jsp"><img src="images/books.jpg"></a> </div>
         </header>
@@ -38,33 +38,42 @@
                         <li><a href="#">DVDs</a></li>
                     </ul>
                 </li>
-                <li><a href='#'><% out.println(homeuser.getUsername()); %></a>
-                        <ul>
-                            <li><a href='customerAccount.jsp'>Edit Account</a></li>
-                            <li><a href='logout.jsp'>Log out</a></li>
-                        </ul>
+                <li><a href='#'><% out.println(homeuser.getUsername());%></a>
+                    <ul>
+                        <li><a href='customerAccount.jsp'>Edit Account</a></li>
+                        <li><a href='logout.jsp'>Log out</a></li>
+                    </ul>
                 </li>
             </ul>
         </nav>
-        
+
         <div id='actions'>
-            <form id='formsearch' action='CustomerSearchProductServlet' method='post'>
-            <input type='text' name='searchstring' class="search" placeholder="Search"/>
-            <input type='submit' value='submit'/>
-            </form>
-            <br>
-            <br>
+            <input class="search" placeholder="Search" action='CustomerSearchProductServlet'/>
+            <br><br>
             <ul>
-            <a href='customerBilling.jsp'>Manage Billing Information</a>
-            <a href='customerPayments.jsp'>Manage Payment Information</a>
-            <a href='customerTransactions.jsp'>View Transactions</a>
-            <ul/>
-            
-            <form action="ShoppingServlet" method="post">
-                <input type="submit" value="Buy"/>
-            </form>
+                <a href='customerBilling.jsp'>Manage Billing Information</a>
+                <a href='customerPayments.jsp'>Manage Payment Information</a>
+                <a href='customerTransactions.jsp'>View Transactions</a>
+                <ul/>
         </div>
-                        
-                        
-    </body>
+
+        <div id = "wholecart">
+
+            <form action="ShoppingServlet" method="post">
+                <input type="submit" class="buybutton" value="Buy"/>
+            </form>
+            <ul>
+                Shopping Cart
+                <%-- if(arraylistofcart.isEmpty()){
+                        out.println("You did not add anything yet on your shopping cart! Shop now");
+                }
+                else{
+                --%>
+                <a href="#">Item </a>
+                <%-- }--%>
+            </ul>
+
+    </div>
+</div>
+</body>
 </html>

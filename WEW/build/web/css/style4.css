@@ -260,7 +260,7 @@ nav ul li ul li li a:hover{
 #actions ul{
 
     margin-left:0;
-    position: fixed;
+    position: absolute;
 
 }
 #actions ul a{
@@ -310,7 +310,7 @@ nav ul li ul li li a:hover{
 
 #editadmin{
     top: 40px;
-    left: 250px;
+    left: 100px;
     position: absolute;
     font-family: Muli, sans-serif;
     font-size: 20px;
@@ -379,7 +379,7 @@ nav ul li ul li li a:hover{
 
 .featuredadmin{
     height: 420px;
-    width: 880px;
+    width: 600px;
     background-color: white;
     position: absolute;
     top: 200px;
@@ -388,8 +388,8 @@ nav ul li ul li li a:hover{
 }
 
 .editcustomerbill{
-    top: 40px;
-    left: 250px;
+    top: 45px;
+    left: 50px;
     position: absolute;
     font-family: Muli, sans-serif;
     font-size: 16px;
@@ -397,7 +397,7 @@ nav ul li ul li li a:hover{
 
 .editcustomerbill input{
     float: right;
-    left: 200px;
+    left: 100px;
 }
 
 .savechangesbill {
@@ -417,6 +417,7 @@ nav ul li ul li li a:hover{
   text-decoration: none;
   position: absolute;
   bottom: 0.5px;
+  
 }
 
 .savechangesbill:hover {
@@ -458,6 +459,71 @@ nav ul li ul li li a:hover{
 }
 
 #editBilling .savechangesbill{
-    left: 390px;
-    
+    left: 340px;
+    //bottom: 40px;
+    position: absolute;
+}
+
+#wholecart{    
+    background-color: bisque;
+    margin-top: 70px;
+    height: 500px;
+    width: 300px;
+    position: absolute;
+    right : 0%;
+    //display: none;
+
+}
+
+#wholecart input{
+    position: absolute;
+    right: 30px;
+    top: 10px;
+}
+
+#wholecart ul{
+    font-family: 'Exo 2', sans-serif;
+    margin-right:0;
+    position: absolute;
+    color: brown;
+}
+
+#wholecart ul a{
+    // text-align:center;
+    margin-top: 20px; //margin per box
+    font-family: 'Exo 2', sans-serif;
+    display: block;
+    text-decoration: none;
+    padding: 7px 40px 3px 40px;
+    color: #969696;
+    position: relative;
+}
+
+.buybutton {
+  background: bisque;
+  background-image: -webkit-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -moz-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -ms-linear-gradient(top, bisque, #8a5d5d);
+  background-image: -o-linear-gradient(top, bisque, #8a5d5d);
+  background-image: linear-gradient(to bottom, bisque, #8a5d5d);
+  -webkit-border-radius: 40;
+  -moz-border-radius: 40;
+  border-radius: 40px;
+  font-family: Courier New;
+  color: #cbdeca;
+  font-size: 16px;
+  padding: 11px 28px 11px 28px;
+  text-decoration: none;
+  position: absolute;
+  
+}
+
+.buybutton:hover {
+  background: #3cfc43;
+  background-image: -webkit-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -moz-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -ms-linear-gradient(top, #3cfc43, #3498db);
+  background-image: -o-linear-gradient(top, #3cfc43, #3498db);
+  background-image: linear-gradient(to bottom, #3cfc43, #3498db);
+  text-decoration: none;
 }

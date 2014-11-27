@@ -3,7 +3,7 @@
     Created on : Nov 27, 2014, 1:05:07 AM
     Author     : Danica
 --%>
-
+<%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,6 +29,7 @@
         </style>
     </head>
     <body>
+<<<<<<< HEAD
         <!-- Fixed navbar -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
