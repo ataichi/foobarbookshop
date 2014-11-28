@@ -3,7 +3,7 @@
     Created on : Nov 27, 2014, 1:05:07 AM
     Author     : Danica
 --%>
-<%@page import="Beans.AccountBean"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -51,7 +51,7 @@
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-
+        
         <div class="panel-body"  style="padding-left: 600px">
             <div class="row" style="padding-top: 200px;">
                 <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">

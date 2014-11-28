@@ -1,8 +1,13 @@
 
+<%@page import="Beans.ShoppingCartBean"%>
+<%@page import="Beans.CreditCardBean"%>
 <%@page import="Beans.AccountBean"%>
 <%@page import="Beans.CustomerBean"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+    CreditCardBean creditcard = (CreditCardBean) session.getAttribute("creditcard");
+    CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
+    ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,70 +15,92 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
-        <script src="js-general.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="css/style4.css">
-        <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <script src="js/customercheck.js" type="text/javascript"></script>
+
+        <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="dist/css/dashboard.css" rel="stylesheet">
+        <link href="dist/css/morris.css" rel="stylesheet">
+        <link href="dist/css/font-awesome.min.css" rel="stylesheet">
+
 
         <title>Customer Home Page</title>
     </head>
     <body>
-
-        <header>
-            <div id="banner"> <a href="customerHOME.jsp"><img src="images/books.jpg"></a> </div>
-        </header>
-        <nav> 
-            <ul>
-                <li><a href="customerHOME.jsp">Home</a>    </li>
-                <li><a href="#">Category</a>
-                    <ul>
-                        <li><a href="#">Books</a></li>
-                        <li><a href="#">Magazines</a></li>
-                        <li><a href="#">Audio CDs</a></li>
-                        <li><a href="#">DVDs</a></li>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Foobar</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
+                                <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
-                </li>
-                <li><a href='#'><% out.println(homeuser.getUsername());%></a>
-                    <ul>
-                        <li><a href='customerAccount.jsp'>Edit Account</a></li>
-                        <li><a href='logout.jsp'>Log out</a></li>
-                    </ul>
-                </li>
-            </ul>
+                    <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
+                        <div class="input-group input-group-sm" style="max-width:360px;">
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </nav>
+        <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="affix">
+                        <div class="well"> 
+                            <ul class="nav">
+                                <li class="active"><a href="#book"><img src="./images/book-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
+                                <li><a href="#magazine"><img src="./images/magazine-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
+                                <li><a href="#audiocd"><img src="./images/cd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
+                                <li><a href="#dvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
+                            </ul>
+                        </div>
 
-        <div id='actions'>
-            <input class="search" placeholder="Search" action='CustomerSearchProductServlet'/>
-            <br><br>
-            <ul>
-                <a href='customerBilling.jsp'>Manage Billing Information</a>
-                <a href='customerPayments.jsp'>Manage Payment Information</a>
-                <a href='customerTransactions.jsp'>View Transactions</a>
-                <ul/>
+                    </div> 
+                </div>
+                <div class="col-md-7" style="padding-left: 20px;">
+                    <div class="jumbotron">
+                        <p>Insert Product List Here</p>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-left: 20px;">
+                    <div class="pull-right affix">
+                        <div class="well navbar-form">
+                            Shopping Cart
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
+    </body>
 
-        <div id = "wholecart">
-
-            <form action="ShoppingServlet" method="post">
-                <input type="submit" class="buybutton" value="Buy"/>
-            </form>
-            <ul>
-                Shopping Cart
-                <%-- if(arraylistofcart.isEmpty()){
-                        out.println("You did not add anything yet on your shopping cart! Shop now");
-                }
-                else{
-                --%>
-                <a href="#">Item </a>
-                <%-- }--%>
-            </ul>
-
-    </div>
-</div>
-</body>
 </html>

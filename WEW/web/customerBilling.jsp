@@ -11,118 +11,154 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
         <script src="js/customercheck.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="css/style4.css">
-        <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+
+        <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="dist/css/dashboard.css" rel="stylesheet">
+        <link href="dist/css/morris.css" rel="stylesheet">
+        <link href="dist/css/font-awesome.min.css" rel="stylesheet">
 
         <title>Edit Billing Information</title>
 
     </head>
     <body>
-        <header>
-            <div id="banner"> <a href="customerBilling.jsp"><img src="images/books.jpg"></a> </div>
-        </header>
-        <nav> 
-            <ul>
-                <li><a href="customerHOME.jsp">Home</a>    </li>
-                <li><a href="#">Category</a>
-                    <ul>
-                        <li><a href="#">Books</a></li>
-                        <li><a href="#">Magazines</a></li>
-                        <li><a href="#">Audio CDs</a></li>
-                        <li><a href="#">DVDs</a></li>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Foobar</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
-                </li>
-                <li><a href='#'><% out.println(homeuser.getUsername()); %></a>
-                    <ul>
-                        <li><a href='customerAccount.jsp'>Edit Account</a></li>
-                        <li><a href='logout.jsp'>Log out</a></li>
-                    </ul>
-                </li>
-            </ul>
+                    <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
+                        <div class="input-group input-group-sm" style="max-width:360px;">
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </nav>
 
-
-        <div id='actions'>
-            <input type="text" action="CustomerSearchProductServlet" id="tfq" class="search" name="searchstring" size="21" maxlength="120" placeholder="Search">
-            <br>
-            <br>
-            <ul>
-                <a href='customerBilling.jsp'>Manage Billing Information</a>
-                <a href='customerPayments.jsp'>Manage Payment Information</a>
-                <a href='customerTransactions.jsp'>View Transactions</a>
-                <ul/>
-        </div>
-        <div class="featuredadmin">
-            <div id="editBilling">
-                <form id="customercheck" class="editcustomerbill" name="customercheck" action="EditBillingInfoServlet" method="post">
-                    <table>
-                        <tr>
-                            <td>Billing Address:</td>
-                        </tr>
-                        <tr>
-                            <td>Apartment No:</td>
-                            <td><input type='text' id='apartmentnoBA' name='apartmentnoBA'  onfocus="backWhite(this)" value="<% out.println(cbean.getApartmentNoBA()); %>"></td>
-                        </tr>
-                        <tr>
-                            <td>Street:</td>
-                            <td><input type='text' id='streetBA' name='streetBA' onblur="streetBACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getStreetBA()); %>"></td>
-                        </tr>
-                        <tr>
-                            <td>Subdivision:</td>
-                            <td><input type='text' id='subdivisionBA' name='subdivisionBA' onblur="subdivisionBACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getSubdivisionBA()); %>"></td>
-                        </tr>
-                        <tr>
-                            <td>City:</td>
-                            <td><input type='text' id='cityBA' name='cityBA' onblur="cityBACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getCityBA()); %>"></td>
-                        </tr>
-                        <tr>      
-                            <td>Country:</td> 
-                            <td><input type='text' id='countryBA' name='countryBA' onblur="countryBACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getCountryBA()); %>"></td>
-                        </tr>
-                        <tr>
-                            <td>Postal Code:</td>
-                            <td><input type='text' id='postalcodeBA' name='postalcodeBA' onblur="postalcodeBACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getPostalCodeBA()); %>"></td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                            <td>Delivery Address:</td>
-                        </tr>
-                        <tr>
-                            <td>Apartment No:</td>
-                            <td><input type='text' id='apartmentnoDA' name='apartmentnoDA' onfocus="backWhite(this)" value="<% out.println(cbean.getApartmentNoDA()); %>"></td>
-                        </tr>
-                        <tr>
-                            <td>Street:</td>
-                            <td><input type='text' id='streetDA' name='streetDA' onblur="streetDACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getStreetDA()); %>"></td>
-                        </tr>
-                        <tr>
-                            <td>Subdivision:</td>
-                            <td><input type='text' id='subdivisionDA' name='subdivisionDA' onblur="subdivisionDACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getSubdivisionDA()); %>"></td>
-                        </tr>
-                        <tr>
-                            <td>City:</td>
-                            <td><input type='text' id='cityDA' name='cityDA' onblur="cityDACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getCityDA()); %>"></td>
-                        </tr>
-                        <tr>      
-                            <td>Country:</td> 
-                            <td><input type='text' id='countryDA' name='countryDA' onblur="countryDACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getCountryDA()); %>"></td>
-                        </tr>
-                        <tr>
-                            <td>Postal Code:</td>
-                            <td><input type='text' id='postalcodeDA' name='postalcodeDA' onblur="postalcodeDACheck()" onfocus="backWhite(this)" value="<% out.println(cbean.getPostalCodeDA());%>"></td>
-                        </tr>
-                    </table>
-                    <input type="submit" id="save" class="savechangesbill" value="Save Changes"/>
+        <div class="container"  style="padding-top: 100px;">
+            <div class="row">
+                <form class="form-horizontal" role="form" id="customercheck" name="editbilling" onsubmit="return billingCheck();" method="post" action="EditBillingInfoServlet">
+                    <div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Billing Address</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="apartmentnoBA">Apartment No</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="apartmentnoBA" name="apartmentnoBA" placeholder="Apartment No" onblur="apartmentnoBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getApartmentNoBA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="streetBA">Street</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="streetBA" name="streetBA" placeholder="Street" onblur="streetBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getStreetBA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="subdivisionBA">Subdivision</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="subdivisionBA" name="subdivisionBA" placeholder="Subdivision" onblur="subdivisionBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getSubdivisionBA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="cityBA">City</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="cityBA" name="cityBA" placeholder="City" onblur="cityBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCityBA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="countryBA">Country</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="countryBA" name="countryBA" placeholder="Country" onblur="countryBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCountryBA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="postalcodeBA">Postal Code</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="postalcodeBA" name="postalcodeBA" placeholder="Postal Code" onblur="postalcodeBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getPostalCodeBA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4">Delivery Address</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="apartmentnoDA">Apartment No</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="apartmentnoDA" name="apartmentnoDA" placeholder="Apartment No" onblur="apartmentnoDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getApartmentNoDA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="streetDA">Street</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="streetDA" name="streetDA" placeholder="Street" onblur="streetDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getStreetDA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="subdivisionDA">Subdivision</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="subdivisionDA" name="subdivisionDA" placeholder="Subdivision" onblur="subdivisionDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getSubdivisionDA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="cityDA">City</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="cityDA" name="cityDA" placeholder="City" onblur="cityDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCityDA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="countryDA">Country</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="countryDA" name="countryDA" placeholder="Country" onblur="countryDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCountryDA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="postalcodeDA">Postal Code</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="postalcodeDA" name="postalcodeDA" placeholder="Postal Code" onblur="postalcodeDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getPostalCodeDA()); %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg center-block">Edit Billing Account</button>
+                        </div>
+                    </div>
                 </form>
-                <a href='customerHOME.jsp'><button class="cancelbill">Cancel</button></a>
             </div>
         </div>
+
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
+
     </body>
 </html>

@@ -83,18 +83,22 @@ public class EditBillingInfoServlet extends HttpServlet {
             if (cbean.getCustomerID() == 0) {
                 check = cdao.addCustomer(cbean);
                 if (check) {
+                    session.setAttribute("tempcustomer", cbean);
                     response.sendRedirect("customerHOME.jsp");
                     out.println("yes");
                 } else {
+                    session.setAttribute("tempcustomer", cbean);
                     response.sendRedirect("customerAccount.jsp");
                     out.println("np");
                 }
             } else {
                 check = cdao.editAddress(cbean);
                 if (check) {
+                    session.setAttribute("tempcustomer", cbean);
                     response.sendRedirect("customerHOME.jsp");
                     out.println("yehey");
                 } else {
+                    session.setAttribute("tempcustomer", cbean);
                     response.sendRedirect("customerAccount.jsp");
                     out.println("bye");
                 }

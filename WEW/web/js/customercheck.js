@@ -14,6 +14,21 @@ function customerCheck() {
     }
 }
 
+function editCustomerCheck() {
+    var first = fnameCheck();
+    var middle = mnameCheck();
+    var last = lnameCheck();
+    var user = unameCheck();
+    var email = emailCheck();
+
+    if (first == false || last == false || middle == false || user == false || email == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function billingCheck() {
     var apartmentnoBA = apartmentnoBACheck();
     var streetBA = streetBACheck();

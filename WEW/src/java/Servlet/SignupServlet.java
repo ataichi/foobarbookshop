@@ -85,13 +85,10 @@ public class SignupServlet extends HttpServlet {
             checkCustomer = customerdao.addCustomer(customer);
             
             if(checkAccount && checkCustomer){
-                session.setAttribute("tempcustomer", customer);
-//                  out.println("HI");
                 response.sendRedirect("login.jsp");
             }
             else{
-//                    out.println("NO");
-               response.sendRedirect("loginfail.jsp");
+               response.sendRedirect("signupfail.jsp");
             }
         } finally {
             out.close();

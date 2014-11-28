@@ -11,7 +11,7 @@ function logcheck() {
 
 function usernameCheck() {
     var user = document.forms["login"]["loguser"].value;
-    if (user == "" || user == null) {
+    if (user == "" || user == null || !(/^[A-z ]+$/.test(user))) {
         document.forms["login"]["loguser"].style.backgroundColor = "pink";
         return false;
     }

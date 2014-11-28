@@ -9,7 +9,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +19,6 @@
         <title>Log In</title>
 
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <style>
             body  {
@@ -54,7 +52,7 @@
 
         <div class="container"  style="padding-top: 100px;">
             <div class="row">
-                <form class="form-horizontal" role="form" id="customercheck" name="signin" onsubmit="return customercheck();" method="post" action="SignupServlet">
+                <form class="form-horizontal" role="form" id="customercheck" name="signin" onsubmit="return customerCheck();" method="post" action="SignupServlet">
                     <div>
                         <div class="form-group">
                             <label class="control-label col-lg-4">Basic Info</label>
