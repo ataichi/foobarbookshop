@@ -38,15 +38,15 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                        <li class="dropdown">
+                        <li><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li class="dropdown active">
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
+                                <li><a href="customerPayments.jsp"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
+                                <li><a href="customerTransactions.jsp"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
                             </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
@@ -65,47 +65,57 @@
 
         <div class="container"  style="padding-top: 100px;">
             <div class="row">
-                <form class="form-horizontal" role="form" id="customercheck" name="editaccount" onsubmit="return editCustomerCheck();" action="EditCustomerAccountServlet" method="post">
-                    <div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4">Basic Info</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="fname">First Name</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getFirstName()); %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="mname">Middle Initial</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getMiddleInitial()); %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="lname">Last Name</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getLastName()); %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="uname">Username</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getUsername()); %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="email">Email</label>
-                            <div class="col-sm-3">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getEmailAdd()); %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-lg center-block">Edit Account</button>
-                        </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Account Information</h3>
                     </div>
-                </form>
-                <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" id="customercheck" name="editaccount" onsubmit="return editCustomerCheck();" action="EditCustomerAccountServlet" method="post">
+                            <div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Basic Info</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" for="fname">First Name</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getFirstName()); %>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" for="mname">Middle Initial</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getMiddleInitial()); %>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" for="lname">Last Name</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getLastName()); %>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" for="uname">Username</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getUsername()); %>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" for="email">Email</label>
+                                    <div class="col-sm-3">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getEmailAdd());%>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg center-block">Edit Account</button>
+                                </div>
+                                <div class="form-group">
+                                    <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
         <script src="dist/js/jquery-2.1.0.min.js"></script>
