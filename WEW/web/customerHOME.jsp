@@ -28,19 +28,6 @@
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
 
-        <script>
-            $(document).ready(function() {
-                $("#viewmaglist").hide();
-                $("#viewdvdlist").hide();
-                $("#viewcdlist").hide();
-            });
-            $("#viewbook").onclick(function () {
-                $("#viewbook").show();
-                $("#viewmaglist").hide();
-                $("#vewdvdlist").hide();
-                $("#viewcdlist").hide();
-            });
-        </script>
         <title>Customer Home Page</title>
     </head>
     <body>
@@ -102,19 +89,8 @@
                 </div>
                 <div class="col-md-4 well" style="padding-left: 20px;">
                     <div class="pull-right affix">
-                        <div id="viewbooklist" class="panel-body">
-                            <p>book</p>
-                        </div>
- <!--                       <div id="viewmaglist" class="panel-body">
-                            <p>mag</p>
-                        </div>
-                        <div id="viewcdlist" class="panel-body">
-                            <p>cd</p>
-                        </div>
-                        <div id="viewdvdlist" class="panel-body">
-                            <p>dvd</p>
-                        </div>
- -->
+                        <div class="panel-body">
+                            <p>Insert product list here</p>
                     </div>
                 </div>
             </div>

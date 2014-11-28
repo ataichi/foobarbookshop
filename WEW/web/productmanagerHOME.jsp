@@ -27,6 +27,7 @@
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
     ProductManagerBean managerBean = pdao.getProductManagerBeanById(homeproduct.getAccountID());
     ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
+    
     BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
     AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
     MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();

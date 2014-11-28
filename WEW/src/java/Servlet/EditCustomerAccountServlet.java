@@ -11,11 +11,13 @@ import DAO.Interface.AccountDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@WebServlet(name = "EditCustomerAccountServlet", urlPatterns = {"/EditCustomerAccountServlet"})
 /**
  *
  * @author Giodee
@@ -55,7 +57,6 @@ public class EditCustomerAccountServlet extends HttpServlet {
             
             boolean locked = false;
             int id = account.getAccountID();
-            out.println(id);
             
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             bean.setAccountID(id);
@@ -77,6 +78,7 @@ public class EditCustomerAccountServlet extends HttpServlet {
                 session.setAttribute("homeuser", bean);
                 response.sendRedirect("customerAccount.jsp");
             }
+            
         } catch (Exception e) {
 
         }
