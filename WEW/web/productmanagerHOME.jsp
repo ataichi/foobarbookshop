@@ -1,135 +1,157 @@
 <%-- 
     Document   : productmanagerHOME
-    Created on : Nov 9, 2014, 10:11:04 PM
-    Author     : Giodee
+    Created on : Nov 28, 2014, 5:29:41 PM
+    Author     : Danica
 --%>
-<%@page import="DAO.Implementation.AudioCDManagerDAOImplementation"%>
+
+<%@page import="Beans.DVDBean"%>
+<%@page import="Beans.MagazineBean"%>
+<%@page import="Beans.AudioCDBean"%>
+<%@page import="Beans.BookBean"%>
 <%@page import="DAO.Interface.DVDManagerDAOInterface"%>
 <%@page import="DAO.Implementation.DVDManagerDAOImplementation"%>
-<%@page import="DAO.Implementation.MagazineManagerDAOImplementation"%>
 <%@page import="DAO.Interface.MagazineManagerDAOInterface"%>
+<%@page import="DAO.Implementation.MagazineManagerDAOImplementation"%>
 <%@page import="DAO.Interface.AudioCDManagerDAOInterface"%>
+<%@page import="DAO.Implementation.AudioCDManagerDAOImplementation"%>
+<%@page import="DAO.Interface.BookManagerDAOInterface"%>
 <%@page import="DAO.Implementation.BookManagerDAOImplementation"%>
 <%@page import="Beans.ProductBean"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="DAO.Interface.BookManagerDAOInterface"%>
-<%@page import="Beans.DVDBean"%>
-<%@page import="Beans.AudioCDBean"%>
-<%@page import="Beans.MagazineBean"%>
-<%@page import="Beans.BookBean"%>
-<%@page import="DAO.Implementation.ProductManagerDAOImplementation"%>
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
-<%@page import="Beans.ProductManagerBean"%>
+<%@page import="DAO.Implementation.ProductManagerDAOImplementation"%>
 <%@page import="Beans.AccountBean"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-    ProductManagerBean managerBean = pdao.getProductManagerBeanById(homeproduct.getAccountID());
     ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
-    
+
     BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
     AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
     MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
     DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-    ArrayList<BookBean> booklist = bookdao.viewAllBook();
+    ArrayList<BookBean> booklist = bookdao.getAllBooks();
     ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
-    ArrayList<MagazineBean> magazinelist = magazinedao.viewAllMagazine();
+    ArrayList<MagazineBean> magazinelist = magazinedao.getAllMagazine();
     ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
+
 %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <script src="js/customercheck.js" type="text/javascript"></script>
 
-        <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
-        <script src="js-general.js" type="text/javascript"></script>
-        <script src="js-productmanager.js" type="text/javascript"></script>
+        <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="dist/css/dashboard.css" rel="stylesheet">
+        <link href="dist/css/morris.css" rel="stylesheet">
+        <link href="dist/css/font-awesome.min.css" rel="stylesheet">
+        <title>Product Manager Home</title>
 
-        <link rel="stylesheet" type="text/css" href="wadesign.css">
-        <link rel="stylesheet" type="text/css" href="category.css">
-        <link rel="stylesheet" type="text/css" href="style4.css">
-        <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
-
-
-        <title>JSP Page</title>
     </head>
     <body>
-
-        <header>
-            <div id="banner"> <a href="productmanagerHOME.html"><img src="books.jpg"></a> </div>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="productmanagerHOME.html">Home</a>    </li>
-                <li><a href='#'>Account
-                        <ul>
-                            <li><a href='productmanagerAccount.jsp'>Edit Account</a></li>
-                            <li><a href='#'>Log out</a></li>
-                        </ul>
-                </li>
-            </ul>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Foobar</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeproduct.getUsername());%> <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="productmanagerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right" action='SearchProductServlet' method="post">
+                        <div class="input-group input-group-sm" style="max-width:360px;">
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </nav>
 
-        <div id="actions">
-            <br/>
-            <br/>
-
-            <a href="addproduct.jsp">Add Product</a>
-            <br>
-            <br>
-            <br>
-            <br>
+        <div class="container-fluid" style="padding-top: 100px;">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="#">Add Product<span class="sr-only">(current)</span></a></li>
+                        <!--                        <li><a href="#">Reports</a></li>
+                                                <li><a href="#">Analytics</a></li>
+                                                <li><a href="#">Export</a></li>-->
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top: -20px;">
+                    <h1 class="page-header">List of Products</h1>
+                    <h3 class="sub-header">Sort By</h3> 
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Stocks</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    int i;
+                                    for (i = 0; i < productlist.size(); i++) {
+                                        out.println("<tr>"
+                                                + "<td>"
+                                                + productlist.get(i).getTitle()
+                                                + "</td><td>"
+                                                + productlist.get(i).getNumberStocks()
+                                                + "</td><td>"
+                                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='EditProductServlet'>"
+                                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
+                                                + "<input type='submit' id='submit' value='Edit' name='" + productlist.get(i).getProductID() + "' style='border-color: transparent; background-color: transparent'/>"
+                                                + "</form>"
+                                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='RemoveProductServlet'>"
+                                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
+                                                + "<input type='submit' value='Remove' name='" + productlist.get(i).getProductID() + "' style='border-color:transparent; background-color: transparent'/>"
+                                                + "</form>"
+                                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='RestockProductServlet'>"
+                                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
+                                                + "<input type='submit' value='Restock' name='" + productlist.get(i).getProductID() + "' style='border-color:transparent; background-color: transparent'/>"
+                                                + "</form>"
+                                                + "</td></tr>");
+                                    }
+                                %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="tfheader">
-            <form id="tfnewsearch" method="get" action="SearchProductServlet">
-                <input type="text" id="tfq" class="tftextinput2" name="q" size="21" maxlength="120" value="Search our website">
-                <input type="submit" value=">" class="tfbutton2">
-            </form>
-        </div>
-        <div id="viewProducts">
-            <table>
-                <tr>
-                    <td><center>Title</center>
-                </td>
-                <td><center>Stocks</center>
-                </td>
-                <td><center>Actions</center>
-                </td>
-                </tr>
-                <%
-                    int i;
-                    for (i = 0; i < productlist.size(); i++) {
-                        out.println("<tr>"
-                                + "<td><center>"
-                                + productlist.get(i).getTitle()
-                                + "</center></td><td><center>"
-                                + productlist.get(i).getNumberStocks()
-                                + "</center></td><td><center>"
-                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='EditProductServlet'>"
-                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
-                                + "<input type='submit' id='submit' value='Edit' name='" + productlist.get(i).getProductID() + "' style='border-color: transparent; background-color: transparent'/>"
-                                + "</form>"
-                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='RemoveProductServlet'>"
-                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
-                                + "<input type='submit' value='Remove' name='" + productlist.get(i).getProductID() + "' style='border-color:transparent; background-color: transparent'/>"
-                                + "</form>"
-                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='RestockProductServlet'>"
-                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() +"'/>"
-                                + "<input type='submit' value='Restock' name='" + productlist.get(i).getProductID() + "' style='border-color:transparent; background-color: transparent'/>"
-                                + "</form>"
-                                + "</center></td></tr>");
-                    }
-                %>
-            </table>
-        </div>
 
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
