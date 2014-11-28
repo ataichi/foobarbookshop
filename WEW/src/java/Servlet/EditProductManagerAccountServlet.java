@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlet;
 
 import Beans.AccountBean;
@@ -17,10 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "EditProductManagerAccountServlet", urlPatterns = {"/EditProductManagerAccountServlet"})
 public class EditProductManagerAccountServlet extends HttpServlet {
 
@@ -46,34 +37,34 @@ public class EditProductManagerAccountServlet extends HttpServlet {
 
             String firstName, lastName, middleInitial, username, emailAdd;
 
-            if (request.getParameter("editfirst").isEmpty()) {
+            if (request.getParameter("fname").isEmpty()) {
                 firstName = account.getFirstName();
             } else {
-                firstName = request.getParameter("editfirst");
+                firstName = request.getParameter("fname");
             }
 
-            if (request.getParameter("editlast").isEmpty()) {
+            if (request.getParameter("lname").isEmpty()) {
                 lastName = account.getLastName();
             } else {
-                lastName = request.getParameter("editlast");
+                lastName = request.getParameter("lname");
             }
 
-            if (request.getParameter("editmiddle").isEmpty()) {
+            if (request.getParameter("mname").isEmpty()) {
                 middleInitial = account.getMiddleInitial();
             } else {
-                middleInitial = request.getParameter("editmiddle");
+                middleInitial = request.getParameter("mname");
             }
 
-            if (request.getParameter("edituser").isEmpty()) {
+            if (request.getParameter("uname").isEmpty()) {
                 username = account.getUsername();
             } else {
-                username = request.getParameter("edituser");
+                username = request.getParameter("uname");
             }
 
-            if (request.getParameter("editemail").isEmpty()) {
+            if (request.getParameter("email").isEmpty()) {
                 emailAdd = account.getEmailAdd();
             } else {
-                emailAdd = request.getParameter("editemail");
+                emailAdd = request.getParameter("email");
             }
             boolean locked = false;
             String password = account.getPassword();
@@ -87,7 +78,7 @@ public class EditProductManagerAccountServlet extends HttpServlet {
             bean.setEmailAdd(emailAdd);
             bean.setLocked(locked);
             bean.setPassword(password);
-            bean.setAccountType("product manager");
+            bean.setAccountType(account.getAccountType());
 
             boolean edit = accountdao.updateAccount(bean);
             if (edit) {

@@ -38,43 +38,25 @@ public class EditCustomerAccountServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            
+
             AccountBean bean = new AccountBean();
 
             String firstName, lastName, middleInitial, username, emailAdd;
+
+            firstName = request.getParameter("fname");
+
+            lastName = request.getParameter("lname");
+
+            middleInitial = request.getParameter("mname");
+
+            username = request.getParameter("uname");
+
+            emailAdd = request.getParameter("email");
             
-            if(request.getParameter("editfirst").isEmpty()){
-                firstName=account.getFirstName();
-            }else{
-                firstName = request.getParameter("editfirst");
-            }
+            boolean locked = false;
+            int id = account.getAccountID();
+            out.println(id);
             
-            if(request.getParameter("editlast").isEmpty()){
-                lastName = account.getLastName();
-            }else{
-                lastName = request.getParameter("editlast");
-            }
-            
-            if(request.getParameter("editmiddle").isEmpty()){
-                middleInitial = account.getMiddleInitial();
-            }else{
-                middleInitial = request.getParameter("editmiddle");
-            }
-            
-            if(request.getParameter("edituser").isEmpty()){
-                username = account.getUsername();
-            }else{
-                username = request.getParameter("edituser");
-            }
-            
-            if(request.getParameter("editemail").isEmpty()){
-                emailAdd = account.getEmailAdd();
-            }else{
-                emailAdd = request.getParameter("editemail");
-            }
-            boolean locked=false;
-            String password=account.getPassword();
-            int id=account.getAccountID();
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             bean.setAccountID(id);
             bean.setFirstName(firstName);
@@ -83,22 +65,20 @@ public class EditCustomerAccountServlet extends HttpServlet {
             bean.setUsername(username);
             bean.setEmailAdd(emailAdd);
             bean.setLocked(locked);
-            bean.setPassword(password);
             bean.setAccountType("Customer");
-            
+
             boolean edit = accountdao.updateAccount(bean);
-            if(edit){
+            out.println(edit);
+
+            if (edit) {
                 session.setAttribute("homeuser", bean);
                 response.sendRedirect("customerHOME.jsp");
-            }else{
+            } else {
                 session.setAttribute("homeuser", bean);
                 response.sendRedirect("customerAccount.jsp");
             }
-            
-            
-        }
-        catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
     }
 

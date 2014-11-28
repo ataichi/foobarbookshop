@@ -46,7 +46,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
     @Override
     public boolean updateAccount(AccountBean accountBean) {
 
-        String query = "UPDATE account SET firstName=?, lastName=?, middleInitial=?, username=?, password=?, emailAdd=?, accounttype=?, locked=? WHERE accountID=?";
+        String query = "UPDATE account SET firstName=?, lastName=?, middleInitial=?, username=?, emailAdd=?, accounttype=?, locked=? WHERE accountID=?";
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
@@ -55,11 +55,10 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             ps.setString(2, accountBean.getLastName());
             ps.setString(3, accountBean.getMiddleInitial());
             ps.setString(4, accountBean.getUsername());
-            ps.setString(5, accountBean.getPassword());
-            ps.setString(6, accountBean.getEmailAdd());
-            ps.setString(7, accountBean.getAccountType());
-            ps.setBoolean(8, accountBean.getLocked());
-            ps.setInt(9, accountBean.getAccountID());
+            ps.setString(5, accountBean.getEmailAdd());
+            ps.setString(6, accountBean.getAccountType());
+            ps.setBoolean(7, accountBean.getLocked());
+            ps.setInt(8, accountBean.getAccountID());
             ps.executeUpdate();
             connection.close();
             return true;

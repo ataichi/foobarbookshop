@@ -74,7 +74,7 @@
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" id="customercheck" name="editbilling" onsubmit="return billingCheck();" method="post" action="EditBillingInfoServlet">
-                            <div class="form-group">
+                            <div class="form-group" style="font-size: 20px;">
                                 <label class="control-label col-lg-4">Billing Address</label>
                             </div>
                             <div class="form-group">
@@ -113,7 +113,7 @@
                                     <input type="text" class="form-control" id="postalcodeBA" name="postalcodeBA" placeholder="Postal Code" onblur="postalcodeBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getPostalCodeBA()); %>">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="font-size: 20px;">
                                 <label class="control-label col-lg-4">Delivery Address</label>
                             </div>
                             <div class="form-group">

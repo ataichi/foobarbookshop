@@ -28,7 +28,19 @@
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
 
-
+        <script>
+            $(document).ready(function() {
+                $("#viewmaglist").hide();
+                $("#viewdvdlist").hide();
+                $("#viewcdlist").hide();
+            });
+            $("#viewbook").onclick(function () {
+                $("#viewbook").show();
+                $("#viewmaglist").hide();
+                $("#vewdvdlist").hide();
+                $("#viewcdlist").hide();
+            });
+        </script>
         <title>Customer Home Page</title>
     </head>
     <body>
@@ -75,25 +87,34 @@
                     <div class="affix">
                         <div class="well"> 
                             <ul class="nav">
-                                <li class="active"><a href="#book"><img src="./images/book-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#magazine"><img src="./images/magazine-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#audiocd"><img src="./images/cd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#dvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
+                                <li class="active"><a href="#viewbook" id="viewbook"><img src="./images/book-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
+                                <li><a href="#viewmag" id="viewmag"><img src="./images/magazine-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
+                                <li><a href="#viewcd" id="viewcd"><img src="./images/cd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
+                                <li><a href="#viewdvd" id="viewdvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
                             </ul>
                         </div>
 
                     </div> 
                 </div>
                 <div class="col-md-7" style="padding-left: 20px;">
-                    <div class="jumbotron">
-                        <p>Insert Product List Here</p>
+                    <div class="well" id="shoplist">
                     </div>
                 </div>
-                <div class="col-md-4" style="padding-left: 20px;">
+                <div class="col-md-4 well" style="padding-left: 20px;">
                     <div class="pull-right affix">
-                        <div class="well navbar-form">
-                            Shopping Cart
+                        <div id="viewbooklist" class="panel-body">
+                            <p>book</p>
                         </div>
+ <!--                       <div id="viewmaglist" class="panel-body">
+                            <p>mag</p>
+                        </div>
+                        <div id="viewcdlist" class="panel-body">
+                            <p>cd</p>
+                        </div>
+                        <div id="viewdvdlist" class="panel-body">
+                            <p>dvd</p>
+                        </div>
+ -->
                     </div>
                 </div>
             </div>
