@@ -114,6 +114,10 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Stocks</th>
+                                    <th>Summary</th>
+                                    <th>Price</th>
+                                    <th>Genre</th>
+                                    <th>Year</th>
                                     <th>Option</th>
                                 </tr>
                             </thead>
@@ -126,6 +130,14 @@
                                                 + productlist.get(i).getTitle()
                                                 + "</td><td>"
                                                 + productlist.get(i).getNumberStocks()
+                                                + "</td><td>"
+                                                + productlist.get(i).getSummary()
+                                                + "</td><td>"
+                                                + productlist.get(i).getPrice()
+                                                + "</td><td>"
+                                                + productlist.get(i).getGenre()
+                                                + "</td><td>"
+                                                + productlist.get(i).getYear()
                                                 + "</td><td>"
                                                 + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='EditProductServlet'>"
                                                 + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
