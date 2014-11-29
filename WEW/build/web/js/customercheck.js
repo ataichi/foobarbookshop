@@ -29,6 +29,18 @@ function editCustomerCheck() {
     }
 }
 
+function editPassword() {
+    var pass1 = checkcurrentpass();
+    var pass2 = passCheck();
+    var pass3 = passCheck();
+     if (pass1 == false || pass2 == false || pass3 == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function billingCheck() {
     var apartmentnoBA = apartmentnoBACheck();
     var streetBA = streetBACheck();
@@ -115,20 +127,31 @@ function emailCheck() {
 }
 
 function passCheck() {
-    var pass1 = document.forms["customercheck"]["pass1"].value;
-    var pass2 = document.forms["customercheck"]["pass2"].value;
+    var pass1 = document.forms["customercheck"]["newpass"].value;
+    var pass2 = document.forms["customercheck"]["reenter"].value;
     if (pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
-        document.forms["customercheck"]["pass1"].style.backgroundColor = "pink";
-        document.forms["customercheck"]["pass2"].style.backgroundColor = "pink";
+        document.forms["customercheck"]["newpass"].style.backgroundColor = "pink";
+        document.forms["customercheck"]["reenter"].style.backgroundColor = "pink";
         return false;
     }
     else {
-        document.forms["customercheck"]["pass1"].style.backgroundColor = "white";
-        document.forms["customercheck"]["pass2"].style.backgroundColor = "white";
+        document.forms["customercheck"]["newpass"].style.backgroundColor = "white";
+        document.forms["customercheck"]["reenter"].style.backgroundColor = "white";
         return true;
     }
 }
 
+function checkcurrentpass(){
+    var pass1 = document.forms["customercheck"]["currpass"].value;
+     if (pass1 == "" || pass1 == null) {
+        document.forms["customercheck"]["currpass"].style.backgroundColor = "pink";
+        return false;
+    }
+    else {
+        document.forms["customercheck"]["currpass"].style.backgroundColor = "white";
+        return true;
+    }
+}
 function apartmentnoBACheck() {
     var aptnoBA = document.forms["customercheck"]["apartmentnoBA"].value;
     if (aptnoBA == "" || aptnoBA == null || !(/^[A-z ]+$/.test(aptnoBA))) {

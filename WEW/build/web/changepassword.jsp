@@ -76,7 +76,7 @@
                         <h3 class="panel-title">Change Password</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="customercheck" name="editpassword" onsubmit="return editCustomerCheck();" action="" method="post">
+                        <form class="form-horizontal" role="form" id="customercheck" name="editpassword" onsubmit="return editPassword();" action="" method="post">
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
                                     <label class="control-label col-lg-4">Password</label>
@@ -84,19 +84,19 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Current Password</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="passCheck();" onfocus="backWhite(this);" >
+                                        <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="checkcurrentpass();" onfocus="backWhite(this);" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" >New Password</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="newpass" name="newpass" placeholder="Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" >
+                                        <input type="password" class="form-control" id="newpass" name="newpass" placeholder="Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Re-Enter New Password</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="reenter" name="reenter" placeholder="Re-Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" >
+                                        <input type="password" class="form-control" id="reenter" name="reenter" placeholder="Re-Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" >
                                     </div>
                                 </div>
                                

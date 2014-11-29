@@ -68,6 +68,23 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         return false;
     }
 
+    public boolean updateAccountPassword(AccountBean accountBean) {
+
+        String query = "UPDATE account SET password=? WHERE accountID=?";
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, accountBean.getPassword());
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     @Override
     public AccountBean getUserByUsername(String username) {
 
@@ -95,7 +112,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = resultSet.getString("emailAdd");
                 type = resultSet.getString("accounttype");
                 accountID = resultSet.getInt("accountID");
-                locked=resultSet.getBoolean("locked");
+                locked = resultSet.getBoolean("locked");
 
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
@@ -108,11 +125,11 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setLocked(locked);
 
                 System.out.println("hssere");
-                
+
             }
             connection.close();
             return bean;
-          
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,45 +158,44 @@ public class AccountDAOImplementation implements AccountDAOInterface {
     }
 
     /*
-    @Override
-    public boolean isAdmin(String username, String password) {
-        boolean result = false;
-        String query = "SELECT * FROM admin WHERE adminUsername = ? AND adminPassword = ?";
-        int index = 1;
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(index++, username);
-            ps.setString(index++, password);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                result = true;
-            }
-            connection.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return result;
-    }
+     @Override
+     public boolean isAdmin(String username, String password) {
+     boolean result = false;
+     String query = "SELECT * FROM admin WHERE adminUsername = ? AND adminPassword = ?";
+     int index = 1;
+     try {
+     Connector c = new Connector();
+     Connection connection = c.getConnection();
+     PreparedStatement ps = connection.prepareStatement(query);
+     ps.setString(index++, username);
+     ps.setString(index++, password);
+     ResultSet rs = ps.executeQuery();
+     while (rs.next()) {
+     result = true;
+     }
+     connection.close();
+     } catch (SQLException ex) {
+     ex.printStackTrace();
+     }
+     return result;
+     }
 
-    @Override
-    public boolean isCustomer(String username, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     @Override
+     public boolean isCustomer(String username, String password) {
+     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     }
 
-    @Override
-    public boolean isProductManager(String username, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     @Override
+     public boolean isProductManager(String username, String password) {
+     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     }
 
-    @Override
-    public boolean isAccountingManager(String username, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     @Override
+     public boolean isAccountingManager(String username, String password) {
+     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     }
     
-    */
-
+     */
     @Override
     public ArrayList<AccountBean> getAccountByName(String firstname, String lastname) {
         try {
@@ -189,16 +205,16 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, firstname);
             ps.setString(2, lastname);
-            
+
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
             int accountID;
             boolean locked;
 
             AccountBean bean = new AccountBean();
             ArrayList<AccountBean> alist = new ArrayList<AccountBean>();
-            
+
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 accountID = rs.getInt("accountID");
                 firstName = rs.getString("firstName");
                 lastName = rs.getString("lastName");
@@ -208,9 +224,9 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = rs.getString("emailAdd");
                 type = rs.getString("accounttype");
                 locked = rs.getBoolean("locked");
-                
+
                 bean = new AccountBean();
-                
+
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
                 bean.setEmailAdd(emailAdd);
@@ -220,12 +236,12 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setMiddleInitial(middleInitial);
                 bean.setPassword(password);
                 bean.setUsername(uname);
-                
+
                 alist.add(bean);
             }
             connection.close();
             return alist;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -240,16 +256,16 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, firstname);
-            
+
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
             int accountID;
             boolean locked;
 
             AccountBean bean = new AccountBean();
             ArrayList<AccountBean> alist = new ArrayList<AccountBean>();
-            
+
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 accountID = rs.getInt("accountID");
                 firstName = rs.getString("firstName");
                 lastName = rs.getString("lastName");
@@ -259,9 +275,9 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = rs.getString("emailAdd");
                 type = rs.getString("accounttype");
                 locked = rs.getBoolean("locked");
-                
+
                 bean = new AccountBean();
-                
+
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
                 bean.setEmailAdd(emailAdd);
@@ -271,13 +287,13 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setMiddleInitial(middleInitial);
                 bean.setPassword(password);
                 bean.setUsername(uname);
-                
+
                 alist.add(bean);
             }
-            
+
             connection.close();
             return alist;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -292,16 +308,16 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, lastname);
-            
+
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
             int accountID;
             boolean locked;
 
             AccountBean bean = new AccountBean();
             ArrayList<AccountBean> alist = new ArrayList<AccountBean>();
-            
+
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 accountID = rs.getInt("accountID");
                 firstName = rs.getString("firstName");
                 lastName = rs.getString("lastName");
@@ -311,9 +327,9 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = rs.getString("emailAdd");
                 type = rs.getString("accounttype");
                 locked = rs.getBoolean("locked");
-                
+
                 bean = new AccountBean();
-                
+
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
                 bean.setEmailAdd(emailAdd);
@@ -323,13 +339,13 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setMiddleInitial(middleInitial);
                 bean.setPassword(password);
                 bean.setUsername(uname);
-                
+
                 alist.add(bean);
             }
-            
+
             connection.close();
             return alist;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -343,16 +359,16 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             Connector c = new Connector();
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
-            
+
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
             int accountID;
             boolean locked;
 
             AccountBean bean = new AccountBean();
             ArrayList<AccountBean> alist = new ArrayList<AccountBean>();
-            
+
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 accountID = rs.getInt("accountID");
                 firstName = rs.getString("firstName");
                 lastName = rs.getString("lastName");
@@ -362,9 +378,9 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = rs.getString("emailAdd");
                 type = rs.getString("accounttype");
                 locked = rs.getBoolean("locked");
-                
+
                 bean = new AccountBean();
-                
+
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
                 bean.setEmailAdd(emailAdd);
@@ -374,13 +390,13 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setMiddleInitial(middleInitial);
                 bean.setPassword(password);
                 bean.setUsername(uname);
-                
+
                 alist.add(bean);
             }
-            
+
             connection.close();
             return alist;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -410,7 +426,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            
+
             String query = "delete from account where accountID=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, accountID);
@@ -449,10 +465,10 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = resultSet.getString("emailAdd");
                 type = resultSet.getString("accounttype");
                 accountID = resultSet.getInt("accountID");
-                locked=resultSet.getBoolean("locked");
+                locked = resultSet.getBoolean("locked");
 
                 bean = new AccountBean();
-                
+
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
                 bean.setEmailAdd(emailAdd);
@@ -467,11 +483,11 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             }
             connection.close();
             return alist;
-          
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    
+
     }
 }
