@@ -1,9 +1,15 @@
+<%-- 
+    Document   : changepassword
+    Created on : 29/11/2014, 6:46:22 PM
+    Author     : Evy
+--%>
+
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-
 %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +27,7 @@
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
 
-        <title>Credit Card</title>
+        <title>Change Password</title>
     </head>
     <body>
 
@@ -44,8 +50,8 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
-                                <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                                <li><a href="customerPayments.jsp"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                                 <li><a href="customerTransactions.jsp"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
                             </ul>
                         </li>
@@ -67,11 +73,44 @@
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Credit Card Information</h3>
+                        <h3 class="panel-title">Change Password</h3>
                     </div>
                     <div class="panel-body">
+                        <form class="form-horizontal" role="form" id="customercheck" name="editpassword" onsubmit="return editCustomerCheck();" action="" method="post">
+                            <div>
+                                <div class="form-group" style="font-size: 20px;">
+                                    <label class="control-label col-lg-4">Password</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Current Password</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="passCheck();" onfocus="backWhite(this);" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" >New Password</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="newpass" name="newpass" placeholder="Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Re-Enter New Password</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="reenter" name="reenter" placeholder="Re-Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" >
+                                    </div>
+                                </div>
+                               
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg center-block">Save Changes</button>
+                                </div>
+                                <div class="form-group">
+                                    <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+
             </div>
         </div>
         <script src="dist/js/jquery-2.1.0.min.js"></script>
