@@ -44,7 +44,7 @@
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Edit Account</a></li>
-                                <li><a href="signup_productmanager.html"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
+                                <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
                                 <li><a href="signup_accountingmanager.html"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
                                 <li><a href="viewlogs.html"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
                                 <li><a href="unlock_account.html"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>
