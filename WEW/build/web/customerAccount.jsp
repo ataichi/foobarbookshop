@@ -78,31 +78,31 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="fname">First Name</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getFirstName()); %>">
+                                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getFirstName()); %>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">Middle Initial</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getMiddleInitial()); %>">
+                                        <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getMiddleInitial()); %>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="lname">Last Name</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getLastName()); %>">
+                                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getLastName()); %>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="uname">Username</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getUsername()); %>">
+                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getUsername()); %> required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="email">Email</label>
                                     <div class="col-sm-3">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getEmailAdd());%>">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getEmailAdd());%>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
