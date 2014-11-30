@@ -97,17 +97,17 @@
 
         <div class="container-fluid" style="padding-top: 100px;">
             <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li class="active"><a href="addproduct.jsp">Add Product<span class="sr-only">(current)</span></a></li>
-                        <!--                        <li><a href="#">Reports</a></li>
-                                                <li><a href="#">Analytics</a></li>
-                                                <li><a href="#">Export</a></li>-->
-                    </ul>
-                </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top: -20px;">
+                <div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-1 main">
                     <h1 class="page-header">List of Products</h1>
-                    <h3 class="sub-header">Sort By</h3> 
+                    <h3 class="sub-header"><a href="addproduct.jsp"><button class="btn btn-primary btn-sm">Add Product</button></a></h3>
+                    <div class="dropdown-header">Sort By:
+                            <select name="prodType" id="prodType">
+                                <option value="Audio CD" name="prodType" id="prodType" class="dropdown-toggle">Audio CD</option>
+                                <option value="Book" name="prodType" id="prodType" class="dropdown-toggle">Book</option>
+                                <option value="DVD" name="prodType" id="prodType" class="dropdown-toggle">DVD</option>
+                                <option value="Magazine" name="prodType" id="prodType" class="dropdown-toggle">Magazine</option>
+                            </select>
+                    </div> 
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -139,6 +139,10 @@
                                                 + "</td><td>"
                                                 + productlist.get(i).getYear()
                                                 + "</td><td>"
+                                                + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='ViewProductServlet'>"
+                                                + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
+                                                + "<input type='submit' id='submit' value='View Details' name='" + productlist.get(i).getProductID() + "' style='border-color: transparent; background-color: transparent'/>"
+                                                + "</form>"
                                                 + "<form id='" + productlist.get(i).getProductID() + "' method='post' action='EditProductServlet'>"
                                                 + "<input type='hidden' id='product' name='product' value='" + productlist.get(i).getProductID() + "'/>"
                                                 + "<input type='submit' id='submit' value='Edit' name='" + productlist.get(i).getProductID() + "' style='border-color: transparent; background-color: transparent'/>"
