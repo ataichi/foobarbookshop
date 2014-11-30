@@ -22,7 +22,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <script src="js/customercheck.js" type="text/javascript"></script>
-
+        <link href="css/wadesign.css" rel="stylesheet">
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
@@ -91,13 +91,25 @@
                     <div class="pull-right affix">
                         <div class="panel-body">
                             <p>Insert product list here</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="dist/js/jquery-2.1.0.min.js"></script>
-        <script src="dist/js/query.js"></script>
-        <script src="dist/js/bootstrap.min.js"></script>
+
+            <div class="cartright">
+                <ul class="dropdown">
+                    <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false">Shopping Cart <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">My Cart Item 1 <span class="glyphicon glyphicon-edit"></span></a></li>
+                        <li><a href="#">My Cart Item 2 <span class="glyphicon glyphicon-edit"></span></a></li>
+                        <li><a href="#">Checkout <span class="glyphicon glyphicon-edit"></span></a></li>
+                    </ul>
+                </ul>
+            </div>
+            
+            <script src="dist/js/jquery-2.1.0.min.js"></script>
+            <script src="dist/js/query.js"></script>
+            <script src="dist/js/bootstrap.min.js"></script>
     </body>
 
 </html>
