@@ -202,7 +202,7 @@ public class CreditCardDAOImplementation implements CreditCardDAOInterface {
             return clist;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreditCardDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -210,7 +210,46 @@ public class CreditCardDAOImplementation implements CreditCardDAOInterface {
 
     @Override
     public ArrayList<CreditCardBean> getCreditCardByExpDate(Date from, Date to) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String query = "select * from creditcard where cardExpDate >= ? and cardExpDate <= ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setDate(1, from);
+            ps.setDate(2, to);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            ArrayList<CreditCardBean> clist = new ArrayList<CreditCardBean>();
+            CreditCardBean bean = new CreditCardBean();
+            int creditcardID;
+            String cardName, cardNo, cardType, cardExpDate;
+            while (resultSet.next()) {
+
+                creditcardID = resultSet.getInt("creditcardID");
+                cardName = resultSet.getString("cardName");
+                cardNo = resultSet.getString("cardNo");
+                cardType = resultSet.getString("cardType");
+                cardExpDate = resultSet.getString("cardExpDate");
+
+                bean.setCardexpdate(cardExpDate);
+                bean.setCardname(cardName);
+                bean.setCardno(cardNo);
+                bean.setCardtype(cardType);
+                bean.setCreditcardID(creditcardID);
+
+                clist.add(bean);
+
+            }
+
+            connection.close();
+            return clist;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CreditCardDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 
     @Override
@@ -313,7 +352,7 @@ public class CreditCardDAOImplementation implements CreditCardDAOInterface {
             return bean;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreditCardDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

@@ -13,10 +13,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Danica
- */
 public class AdminDAOImplementation implements AdminDAOInterface {
 
     ProductBean prodbean = new ProductBean();

@@ -17,10 +17,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Danica
- */
 public class MagazineManagerDAOImplementation implements MagazineManagerDAOInterface{
     MagazineBean bean = new MagazineBean();
     int magazineID, magazine_accountID, volumeNo, issueNo, magazine_productID;
@@ -169,18 +165,35 @@ public class MagazineManagerDAOImplementation implements MagazineManagerDAOInter
     }
 
     @Override
-    public boolean restockMagazine(int productID, int num) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean restockMagazine(int magazineID, int num) {
+  try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            query = "update magazine set numberStocks = ? where magazineID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            ps.setInt(1, num);
+            ps.setInt(2, magazineID);
+
+            ps.executeUpdate();
+            connection.close();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BookManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public ArrayList<MagazineBean> searchMagazinebyTitle(String title) {
         try {
-            String query = "select * from magazine where title = ?";
+            String query = "select * from magazine where title like ?";
             Connector c = new Connector();
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, title);
+            String temp = "%"+title+"%";
+            ps.setString(1, temp);
             
             ResultSet rs = ps.executeQuery();
             Date datePublished;
@@ -312,7 +325,8 @@ public class MagazineManagerDAOImplementation implements MagazineManagerDAOInter
             Connection connection = c.getConnection();
             String query = "select * from magazine where publisher like ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%"+publisher+"%");
+            String temp = "%"+publisher+"%";
+            ps.setString(1, temp);
             
             MagazineBean bean = new MagazineBean();
             ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();

@@ -87,8 +87,24 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
     }
 
     @Override
-    public boolean restockBook(int productID, int num) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean restockBook(int bookID, int num) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            query = "update book set numberStocks = ? where bookID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            ps.setInt(1, num);
+            ps.setInt(2, bookID);
+
+            ps.executeUpdate();
+            connection.close();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BookManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -147,7 +163,7 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
                 publisher = resultSet.getString("publisher");
                 author = resultSet.getString("author");
                 datePublished = resultSet.getDate("datePublished");
-                
+
                 bean.setAuthor(author);
                 bean.setBookID(bookID);
                 bean.setBook_productID(book_productID);
@@ -161,7 +177,7 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
             Logger.getLogger(BookManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    
+
     }
 
     @Override
@@ -169,9 +185,10 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "select * from book where author = ?";
+            String query = "select * from book where author like ?";
+            String temp = "%" + author + "%";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%"+author+"%");
+            ps.setString(1, temp);
 
             ResultSet resultSet = ps.executeQuery();
             int bookID, book_productID;
@@ -203,7 +220,7 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
             Logger.getLogger(BookManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    
+
     }
 
     @Override
@@ -211,18 +228,19 @@ public class BookManagerDAOImplementation implements BookManagerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "select * from book where publisher = ?";
+            String query = "select * from book where publisher like ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%"+publisher+"%");
+            String temp = "%" + publisher + "%";
+            ps.setString(1, temp);
 
             ResultSet resultSet = ps.executeQuery();
             int bookID, book_productID;
             String publisher1, author;
             java.sql.Date datePublished;
-            
+
             ArrayList<BookBean> booklist = new ArrayList<BookBean>();
             BookBean bean = new BookBean();
-            
+
             while (resultSet.next()) {
                 bookID = resultSet.getInt("bookID");
                 book_productID = resultSet.getInt("book_productID");
