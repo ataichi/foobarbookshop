@@ -60,43 +60,43 @@
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="fname">First Name</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameCheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="mname">Middle Initial</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameCheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial (Use 1 letter only)" onblur="mnameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="lname">Last Name</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameCheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="uname">Username</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="email">Email</label>
                             <div class="col-sm-3">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailCheck();" onfocus="backWhite(this);">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="pass1">Password</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Password" onblur="passCheck();" onfocus="backWhite(this);">
+                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Password" onblur="passCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="pass2">Verify Password</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Verify Password" onblur="passCheck();" onfocus="backWhite(this);">
+                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Verify Password" onblur="passCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                     </div>
@@ -107,37 +107,37 @@
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="apartmentnoBA">Apartment No</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="apartmentnoBA" name="apartmentnoBA" placeholder="Apartment No" onblur="apartmentnoBACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="apartmentnoBA" name="apartmentnoBA" placeholder="Apartment No" onblur="apartmentnoBACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="streetBA">Street</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="streetBA" name="streetBA" placeholder="Street" onblur="streetBACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="streetBA" name="streetBA" placeholder="Street" onblur="streetBACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="subdivisionBA">Subdivision</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="subdivisionBA" name="subdivisionBA" placeholder="Subdivision" onblur="subdivisionBACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="subdivisionBA" name="subdivisionBA" placeholder="Subdivision" onblur="subdivisionBACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="cityBA">City</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="cityBA" name="cityBA" placeholder="City" onblur="cityBACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="cityBA" name="cityBA" placeholder="City" onblur="cityBACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="countryBA">Country</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="countryBA" name="countryBA" placeholder="Country" onblur="countryBACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="countryBA" name="countryBA" placeholder="Country" onblur="countryBACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="postalcodeBA">Postal Code</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="postalcodeBA" name="postalcodeBA" placeholder="Postal Code" onblur="postalcodeBACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="postalcodeBA" name="postalcodeBA" placeholder="Postal Code" onblur="postalcodeBACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -146,37 +146,37 @@
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="apartmentnoDA">Apartment No</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="apartmentnoDA" name="apartmentnoDA" placeholder="Apartment No" onblur="apartmentnoDACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="apartmentnoDA" name="apartmentnoDA" placeholder="Apartment No" onblur="apartmentnoDACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="streetDA">Street</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="streetDA" name="streetDA" placeholder="Street" onblur="streetDACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="streetDA" name="streetDA" placeholder="Street" onblur="streetDACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="subdivisionDA">Subdivision</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="subdivisionDA" name="subdivisionDA" placeholder="Subdivision" onblur="subdivisionDACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="subdivisionDA" name="subdivisionDA" placeholder="Subdivision" onblur="subdivisionDACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="cityDA">City</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="cityDA" name="cityDA" placeholder="City" onblur="cityDACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="cityDA" name="cityDA" placeholder="City" onblur="cityDACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="countryDA">Country</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="countryDA" name="countryDA" placeholder="Country" onblur="countryDACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="countryDA" name="countryDA" placeholder="Country" onblur="countryDACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="postalcodeDA">Postal Code</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="postalcodeDA" name="postalcodeDA" placeholder="Postal Code" onblur="postalcodeDACheck();" onfocus="backWhite(this);">
+                                <input type="text" class="form-control" id="postalcodeDA" name="postalcodeDA" placeholder="Postal Code" onblur="postalcodeDACheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
