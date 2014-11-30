@@ -100,9 +100,18 @@
                 <ul class="dropdown">
                     <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false">Shopping Cart <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">My Cart Item 1 <span class="glyphicon glyphicon-edit"></span></a></li>
-                        <li><a href="#">My Cart Item 2 <span class="glyphicon glyphicon-edit"></span></a></li>
-                        <li><a href="#">Checkout <span class="glyphicon glyphicon-edit"></span></a></li>
+                        <%
+                        if (shoppingcart.getTotal() == 0){
+                            out.println("<li>Please add an item first.</li>");
+                        }else{
+                         
+                        out.println("<li><a href='#'>My Cart Item 1<span class='glyphicon glyphicon-edit'></span></a></li>"+
+                        "<li><a href='#'>My Cart Item 2 <span class='glyphicon glyphicon-edit'></span></a></li>" +
+                        "<li><a href='#'>Checkout <span class='glyphicon glyphicon-edit'></span></a></li>"
+                        );
+                        
+                        }
+                        %>
                     </ul>
                 </ul>
             </div>
