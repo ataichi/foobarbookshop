@@ -14,88 +14,116 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
-        <script src="js-edit.js" type="text/javascript"></script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <script src="js/customercheck.js" type="text/javascript"></script>
 
-        <link rel="stylesheet" type="text/css" href="css/wadesign.css">
-        <link rel="stylesheet" type="text/css" href="css/category.css">
-        <link rel="stylesheet" type="text/css" href="css/style4.css">
-        <link rel="stylesheet" type="text/css" href="js/editadmincheck.js">
-
-        <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+        <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="dist/css/dashboard.css" rel="stylesheet">
+        <link href="dist/css/morris.css" rel="stylesheet">
+        <link href="dist/css/font-awesome.min.css" rel="stylesheet">
 
         <title>Unlock Account</title>
     </head>
     <body>
 
-        <header>
-            <div id="banner"> <a href="adminHOME.html"><img src="images/books.jpg"></a> </div>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="home.html">Home</a>    </li>
-                <li><a href='#'>Account
-                        <ul>
-                            <li><a href='adminAccount.jsp'>Edit Account</a></li>
-                            <li><a href='#'>Log out</a></li>
-                        </ul>
-                </li>
-            </ul>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Foobar</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="adminHOME.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li class="dropdown active">
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Edit Account</a></li>
+                                <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
+                                <li><a href="signup_accountingmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
+                                <li><a href="viewlogs.html"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    </ul>
+
+                </div>
+            </div>
         </nav>
 
-        <div id="actions">
-            <br>
-            <br>
-            <a href="signup_productmanager.html">Add Product Manager</a>
-            <br>
-            <br>
-            <a href="signup_accountingmanager.html">Add Accounting Manager</a>
-            <br>
-            <br>
-            <a href="viewlogs.html">View Activity Log </a>
-            <br>
-            <br>
-            <a href="unlock_account.jsp">Unlock Account</a>
-        </div>
+        <div class="container"  style="padding-top: 100px;">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Account Information</h3>
+                    </div>
+                    <div class="panel-body">
 
-        <div id="unlockaccount">
+                        <%
+                            int i = 0;
+                            for (i = 0; i < accountlist.size(); i++) {
+                        %>
+                        <form class="form-horizontal" role="form" id="unlock <% accountlist.get(i).getAccountID(); %>" name="unlock<% accountlist.get(i).getAccountID(); %>" action="UnlockAccountServlet" method="post">
+                            <div>
+                                <div class="form-group" style="font-size: 20px;">
+                                    <label class="control-label col-lg-4">Basic Info</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" >Account ID</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="Enter Account ID" type='text' id="accountid" name="accountid" value="<% accountlist.get(i).getAccountID(); %>" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" >First Name</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="Enter First Name" id="fname" name="fname" value="<% accountlist.get(i).getFirstName();%> " required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" >Last Name</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" placeholder="Enter Last Name" id="lname" name="lname" value="<% accountlist.get(i).getLastName();%> " required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Account Type</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control"  placeholder="Enter Username"id="type" name="type" value="<% accountlist.get(i).getAccountType();%> " required>
+                                    </div>
+                                </div>
 
-            <table>
-                <tr>
-                    <td>Account ID</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Account Type</td>
-                    <td>Unlock</td>
-                </tr> 
-                <%
-                    int i = 0;
-                    for (i = 0; i < accountlist.size(); i++) {
-                %>
-                <form id="unlock <% accountlist.get(i).getAccountID(); %>" name="unlock<% accountlist.get(i).getAccountID(); %>" action="UnlockAccountServlet" method="post">
-
-                    <tr>
-                    <input type="text" id="accountid" name="accountid" value="<% accountlist.get(i).getAccountID(); %>"/>
-                    <input type="text" id="fname" name="fname" value="<% accountlist.get(i).getFirstName();%> "></input>
-                    <input type="text" id="lname" name="lname" value="<% accountlist.get(i).getLastName();%> "></input>
-                    <input type="text" id="type" name="type" value="<% accountlist.get(i).getAccountType();%> "></input>
-                    <input type="submit" value="unlock" name="unlock<% accountlist.get(i).getAccountID(); %>"/>
-                    </tr>
-
-                </form>
-                <%
-                    }
-                %>
-
-            </table>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg center-block" type="submit" value="unlock" name="unlock<% accountlist.get(i).getAccountID(); %>">Unlock Account</button>
+                                </div>
+                                <div class="form-group">
+                                    <a href='adminHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                                </div>
+                            </div>
+                        </form>
+                        <%
+         }
+                        %>
+                    </div>
+                </div>
+            </div>
+        </div> 
 
 
-        </div>
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
 
     </body>
 </html>
