@@ -22,13 +22,13 @@
 
     ProductDAOImplementation pdao = new ProductDAOImplementation();
     AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
-    AudioCDBean audiocdbean = new AudioCDBean();
+    AudioCDBean audiocdbean = (AudioCDBean) session.getAttribute("viewaudiocd");
     BookManagerDAOImplementation bookdao = new BookManagerDAOImplementation();
-    BookBean bookbean = new BookBean();
+    BookBean bookbean = (BookBean) session.getAttribute("viewbook");
     DVDManagerDAOImplementation dvddao = new DVDManagerDAOImplementation();
-    DVDBean dvdbean = new DVDBean();
+    DVDBean dvdbean = (DVDBean) session.getAttribute("viewdvd");
     MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
-    MagazineBean magbean = new MagazineBean();
+    MagazineBean magbean = (MagazineBean) session.getAttribute("viewmagazine");
 %>
 
 
@@ -36,134 +36,124 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <script src="js/customercheck.js" type="text/javascript"></script>
 
-        <script src="jquery-2.1.0.min.js" type="text/javascript"></script>
-        <script src="js-general.js" type="text/javascript"></script>
-        <script src="js-productmanager.js" type="text/javascript"></script>
-
-        <link rel="stylesheet" type="text/css" href="wadesign.css">
-        <link rel="stylesheet" type="text/css" href="category.css">
-        <link rel="stylesheet" type="text/css" href="style4.css">
-        <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Istok+Web|Exo+2|Over+the+Rainbow' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+        <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="dist/css/dashboard.css" rel="stylesheet">
+        <link href="dist/css/morris.css" rel="stylesheet">
+        <link href="dist/css/font-awesome.min.css" rel="stylesheet">
 
         <title>View Product</title>
     </head>
     <body>
-        <header>
-            <div id="banner"> <a href="productmanagerHOME.html"><img src="images/books.jpg"></a> </div>
-        </header>
-
-        <nav>
-            <ul>
-                <li><a href="productmanagerHOME.html">Home</a>    </li>
-                <li><a href='#'>Account
-                        <ul>
-                            <li><a href='productmanagerAccount.jsp'>Edit Account</a></li>
-                            <li><a href='login.jsp'>Log out</a></li>
-                        </ul>
-                </li>
-            </ul>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Foobar</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="productmanagerHOME.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + account.getUsername());%> <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="productmanagerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right" action='SearchProductServlet' method="post">
+                        <div class="input-group input-group-sm" style="max-width:360px;">
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </nav>
 
-        <div id="actions">
-            <br/>
-            <br/>
+        <div class="container"  style="padding-top: 100px;">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Product Information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal">
+                            <dt>Title</dt>
+                            <dd><% out.println(productBean.getTitle()); %></dd>
+                            <dt>Price</dt>
+                            <dd><% out.println(productBean.getPrice()); %></dd>
+                            <dt>Summary</dt>
+                            <dd><% out.println(productBean.getSummary()); %></dd>
+                            <dt>Genre</dt>
+                            <dd><% out.println(productBean.getGenre()); %></dd>
+                            <dt>Year</dt>
+                            <dd><% out.println(productBean.getYear()); %></dd>
+                            <dt>Stocks</dt>
+                            <dd><% out.println(productBean.getNumberStocks()); %></dd>
+                            <% if (productBean.getType().equals("Audio CD")) {
 
-            <a href="addproduct.jsp">Add Product</a>
-            <br>
-            <br>
-            <br>
-            <br>
-        </div>
+                            %>
 
-        <div id="tfheader">
-            <form id="tfnewsearch" method="get" action="SearchProductServlet">
-                <input type="text" id="tfq" class="tftextinput2" name="searchstring" size="21" maxlength="120" value="Search our website">
-                <input type="submit" value=">" class="tfbutton2">
-            </form>
-        </div>
+                            <dt>Artist</dt>
+                            <dd><% out.println(audiocdbean.getArtist()); %></dd>
+                            <dt>Record Company</dt>
+                            <dd><% out.println(audiocdbean.getRecordCompany()); %></dd>
+                            <% } else if (productBean.getType().equals("Book")) {
+                            %>
+                            <dt>Author</dt>
+                            <dd><% out.println(bookbean.getAuthor()); %></dd>
+                            <dt>Publisher</dt>
+                            <dd><% out.println(bookbean.getPublisher()); %></dd>
+                            <dt>Date Published</dt>
+                            <dd><% out.println(bookbean.getDatePublished()); %></dd>
+                            <%
+                            } else if (productBean.getType().equals("DVD")) {
+                            %>
+                            <dt>Director</dt>
+                            <dd><% out.println(dvdbean.getDirector()); %></dd>
+                            <dt>Actor</dt>
+                            <dd><% out.println(dvdbean.getMainActors()); %></dd>
+                            <dt>Producer</dt>
+                            <dd><% out.println(dvdbean.getProductionCompany()); %></dd>
+                            <%
+                            } else if (productBean.getType().equals("Magazine")) {
+                            %>
+                            <dt>Volume No</dt>
+                            <dd><% out.println(magbean.getVolumeNo()); %></dd>
+                            <dt>Issue No</dt>
+                            <dd><% out.println(magbean.getIssueNo()); %></dd>
+                            <dt>Publisher</dt>
+                            <dd><% out.println(magbean.getPublisher()); %></dd>
+                            <dt>Date Published</dt>
+                            <dd><% out.println(magbean.getDatePublished()); %></dd>
+                            <%
+                                }
+                            %>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>   
 
-        <div id="viewProducts">
-            <%
-                out.println("<table><tr>"
-                        + "<td>Title</td>"
-                        + "<td><input type='text' name='productTitle=' value='" + productBean.getTitle() + "' readonly/></td></tr>"
-                        + "<tr><td>Summary</td>"
-                        + "<td><input type='text' name='productSummary' value ='" + productBean.getSummary() + "' readonly/></td></tr>"
-                        + "<tr><td>Genre</td>"
-                        + "<td><input type='text' name='productGenre' value ='" + productBean.getGenre() + "' readonly/></td></tr>"
-                        + "<tr><td>Year</td>"
-                        + "<td><input type='text' name='productYear' value='" + productBean.getYear() + "' readonly/></td></tr>"
-                        + "<td>Stocks</td>"
-                        + "<td><input type='text' name='productStocks' value='" + productBean.getNumberStocks() + "' readonly/></td></tr>");
-
-                if (productBean.getType().equals("Audio CD")) {
-                    audiocdbean = (AudioCDBean) session.getAttribute("viewaudiocd");
-                    //out.println("audiocd");
-                    out.println("<tr><td>Artist</td>"
-                            + "<td><input type='text' name='productArtist' value='" + audiocdbean.getArtist() + "' readonly/></td></tr>"
-                            + "<tr><td>Record Company</td>"
-                            + "<td><input type='text' name='productRecordCompany' value='" + audiocdbean.getArtist() + "'readonly/></td></tr>"
-                            + "<form action='AddToShoppingCartServlet' method='post'>"
-                            + "<tr><td><input type='number' name='quantity'/></td>"
-                            + "<td><input type='submit' value='Add to Cart'/></td>"
-                            + "<td><input type='hidden' name='product' value='" + audiocdbean.getAudiocd_productID() + "'/></td></tr></form>"
-                            + "</table>");
-
-                } else if (productBean.getType().equals("Books")) {
-                    bookbean = (BookBean) session.getAttribute("viewbook");
-                    out.println("<tr><td>Author</td>"
-                            + "<td><input type='text' name='productAuthor' value='" + bookbean.getAuthor() + "' readonly /></td></tr>"
-                            + "<tr><td>Publisher</td>"
-                            + "<td><input type='text' name='productPublisher' value='" + bookbean.getPublisher() + "' readonly /></td></tr>"
-                            + "<tr><td>Date Published</td>"
-                            + "<td><input type='text' name='productDate' value'" + bookbean.getDatePublished() + "' readonly/></td></tr>"
-                            + "<form action='AddToShoppingCartServlet' method='post'>"
-                            + "<tr><td><input type='number' name='quantity'/></td>"
-                            + "<td><input type='submit' value='Add to Cart'/></td>"
-                            + "<td><input type='hidden' name='product' value='" + bookbean.getBook_productID() + "'/></td></tr></form>"
-                    );
-
-                } else if (productBean.getType().equals("DVD")) {
-                    dvdbean = (DVDBean) session.getAttribute("viewdvd");
-                    out.println("<tr><td>Director</td>"
-                            + "<td><input type='text' name='productDirector' value='" + dvdbean.getDirector() + "' readonly/></td></tr>"
-                            + "<tr><td>Actor</td>"
-                            + "<td><input type='text' name='productActor' value='" + dvdbean.getMainActors() + "' readonly/></td></tr>"
-                            + "<tr><td>Production Company</td>"
-                            + "<td><input type='text' name-'productCompany' value='" + dvdbean.getProductionCompany() + "' readonly/></td></tr>"
-                            + "<form action='AddToShoppingCartServlet' method='post'>"
-                            + "<tr><td><input type='number' name='quantity'/></td>"
-                            + "<td><input type='submit' value='Add to Cart'/></td>"
-                            + "<td><input type='hidden' name='product' value='" + dvdbean.getDvd_productID() + "'/></td></tr></form>"
-                    );
-                } else if (productBean.getType().equals("Magazine")) {
-                    magbean = (MagazineBean) session.getAttribute("viewmagazine");
-                    //out.println("magazine"); 
-                    out.println("<tr><td>Volume No</td>"
-                            + "<td><input type='text' name='productVolume' value='" + magbean.getVolumeNo() + "' readonly/></td></tr>"
-                            + "<tr><td>Issue No</td>"
-                            + "<td><input type='text' name='productIssue' value='" + magbean.getIssueNo() + "' readonly/></td></tr>"
-                            + "<tr><td>Publisher</td>"
-                            + "<td><input type='text' name='productPublisher' value='" + magbean.getPublisher() + "'readonly/></td></tr>"
-                            + "<tr><td>Date Published</td>"
-                            + "<td><input type='text' name='productDate' value='" + magbean.getDatePublished() + "' readonly/> </td></tr>"
-                            + "<form action='AddToShoppingCartServlet' method='post'>"
-                            + "<tr><td><input type='number' name='quantity'/></td>"
-                            + "<td><input type='submit' value='Add to Cart'/></td>"
-                            + "<td><input type='hidden' name='product' value='" + magbean.getMagazine_productID() + "'/></td></tr></form>"
-                    );
-                }
-                out.println("</table>");
-
-                out.println("<form method='post' action='ShoppingServlet'>"
-                        + "<input type='submit' value='Buy'/></form>");
-            %>         
-        </div>
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
