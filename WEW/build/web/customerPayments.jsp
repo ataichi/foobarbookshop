@@ -45,7 +45,7 @@
                                 <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                                <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                                 <li><a href="customerTransactions.jsp"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
                             </ul>
                         </li>
@@ -77,25 +77,25 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Card Name</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter Card Name" name='cardName' >
+                                        <input type="text" class="form-control" placeholder="Enter Card Name" name='cardName' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" >Card Number</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter Card Number" name='cardNo' >
+                                        <input type="text" class="form-control" placeholder="Enter Card Number" name='cardNo' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Card Type</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter Card Type" name='cardType' >
+                                        <input type="text" class="form-control" placeholder="Enter Card Type" name='cardType' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Expiration Date</label>
                                     <div class="col-sm-3">
-                                        <input type="date" class="form-control" placeholder="Enter Expirtion Date"  name='cardExpDate'>
+                                        <input type="date" class="form-control" placeholder="Enter Expirtion Date"  name='cardExpDate' required>
                                     </div>
                                 </div>
                                

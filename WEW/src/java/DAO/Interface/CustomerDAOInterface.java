@@ -37,7 +37,6 @@ public interface CustomerDAOInterface {
     
     public boolean addCustomerCreditCard(CustomerCreditCardBean customercreditcard);
     public boolean removeCustomerCreditCard(int customercreditcardid);
-    public boolean removeCustomerCreditCardByAccountID(int accountID);
     public boolean removeCustomerCreditCardByCreditCardID(int creditcardID);
     public CustomerCreditCardBean getCustomerCreditCardByCustomerID(int customerID);
 }

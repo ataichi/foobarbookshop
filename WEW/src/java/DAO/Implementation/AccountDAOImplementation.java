@@ -76,6 +76,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, accountBean.getPassword());
+            ps.setInt(2, accountBean.getAccountID());
             ps.executeUpdate();
             connection.close();
             return true;
@@ -157,45 +158,6 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         return false;
     }
 
-    /*
-     @Override
-     public boolean isAdmin(String username, String password) {
-     boolean result = false;
-     String query = "SELECT * FROM admin WHERE adminUsername = ? AND adminPassword = ?";
-     int index = 1;
-     try {
-     Connector c = new Connector();
-     Connection connection = c.getConnection();
-     PreparedStatement ps = connection.prepareStatement(query);
-     ps.setString(index++, username);
-     ps.setString(index++, password);
-     ResultSet rs = ps.executeQuery();
-     while (rs.next()) {
-     result = true;
-     }
-     connection.close();
-     } catch (SQLException ex) {
-     ex.printStackTrace();
-     }
-     return result;
-     }
-
-     @Override
-     public boolean isCustomer(String username, String password) {
-     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     }
-
-     @Override
-     public boolean isProductManager(String username, String password) {
-     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     }
-
-     @Override
-     public boolean isAccountingManager(String username, String password) {
-     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     }
-    
-     */
     @Override
     public ArrayList<AccountBean> getAccountByName(String firstname, String lastname) {
         try {
@@ -406,7 +368,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
     @Override
     public boolean lockAccount(AccountBean accountBean) {
         try {
-            String query = "update account set locked=? where=accountID=?";
+            String query = "update account set locked=? where accountID=?";
             Connector c = new Connector();
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);

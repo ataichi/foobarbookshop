@@ -16,7 +16,7 @@ public interface BookManagerDAOInterface {
     public boolean deleteBook (int bookID);
      
     public ArrayList<BookBean> getAllBooks();
-    public boolean restockBook(int productID, int num);
+    public boolean restockBook(int bookID, int num);
     
     public BookBean getBookByID(int bookID);
     public ArrayList<BookBean> getBookByAuthor(String author);

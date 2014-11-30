@@ -128,7 +128,8 @@ public class ProductDAOImplementation implements ProductDAOInterface {
             Connection connection = c.getConnection();
             String query = "select * from product where title like ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%" + title + "%");
+            String temp = "%" + title + "%";
+            ps.setString(1, temp);
 
             ProductBean bean = new ProductBean();
             ArrayList<ProductBean> list = new ArrayList<ProductBean>();
@@ -183,7 +184,8 @@ public class ProductDAOImplementation implements ProductDAOInterface {
             Connection connection = c.getConnection();
             String query = "select * from product where summary like ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%" + summary + "%");
+            String temp = "%" + summary + "%";
+            ps.setString(1, temp);
 
             ProductBean bean = new ProductBean();
             ArrayList<ProductBean> list = new ArrayList<ProductBean>();
@@ -238,7 +240,8 @@ public class ProductDAOImplementation implements ProductDAOInterface {
             Connection connection = c.getConnection();
             String query = "select * from product where genre like ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%" + genre + "%");
+            String temp = "%"+genre+"%";
+            ps.setString(1, temp);
 
             ProductBean bean = new ProductBean();
             ArrayList<ProductBean> list = new ArrayList<ProductBean>();
@@ -291,7 +294,7 @@ public class ProductDAOImplementation implements ProductDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "select * from product where year like ?";
+            String query = "select * from product where year = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, year);
 

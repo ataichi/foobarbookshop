@@ -23,7 +23,7 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
     int audiocdID, audiocd_productID;
     String artist, recordCompany;
     String query;
-    
+
     @Override
     public boolean addAudioCD(AudioCDBean audioCD) {
         try {
@@ -37,8 +37,7 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
             ps.executeUpdate();
             connection.close();
             return true;
-        
-        
+
         } catch (SQLException ex) {
             Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,13 +56,13 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
             ps.setInt(3, audioCD.getAudiocd_productID());
             ps.setInt(4, audioCD.getAudiocdID());
             ps.executeUpdate();
-            
+
             connection.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-            return false;
+        return false;
     }
 
     @Override
@@ -80,7 +79,7 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
         } catch (SQLException ex) {
             Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
     }
 
@@ -91,33 +90,33 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
             Connector c = new Connector();
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
-            
+
             ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()) {
-                
+
+            while (rs.next()) {
+
                 bean = new AudioCDBean();
-                
+
                 audiocdID = rs.getInt("audiocdID");
                 artist = rs.getString("artist");
                 recordCompany = rs.getString("recordCompany");
                 audiocd_productID = rs.getInt("audiocd_productID");
-                
+
                 bean.setArtist(artist);
                 bean.setAudiocdID(audiocdID);
                 bean.setAudiocd_productID(audiocd_productID);
                 bean.setRecordCompany(recordCompany);
-                
+
                 alist.add(bean);
             }
-            
+
             connection.close();
             return alist;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AudioCDManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
 
@@ -198,10 +197,11 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
     public ArrayList<AudioCDBean> getAudioCDByArtist(String artist) {
         try {
             String query = "select * from audiocd where artist = ?";
+            String temp = "%" + artist + "%";
             Connector c = new Connector();
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%" + artist + "%");
+            ps.setString(1, temp);
 
             ResultSet rs = ps.executeQuery();
             AudioCDBean bean = new AudioCDBean();
@@ -239,11 +239,12 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
     @Override
     public ArrayList<AudioCDBean> getAudioCDByRecordCompany(String recordCompany) {
         try {
-            String query = "select * from audiocd where artist = ?";
+            String query = "select * from audiocd where recordCompany like ?";
+            String temp = "%"+recordCompany+"%";
             Connector c = new Connector();
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, "%" + recordCompany + "%");
+            ps.setString(1, temp);
 
             ResultSet rs = ps.executeQuery();
             AudioCDBean bean = new AudioCDBean();
@@ -277,5 +278,5 @@ public class AudioCDManagerDAOImplementation implements AudioCDManagerDAOInterfa
 
         return null;
     }
-    
+
 }

@@ -185,22 +185,6 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         }
         return null;
     }
-    /*
-     @Override
-     public boolean addToCart(ProductBean product) {
-     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     }
-
-     @Override
-     public boolean removeFromCart(ProductBean product) {
-     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     }
-
-     @Override
-     public ArrayList<ProductBean> viewCart() {
-     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     }
-     */
 
     @Override
     public boolean purchase(ShoppingCartBean shopbean) {
@@ -342,8 +326,6 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
             ps.setInt(1, customercreditcard.getCustomercreditcard_customerID());
             ps.setInt(2, customercreditcard.getCustomercreditcard_creditcardID());
-            System.out.println(customercreditcard.getCustomercreditcard_creditcardID());
-            System.out.println(customercreditcard.getCustomercreditcard_customerID());
             ps.executeUpdate();
             connection.close();
 
@@ -355,23 +337,73 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
     }
 
     @Override
-    public boolean removeCustomerCreditCard(int customercreditcardid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public boolean removeCustomerCreditCard(int customercreditcard_customerID) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "delete from customercreditcard where customercreditcardid_customerID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, customercreditcard_customerID);
 
-    @Override
-    public boolean removeCustomerCreditCardByAccountID(int accountID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            ps.executeUpdate();
+            connection.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public boolean removeCustomerCreditCardByCreditCardID(int creditcardID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "delete from customercreditcard where customercreditcardid_creditcardID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, creditcardID);
+
+            ps.executeUpdate();
+            connection.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public CustomerCreditCardBean getCustomerCreditCardByCustomerID(int customerID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "get * from customercreditcard where customercreditcardid_customerID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, customerID);
+
+            ResultSet resultset = ps.executeQuery();
+            CustomerCreditCardBean customercreditcardbean = new CustomerCreditCardBean();
+            int customercreditcardID, customercreditcard_customerID, customercreditcard_creditcardID;
+            while (resultset.next()) {
+                customercreditcardID = resultset.getInt("customercreditcardID");
+                customercreditcard_customerID = resultset.getInt("customercreditcard_customerID");
+                customercreditcard_creditcardID = resultset.getInt("customercreditcard_creditcardID");
+                
+                customercreditcardbean.setCustomercreditcardID(customercreditcardID);
+                customercreditcardbean.setCustomercreditcard_creditcardID(customercreditcard_creditcardID);
+                customercreditcardbean.setCustomercreditcard_customerID(customercreditcard_customerID);
+
+            }
+            connection.close();
+            
+            return customercreditcardbean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
