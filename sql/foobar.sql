@@ -172,8 +172,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `customercreditcard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-<<<<<<< HEAD
-CREATE TABLE `foobar`.`customercreditcard` (
+CREATE TABLE `customercreditcard` (
   `customercreditcardID` INT NOT NULL AUTO_INCREMENT,
   `customercreditcard_customerID` INT NOT NULL,
   `customercreditcard_creditcardID` INT NOT NULL,
@@ -189,7 +188,6 @@ CREATE TABLE `foobar`.`customercreditcard` (
     REFERENCES `foobar`.`creditcard` (`creditcardID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-=======
 CREATE TABLE `customercreditcard` (
   `customercreditcardID` int(11) NOT NULL AUTO_INCREMENT,
   `customercreditcard_accountID` int(11) NOT NULL,
@@ -200,7 +198,6 @@ CREATE TABLE `customercreditcard` (
   CONSTRAINT `customercreditcard_creditcardID` FOREIGN KEY (`customercreditcard_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
->>>>>>> 8d62a035726729a10baefb1c14b2d825879eaaef
 
 --
 -- Dumping data for table `customercreditcard`
