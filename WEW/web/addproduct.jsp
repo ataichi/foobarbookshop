@@ -64,15 +64,7 @@
 
         <div class="container-fluid" style="padding-top: 100px;">
             <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li class="active"><a href="#">Add Product<span class="sr-only">(current)</span></a></li>
-                        <!--                        <li><a href="#">Reports</a></li>
-                                                <li><a href="#">Analytics</a></li>
-                                                <li><a href="#">Export</a></li>-->
-                    </ul>
-                </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div class="col-sm-9 col-md-offset-2 main">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Add Product</h3>
@@ -217,11 +209,12 @@
                                     <div class="form-group">
                                         <button class="btn btn-primary btn-lg center-block">Add Product</button>
                                     </div>
-                                    <div class="form-group">
-                                        <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
-                                    </div>
+
                                 </div>
                             </form>
+                            <div class="form-group">
+                                <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                            </div>
                         </div>
                     </div>
                 </div>

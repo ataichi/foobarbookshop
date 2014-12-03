@@ -43,9 +43,9 @@
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
-                                <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
-                                <li><a href="customerPayments.jsp"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
-                                <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                                <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
+                                <li><a href="customerPayments.jsp"><span class="glyphicon glyphicon-edit"></span> Credit Card</a></li>
+                                <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><a href="customerTransactions.jsp"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
                             </ul>
                         </li>
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="uname">Username</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getUsername()); %> required>
+                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);" value="<% out.println(homeuser.getUsername()); %>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">

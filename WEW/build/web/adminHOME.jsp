@@ -45,8 +45,8 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Edit Account</a></li>
                                 <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
-                                <li><a href="signup_accountingmanager.html"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
-                                <li><a href="viewlogs.html"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
+                                <li><a href="signup_accountingmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
+                                <li><a href="viewlogs.jsp"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
                                 <li><a href="unlock_account.html"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>
                             </ul>
                         </li>

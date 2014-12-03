@@ -2,6 +2,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+<%
+    AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
+%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,15 +21,9 @@
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
-
-        <title>Admin Home Page</title>
+        <title>View Logs</title>
     </head>
     <body>
-
-        <%
-            AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
-        %>
-
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -41,12 +39,12 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeadmin.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Edit Account</a></li>
                                 <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
                                 <li><a href="signup_accountingmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
-                                <li><a href="viewlogs.jsp"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
                                 <li><a href="unlock_account.html"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>
                             </ul>
                         </li>
@@ -56,9 +54,7 @@
                 </div>
             </div>
         </nav>
-        <script src="dist/js/jquery-2.1.0.min.js"></script>
-        <script src="dist/js/query.js"></script>
-        <script src="dist/js/bootstrap.min.js"></script>
-
+                            
+        
     </body>
 </html>
