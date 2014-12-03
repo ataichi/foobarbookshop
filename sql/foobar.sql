@@ -188,6 +188,7 @@ CREATE TABLE `customercreditcard` (
     REFERENCES `foobar`.`creditcard` (`creditcardID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+DROP TABLE IF EXISTS `customercreditcard`;
 CREATE TABLE `customercreditcard` (
   `customercreditcardID` int(11) NOT NULL AUTO_INCREMENT,
   `customercreditcard_accountID` int(11) NOT NULL,

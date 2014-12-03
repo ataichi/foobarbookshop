@@ -16,7 +16,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <script src="js/customercheck.js" type="text/javascript"></script>
-        <title>Log In</title>
+        <title>Sign Up</title>
 
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
