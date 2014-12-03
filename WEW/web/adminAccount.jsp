@@ -50,7 +50,7 @@
                                 <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
                                 <li><a href="signup_accountingmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
                                 <li><a href="viewlogs.jsp"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
-                                <li><a href="unlock_account.html"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>
+                                <li><a href="unlock_account.jsp"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>
                             </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
