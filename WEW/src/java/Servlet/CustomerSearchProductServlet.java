@@ -37,7 +37,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-            String searchstring = request.getParameter("searchstring");
+            String searchstring = request.getParameter("srch-term");
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ArrayList<ProductBean> searchproductlist = new ArrayList<ProductBean>();
             ArrayList<AudioCDBean> searchaudiocdlist = new ArrayList<AudioCDBean>();
@@ -63,14 +63,18 @@ public class CustomerSearchProductServlet extends HttpServlet {
             ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
             MagazineBean magazine = new MagazineBean();
 
-            out.println("Product:");
-            out.println("title:");
+            out.println("Product:\n");
+            out.println("title: ");
             productlist = productdao.getProductsByTitle(searchstring);
             int productID;
+            out.println(searchstring);
             for (int i = 0; i < productlist.size(); i++) {
+                out.println("pumasok po ako");
                 out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+                out.println("\n");
                 productID = productlist.get(i).getProductID();
                 if (productlist.get(i).getType().equals("Audio CD")) {
+                    out.println("cd po ako");
                     audio = audiocddao.getAudioCDByProductID(productID);
                     searchaudiocdlist.add(audio);
                 } else if (productlist.get(i).getType().equals("Book")) {
@@ -86,7 +90,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
                 searchproductlist.add(productlist.get(i));
             }
 
-            out.println("\nSummary:");
+            out.println("\nSummary: ");
             productlist = productdao.getProductsBySummary(searchstring);
             for (int i = 0; i < productlist.size(); i++) {
                 out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
@@ -106,9 +110,9 @@ public class CustomerSearchProductServlet extends HttpServlet {
                 }
                 searchproductlist.add(productlist.get(i));
             }
-            out.println("Genre:");
+            
+            out.println("Genre: ");
             productlist = productdao.getProductsByGenre(searchstring);
-
             for (int i = 0; i < productlist.size(); i++) {
                 out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
                 productID = productlist.get(i).getProductID();
@@ -254,7 +258,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
             session.setAttribute("searchbooklist", searchbooklist);
             session.setAttribute("searchdvdlist", searchdvdlist);
             session.setAttribute("searchmagazinelist", searchmagazinelist);
-
+            out.println(searchproductlist.size());
             response.sendRedirect("customerSearchProduct.jsp");
 
         }

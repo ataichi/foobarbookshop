@@ -1,9 +1,3 @@
-<%-- 
-    Document   : customerSearchProduct
-    Created on : Nov 23, 2014, 7:50:03 PM
-    Author     : Giodee
---%>
-
 <%@page import="Beans.AccountBean"%>
 <%@page import="Beans.MagazineBean"%>
 <%@page import="Beans.DVDBean"%>
@@ -97,7 +91,6 @@
                     <div class="well" id="shoplist">
                         <%
                             if (searchproductlist.size() > 0) { //not empty
-                                out.println("HI");
                                 for (int i = 0; i < searchproductlist.size(); i++) {
                                     out.println("Title:" + searchproductlist.get(i).getTitle()
                                             + "<br/>Price:" + searchproductlist.get(i).getPrice()
@@ -107,7 +100,7 @@
                                             + "<input type='submit' value='View' name='viewProduct'/></form>"
                                             + "<form action='AddToShoppingCartServlet' method='post'>"
                                             + "<input type='hidden' name='product' value='" + searchproductlist.get(i).getProductID() + "'/>"
-                                            + "<input type='number' name='quantity'/>"
+                                            + "<input type='number' name='quantity' min='0' max='10' value='0'/>"
                                             + "<input type='submit' name='action' value='Add to Cart'/>"
                                             + "<input type='submit' name='action' value='Buy'/></form>"
                                             + "<br/><br/>"
@@ -117,12 +110,6 @@
                         %>
                     </div>
                 </div>
-
-
-
-
-
-
 
 
                 <script src="dist/js/jquery-2.1.0.min.js"></script>

@@ -19,10 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "AddToShoppingCartServlet", urlPatterns = {"/AddToShoppingCartServlet"})
 public class AddToShoppingCartServlet extends HttpServlet {
 
@@ -57,6 +53,7 @@ public class AddToShoppingCartServlet extends HttpServlet {
             ProductOrderBean temporder = new ProductOrderBean();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
             ProductBean productbean = new ProductBean();
+            ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
             ProductDAOInterface productdao = new ProductDAOImplementation();
 
             int product = Integer.valueOf(request.getParameter("product"));
@@ -75,8 +72,13 @@ public class AddToShoppingCartServlet extends HttpServlet {
             order.add(temporder);
 
             out.println(order.size());
+            
+            tempproductlist.add(productbean);
             if (action.equals("Add to Cart")) {
                 session.setAttribute("temporder", order);
+                session.setAttribute("tempproductlist", tempproductlist);
+                out.println(order.size());
+                out.println("DITO KASI");
             } else { // buy
                 ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
                 CustomerDAOInterface cdao = new CustomerDAOImplementation();
@@ -114,7 +116,7 @@ public class AddToShoppingCartServlet extends HttpServlet {
                     //response.sendRedirect("");
                     out.println("unable to purchase");
                 }
-                session.setAttribute("temporder", neworder); // new orderbean
+                session.setAttribute("temporder", neworder); // new orderbean; reset
 
             }
             response.sendRedirect("customerHOME.jsp");

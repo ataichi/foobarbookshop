@@ -1,9 +1,3 @@
-<%-- 
-    Document   : viewproduct
-    Created on : Nov 23, 2014, 12:31:39 AM
-    Author     : Danica
---%>
-
 <%@page import="Beans.ProductBean"%>
 <%@page import="Beans.MagazineBean"%>
 <%@page import="DAO.Implementation.MagazineManagerDAOImplementation"%>
@@ -147,6 +141,7 @@
                                 }
                             %>
                         </dl>
+                        <a href="productmanagerHOME.jsp"><button>Back</button></a>
                     </div>
                 </div>
             </div>

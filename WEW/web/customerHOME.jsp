@@ -1,4 +1,7 @@
 
+<%@page import="Beans.ProductBean"%>
+<%@page import="Beans.ProductOrderBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Beans.ShoppingCartBean"%>
 <%@page import="Beans.CreditCardBean"%>
 <%@page import="Beans.AccountBean"%>
@@ -8,6 +11,8 @@
     CreditCardBean creditcard = (CreditCardBean) session.getAttribute("creditcard");
     CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
     ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
+    ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+    ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -89,34 +94,58 @@
                 </div>
                 <div class="col-md-4 well" style="padding-left: 20px;">
                     <div class="pull-right affix">
-                        <div class="panel-body">
-                            <p>Insert product list here</p>
+                        <div class="panel-body"> 
+                            <%
+                                // insert shopping cart here!
+                                if (temporder.size() == 0) {
+                                    out.println("<p> Shopping cart empty.</p>");
+                                } else {
+
+                                    for (int i = 0; i < temporder.size(); i++) { //gets total order
+                                        for (int j = 0; j < tempproductlist.size(); j++) {
+                                            if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
+                                                out.println("<table>"
+                                                        + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
+                                                        + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
+                                                        + "<tr><td>Qty: " + temporder.get(i).getQuantity() + "</td></tr>"
+                                                        + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
+                                                        + "</table>"
+                                                        + "<br/><br/>");
+                                                break;
+                                            }
+                                        }
+
+                                    }
+
+                                }
+                            %>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            
+
             <div class="cartright">
                 <ul class="dropdown">
                     <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false">Shopping Cart <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <%
-                        if (shoppingcart.getTotal() == 0){
-                            out.println("<li>Please add an item first.</li>");
-                        }else{
-                         
-                        out.println("<li><a href='#'>My Cart Item 1<span class='glyphicon glyphicon-edit'></span></a></li>"+
-                        "<li><a href='#'>My Cart Item 2 <span class='glyphicon glyphicon-edit'></span></a></li>" +
-                        "<li><a href='#'>Checkout <span class='glyphicon glyphicon-edit'></span></a></li>"
-                        );
-                        
-                        }
+                            if (temporder.size() == 0) {
+                                out.println("<li>Please add an item first.</li>");
+                            } else {
+                                out.println("HERE");
+
+                                out.println("<li><a href='#'>My Cart Item 1<span class='glyphicon glyphicon-edit'></span></a></li>"
+                                        + "<li><a href='#'>My Cart Item 2 <span class='glyphicon glyphicon-edit'></span></a></li>"
+                                        + "<li><a href='#'>Checkout <span class='glyphicon glyphicon-edit'></span></a></li>"
+                                );
+                            }
                         %>
                     </ul>
                 </ul>
             </div>
-            
+
             <script src="dist/js/jquery-2.1.0.min.js"></script>
             <script src="dist/js/query.js"></script>
             <script src="dist/js/bootstrap.min.js"></script>

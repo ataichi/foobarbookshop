@@ -80,37 +80,37 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="apartmentnoBA">Apartment No</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="apartmentnoBA" name="apartmentnoBA" placeholder="Apartment No" onblur="apartmentnoBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getApartmentNoBA()); %>" required>
+                                    <input type="text" class="form-control" id="apartmentnoBA" name="apartmentnoBA" placeholder="Apartment No" onblur="apartmentnoBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getApartmentNoBA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="streetBA">Street</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="streetBA" name="streetBA" placeholder="Street" onblur="streetBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getStreetBA()); %>" required>
+                                    <input type="text" class="form-control" id="streetBA" name="streetBA" placeholder="Street" onblur="streetBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getStreetBA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="subdivisionBA">Subdivision</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="subdivisionBA" name="subdivisionBA" placeholder="Subdivision" onblur="subdivisionBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getSubdivisionBA()); %>"  required>
+                                    <input type="text" class="form-control" id="subdivisionBA" name="subdivisionBA" placeholder="Subdivision" onblur="subdivisionBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getSubdivisionBA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="cityBA">City</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="cityBA" name="cityBA" placeholder="City" onblur="cityBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCityBA()); %>" required>
+                                    <input type="text" class="form-control" id="cityBA" name="cityBA" placeholder="City" onblur="cityBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCityBA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="countryBA">Country</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="countryBA" name="countryBA" placeholder="Country" onblur="countryBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCountryBA()); %>" required>
+                                    <input type="text" class="form-control" id="countryBA" name="countryBA" placeholder="Country" onblur="countryBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCountryBA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="postalcodeBA">Postal Code</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="postalcodeBA" name="postalcodeBA" placeholder="Postal Code" onblur="postalcodeBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getPostalCodeBA()); %>" required>
+                                    <input type="text" class="form-control" id="postalcodeBA" name="postalcodeBA" placeholder="Postal Code" onblur="postalcodeBACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getPostalCodeBA()); %>">
                                 </div>
                             </div>
                             <div class="form-group" style="font-size: 20px;">
@@ -119,37 +119,37 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="apartmentnoDA">Apartment No</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="apartmentnoDA" name="apartmentnoDA" placeholder="Apartment No" onblur="apartmentnoDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getApartmentNoDA()); %>" required>
+                                    <input type="text" class="form-control" id="apartmentnoDA" name="apartmentnoDA" placeholder="Apartment No" onblur="apartmentnoDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getApartmentNoDA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="streetDA">Street</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="streetDA" name="streetDA" placeholder="Street" onblur="streetDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getStreetDA()); %>" required>
+                                    <input type="text" class="form-control" id="streetDA" name="streetDA" placeholder="Street" onblur="streetDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getStreetDA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="subdivisionDA">Subdivision</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="subdivisionDA" name="subdivisionDA" placeholder="Subdivision" onblur="subdivisionDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getSubdivisionDA()); %>" required>
+                                    <input type="text" class="form-control" id="subdivisionDA" name="subdivisionDA" placeholder="Subdivision" onblur="subdivisionDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getSubdivisionDA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="cityDA">City</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="cityDA" name="cityDA" placeholder="City" onblur="cityDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCityDA()); %>" required>
+                                    <input type="text" class="form-control" id="cityDA" name="cityDA" placeholder="City" onblur="cityDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCityDA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="countryDA">Country</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="countryDA" name="countryDA" placeholder="Country" onblur="countryDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCountryDA()); %>" required>
+                                    <input type="text" class="form-control" id="countryDA" name="countryDA" placeholder="Country" onblur="countryDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getCountryDA()); %>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="postalcodeDA">Postal Code</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="postalcodeDA" name="postalcodeDA" placeholder="Postal Code" onblur="postalcodeDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getPostalCodeDA());%>" required>
+                                    <input type="text" class="form-control" id="postalcodeDA" name="postalcodeDA" placeholder="Postal Code" onblur="postalcodeDACheck();" onfocus="backWhite(this);" value="<% out.println(cbean.getPostalCodeDA());%>">
                                 </div>
                             </div>
                             <div class="form-group">

@@ -50,8 +50,9 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("shoppingcart", shoppingcart);
                 session.setAttribute("homeuser", account);
                 session.setAttribute("temporder", temporder);
+                session.setAttribute("tempproductlist", productlist);
                 response.sendRedirect("customerHOME.jsp");
-            } else if (accountdao.doesUserExist(username, password) && "admin".equals(account.getAccountType())) {
+            } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType())) {
                 session.setAttribute("homeadmin", account);
                 out.println("here");
                 response.sendRedirect("adminHOME.jsp");
@@ -95,7 +96,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("productlist", productlist);
                 session.setAttribute("homeproduct", account);
                 response.sendRedirect("productmanagerHOME.jsp");
-            } else if (accountdao.doesUserExist(username, password) && "accounting manager".equals(account.getAccountType())) {
+            } else if (accountdao.doesUserExist(username, password) && "Accounting Mdanager".equals(account.getAccountType())) {
                 session.setAttribute("homeaccounting", account);
                 response.sendRedirect("accountingmanagerHOME.jsp");
             } else {

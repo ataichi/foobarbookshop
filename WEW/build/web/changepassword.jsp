@@ -1,3 +1,9 @@
+<%-- 
+    Document   : changepassword
+    Created on : 29/11/2014, 6:46:22 PM
+    Author     : Evy
+--%>
+
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -78,19 +84,19 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Current Password</label>
                                     <div class="col-sm-3">
-                                        <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="checkcurrentpass();" onfocus="backWhite(this);" required>
+                                        <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="checkcurrentpass();" onfocus="backWhite(this);" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" >New Password</label>
                                     <div class="col-sm-3">
-                                        <input type="password" class="form-control" id="newpass" name="newpass" placeholder="Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" required>
+                                        <input type="password" class="form-control" id="newpass" name="newpass" placeholder="Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Re-Enter New Password</label>
                                     <div class="col-sm-3">
-                                        <input type="password" class="form-control" id="reenter" name="reenter" placeholder="Re-Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" required>
+                                        <input type="password" class="form-control" id="reenter" name="reenter" placeholder="Re-Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" >
                                     </div>
                                 </div>
                                

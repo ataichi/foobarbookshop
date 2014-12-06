@@ -18,10 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "SearchProductServlet", urlPatterns = {"/SearchProductServlet"})
 public class SearchProductServlet extends HttpServlet {
 
