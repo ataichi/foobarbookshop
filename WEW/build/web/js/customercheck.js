@@ -78,7 +78,7 @@ function fnameCheck() {
 
 function mnameCheck() {
     var middle = document.forms["customercheck"]["mname"].value;
-    if (middle == "" || middle == null || !(/^(?:[A-z ]\d{0})$/.test(middle))) {
+    if (middle == "" || middle == null || !(/^[A-Za-z ]{1,2}$/.test(middle))) { ///^(?:[A-z ]\d{0})$/
         document.forms["customercheck"]["mname"].style.backgroundColor = "pink";
         return false;
     }
@@ -129,7 +129,7 @@ function emailCheck() {
 function passCheck() {
     var pass1 = document.forms["customercheck"]["pass1"].value;
     var pass2 = document.forms["customercheck"]["pass2"].value;
-    if (!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
+    if (!(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass1))//!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
             || pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
         document.forms["customercheck"]["pass1"].style.backgroundColor = "pink";
         document.forms["customercheck"]["pass2"].style.backgroundColor = "pink";
@@ -189,7 +189,7 @@ function subdivisionBACheck() {
 
 function cityBACheck() {
     var cityBA = document.forms["customercheck"]["cityBA"].value;
-    if (cityBA == "" || cityBA == null || !(/^[A-z ]+$/.test(cityBA))) {
+    if (cityBA == "" || cityBA == null || !(/^[A-Za-z0-9 ]{3,20}$/.test(cityBA))) {
         document.forms["customercheck"]["cityBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -201,7 +201,7 @@ function cityBACheck() {
 
 function countryBACheck() {
     var countryBA = document.forms["customercheck"]["countryBA"].value;
-    if (countryBA == "" || countryBA == null || !(/^[A-z ]+$/.test(countryBA))) {
+    if (countryBA == "" || countryBA == null || !(/^[A-Za-z0-9 ]{3,20}$/.test(countryBA))) {
         document.forms["customercheck"]["countryBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -259,7 +259,7 @@ function subdivisionDACheck() {
 
 function cityDACheck() {
     var cityDA = document.forms["customercheck"]["cityDA"].value;
-    if (cityDA == "" || cityDA == null || !(/^[A-z ]+$/.test(cityDA))) {
+    if (cityDA == "" || cityDA == null || !(/^[A-Za-z0-9 ]{3,20}$/.test(cityDA))) {
         document.forms["customercheck"]["cityDA"].style.backgroundColor = "pink";
         return false;
     }
@@ -271,7 +271,7 @@ function cityDACheck() {
 
 function countryDACheck() {
     var countryDA = document.forms["customercheck"]["countryDA"].value;
-    if (countryDA == "" || countryDA == null || !(/^[A-z ]+$/.test(countryDA))) {
+    if (countryDA == "" || countryDA == null || !(/^[A-Za-z0-9 ]{3,20}$/.test(countryDA))) {
         document.forms["customercheck"]["countryDA"].style.backgroundColor = "pink";
         return false;
     }

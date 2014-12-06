@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `foobar` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `foobar`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: foobar
+-- Host: localhost    Database: foobar
 -- ------------------------------------------------------
--- Server version	5.6.14
+-- Server version	5.5.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,7 +35,7 @@ CREATE TABLE `account` (
   `accounttype` varchar(45) NOT NULL,
   `locked` int(1) NOT NULL,
   PRIMARY KEY (`accountID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
+INSERT INTO `account` VALUES (3,'Anton','De Joya','DJ','danini','NeSrwl7G5H1nPTtEeyKTZA==','yie@yahoo.com','Customer',0);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,6 +104,32 @@ LOCK TABLES `book` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `creditcard`
+--
+
+DROP TABLE IF EXISTS `creditcard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `creditcard` (
+  `creditcardID` int(11) NOT NULL AUTO_INCREMENT,
+  `cardName` varchar(45) NOT NULL,
+  `cardNo` varchar(45) NOT NULL,
+  `cardType` varchar(45) NOT NULL,
+  `cardExpDate` varchar(45) NOT NULL,
+  PRIMARY KEY (`creditcardID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `creditcard`
+--
+
+LOCK TABLES `creditcard` WRITE;
+/*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
+/*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customer`
 --
 
@@ -127,7 +154,7 @@ CREATE TABLE `customer` (
   PRIMARY KEY (`customerID`),
   KEY `customer_accountID_idx` (`customer_accountID`),
   CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +163,35 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (3,'B6 L21','Yen','Villa Carolina 1','Laguna',2098,'Philippines','B6 L21','Yen','Villa Carolina 1','Laguna',2098,'Philippines',3);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customercreditcard`
+--
+
+DROP TABLE IF EXISTS `customercreditcard`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customercreditcard` (
+  `customercreditcardID` int(11) NOT NULL AUTO_INCREMENT,
+  `customercreditcard_accountID` int(11) NOT NULL,
+  `customercreditcard_creditcardID` int(11) NOT NULL,
+  PRIMARY KEY (`customercreditcardID`),
+  KEY `customercreditcard_creditcardID_idx` (`customercreditcard_creditcardID`),
+  CONSTRAINT `customercreditcard_accountID` FOREIGN KEY (`customercreditcardID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `customercreditcard_creditcardID` FOREIGN KEY (`customercreditcard_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customercreditcard`
+--
+
+LOCK TABLES `customercreditcard` WRITE;
+/*!40000 ALTER TABLE `customercreditcard` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customercreditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -165,6 +220,31 @@ CREATE TABLE `dvd` (
 LOCK TABLES `dvd` WRITE;
 /*!40000 ALTER TABLE `dvd` DISABLE KEYS */;
 /*!40000 ALTER TABLE `dvd` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `error_logs`
+--
+
+DROP TABLE IF EXISTS `error_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `error_logs` (
+  `logid` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `description` varchar(45) NOT NULL,
+  PRIMARY KEY (`logid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `error_logs`
+--
+
+LOCK TABLES `error_logs` WRITE;
+/*!40000 ALTER TABLE `error_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `error_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -308,6 +388,36 @@ LOCK TABLES `shoppingcart` WRITE;
 /*!40000 ALTER TABLE `shoppingcart` DISABLE KEYS */;
 /*!40000 ALTER TABLE `shoppingcart` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `success_logs`
+--
+
+DROP TABLE IF EXISTS `success_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `success_logs` (
+  `logid` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(45) NOT NULL,
+  `description` varchar(45) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`logid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `success_logs`
+--
+
+LOCK TABLES `success_logs` WRITE;
+/*!40000 ALTER TABLE `success_logs` DISABLE KEYS */;
+INSERT INTO `success_logs` VALUES (1,'0:0:0:0:0:0:0:1','Customer danini registration successful.','2014-12-06 17:02:56');
+/*!40000 ALTER TABLE `success_logs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'foobar'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -318,4 +428,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-06 12:36:04
+-- Dump completed on 2014-12-07  1:11:45

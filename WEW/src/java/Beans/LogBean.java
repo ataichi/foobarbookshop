@@ -7,15 +7,11 @@ package Beans;
 
 import java.sql.Timestamp;
 
-/**
- *
- * @author Danica
- */
 public class LogBean {
-    private int logID;
-    private int log_accountID;
-    private String activity;
-    private Timestamp time;
+    protected int logID;
+    protected int log_accountID;
+    protected String activity;
+    protected Timestamp time;
 
     public int getLogID() {
         return logID;

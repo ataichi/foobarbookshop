@@ -1,27 +1,17 @@
 <%@page import="Beans.ProductBean"%>
 <%@page import="Beans.MagazineBean"%>
-<%@page import="DAO.Implementation.MagazineManagerDAOImplementation"%>
 <%@page import="Beans.DVDBean"%>
-<%@page import="DAO.Implementation.DVDManagerDAOImplementation"%>
 <%@page import="Beans.BookBean"%>
-<%@page import="DAO.Implementation.BookManagerDAOImplementation"%>
 <%@page import="Beans.AudioCDBean"%>
-<%@page import="DAO.Implementation.AudioCDManagerDAOImplementation"%>
-<%@page import="DAO.Implementation.ProductDAOImplementation"%>
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    AccountBean account = (AccountBean) session.getAttribute("homeproduct");
+    AccountBean account = (AccountBean) session.getAttribute("homeuser");
     ProductBean productBean = (ProductBean) session.getAttribute("viewproduct");
 
-    ProductDAOImplementation pdao = new ProductDAOImplementation();
-    AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
     AudioCDBean audiocdbean = (AudioCDBean) session.getAttribute("viewaudiocd");
-    BookManagerDAOImplementation bookdao = new BookManagerDAOImplementation();
     BookBean bookbean = (BookBean) session.getAttribute("viewbook");
-    DVDManagerDAOImplementation dvddao = new DVDManagerDAOImplementation();
     DVDBean dvdbean = (DVDBean) session.getAttribute("viewdvd");
-    MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
     MagazineBean magbean = (MagazineBean) session.getAttribute("viewmagazine");
 %>
 
@@ -89,6 +79,7 @@
                     </div>
                     <div class="panel-body">
                         <dl class="dl-horizontal">
+
                             <dt>Title</dt>
                             <dd><% out.println(productBean.getTitle()); %></dd>
                             <dt>Price</dt>
@@ -103,43 +94,43 @@
                             <dd><% out.println(productBean.getNumberStocks()); %></dd>
                             <% if (productBean.getType().equals("Audio CD")) {
 
-                            %>
+                                    out.println("<dt>Artist</dt>"
+                                            + "<dd>"
+                                            + audiocdbean.getArtist()
+                                            + "</dd>"
+                                            + "<dt> Record Company</dt>"
+                                            + "<dd>" + audiocdbean.getRecordCompany() + "</dd>");
 
-                            <dt>Artist</dt>
-                            <dd><% out.println(audiocdbean.getArtist()); %></dd>
-                            <dt>Record Company</dt>
-                            <dd><% out.println(audiocdbean.getRecordCompany()); %></dd>
-                            <% } else if (productBean.getType().equals("Book")) {
-                            %>
-                            <dt>Author</dt>
-                            <dd><% out.println(bookbean.getAuthor()); %></dd>
-                            <dt>Publisher</dt>
-                            <dd><% out.println(bookbean.getPublisher()); %></dd>
-                            <dt>Date Published</dt>
-                            <dd><% out.println(bookbean.getDatePublished()); %></dd>
-                            <%
-                            } else if (productBean.getType().equals("DVD")) {
-                            %>
-                            <dt>Director</dt>
-                            <dd><% out.println(dvdbean.getDirector()); %></dd>
-                            <dt>Actor</dt>
-                            <dd><% out.println(dvdbean.getMainActors()); %></dd>
-                            <dt>Producer</dt>
-                            <dd><% out.println(dvdbean.getProductionCompany()); %></dd>
-                            <%
-                            } else if (productBean.getType().equals("Magazine")) {
-                            %>
-                            <dt>Volume No</dt>
-                            <dd><% out.println(magbean.getVolumeNo()); %></dd>
-                            <dt>Issue No</dt>
-                            <dd><% out.println(magbean.getIssueNo()); %></dd>
-                            <dt>Publisher</dt>
-                            <dd><% out.println(magbean.getPublisher()); %></dd>
-                            <dt>Date Published</dt>
-                            <dd><% out.println(magbean.getDatePublished()); %></dd>
-                            <%
+                                } else if (productBean.getType().equals("Book")) {
+                                    out.println("<dt>Author</dt>"
+                                            + "<dd>"
+                                            + bookbean.getAuthor()
+                                            + "</dd>"
+                                            + "<dt> Publisher</dt>"
+                                            + "<dd>" + bookbean.getPublisher() + "</dd>"
+                                            + "<dt>Date Published</dt>"
+                                            + "<dd>" + bookbean.getDatePublished() + "</dd>");
+
+                                } else if (productBean.getType().equals("DVD")) {
+                                    out.println("<dt>Director</dt>"
+                                            + "<dd>" + dvdbean.getDirector() + "</dd>"
+                                            + "<dt> Actor</dt>"
+                                            + "<dd>" + dvdbean.getMainActors() + "</dd>"
+                                            + "<dt>Prooducer</dt>"
+                                            + "<dd>" + dvdbean.getProductionCompany() + "</dd>");
+                                } else if (productBean.getType().equals("Magazine")) {
+                                    out.println("<dt> Volume No</dt>"
+                                            + "<dd>" + magbean.getVolumeNo() + "</dd>"
+                                            + "<dt> Issue No </dt>"
+                                            + "<dd>" + magbean.getIssueNo() + "</dd>"
+                                            + "<dt>Publisher</dt>"
+                                            + "<dd>" + magbean.getPublisher() + "</dd>"
+                                            + "<dt>Date Published</dt>"
+                                            + "<dd>" + magbean.getDatePublished() + "</dd>"
+                                    );
                                 }
                             %>
+
                         </dl>
                         <a href="productmanagerHOME.jsp"><button>Back</button></a>
                     </div>

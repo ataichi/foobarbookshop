@@ -1,5 +1,4 @@
 
-<%@page import="DAO.Implementation.ProductDAOImplementation"%>
 <%@page import="Beans.ProductBean"%>
 <%@page import="Beans.ProductOrderBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -77,6 +76,7 @@
                 </div>
             </div>
         </nav>
+
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">
                 <!--
@@ -104,7 +104,7 @@
                                 <li role="presentation"><a href="#viewdvd" role="tab" id="dvd-tab" data-toggle="tab" aria-controls="viewdvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade in active" id="viewbook" aria-labelledBy="book-tab">
+                                <div role="tabpanel" class="tab-pane fade in well active" id="viewbook" aria-labelledBy="book-tab" style='height: 500px;'>
                                     <% int a;
                                         for (a = 0; a < booklist.size(); a++) {
                                     %>
@@ -116,8 +116,8 @@
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(booklist.get(a).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='View Details' name='<% out.println(booklist.get(a).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
-                                            <form actiom='#' id='<% out.println(booklist.get(a).getProductID()); %>' method='post'>
-                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(booklist.get(a).getProductID()); %>'>
+                                            <form action='#' id='<% out.println(booklist.get(a).getProductID()); %>' method='post'>
+                                                <input type='hidden' id='productid' name='productid' value='<% out.println(booklist.get(a).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='Add to Cart' name='<% out.println(booklist.get(a).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                         </center>
@@ -126,7 +126,7 @@
                                         }
                                     %>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="viewmag" aria-labelledBy="mag-tab">
+                                <div role="tabpanel" class="tab-pane fade" id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
                                     <% int b;
                                         for (b = 0; b < maglist.size(); b++) {
                                     %>
@@ -138,8 +138,8 @@
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(maglist.get(b).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='View Details' name='<% out.println(maglist.get(b).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
-                                            <form actiom='#' id='<% out.println(maglist.get(b).getProductID()); %>' method='post'>
-                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(maglist.get(b).getProductID()); %>'>
+                                            <form action='#' id='<% out.println(maglist.get(b).getProductID()); %>' method='post'>
+                                                <input type='hidden' id='productid' name='productid' value='<% out.println(maglist.get(b).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='Add to Cart' name='<% out.println(maglist.get(b).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                         </center>
@@ -148,7 +148,7 @@
                                         }
                                     %>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="viewcd" aria-labelledBy="cd-tab">
+                                <div role="tabpanel" class="tab-pane fade" id="viewcd" aria-labelledBy="cd-tab" style='height: 500px;'>
                                     <% int c;
                                         for (c = 0; c < cdlist.size(); c++) {
                                     %>
@@ -160,8 +160,8 @@
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(cdlist.get(c).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='View Details' name='<% out.println(cdlist.get(c).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
-                                            <form actiom='#' id='<% out.println(booklist.get(c).getProductID()); %>' method='post'>
-                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(cdlist.get(c).getProductID()); %>'>
+                                            <form action='#' id='<% out.println(booklist.get(c).getProductID()); %>' method='post'>
+                                                <input type='hidden' id='productid' name='productid' value='<% out.println(cdlist.get(c).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='Add to Cart' name='<% out.println(cdlist.get(c).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                         </center>
@@ -170,7 +170,7 @@
                                         }
                                     %>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="viewdvd" aria-labelledBy="dvd-tab">
+                                <div role="tabpanel" class="tab-pane fade" id="viewdvd" aria-labelledBy="dvd-tab" style='height: 500px;'>
                                     <% int d;
                                         for (d = 0; d < dvdlist.size(); d++) {
                                     %>
@@ -182,8 +182,8 @@
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(dvdlist.get(d).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='View Details' name='<% out.println(dvdlist.get(d).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
-                                            <form actiom='#' id='<% out.println(booklist.get(d).getProductID()); %>' method='post'>
-                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(dvdlist.get(d).getProductID()); %>'>
+                                            <form action='#' id='<% out.println(booklist.get(d).getProductID()); %>' method='post'>
+                                                <input type='hidden' id='productid' name='productid' value='<% out.println(dvdlist.get(d).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='Add to Cart' name='<% out.println(dvdlist.get(d).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                         </center>
@@ -196,43 +196,47 @@
                         </div><!-- /example -->
                     </div>
                 </div>
-                <div class="col-md-4 well" style="padding-left: 20px;">
+                <div class="col-md-4" style="padding-left: 20px; padding-top: 20px;">
                     <div class="pull-right affix">
-                        <div class="panel-body"> 
-                            <%
-                                // insert shopping cart here!
-                                if (temporder.size() == 0) {
-                                    out.println("<p> Shopping cart empty.</p>");
-                                } else {
-                                    out.println("<form action='ShoppingServlet'>"
-                                            + "<input type='submit' value='Buy' name='action'/>"
-                                            + "</form>");
-                                    for (int i = 0; i < temporder.size(); i++) { //gets total order
-                                        for (int j = 0; j < tempproductlist.size(); j++) {
-                                            if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
+                        <div class="panel panel-default" style='height: 550px; width: 500px;'>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Shopping Cart</h3>
+                            </div>
+                            <div class="panel-body">
+                                <%
+                                    // insert shopping cart here!
+                                    if (temporder.size() == 0) {
+                                        out.println("<p> Shopping cart empty.</p>");
+                                    } else {
+                                        out.println("<form action='ShoppingServlet'>"
+                                                + "<input type='submit' value='Buy' name='action'/>"
+                                                + "</form>");
+                                        for (int i = 0; i < temporder.size(); i++) { //gets total order
+                                            for (int j = 0; j < tempproductlist.size(); j++) {
+                                                if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
 
-                                                out.println("<table>"
-                                                        + "<form action='EditShoppingCartServlet'>"
-                                                        + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
-                                                        + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
-                                                        + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/></td></tr>"
-                                                        + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
-                                                        // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
-                                                        + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
-                                                        + "<tr><input type='submit' value='Save' name='action'/></tr>"
-                                                        + "<tr><input type='submit' value='Remove' name='action'/></tr>"
-                                                        + "</table>"
-                                                        + "</form>"
-                                                        + "<br/><br/>");
-                                                break;
+                                                    out.println("<table>"
+                                                            + "<form action='EditShoppingCartServlet'>"
+                                                            + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
+                                                            + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
+                                                            + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/></td></tr>"
+                                                            + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
+                                                            // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
+                                                            + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
+                                                            + "<tr><input type='submit' value='Save' name='action'/></tr>"
+                                                            + "<tr><input type='submit' value='Remove' name='action'/></tr>"
+                                                            + "</table>"
+                                                            + "</form>"
+                                                            + "<br/><br/>");
+                                                    break;
+                                                }
                                             }
+
                                         }
 
                                     }
-
-                                }
-                            %>
-
+                                %>
+                            </div>
                         </div>
                     </div>
                 </div>
