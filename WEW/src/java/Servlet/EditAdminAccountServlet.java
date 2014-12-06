@@ -6,20 +6,20 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 public class EditAdminAccountServlet extends HttpServlet {
 
     /**
@@ -38,6 +38,9 @@ public class EditAdminAccountServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeadmin");
+
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
             AccountBean bean = new AccountBean();
             String firstName, lastName, middleInitial, username, emailAdd;
@@ -85,10 +88,19 @@ public class EditAdminAccountServlet extends HttpServlet {
             bean.setPassword(password);
             bean.setAccountType("admin");
 
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setLog_accountID(account.getAccountID());
+            log.setTime(time);
+            log.setActivity("Edit Admin Account ID " + account.getAccountID());
+
             boolean edit = accountdao.updateAccount(bean);
             if (edit) {
-                session.setAttribute("homeadmin", bean);
-                response.sendRedirect("adminHOME.jsp");
+                if (logdao.addLog(log)) {
+                    session.setAttribute("homeadmin", bean);
+                    response.sendRedirect("adminHOME.jsp");
+                }
             } else {
                 session.setAttribute("homeadmin", bean);
                 response.sendRedirect("adminAccount.jsp");

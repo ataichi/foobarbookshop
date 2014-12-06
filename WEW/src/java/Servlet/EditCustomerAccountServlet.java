@@ -6,10 +6,14 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,10 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "EditCustomerAccountServlet", urlPatterns = {"/EditCustomerAccountServlet"})
-/**
- *
- * @author Giodee
- */
+
 public class EditCustomerAccountServlet extends HttpServlet {
 
     /**
@@ -40,6 +41,8 @@ public class EditCustomerAccountServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
             AccountBean bean = new AccountBean();
 
@@ -54,10 +57,16 @@ public class EditCustomerAccountServlet extends HttpServlet {
             username = request.getParameter("uname");
 
             emailAdd = request.getParameter("email");
-            
+
             boolean locked = false;
             int id = account.getAccountID();
-            
+
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+            log.setTime(time);
+            log.setLog_accountID(account.getAccountID());
+            log.setActivity("Edit Customer Account " + account.getUsername());
+
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             bean.setAccountID(id);
             bean.setFirstName(firstName);
@@ -72,13 +81,15 @@ public class EditCustomerAccountServlet extends HttpServlet {
             out.println(edit);
 
             if (edit) {
-                session.setAttribute("homeuser", bean);
-                response.sendRedirect("customerHOME.jsp");
+                if (logdao.addLog(log)) {
+                    session.setAttribute("homeuser", bean);
+                    response.sendRedirect("customerHOME.jsp");
+                }
             } else {
                 session.setAttribute("homeuser", bean);
                 response.sendRedirect("customerAccount.jsp");
             }
-            
+
         } catch (Exception e) {
 
         }

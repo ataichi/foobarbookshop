@@ -6,10 +6,14 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Evy
- */
 @WebServlet(name = "EditCustomerPassword", urlPatterns = {"/EditCustomerPassword"})
 public class EditCustomerPassword extends HttpServlet {
 
@@ -41,33 +41,41 @@ public class EditCustomerPassword extends HttpServlet {
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
             AccountBean bean = new AccountBean();
 
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
             String currpass, newpass, reenter;
             currpass = account.getPassword();
             newpass = request.getParameter("newpass");
             reenter = request.getParameter("reenter");
 
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setLog_accountID(account.getAccountID());
+            log.setTime(time);
+            log.setActivity("Change Password for Account ID " + account.getAccountID());
             int id = account.getAccountID();
-            
+
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             bean.setAccountID(id);
-            
+
             bean.setPassword(newpass);
-            
+
             boolean edit = accountdao.updateAccountPassword((bean));
-           
-            if(currpass == request.getParameter("currpass")){
+
+            if (currpass == request.getParameter("currpass")) {
                 edit = true;
-            }
-            else{
-                edit=false;
+            } else {
+                edit = false;
             }
 
-            
             out.println(edit);
 
             if (edit) {
-                session.setAttribute("homeuser", bean);
-                response.sendRedirect("customerHOME.jsp");
+                if (logdao.addLog(log)) {
+                    session.setAttribute("homeuser", bean);
+                    response.sendRedirect("customerHOME.jsp");
+                }
             } else {
                 session.setAttribute("homeuser", bean);
                 response.sendRedirect("changepassword.jsp");

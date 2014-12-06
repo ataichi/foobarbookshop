@@ -5,10 +5,15 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
 import Beans.CustomerBean;
+import Beans.LogBean;
 import DAO.Implementation.CustomerDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,10 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Danica
- */
 @WebServlet(name = "CustomerWriteReviewServlet", urlPatterns = {"/CustomerWriteReviewServlet"})
 public class CustomerWriteReviewServlet extends HttpServlet {
 
@@ -38,13 +39,22 @@ public class CustomerWriteReviewServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            
+
             CustomerDAOImplementation cdao = new CustomerDAOImplementation();
             CustomerBean cbean = (CustomerBean) session.getAttribute("homeuser");
-            
+            AccountBean account = (AccountBean) session.getAttribute("homeuser");
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+
             String review = request.getParameter("review");
-            
-            
+
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setLog_accountID(account.getAccountID());
+            log.setTime(time);
+            log.setActivity("Restock Product ID " + 0); //na kelangan edit pa to and write codes 
+
         }
     }
 

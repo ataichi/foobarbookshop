@@ -11,6 +11,7 @@ import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,10 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "AddProductServlet", urlPatterns = {"/AddProductServlet"})
 public class AddProductServlet extends HttpServlet {
 
@@ -49,21 +46,19 @@ public class AddProductServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
             ProductManagerDAOImplementation pdao = new ProductManagerDAOImplementation();
-            
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+
             String prodType = null;
-            if(homeproduct.getAccountType().equals("Audio CD Manager")) {
+            if (homeproduct.getAccountType().equals("Audio CD Manager")) {
                 prodType = "Audio CD";
-            }
-            else if(homeproduct.getAccountType().equals("Book Manager")) {
+            } else if (homeproduct.getAccountType().equals("Book Manager")) {
                 prodType = "Book";
-            }
-            else if(homeproduct.getAccountType().equals("DVD Manager")) {
+            } else if (homeproduct.getAccountType().equals("DVD Manager")) {
                 prodType = "DVD";
-            }
-            else if(homeproduct.getAccountType().equals("Magazine Manager")) {
+            } else if (homeproduct.getAccountType().equals("Magazine Manager")) {
                 prodType = "Magazine";
             }
-            
 
             ProductBean product = new ProductBean();
             String type, title, summary, genre;
@@ -87,6 +82,14 @@ public class AddProductServlet extends HttpServlet {
             product.setYear(year);
 
             boolean addProduct = false;
+
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setLog_accountID(homeproduct.getAccountID());
+            log.setTime(time);
+            log.setActivity("Add Product " + title);
+
             if (type.equals("Audio CD")) {// add audio cd
                 AudioCDManagerDAOInterface cdao = new AudioCDManagerDAOImplementation();
 
@@ -101,17 +104,13 @@ public class AddProductServlet extends HttpServlet {
                 addProduct = pdao.addProduct(product);
                 product = pdao.getLastProduct();
 
-                if (addProduct) {
-                    cd.setAudiocd_productID(product.getProductID());
-                    cd.setArtist(artist);
-                    cd.setRecordCompany(recordCompany);
+                addCD = cdao.addAudioCD(cd);
 
-                    addCD = cdao.addAudioCD(cd);
+                if (addCD) { // success
+                    ArrayList<AudioCDBean> cdlist = cdao.getAllAudioCD();
+                    ArrayList<ProductBean> plist = pdao.getProductsByType(type);
 
-                    if (addCD) { // success
-                        ArrayList<AudioCDBean> cdlist = cdao.getAllAudioCD();
-                        ArrayList<ProductBean> plist = pdao.getProductsByType(type);
-
+                    if (logdao.addLog(log)) {
                         session.setAttribute("audiocdlist", cdlist);
                         session.setAttribute("productlist", plist);
 
@@ -128,7 +127,7 @@ public class AddProductServlet extends HttpServlet {
 
                 BookBean bean = new BookBean();
                 String author, publisher, bookDatePublished;
-                java.util.Date date;
+                java.util.Date date1;
                 java.sql.Date sqlDate;
 
                 author = request.getParameter("bookAuthor");
@@ -138,8 +137,8 @@ public class AddProductServlet extends HttpServlet {
 
                 formatter = new SimpleDateFormat("yyyy-MM-dd");
                 try {
-                    date = formatter.parse(bookDatePublished);
-                    sqlDate = new java.sql.Date(date.getTime());
+                    date1 = formatter.parse(bookDatePublished);
+                    sqlDate = new java.sql.Date(date1.getTime());
                     bean.setDatePublished(sqlDate);
                     out.println(formatter.format(sqlDate));
                 } catch (ParseException ex) {
@@ -158,13 +157,15 @@ public class AddProductServlet extends HttpServlet {
                     addBook = bdao.addBook(bean);
                     if (addBook) {
                         ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-                        booklist = bdao.getAllBooks();
-                        ArrayList<ProductBean> plist = pdao.getProductsByType(type);
+                        if (logdao.addLog(log)) {
+                            booklist = bdao.getAllBooks();
+                            ArrayList<ProductBean> plist = pdao.getProductsByType(type);
 
-                        session.setAttribute("booklist", booklist);
-                        session.setAttribute("productlist", plist);
+                            session.setAttribute("booklist", booklist);
+                            session.setAttribute("productlist", plist);
 
-                        response.sendRedirect("productmanagerHOME.jsp");
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
                     } else {
                         response.sendRedirect("addproduct.jsp");
                     }
@@ -219,7 +220,7 @@ public class AddProductServlet extends HttpServlet {
                     int magazine_productID;
                     String publisher, datePublished;
                     int volumeNo, issueNo;
-                    java.util.Date date;
+                    java.util.Date date1;
                     java.sql.Date sqlDate;
 
                     product = pdao.getLastProduct();
@@ -251,9 +252,12 @@ public class AddProductServlet extends HttpServlet {
                         ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
                         ArrayList<ProductBean> plist = pdao.getProductsByType(type);
                         magazinelist = mdao.getAllMagazine();
-                        session.setAttribute("magazinelist", magazinelist);
-                        session.setAttribute("productlist", plist);
-                        response.sendRedirect("productmanagerHOME.jsp");
+
+                        if (logdao.addLog(log)) {
+                            session.setAttribute("magazinelist", magazinelist);
+                            session.setAttribute("productlist", plist);
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
                     } else {
                         response.sendRedirect("addproduct.jsp");
                     }
@@ -265,7 +269,7 @@ public class AddProductServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
