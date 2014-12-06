@@ -92,7 +92,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "select * from account where username = ?";
+            String query = "select * from account where username like ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, username);
 
@@ -125,7 +125,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setUsername(uname);
                 bean.setLocked(locked);
 
-                System.out.println("hssere");
+                System.out.println("hssjklere");
 
             }
             connection.close();
