@@ -3,12 +3,10 @@
 <%@page import="Beans.ProductOrderBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Beans.ShoppingCartBean"%>
-<%@page import="Beans.CreditCardBean"%>
 <%@page import="Beans.AccountBean"%>
 <%@page import="Beans.CustomerBean"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-    CreditCardBean creditcard = (CreditCardBean) session.getAttribute("creditcard");
     CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
     ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
     ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
