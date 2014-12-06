@@ -1,10 +1,8 @@
-<%-- 
-    Document   : login
-    Created on : Nov 27, 2014, 1:05:07 AM
-    Author     : Danica
---%>
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% int ctr_try = (Integer) session.getAttribute("ctr_try");
+String username = (String) session.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,8 +56,8 @@
         <div class="panel-body"  style="padding-left: 400px">
             <div class="row" style="padding-top: 200px;">
                 <div class="alert alert-danger col-md-8" role="alert">
-                <strong>Try Again!</strong> The username and password you entered did not match our records.
-            </div>
+                    <strong>Try Again!</strong> The username and password you entered did not match our records.
+                </div>
             </div>
             <div class="row" style="padding-left: 150px;">
                 <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">

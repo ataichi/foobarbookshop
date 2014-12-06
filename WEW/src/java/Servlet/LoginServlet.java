@@ -31,7 +31,8 @@ public class LoginServlet extends HttpServlet {
             String username = request.getParameter("loguser");
             String password = request.getParameter("logpass");
 
-            int ctr_try=0;
+            int ctr_try = Integer.parseInt(request.getParameter("ctr_try")); // start
+            System.out.println("CTR_TRY" + ctr_try);
             Hasher hash = null;
 
             try {
@@ -41,7 +42,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             hash.updateHash(password, "UTF-8");
-            password = hash.getHashBASE64();
+            //  password = hash.getHashBASE64();
 
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             account = accountdao.getUserByUsername(username);
@@ -109,14 +110,32 @@ public class LoginServlet extends HttpServlet {
             } else if (accountdao.doesUserExist(username, password) && "Accounting Mdanager".equals(account.getAccountType())) {
                 session.setAttribute("homeaccounting", account);
                 response.sendRedirect("accountingmanagerHOME.jsp");
-            } else {
+            } else { // login fail
                 out.println(accountdao.doesUserExist(username, password));
                 out.println(account.getAccountType());
                 ctr_try++;
-                session.setAttribute("username", username);
-                session.setAttribute("ctr_try", ctr_try);
-                System.out.println(ctr_try);
-                response.sendRedirect("loginfail.jsp");
+
+                if (ctr_try != 5) {
+                    session.setAttribute("username", username);
+                    session.setAttribute("ctr_try", ctr_try);
+                    System.out.println(ctr_try);
+                    response.sendRedirect("loginfail.jsp");
+                } else {//lock account
+                    ctr_try = 0;
+
+                    out.println(account.getAccountID());
+                    if (account.getAccountID() != 0) { // user exists -> lock account
+                        boolean lock = accountdao.lockAccount(account);
+                        if (lock) {
+                            out.println("YES LOCK KA NA PO");
+                        } else {
+                            out.println("DI KO NA-LOCK");
+                        }
+                    } else { // user does not exist at all
+                        out.println("WALA KA NAMAN E");
+                    }
+
+                }
             }
         } finally {
             out.close();
