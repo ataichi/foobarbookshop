@@ -68,6 +68,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         return false;
     }
 
+    @Override
     public boolean updateAccountPassword(AccountBean accountBean) {
 
         String query = "UPDATE account SET password=? WHERE accountID=?";
@@ -92,7 +93,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "select * from account where username like ?";
+            String query = "select * from account where username = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, username);
 
@@ -125,7 +126,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setUsername(uname);
                 bean.setLocked(locked);
 
-                System.out.println("hssjklere");
+                System.out.println("hssere");
 
             }
             connection.close();
@@ -451,5 +452,29 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         }
         return null;
 
+    }
+
+    public static void insertLog(String ip, String description, boolean success) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps;
+
+            int i = 1;
+            if (success) {
+                ps = connection.prepareStatement("INSERT INTO success_logs (ip_address, description) VALUES(?,?)");
+            } else {
+                ps = connection.prepareStatement("INSERT INTO error_logs (ip_address, description) VALUES(?,?)");
+            }
+
+            ps.setString(i++, ip);
+            ps.setString(i++, description);
+            ps.executeUpdate();
+            connection.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }
 }

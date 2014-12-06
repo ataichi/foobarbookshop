@@ -5,9 +5,14 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
+import Beans.LogBean;
 import DAO.Implementation.AdminDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Danica
- */
 @WebServlet(name = "UnlockAccountServlet", urlPatterns = {"/UnlockAccountServlet"})
 public class UnlockAccountServlet extends HttpServlet {
 
@@ -37,27 +38,38 @@ public class UnlockAccountServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            
+
             int accountID = Integer.parseInt(request.getParameter("accountid"));
+            AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
             
+
             out.println(accountID);
             out.println("wala eh");
             AdminDAOImplementation admindao = new AdminDAOImplementation();
-            
+
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
             int unlockcheck = 0;
-            
-            if(admindao.unlockAccount(accountID)) {
+
+            if (admindao.unlockAccount(accountID)) {
                 //out.println("yehey");
+                log.setLog_accountID(homeadmin.getAccountID());
+                log.setTime(time);
+                log.setActivity("Unlock accountID " + accountID);
+                
+                if(logdao.addLog(log))
                 response.sendRedirect("unlock_account.jsp");
-            }
-            else {
+            } else {
                 //out.println("bye");
                 response.sendRedirect("unlock_account.jsp");
             }
-                    
-        }
-        catch(Exception e) {
-            
+
+        } catch (Exception e) {
+
         }
     }
 

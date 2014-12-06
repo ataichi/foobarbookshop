@@ -17,10 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Danica
- */
 @WebServlet(name = "ViewProductServlet", urlPatterns = {"/ViewProductServlet"})
 public class ViewProductServlet extends HttpServlet {
 

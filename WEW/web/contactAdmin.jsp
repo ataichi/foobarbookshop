@@ -22,8 +22,8 @@
         <h1>Hello World!</h1>
         <h1>ano ba dapat ilagay dito =)) </h1>
 
-        <a href="login.jsp"><button value="Login Page"/></a>
-        <a href="signup.jsp"><button value="Sign up"/></a>
+        <a href="login.jsp"><button>Login</button></a>
+        <a href="signup.jsp"><button >Sign up</button></a>
 
 
     </body>

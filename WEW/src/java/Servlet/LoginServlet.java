@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean account = new AccountBean();
 
-            String username = request.getParameter("loguser");  
+            String username = request.getParameter("loguser");
             String password = request.getParameter("logpass");
 
             int ctr_try = Integer.parseInt(request.getParameter("ctr_try")); // start
@@ -110,6 +110,8 @@ public class LoginServlet extends HttpServlet {
             } else if (accountdao.doesUserExist(username, password) && "Accounting Mdanager".equals(account.getAccountType()) && !account.getLocked()) {
                 session.setAttribute("homeaccounting", account);
                 response.sendRedirect("accountingmanagerHOME.jsp");
+            } else if (account.getLocked()) { //locked na talaga yung account
+                response.sendRedirect("contactAdmin.jsp");
             } else { // login fail
                 out.println(accountdao.doesUserExist(username, password));
                 out.println(account.getAccountType());
@@ -127,15 +129,15 @@ public class LoginServlet extends HttpServlet {
                     if (account.getAccountID() != 0) { // user exists -> lock account
                         boolean lock = accountdao.lockAccount(account);
                         if (lock) {
-                            ctr_try=0; // reset counter
+                            ctr_try = 0; // reset counter
                             response.sendRedirect("contactAdmin.jsp");
                             out.println("YES LOCK KA NA PO");
-                            
+
                         } else {
                             out.println("DI KO NA-LOCK");
                         }
                     } else { // user does not exist at all
-                        
+
                         out.println("WALA KA NAMAN E");
                     }
 

@@ -7,6 +7,10 @@ package Beans;
 
 import java.sql.Timestamp;
 
+/**
+ *
+ * @author Danica
+ */
 public class LogBean {
     private int logID;
     private int log_accountID;
