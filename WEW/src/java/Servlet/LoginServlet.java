@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
             String username = request.getParameter("loguser");
             String password = request.getParameter("logpass");
 
+            int ctr_try=0;
             Hasher hash = null;
 
             try {
@@ -111,6 +112,10 @@ public class LoginServlet extends HttpServlet {
             } else {
                 out.println(accountdao.doesUserExist(username, password));
                 out.println(account.getAccountType());
+                ctr_try++;
+                session.setAttribute("username", username);
+                session.setAttribute("ctr_try", ctr_try);
+                System.out.println(ctr_try);
                 response.sendRedirect("loginfail.jsp");
             }
         } finally {

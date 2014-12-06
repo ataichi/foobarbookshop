@@ -40,6 +40,8 @@ public class UnlockAccountServlet extends HttpServlet {
             
             int accountID = Integer.parseInt(request.getParameter("accountid"));
             
+            out.println(accountID);
+            out.println("wala eh");
             AdminDAOImplementation admindao = new AdminDAOImplementation();
             
             int unlockcheck = 0;
