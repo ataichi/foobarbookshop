@@ -6,10 +6,14 @@ import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.CustomerDAOInterface;
+import DBConnection.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +43,18 @@ public class SignupServlet extends HttpServlet {
             String username = request.getParameter("uname");
             String pass1 = request.getParameter("pass1");
 
+            Hasher hash = null;
+
+            try {
+                hash = new Hasher("MD5");
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            hash.updateHash(pass1, "UTF-8");
+            pass1 = hash.getHashBASE64();
+
+            
             account.setFirstName(firstname);
             account.setLastName(lastname);
             account.setMiddleInitial(mInitial);
