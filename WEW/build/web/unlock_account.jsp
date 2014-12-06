@@ -90,23 +90,15 @@
                             <tbody>
                                 <% int i;
                                     for (i = 0; i < accountlist.size(); i++) {
-                                %>
-                                <tr>
-                                    <td><% out.println(accountlist.get(i).getFirstName()); %></td>
-                                    <td><% out.println(accountlist.get(i).getLastName()); %></td>
-                                    <td><% out.println(accountlist.get(i).getUsername()); %></td>
-                                    <td><% out.println(accountlist.get(i).getAccountType()); %></td>
-                                    <td>
-                                        <form id='<% out.println(accountlist.get(i).getAccountID()); %>' method='post' action='UnlockAccountServlet'>
-                                            <input type='hidden' id='accountid' name='accountid' value='<% out.println(accountlist.get(i).getAccountID()); %>'/>
-                                            <input type='submit' id='submit' value='unlock' name='<% out.println(accountlist.get(i).getAccountID()); %>' style='border-color: transparent; background-color: transparent'/>
+                                        out.println("<tr><td>" + accountlist.get(i).getFirstName() + "</td>"
+                                                + "<td>" + accountlist.get(i).getLastName() + "</td>"
+                                                + "<td>" + accountlist.get(i).getUsername() + "</td>"
+                                                + "<td>" + accountlist.get(i).getAccountType() + "</td>"
+                                                + "<td><form action='UnlockAccountServlet'>"
+                                                + "<input type='hidden' name='accountid' value='" + accountlist.get(i).getAccountID() + "'/>"
+                                                + "<input type='submit' value='unlock' style='border-color: transparent; background-color: transparent'/>"
+                                                + "</td></form></tr>");
 
-                                        </form>
-                                    </td>
-                                </tr>
-
-
-                                <%
                                     }
                                 %>
 
