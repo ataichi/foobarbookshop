@@ -87,7 +87,7 @@ public class ShoppingServlet extends HttpServlet {
                 session.setAttribute("temporder", order);
                 
                 out.println("yehey");
-                //response.sendRedirect("");
+                response.sendRedirect("customerHOME.jsp");
             } else {
                 //response.sendRedirect("");
                 out.println("unable to purchase");

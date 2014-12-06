@@ -13,6 +13,7 @@ import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +42,6 @@ public class UnlockAccountServlet extends HttpServlet {
 
             int accountID = Integer.parseInt(request.getParameter("accountid"));
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
-            
 
             out.println(accountID);
             out.println("wala eh");
@@ -53,20 +53,23 @@ public class UnlockAccountServlet extends HttpServlet {
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
 
-            int unlockcheck = 0;
+            out.println(time);
 
-            if (admindao.unlockAccount(accountID)) {
-                //out.println("yehey");
-                log.setLog_accountID(homeadmin.getAccountID());
-                log.setTime(time);
-                log.setActivity("Unlock accountID " + accountID);
-                
-                if(logdao.addLog(log))
-                response.sendRedirect("unlock_account.jsp");
-            } else {
-                //out.println("bye");
-                response.sendRedirect("unlock_account.jsp");
-            }
+            int unlockcheck = 0;
+            
+             if (admindao.unlockAccount(accountID)) {
+             out.println("yehey");
+             log.setLog_accountID(homeadmin.getAccountID());
+             log.setTime(time);
+             log.setActivity("Unlock accountID " + accountID);
+
+                  if(logdao.addLog(log))
+                  response.sendRedirect("unlock_account.jsp");
+             } else {
+             out.println("bye");
+             response.sendRedirect("unlock_account.jsp");
+             }
+             
 
         } catch (Exception e) {
 
