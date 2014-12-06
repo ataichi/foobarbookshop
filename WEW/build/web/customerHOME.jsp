@@ -53,10 +53,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
-                                <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
-                                <li><a href="customerPayments.jsp"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
-                                <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                                <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
+                                <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
+                                <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><a href="customerTransactions.jsp"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
                             </ul>
                         </li>
@@ -109,6 +108,11 @@
                                                         + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
                                                         + "<tr><td>Qty: " + temporder.get(i).getQuantity() + "</td></tr>"
                                                         + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
+                                                        + "<form action='EditShoppingCartServlet' >"
+                                                        + "<input type='submit' value='Remove from Shopping Cart' name='action'/>"
+                                                        + "<input type='hidden'value='"+tempproductlist.get(j).getProductID()+"' name='productid'/>"
+                                                        + "<input type='submit' value='Edit Shopping Cart' name='action'/>"
+                                                        + "</form>"
                                                         + "</table>"
                                                         + "<br/><br/>");
                                                 break;

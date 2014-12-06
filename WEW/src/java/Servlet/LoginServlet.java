@@ -36,15 +36,9 @@ public class LoginServlet extends HttpServlet {
 
             if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType())) {
                 CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
-                CreditCardDAOImplementation creditcarddao = new CreditCardDAOImplementation();
-                CreditCardBean creditcard = new CreditCardBean();
                 ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
                 CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
-                int creditcardID = creditcarddao.getUserCreditCard(tempcustomer.getCustomerID());
-                creditcard = creditcarddao.getCreditCardByCreditCardID(creditcardID);
                 out.println(tempcustomer.getCustomerID());
-                out.println(creditcardID);
-                session.setAttribute("creditcard", creditcard);
 
                 session.setAttribute("tempcustomer", tempcustomer);
                 session.setAttribute("shoppingcart", shoppingcart);
