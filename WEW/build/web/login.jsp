@@ -54,6 +54,7 @@
                     </div>
                     <div class="form-group">
                         <input id="logpass" name='logpass' onblur="passwordCheck();" onfocus="backWhite(this);" type="password" class="form-control input-lg" placeholder="Password">
+                        <input type='hidden' value='0' name='ctr_try'/>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-lg btn-block">Sign In</button>

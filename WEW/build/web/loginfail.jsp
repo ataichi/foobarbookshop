@@ -1,7 +1,7 @@
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% int ctr_try = (Integer) session.getAttribute("ctr_try");
-String username = (String) session.getAttribute("username");
+    String username = (String) session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html>
@@ -60,18 +60,24 @@ String username = (String) session.getAttribute("username");
                 </div>
             </div>
             <div class="row" style="padding-left: 150px;">
-                <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">
-                    <div class="form-group">
-                        <input id="loguser" name='loguser' onblur="usernameCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Username">
-                    </div>
-                    <div class="form-group">
-                        <input id="logpass" name='logpass' onblur="passwordCheck();" onfocus="backWhite(this);" type="password" class="form-control input-lg" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-lg btn-block">Sign In</button>
-                        <span class="pull-right"><a href="signup.jsp">New Registration</a></span>
-                    </div>
-                </form>
+              
+                         <%
+                            out.println("  <form class='col-md-4' id='logform' name='login' onsubmit='return logcheck();' method='post' action='LoginServlet'>"
+                                    + "<div class='form-group'>"
+                                    + "<input id='loguser' name='loguser' onblur='usernameCheck();' onfocus='backWhite(this);' type='text' class='form-control input-lg' placeholder='Username'>"
+                                    + "<input type='hidden' name='ctr_try' value='"+ctr_try+"'/>"
+                                    + "</div>"
+                                    + "<div class='form-group'>"
+                                    + "<input id='logpass' name='logpass' onblur='passwordCheck();' onfocus='backWhite(this);' type='password' class='form-control input-lg' placeholder='Password'/>"
+                                    + "</div>"
+                                    + "<div class='form-group'>"
+                                    + "<button class='btn btn-primary btn-lg btn-block'> Sign In </button>"
+                                    + "<span class='pull-right'><a href='signup.jsp'> New Registration</a></span>"
+                                    + "</div>"
+                                    + "</form>"
+                            
+                            );
+                        %>
             </div>
         </div>
         <script src="dist/js/jquery-2.1.0.min.js"></script>
