@@ -1,21 +1,17 @@
-
-<%@page import="Beans.ProductBean"%>
 <%@page import="Beans.ProductOrderBean"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="Beans.ShoppingCartBean"%>
-<%@page import="Beans.CreditCardBean"%>
 <%@page import="Beans.AccountBean"%>
-<%@page import="Beans.CustomerBean"%>
+<%@page import="Beans.MagazineBean"%>
+<%@page import="Beans.DVDBean"%>
+<%@page import="Beans.BookBean"%>
+<%@page import="Beans.AudioCDBean"%>
+<%@page import="Beans.ProductBean"%>
+<%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-    CreditCardBean creditcard = (CreditCardBean) session.getAttribute("creditcard");
-    CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
-    ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
-    ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-    ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
+    ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
+    ProductOrderBean tempproductorder = (ProductOrderBean) session.getAttribute("tempproductorder");
 %>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,10 +28,10 @@
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
-
-        <title>Customer Home Page</title>
+        <title>Search Product</title>
     </head>
     <body>
+
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -90,80 +86,30 @@
                 </div>
                 <div class="col-md-7" style="padding-left: 20px;">
                     <div class="well" id="shoplist">
-                    </div>
-                </div>
-                <div class="col-md-4 well" style="padding-left: 20px;">
-                    <div class="pull-right affix">
-                        <div class="panel-body"> 
-                            <%
-                                // insert shopping cart here!
-                                if (temporder.size() == 0) {
-                                    out.println("<p> Shopping cart empty.</p>");
-                                } else {
-
-                                    for (int i = 0; i < temporder.size(); i++) { //gets total order
-                                        for (int j = 0; j < tempproductlist.size(); j++) {
-                                            if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
-
-                                                out.println("<table>"
-                                                        + "<form action='EditShoppingCartServlet'>"
-                                                        + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
-                                                        + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
-                                                        + "<tr><td>Qty: <input type='number' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/></td></tr>"
-                                                        //            + "<tr><td>Total: <p id='final'>"+ 12 +"</p></td></tr>"
-                                                        // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
-                                                        + "<input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/>"
-                                                        + "<input type='submit' value='Save' name='action'/>"
-                                                        + "<input type='submit' value='Remove' name='action'/>"
-                                                        + "</table>"
-                                                        + "</form>"
-                                                        + "<br/><br/>");
-                                                break;
-                                            }
-                                        }
-
-                                    }
-
-                                }
-                            %>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="cartright">
-                <ul class="dropdown">
-                    <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false">Shopping Cart <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
                         <%
-                            if (temporder.size() == 0) {
-                                out.println("<li>Please add an item first.</li>");
-                            } else {
-                                out.println("HERE");
 
-                                out.println("<li><a href='#'>My Cart Item 1<span class='glyphicon glyphicon-edit'></span></a></li>"
-                                        + "<li><a href='#'>My Cart Item 2 <span class='glyphicon glyphicon-edit'></span></a></li>"
-                                        + "<li><a href='#'>Checkout <span class='glyphicon glyphicon-edit'></span></a></li>"
-                                );
-                            }
+                            out.println("Title: " + editproduct.getTitle()
+                                    + "<br/>Price: " +"<p id='price'>"+editproduct.getPrice()+"</p>"
+                                    + "Qty: " + "<input type='number' value='" + tempproductorder.getQuantity() + "' name='qty' id='qty' onClick='updateTotal()'/>"
+                                    + "<br/>Total: " + "<p id='total' value='"+ tempproductorder.getPrice() +"'></p>");
+
                         %>
-                    </ul>
-                </ul>
-            </div>
+                    </div>
+                </div>
 
-            <script src="dist/js/jquery-2.1.0.min.js"></script>
-            <script src="dist/js/query.js"></script>
-            <script src="dist/js/bootstrap.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $("#qty").click(function() {
-                        var $n = $("#final");
-                        $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
-                    });
-                });
-            </script>
-    </body>
 
-</html>
+                <script src="dist/js/jquery-2.1.0.min.js"></script>
+                <script src="dist/js/query.js"></script>
+                <script src="dist/js/bootstrap.min.js"></script>
+
+                <script>
+                    function updateTotal() {
+                        var x = document.getElementById("qty").value;
+                        var y = document.getElementById("price").value;
+                        var total1 = x * y;
+                        document.getElementById("total").innerHTML = total1;
+                    }
+                </script>
+
+                </body>
+                </html>

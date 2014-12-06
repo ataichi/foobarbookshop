@@ -3,12 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.ProductBean;
+import Beans.ProductOrderBean;
+import DAO.Implementation.CustomerDAOImplementation;
+import DAO.Implementation.ProductDAOImplementation;
+import DAO.Interface.CustomerDAOInterface;
+import DAO.Interface.ProductDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,10 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "EditShoppingCartServlet", urlPatterns = {"/EditShoppingCartServlet"})
 public class EditShoppingCartServlet extends HttpServlet {
 
@@ -37,21 +39,50 @@ public class EditShoppingCartServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditShoppingCartServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditShoppingCartServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            
+
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+            ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+            ProductOrderBean tempproductorder = new ProductOrderBean();
+            ArrayList<ProductBean> tempproduct = (ArrayList<ProductBean>) session.getAttribute("tempproduct");
+            ProductBean productbean = new ProductBean();
+
+            ProductDAOInterface productdao = new ProductDAOImplementation();
+            CustomerDAOInterface customerdao = new CustomerDAOImplementation();
+
             int productid = Integer.valueOf(request.getParameter("productid"));
-            
+//            int productorderid = Integer.valueOf(request.getParameter("productorderid"));
+            String action = request.getParameter("action");
+            for (int i = 0; i < temporder.size(); i++) {
+
+                if (temporder.get(i).getProductorder_productID() == productid) {
+                    tempproductorder = temporder.get(i);
+                    break;
+
+                }
+            }
+
             out.println(productid);
+            productbean = productdao.getProductById(productid);
+            //   tempproductorder = customerdao.getProductOrderBeanByID(productid);
+            out.println(tempproductorder.getProductorderID());
+            session.setAttribute("tempproductorder", tempproductorder);
+            session.setAttribute("editproduct", productbean);
+            if (action.equals("Remove")) {
+                for (int i = 0; i < temporder.size(); i++) {
+                    if (temporder.get(i).getProductorder_productID() == productid) {
+                        temporder.remove(i);
+
+                        session.setAttribute("temporder", temporder);
+                        response.sendRedirect("customerHOME.jsp");
+                        out.println("yes");
+                        break;
+                    }
+                }
+            } else {
+                out.println(action);
+            }
+            //           response.sendRedirect("customerEditShoppingCart.jsp");
         }
     }
 
