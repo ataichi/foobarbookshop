@@ -136,11 +136,11 @@
                                             <div>P<% out.println(maglist.get(b).getPrice()); %></div>
                                             <form action='#' id='<% out.println(maglist.get(b).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(maglist.get(b).getProductID()); %>'>
-                                                <input type='submit' id='submit' value='View Details' name='<% out.println(maglist.get(b).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>"
+                                                <input type='submit' id='submit' value='View Details' name='<% out.println(maglist.get(b).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                             <form actiom='#' id='<% out.println(maglist.get(b).getProductID()); %>' method='post'>
                                                  <input type='hidden' id='productid' name='productid' value='<% out.println(maglist.get(b).getProductID()); %>'>
-                                                <input type='submit' id='submit' value='Add to Cart' name='<% out.println(maglist.get(b).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>"
+                                                <input type='submit' id='submit' value='Add to Cart' name='<% out.println(maglist.get(b).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                         </center>
                                     </div>
@@ -158,11 +158,11 @@
                                             <div>P<% out.println(cdlist.get(c).getPrice()); %></div>
                                             <form action='#' id='<% out.println(cdlist.get(c).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(cdlist.get(c).getProductID()); %>'>
-                                                <input type='submit' id='submit' value='View Details' name='<% out.println(cdlist.get(c).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>"
+                                                <input type='submit' id='submit' value='View Details' name='<% out.println(cdlist.get(c).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                             <form actiom='#' id='<% out.println(booklist.get(c).getProductID()); %>' method='post'>
                                                  <input type='hidden' id='productid' name='productid' value='<% out.println(cdlist.get(c).getProductID()); %>'>
-                                                <input type='submit' id='submit' value='Add to Cart' name='<% out.println(cdlist.get(c).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>"
+                                                <input type='submit' id='submit' value='Add to Cart' name='<% out.println(cdlist.get(c).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                         </center>
                                     </div>
