@@ -16,7 +16,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <script src="js/customercheck.js" type="text/javascript"></script>
-        <title>Log In</title>
+        <title>Sign Up</title>
 
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
@@ -90,13 +90,13 @@
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="pass1">Password</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Password" onblur="passCheck();" onfocus="backWhite(this);" required>
+                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="(Atleast 2 special char)" onblur="passCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="pass2">Verify Password</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Verify Password" onblur="passCheck();" onfocus="backWhite(this);" required>
+                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="(Atleast 2 special char)" onblur="passCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                     </div>

@@ -78,7 +78,7 @@ function fnameCheck() {
 
 function mnameCheck() {
     var middle = document.forms["customercheck"]["mname"].value;
-    if (!('/^[A-Z]?$/i'.test(middle))) {
+    if (middle == "" || middle == null || !(/^(?:[A-z ]\d{0})$/.test(middle))) {
         document.forms["customercheck"]["mname"].style.backgroundColor = "pink";
         return false;
     }
@@ -127,16 +127,17 @@ function emailCheck() {
 }
 
 function passCheck() {
-    var pass1 = document.forms["customercheck"]["newpass"].value;
-    var pass2 = document.forms["customercheck"]["reenter"].value;
-    if (pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
-        document.forms["customercheck"]["newpass"].style.backgroundColor = "pink";
-        document.forms["customercheck"]["reenter"].style.backgroundColor = "pink";
+    var pass1 = document.forms["customercheck"]["pass1"].value;
+    var pass2 = document.forms["customercheck"]["pass2"].value;
+    if (!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
+            || pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
+        document.forms["customercheck"]["pass1"].style.backgroundColor = "pink";
+        document.forms["customercheck"]["pass2"].style.backgroundColor = "pink";
         return false;
     }
     else {
-        document.forms["customercheck"]["newpass"].style.backgroundColor = "white";
-        document.forms["customercheck"]["reenter"].style.backgroundColor = "white";
+        document.forms["customercheck"]["pass1"].style.backgroundColor = "white";
+        document.forms["customercheck"]["pass2"].style.backgroundColor = "white";
         return true;
     }
 }
@@ -212,7 +213,7 @@ function countryBACheck() {
 
 function postalcodeBACheck() {
     var postalcodeBA = document.forms["customercheck"]["postalcodeBA"].value;
-    if (postalcodeBA == "" || postalcodeBA == null || !(/^[0-9]/.test(postalcodeBA))) { //kulang pa ng pag check kung digit
+    if (postalcodeBA == "" || postalcodeBA == null || !(/^(?:[0-9]\d{3})$/.test(postalcodeBA))) { //kulang pa ng pag check kung digit
         document.forms["customercheck"]["postalcodeBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -282,7 +283,7 @@ function countryDACheck() {
 
 function postalcodeDACheck() {
     var postalcodeDA = document.forms["customercheck"]["postalcodeDA"].value;
-    if (postalcodeDA == "" || postalcodeDA == null || !(/^[0-9]/.test(postalcodeDA))) { //kulang pa ng pag check kung digit
+    if (postalcodeDA == "" || postalcodeDA == null || !(/^(?:[0-9]\d{3})$/.test(postalcodeDA))) { //kulang pa ng pag check kung digit
         document.forms["customercheck"]["postalcodeDA"].style.backgroundColor = "pink";
         return false;
     }
