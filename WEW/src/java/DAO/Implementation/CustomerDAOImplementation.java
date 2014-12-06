@@ -469,4 +469,46 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         return false;
     }
 
+    @Override
+    public ProductOrderBean getProductOrderBeanByID(int id) {
+  
+      try {
+            String query = "select * from productorder where productorderID = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            ProductOrderBean bean = new ProductOrderBean();
+            int productorderID, productorder_shoppingcartID, productorder_productID, quantity;
+            double price;
+
+            while (rs.next()) {
+                
+                productorderID = rs.getInt("productorderID");
+                productorder_shoppingcartID = rs.getInt("product_shoppingcartID");
+                productorder_productID = rs.getInt("product_productID");
+                quantity = rs.getInt("quantity");
+                
+                price = rs.getDouble("price");
+
+                bean.setProductorderID(productorderID);
+                bean.setProductorder_shoppingcartID(productorder_shoppingcartID);
+                bean.setProductorder_productID(productorder_productID);
+                bean.setQuantity(quantity);
+                
+                bean.setPrice(price);
+            }
+
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

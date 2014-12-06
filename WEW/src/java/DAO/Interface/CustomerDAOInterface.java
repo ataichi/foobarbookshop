@@ -32,6 +32,8 @@ public interface CustomerDAOInterface {
     public int getShoppingCartID();
     public boolean writeReview(int productorderID, String review);
     
+    public ProductOrderBean getProductOrderBeanByID(int id);
+    
     public ProductBean viewProduct(int ProductID);
     public ProductBean searchProduct(int ProductID);
     
