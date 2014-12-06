@@ -35,7 +35,8 @@ public class ViewProductServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            AccountBean account = (AccountBean) session.getAttribute("homeproduct");
+            AccountBean account = (AccountBean) session.getAttribute("homeuser");
+            
             
             ProductDAOImplementation pdao = new ProductDAOImplementation();
             AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
@@ -53,6 +54,7 @@ public class ViewProductServlet extends HttpServlet {
             productBean = pdao.getProductById(productID);
             session.setAttribute("viewproduct", productBean);
             
+            out.println(productID); 
             if(productBean.getType().equals("Audio CD")) {
                 audiocdbean = audiocddao.getAudioCDByProductID(productID);
                 session.setAttribute("viewaudiocd", audiocdbean);
@@ -71,7 +73,7 @@ public class ViewProductServlet extends HttpServlet {
             else if(productBean.getType().equals("Magazine")) {
                 magbean = magdao.getMagazineByProductID(productID);
                 session.setAttribute("viewmagazine", magbean);
-                response.sendRedirect("viewproduct.jsp");
+               response.sendRedirect("viewproduct.jsp");
             }
         }
     }

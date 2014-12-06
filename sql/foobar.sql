@@ -35,7 +35,7 @@ CREATE TABLE `account` (
   `accounttype` varchar(45) NOT NULL,
   `locked` int(1) NOT NULL,
   PRIMARY KEY (`accountID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (3,'Bob','Ong','R','BRO','!!','bro@gmail.com','Customer',0),(4,'Tricia','Nieva','A','nie','bdB1VW7/qm5/Hj47qf3F+g==','shatri8_gal@yahoo.com','Customer',0),(5,'Marial','Carbonell','Q','MC','TryuZVBILj9AZa2d9HLlyw==','mc@yahoo.com','Customer',0),(6,'Marial','Carbonell','Q','MC','TryuZVBILj9AZa2d9HLlyw==','mc@yahoo.com','Customer',0);
+INSERT INTO `account` VALUES (3,'Anton','De Joya','DJ','danini','NeSrwl7G5H1nPTtEeyKTZA==','yie@yahoo.com','Customer',0);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +138,6 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
   `customerID` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_accountID` int(11) NOT NULL,
   `apartmentnoBA` varchar(45) NOT NULL,
   `streetBA` varchar(45) NOT NULL,
   `subdivisionBA` varchar(45) NOT NULL,
@@ -151,10 +150,11 @@ CREATE TABLE `customer` (
   `cityDA` varchar(45) NOT NULL,
   `postalcodeDA` int(11) NOT NULL,
   `countryDA` varchar(45) NOT NULL,
+  `customer_accountID` int(11) NOT NULL,
   PRIMARY KEY (`customerID`),
   KEY `customer_accountID_idx` (`customer_accountID`),
   CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +163,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (3,'B6 L21','Ford','Brent','Laguna',1443,'Philippines','B6 L21','Ford','Brent','Laguna',1443,'Philippines',3),(4,'B6 L21','Peso','Villa Carolina 1','Muntinlupa',1443,'Philippines','B6 L21','Peso','Villa Carolina 1','Muntinlupa',1443,'Philippines',4),(5,'B6 L21','Baht','Brent','California',1443,'United States','B6 L21','Baht','Brent','California',1443,'United States',5),(6,'B6 L21','Baht','Brent','California',1443,'United States','B6 L21','Baht','Brent','California',1443,'United States',6);
+INSERT INTO `customer` VALUES (3,'B6 L21','Yen','Villa Carolina 1','Laguna',2098,'Philippines','B6 L21','Yen','Villa Carolina 1','Laguna',2098,'Philippines',3);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,6 +223,31 @@ LOCK TABLES `dvd` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `error_logs`
+--
+
+DROP TABLE IF EXISTS `error_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `error_logs` (
+  `logid` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `description` varchar(45) NOT NULL,
+  PRIMARY KEY (`logid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `error_logs`
+--
+
+LOCK TABLES `error_logs` WRITE;
+/*!40000 ALTER TABLE `error_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `error_logs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `logs`
 --
 
@@ -233,7 +258,7 @@ CREATE TABLE `logs` (
   `logsID` int(11) NOT NULL AUTO_INCREMENT,
   `log_accountID` int(11) NOT NULL,
   `activity` varchar(45) NOT NULL,
-  `time` Date DEFAULT NULL,
+  `time` time DEFAULT NULL,
   PRIMARY KEY (`logsID`),
   KEY `log_accountID_idx` (`log_accountID`),
   CONSTRAINT `log_accountID` FOREIGN KEY (`log_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -365,6 +390,32 @@ LOCK TABLES `shoppingcart` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `success_logs`
+--
+
+DROP TABLE IF EXISTS `success_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `success_logs` (
+  `logid` int(11) NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(45) NOT NULL,
+  `description` varchar(45) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`logid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `success_logs`
+--
+
+LOCK TABLES `success_logs` WRITE;
+/*!40000 ALTER TABLE `success_logs` DISABLE KEYS */;
+INSERT INTO `success_logs` VALUES (1,'0:0:0:0:0:0:0:1','Customer danini registration successful.','2014-12-06 17:02:56');
+/*!40000 ALTER TABLE `success_logs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping routines for database 'foobar'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -377,4 +428,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-06 23:48:30
+-- Dump completed on 2014-12-07  1:11:45

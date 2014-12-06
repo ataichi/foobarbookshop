@@ -10,6 +10,7 @@ import DBConnection.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -99,10 +100,12 @@ public class SignupServlet extends HttpServlet {
             checkCustomer = customerdao.addCustomer(customer);
 
             if (checkAccount && checkCustomer) {
+
+                
                 AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
                 response.sendRedirect("login.jsp");
             } else {
-                 AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer "+username+" registration failed.", false);
+                AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
                 response.sendRedirect("signupfail.jsp");
             }
         } finally {
