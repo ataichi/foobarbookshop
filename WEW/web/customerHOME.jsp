@@ -96,6 +96,7 @@
                 </div>
             </div>
 
+            
             <div class="cartright">
                 <ul class="dropdown">
                     <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false">Shopping Cart <span class="caret"></span></a>
