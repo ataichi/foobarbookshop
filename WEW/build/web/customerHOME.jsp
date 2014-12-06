@@ -114,11 +114,11 @@
                                             <div>P<% out.println(booklist.get(a).getPrice()); %></div>
                                             <form action='#' id='<% out.println(booklist.get(a).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(booklist.get(a).getProductID()); %>'>
-                                                <input type='submit' id='submit' value='View Details' name='<% out.println(booklist.get(a).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>"
+                                                <input type='submit' id='submit' value='View Details' name='<% out.println(booklist.get(a).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                             <form actiom='#' id='<% out.println(booklist.get(a).getProductID()); %>' method='post'>
                                                  <input type='hidden' id='productid' name='productid' value='<% out.println(booklist.get(a).getProductID()); %>'>
-                                                <input type='submit' id='submit' value='Add to Cart' name='<% out.println(booklist.get(a).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>"
+                                                <input type='submit' id='submit' value='Add to Cart' name='<% out.println(booklist.get(a).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
                                         </center>
                                     </div>
