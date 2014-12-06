@@ -101,17 +101,19 @@
                                     for (int i = 0; i < temporder.size(); i++) { //gets total order
                                         for (int j = 0; j < tempproductlist.size(); j++) {
                                             if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
+
                                                 out.println("<table>"
+                                                        + "<form action='EditShoppingCartServlet'>"
                                                         + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
                                                         + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
-                                                        + "<tr><td>Qty: " + temporder.get(i).getQuantity() + "</td></tr>"
-                                                        + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
-                                                        + "<form action='EditShoppingCartServlet' >"
-                                                        + "<input type='submit' value='Remove from Shopping Cart' name='action'/>"
-                                                        + "<input type='hidden'value='"+tempproductlist.get(j).getProductID()+"' name='productid'/>"
-                                                        + "<input type='submit' value='Edit Shopping Cart' name='action'/>"
-                                                        + "</form>"
+                                                        + "<tr><td>Qty: <input type='number' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/></td></tr>"
+                                                        //            + "<tr><td>Total: <p id='final'>"+ 12 +"</p></td></tr>"
+                                                        // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
+                                                        + "<input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/>"
+                                                        + "<input type='submit' value='Save' name='action'/>"
+                                                        + "<input type='submit' value='Remove' name='action'/>"
                                                         + "</table>"
+                                                        + "</form>"
                                                         + "<br/><br/>");
                                                 break;
                                             }
@@ -151,6 +153,14 @@
             <script src="dist/js/jquery-2.1.0.min.js"></script>
             <script src="dist/js/query.js"></script>
             <script src="dist/js/bootstrap.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $("#qty").click(function() {
+                        var $n = $("#final");
+                        $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
+                    });
+                });
+            </script>
     </body>
 
 </html>
