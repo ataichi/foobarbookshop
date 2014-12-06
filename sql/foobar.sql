@@ -103,32 +103,6 @@ LOCK TABLES `book` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `creditcard`
---
-
-DROP TABLE IF EXISTS `creditcard`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `creditcard` (
-  `creditcardID` int(11) NOT NULL AUTO_INCREMENT,
-  `cardName` varchar(45) NOT NULL,
-  `cardNo` varchar(45) NOT NULL,
-  `cardType` varchar(45) NOT NULL,
-  `cardExpDate` varchar(45) NOT NULL,
-  PRIMARY KEY (`creditcardID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `creditcard`
---
-
-LOCK TABLES `creditcard` WRITE;
-/*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
-/*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `customer`
 --
 
@@ -163,50 +137,6 @@ CREATE TABLE `customer` (
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customercreditcard`
---
-
-DROP TABLE IF EXISTS `customercreditcard`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customercreditcard` (
-  `customercreditcardID` INT NOT NULL AUTO_INCREMENT,
-  `customercreditcard_customerID` INT NOT NULL,
-  `customercreditcard_creditcardID` INT NOT NULL,
-  PRIMARY KEY (`customercreditcardID`),
-  INDEX `customercreditcard_creditcardID_idx` (`customercreditcard_creditcardID` ASC),
-  CONSTRAINT `customercreditcard_customerID`
-    FOREIGN KEY (`customercreditcardID`)
-    REFERENCES `foobar`.`customer` (`customerID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `customercreditcard_creditcardID`
-    FOREIGN KEY (`customercreditcard_creditcardID`)
-    REFERENCES `foobar`.`creditcard` (`creditcardID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-DROP TABLE IF EXISTS `customercreditcard`;
-CREATE TABLE `customercreditcard` (
-  `customercreditcardID` int(11) NOT NULL AUTO_INCREMENT,
-  `customercreditcard_accountID` int(11) NOT NULL,
-  `customercreditcard_creditcardID` int(11) NOT NULL,
-  PRIMARY KEY (`customercreditcardID`),
-  KEY `customercreditcard_creditcardID_idx` (`customercreditcard_creditcardID`),
-  CONSTRAINT `customercreditcard_accountID` FOREIGN KEY (`customercreditcardID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `customercreditcard_creditcardID` FOREIGN KEY (`customercreditcard_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customercreditcard`
---
-
-LOCK TABLES `customercreditcard` WRITE;
-/*!40000 ALTER TABLE `customercreditcard` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customercreditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -362,13 +292,10 @@ DROP TABLE IF EXISTS `shoppingcart`;
 CREATE TABLE `shoppingcart` (
   `shoppingcartID` int(11) NOT NULL AUTO_INCREMENT,
   `shoppingcart_customerID` int(11) NOT NULL,
-  `shoppingcart_creditcardID` int(11) NOT NULL,
   `total` double NOT NULL,
   `orderDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`shoppingcartID`),
   KEY `shoppingcart_customerID_idx` (`shoppingcart_customerID`),
-  KEY `shoppingcart_creditcardID_idx` (`shoppingcart_creditcardID`),
-  CONSTRAINT `shoppingcart_creditcardID` FOREIGN KEY (`shoppingcart_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `shoppingcart_customerID` FOREIGN KEY (`shoppingcart_customerID`) REFERENCES `customer` (`customerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -391,4 +318,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-26 11:05:45
+-- Dump completed on 2014-12-06 12:36:04
