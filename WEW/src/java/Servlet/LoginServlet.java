@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean account = new AccountBean();
 
-            String username = request.getParameter("loguser");
+            String username = request.getParameter("loguser");  
             String password = request.getParameter("logpass");
 
             int ctr_try = Integer.parseInt(request.getParameter("ctr_try")); // start
@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
-            if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType())) {
+            if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType()) && !account.getLocked()) {
                 CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
                 ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
                 CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
@@ -63,12 +63,12 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("temporder", temporder);
                 session.setAttribute("tempproductlist", productlist);
                 response.sendRedirect("customerHOME.jsp");
-            } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType())) {
+            } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType()) && !account.getLocked()) {
                 session.setAttribute("homeadmin", account);
                 out.println("here");
                 response.sendRedirect("adminHOME.jsp");
 
-            } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType())) {
+            } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType()) && !account.getLocked()) {
                 BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                 ArrayList<BookBean> booklist = new ArrayList<BookBean>();
                 booklist = bookdao.getAllBooks();
@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("productlist", productlist);
                 session.setAttribute("homeproduct", account);
                 response.sendRedirect("productmanagerHOME.jsp");
-            } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType())) {
+            } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType()) && !account.getLocked()) {
                 AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
                 ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
                 audiocdlist = cddao.getAllAudioCD();
@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("productlist", productlist);
                 session.setAttribute("homeproduct", account);
                 response.sendRedirect("productmanagerHOME.jsp");
-            } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType())) {
+            } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType()) && !account.getLocked()) {
                 DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
                 ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
                 dvdlist = dvddao.viewAllDVD();
@@ -98,7 +98,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("productlist", productlist);
                 session.setAttribute("homeproduct", account);
                 response.sendRedirect("productmanagerHOME.jsp");
-            } else if (accountdao.doesUserExist(username, password) && "Magazine Manager".equals(account.getAccountType())) {
+            } else if (accountdao.doesUserExist(username, password) && "Magazine Manager".equals(account.getAccountType()) && !account.getLocked()) {
                 MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                 ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
                 magazinelist = magazinedao.getAllMagazine();
@@ -107,7 +107,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("productlist", productlist);
                 session.setAttribute("homeproduct", account);
                 response.sendRedirect("productmanagerHOME.jsp");
-            } else if (accountdao.doesUserExist(username, password) && "Accounting Mdanager".equals(account.getAccountType())) {
+            } else if (accountdao.doesUserExist(username, password) && "Accounting Mdanager".equals(account.getAccountType()) && !account.getLocked()) {
                 session.setAttribute("homeaccounting", account);
                 response.sendRedirect("accountingmanagerHOME.jsp");
             } else { // login fail
@@ -127,11 +127,15 @@ public class LoginServlet extends HttpServlet {
                     if (account.getAccountID() != 0) { // user exists -> lock account
                         boolean lock = accountdao.lockAccount(account);
                         if (lock) {
+                            ctr_try=0; // reset counter
+                            response.sendRedirect("contactAdmin.jsp");
                             out.println("YES LOCK KA NA PO");
+                            
                         } else {
                             out.println("DI KO NA-LOCK");
                         }
                     } else { // user does not exist at all
+                        
                         out.println("WALA KA NAMAN E");
                     }
 

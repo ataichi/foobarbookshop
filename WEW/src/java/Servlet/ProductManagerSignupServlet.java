@@ -36,7 +36,7 @@ public class ProductManagerSignupServlet extends HttpServlet {
             account.setLastName(request.getParameter("lname"));
             account.setMiddleInitial(request.getParameter("mname"));
             account.setPassword(request.getParameter("pass1"));
-            account.setEmailAdd(request.getParameter("email"));
+            account.setEmailAdd(request.getParameter("email1"));
             account.setUsername(request.getParameter("uname"));
             //account.setAccountType("product manager");
             account.setAccountType(request.getParameter("prodType") + " Manager");
@@ -44,7 +44,6 @@ public class ProductManagerSignupServlet extends HttpServlet {
 
             int productmanager_accountID;
             boolean addUser = userdao.addAccount(account);
-            
             if (addUser) {
                 //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
                 //productManager.setProdmanager_accountID(productmanager_accountID);
@@ -52,8 +51,9 @@ public class ProductManagerSignupServlet extends HttpServlet {
 
             }
             else {
-                response.sendRedirect("signup_productmanager.jsp");
+                response.sendRedirect("signupfail.jsp");
             }
+
             //productManager.setProdType(request.getParameter("prodType"));
             /*
 

@@ -155,7 +155,7 @@ function checkcurrentpass(){
 }
 function apartmentnoBACheck() {
     var aptnoBA = document.forms["customercheck"]["apartmentnoBA"].value;
-    if (aptnoBA == "" || aptnoBA == null ) { //|| !(/^[A-z ]+$/.test(aptnoBA))
+    if (aptnoBA == "" || aptnoBA == null || !(/^[A-z ]+$/.test(aptnoBA))) {
         document.forms["customercheck"]["apartmentnoBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -179,7 +179,7 @@ function streetBACheck() {
 
 function subdivisionBACheck() {
     var subBA = document.forms["customercheck"]["subdivisionBA"].value;
-    if (subBA == "" || subBA == null ) {// !(/^[A-z ]+$/.test(subBA))
+    if (subBA == "" || subBA == null || !(/^[A-z ]+$/.test(subBA))) {
         document.forms["customercheck"]["subdivisionBA"].style.backgroundColor = "pink";
     }
     else {
@@ -225,7 +225,7 @@ function postalcodeBACheck() {
 
 function apartmentnoDACheck() {
     var aptnoDA = document.forms["customercheck"]["apartmentnoDA"].value;
-    if (aptnoDA == "" || aptnoDA == null) { //!(/^[A-z ]+$/.test(aptnoDA))
+    if (aptnoDA == "" || aptnoDA == null || !(/^[A-z ]+$/.test(aptnoDA))) {
         document.forms["customercheck"]["apartmentnoDA"].style.backgroundColor = "pink";
         return false;
     }
@@ -249,7 +249,7 @@ function streetDACheck() {
 
 function subdivisionDACheck() {
     var subDA = document.forms["customercheck"]["subdivisionDA"].value;
-    if (subDA == "" || subDA == null) { //!(/^[A-z ]+$/.test(subDA))
+    if (subDA == "" || subDA == null || !(/^[A-z ]+$/.test(subDA))) {
         document.forms["customercheck"]["subdivisionDA"].style.backgroundColor = "pink";
     }
     else {
