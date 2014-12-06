@@ -6,16 +6,10 @@ import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.CustomerDAOInterface;
-import DBConnection.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +30,7 @@ public class SignupServlet extends HttpServlet {
             CustomerBean customer = new CustomerBean();
             AccountDAOInterface userdao = new AccountDAOImplementation();
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
-            boolean checkAccount = false, checkCustomer = false;
+            boolean checkAccount=false, checkCustomer=false;
 
             String firstname = request.getParameter("fname");
             String lastname = request.getParameter("lname");
@@ -44,15 +38,6 @@ public class SignupServlet extends HttpServlet {
             String email = request.getParameter("email");
             String username = request.getParameter("uname");
             String pass1 = request.getParameter("pass1");
-
-            Hasher hash = null;
-            try {
-                hash = new Hasher("MD5");
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            hash.updateHash(pass1, "UTF-8");
-            pass1 = hash.getHashBASE64();
 
             account.setFirstName(firstname);
             account.setLastName(lastname);
@@ -62,47 +47,48 @@ public class SignupServlet extends HttpServlet {
             account.setUsername(username);
             account.setAccountType("Customer");
             account.setLocked(false);
-
+            
             checkAccount = userdao.addAccount(account);
-
+            
             String apartmentnoBA = request.getParameter("apartmentnoBA");
             String streetBA = request.getParameter("streetBA");
             String subdivisionBA = request.getParameter("subdivisionBA");
             String cityBA = request.getParameter("cityBA");
             int postalcodeBA = Integer.valueOf(request.getParameter("postalcodeBA"));
             String countryBA = request.getParameter("countryBA");
-
+            
             String apartmentnoDA = request.getParameter("apartmentnoDA");
             String streetDA = request.getParameter("streetDA");
             String subdivisionDA = request.getParameter("subdivisionDA");
             String cityDA = request.getParameter("cityDA");
             int postalcodeDA = Integer.valueOf(request.getParameter("postalcodeDA"));
             String countryDA = request.getParameter("countryDA");
-
+            
             int customer_accountID = userdao.getUserByUsername(username).getAccountID();
-
+            
             customer.setApartmentNoBA(apartmentnoBA);
             customer.setApartmentNoDA(apartmentnoDA);
             customer.setCityBA(cityBA);
             customer.setCityDA(cityDA);
             customer.setCountryBA(countryBA);
             customer.setCountryDA(countryDA);
-
+            
             customer.setCustomer_accountID(customer_accountID);
-
+            
             customer.setPostalCodeBA(postalcodeBA);
             customer.setPostalCodeDA(postalcodeDA);
             customer.setStreetBA(streetBA);
             customer.setStreetDA(streetDA);
             customer.setSubdivisionBA(subdivisionBA);
             customer.setSubdivisionDA(subdivisionDA);
-
+            
             checkCustomer = customerdao.addCustomer(customer);
-
-            if (checkAccount && checkCustomer) {
+            
+            if(checkAccount && checkCustomer){
                 response.sendRedirect("login.jsp");
-            } else {
-                response.sendRedirect("signupfail.jsp");
+            }
+            else{
+               response.sendRedirect("signupfail.jsp");
             }
         } finally {
             out.close();

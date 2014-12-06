@@ -109,6 +109,11 @@
                                                         + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
                                                         + "<tr><td>Qty: " + temporder.get(i).getQuantity() + "</td></tr>"
                                                         + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
+                                                        + "<form action='EditShoppingCartServlet' >"
+                                                        + "<input type='submit' value='Remove from Shopping Cart' name='action'/>"
+                                                        + "<input type='hidden'value='"+tempproductlist.get(j).getProductID()+"' name='productid'/>"
+                                                        + "<input type='submit' value='Edit Shopping Cart' name='action'/>"
+                                                        + "</form>"
                                                         + "</table>"
                                                         + "<br/><br/>");
                                                 break;
