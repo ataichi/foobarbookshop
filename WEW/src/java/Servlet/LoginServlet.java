@@ -3,9 +3,13 @@ package Servlet;
 import Beans.*;
 import DAO.Implementation.*;
 import DAO.Interface.*;
+import DBConnection.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +30,17 @@ public class LoginServlet extends HttpServlet {
 
             String username = request.getParameter("loguser");
             String password = request.getParameter("logpass");
+
+            Hasher hash = null;
+
+            try {
+                hash = new Hasher("MD5");
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            hash.updateHash(password, "UTF-8");
+            password = hash.getHashBASE64();
 
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             account = accountdao.getUserByUsername(username);
