@@ -78,7 +78,7 @@ function fnameCheck() {
 
 function mnameCheck() {
     var middle = document.forms["customercheck"]["mname"].value;
-    if (middle == "" || middle == null || !(/A-z/.test(middle))) {
+    if (!('/^[A-Z]?$/i'.test(middle))) {
         document.forms["customercheck"]["mname"].style.backgroundColor = "pink";
         return false;
     }

@@ -49,10 +49,11 @@
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Edit Account</a></li>
+                                <!--
                                 <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
                                 <li><a href="signup_accountingmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
                                 <li><a href="viewlogs.html"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>-->
                             </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
@@ -62,64 +63,62 @@
             </div>
         </nav>
 
-        <div class="container"  style="padding-top: 100px;">
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Account Information</h3>
+        <div class="container-fluid" style="padding-top: 100px;">
+            <div class="row row-offcanvas row-offcanvas-left">
+
+                <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+                    <div class="list-group">
+                        <a href="signup_productmanager.jsp" class="list-group-item"><span class="glyphicon glyphicon-edit"></span> Add Product Manager</a>
+                        <a href="signup_accountingmanager.jsp" class="list-group-item"><span class="glyphicon glyphicon-edit"></span> Add Accounting Manager</a>
+                        <a href="viewlogs.jsp" class="list-group-item"><span class="glyphicon glyphicon-edit"></span> View Activity Log</a>
+                        <a href="#" class="list-group-item active"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a>
                     </div>
-                    <div class="panel-body">
+                </div><!--/span-->
+                <div class="col-xs-12 col-sm-9 content">
 
-                        <%
-                            int i = 0;
-                            for (i = 0; i < accountlist.size(); i++) {
-                        %>
-                        <form class="form-horizontal" role="form" id="unlock <% accountlist.get(i).getAccountID(); %>" name="unlock<% accountlist.get(i).getAccountID(); %>" action="UnlockAccountServlet" method="post">
-                            <div>
-                                <div class="form-group" style="font-size: 20px;">
-                                    <label class="control-label col-lg-4">Basic Info</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4" >Account ID</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter Account ID" type='text' id="accountid" name="accountid" value="<% accountlist.get(i).getAccountID(); %>" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4" >First Name</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter First Name" id="fname" name="fname" value="<% accountlist.get(i).getFirstName();%> " required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4" >Last Name</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter Last Name" id="lname" name="lname" value="<% accountlist.get(i).getLastName();%> " required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">Account Type</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control"  placeholder="Enter Username"id="type" name="type" value="<% accountlist.get(i).getAccountType();%> " required>
-                                    </div>
-                                </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Username</th>
+                                    <th>Type</th>
+                                    <th>Unlock Account<th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% int i;
+                                    for (i = 0; i < accountlist.size(); i++) {
+                                %>
+                                <tr>
+                                    <td><% out.println(accountlist.get(i).getFirstName()); %></td>
+                                    <td><% out.println(accountlist.get(i).getLastName()); %></td>
+                                    <td><% out.println(accountlist.get(i).getUsername()); %></td>
+                                    <td><% out.println(accountlist.get(i).getAccountType()); %></td>
+                                    <td>
+                                        <form id='<% out.println(accountlist.get(i).getAccountID()); %>' method='post' action='UnlockAccountServlet'>
+                                            <input type='hidden' id='accountid' name='accountid' value='<% out.println(accountlist.get(i).getAccountID()); %>'/>
+                                            <input type='submit' id='submit' value='unlock' name='<% out.println(accountlist.get(i).getAccountID()); %>' style='border-color: transparent; background-color: transparent'/>
 
-                                <div class="form-group">
-                                    <button class="btn btn-primary btn-lg center-block" type="submit" value="unlock" name="unlock<% accountlist.get(i).getAccountID(); %>">Unlock Account</button>
-                                </div>
-                                <div class="form-group">
-                                    <a href='adminHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
-                                </div>
-                            </div>
-                        </form>
-                        <%
-         }
-                        %>
+                                        </form>
+                                    </td>
+                                </tr>
+
+
+                                <%
+                                    }
+                                %>
+
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-            </div>
-        </div> 
 
+                </div><!--/span-->
+
+            </div><!--/row-->
+
+        </div><!-- /.container -->
 
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>

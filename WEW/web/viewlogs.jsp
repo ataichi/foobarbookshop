@@ -42,10 +42,11 @@
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeadmin.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Edit Account</a></li>
+                                <!--
                                 <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
                                 <li><a href="signup_accountingmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-edit"></span>View Activity Log</a></li>
-                                <li><a href="unlock_account.html"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>
+                                <li><a href="unlock_account.html"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>-->
                             </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
@@ -54,7 +55,35 @@
                 </div>
             </div>
         </nav>
-                            
-        
+
+        <div class="container-fluid" style="padding-top: 100px;">
+            <div class="row row-offcanvas row-offcanvas-left">
+
+                <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+                    <div class="list-group">
+                        <a href="signup_productmanager.jsp" class="list-group-item"><span class="glyphicon glyphicon-edit"></span> Add Product Manager</a>
+                        <a href="signup_accountingmanager.jsp" class="list-group-item"><span class="glyphicon glyphicon-edit"></span> Add Accounting Manager</a>
+                        <a href="#" class="list-group-item active"><span class="glyphicon glyphicon-edit"></span> View Activity Log</a>
+                        <a href="unlock_account.jsp" class="list-group-item"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a>
+                    </div>
+                </div><!--/span-->
+                <div class="col-xs-12 col-sm-9 content">
+
+                    <div class="text-center">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">View Logs</h3>
+                            </div>
+                            <div class="panel-body">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/span-->
+
+            </div><!--/row-->
+
+        </div><!-- /.container -->
+
     </body>
 </html>
