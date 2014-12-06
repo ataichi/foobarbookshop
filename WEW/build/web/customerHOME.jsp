@@ -106,12 +106,12 @@
                                                         + "<form action='EditShoppingCartServlet'>"
                                                         + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
                                                         + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
-                                                        + "<tr><td>Qty: <input type='number' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/></td></tr>"
-                                                        //            + "<tr><td>Total: <p id='final'>"+ 12 +"</p></td></tr>"
+                                                        + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/></td></tr>"
+                                                        + "<tr><td>Total: " +  temporder.get(i).getPrice() +"</td></tr>"
                                                         // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
-                                                        + "<input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/>"
-                                                        + "<input type='submit' value='Save' name='action'/>"
-                                                        + "<input type='submit' value='Remove' name='action'/>"
+                                                        + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
+                                                        + "<tr><input type='submit' value='Save' name='action'/></tr>"
+                                                        + "<tr><input type='submit' value='Remove' name='action'/></tr>"
                                                         + "</table>"
                                                         + "</form>"
                                                         + "<br/><br/>");

@@ -6,6 +6,7 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.CustomerBean;
 import Beans.ProductOrderBean;
 import Beans.ShoppingCartBean;
 import DAO.Implementation.CustomerDAOImplementation;
@@ -43,38 +44,48 @@ public class ShoppingServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+            ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
             ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+            CustomerBean customer = new CustomerBean();
 
             CustomerDAOInterface cdao = new CustomerDAOImplementation();
+            cartbean.setShoppingcart_creditcardID(1); // pero remove this kasi di naman kelangan hahaha
+            double total=0;
+
 
             boolean shopcartcheck = false;
             int i = 0, shoppingcartID;
-            shoppingcartID = cdao.getShoppingCartID();
+            shoppingcartID = cdao.getShoppingCartID(); // returns last shoppingcartID
 
+            customer = cdao.getCustomerByAccountID(homeuser.getAccountID());
             out.println(homeuser.getAccountID());
 
-            cartbean.setShoppingcart_customerID(homeuser.getAccountID());
-
-            cartbean.setShoppingcart_creditcardID(1);
-            double total=0;
+           // cartbean.setShoppingcartID(shoppingcartID);
+            cartbean.setShoppingcart_customerID(customer.getCustomerID());
 
             for (i = 0; i < orderlist.size(); i++) { // update total
+                
                 total += orderlist.get(i).getPrice() * orderlist.get(i).getQuantity();
             }
             cartbean.setTotal(total);
+        
             Timestamp orderTime;
             java.util.Date date = new java.util.Date();
             orderTime = new Timestamp(date.getTime());
             cartbean.setOrderDate(orderTime);
-
+            
+            out.println(shoppingcartID+1);
             shopcartcheck = cdao.purchase(cartbean);
 
             if (shopcartcheck) {
                 cartbean.setShoppingcart_customerID(homeuser.getAccountID());
                 for (i = 0; i < orderlist.size(); i++) {
-                    cdao.addProductsToCart(orderlist.get(i), shoppingcartID);
+                    out.println("here here :( ");
+                    cdao.addProductsToCart(orderlist.get(i), shoppingcartID+1);
                 }
+                session.setAttribute("temporder", order);
+                
                 out.println("yehey");
                 //response.sendRedirect("");
             } else {

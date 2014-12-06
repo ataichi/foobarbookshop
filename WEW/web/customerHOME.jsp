@@ -97,7 +97,9 @@
                                 if (temporder.size() == 0) {
                                     out.println("<p> Shopping cart empty.</p>");
                                 } else {
-
+                                    out.println("<form action='ShoppingServlet'>"
+                                            + "<input type='submit' value='Buy' name='action'/>"
+                                            + "</form>");
                                     for (int i = 0; i < temporder.size(); i++) { //gets total order
                                         for (int j = 0; j < tempproductlist.size(); j++) {
                                             if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
@@ -107,7 +109,7 @@
                                                         + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
                                                         + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
                                                         + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/></td></tr>"
-                                                        + "<tr><td>Total: " +  temporder.get(i).getPrice() +"</td></tr>"
+                                                        + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
                                                         // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
                                                         + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
                                                         + "<tr><input type='submit' value='Save' name='action'/></tr>"
