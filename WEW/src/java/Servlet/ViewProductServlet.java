@@ -54,13 +54,13 @@ public class ViewProductServlet extends HttpServlet {
             productBean = pdao.getProductById(productID);
             session.setAttribute("viewproduct", productBean);
             
-            out.println(productID); 
+            
             if(productBean.getType().equals("Audio CD")) {
                 audiocdbean = audiocddao.getAudioCDByProductID(productID);
                 session.setAttribute("viewaudiocd", audiocdbean);
                 response.sendRedirect("viewproduct.jsp");
             }
-            else if(productBean.getType().equals("Books")) {
+            else if(productBean.getType().equals("Book")) {
                 bookbean = bookdao.getBookByProductID(productID);
                 session.setAttribute("viewbook", bookbean);
                 response.sendRedirect("viewproduct.jsp");

@@ -485,7 +485,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         filtered = filtered.replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", ""); //remove onLoad or onClick 
         filtered = filtered.replaceAll("--",""); //remove comments in SQL
         
-        filtered = filtered.replaceAll("([^A-Za-z0-9@. _-]+)", "");
+        filtered = filtered.replaceAll("([^A-Za-z0-9@. ]+)", "");
         return filtered;
     }
     
