@@ -42,8 +42,6 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
       out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
@@ -95,10 +93,11 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div class=\"row\" style=\"padding-top: 200px;\">\r\n");
       out.write("                <form class=\"col-md-4\" id=\"logform\" name=\"login\" onsubmit=\"return logcheck();\" method=\"post\" action=\"LoginServlet\">\r\n");
       out.write("                    <div class=\"form-group\">\r\n");
-      out.write("                        <input id=\"loguser\" name='loguser' onblur=\"usernameCheck();\" onfocus=\"backWhite(this);\" type=\"text\" class=\"form-control input-lg\" placeholder=\"Username\" required>\r\n");
+      out.write("                        <input id=\"loguser\" name='loguser' onblur=\"usernameCheck();\" onfocus=\"backWhite(this);\" type=\"text\" class=\"form-control input-lg\" placeholder=\"Username\">\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <div class=\"form-group\">\r\n");
-      out.write("                        <input id=\"logpass\" name='logpass' onblur=\"passwordCheck();\" onfocus=\"backWhite(this);\" type=\"password\" class=\"form-control input-lg\" placeholder=\"Password\" required>\r\n");
+      out.write("                        <input id=\"logpass\" name='logpass' onblur=\"passwordCheck();\" onfocus=\"backWhite(this);\" type=\"password\" class=\"form-control input-lg\" placeholder=\"Password\">\r\n");
+      out.write("                        <input type='hidden' value='0' name='ctr_try'/>\r\n");
       out.write("                    </div>\r\n");
       out.write("                    <div class=\"form-group\">\r\n");
       out.write("                        <button class=\"btn btn-primary btn-lg btn-block\">Sign In</button>\r\n");
