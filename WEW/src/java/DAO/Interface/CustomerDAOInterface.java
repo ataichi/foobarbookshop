@@ -41,8 +41,6 @@ public interface CustomerDAOInterface {
     public ProductBean viewProduct(int ProductID);
     public ProductBean searchProduct(int ProductID);
     
-    public boolean addCustomerCreditCard(CustomerCreditCardBean customercreditcard);
-    public boolean removeCustomerCreditCard(int customercreditcardid);
-    public boolean removeCustomerCreditCardByCreditCardID(int creditcardID);
-    public CustomerCreditCardBean getCustomerCreditCardByCustomerID(int customerID);
+    public ArrayList<ShoppingCartBean> getShoppingCartByCustomerID(int customerID);
+    public ArrayList<ProductOrderBean> getProductOrderByShoppingCartID(int shoppingcartID);
 }
