@@ -56,12 +56,14 @@ public class AddToShoppingCartServlet extends HttpServlet {
             ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
             ProductDAOInterface productdao = new ProductDAOImplementation();
 
-            int product = Integer.valueOf(request.getParameter("product"));
+            out.println(request.getParameter("productid"));
+            int product = Integer.valueOf(request.getParameter("productid"));
+            out.println(product);
             productbean = productdao.getProductById(product);
 
             String action = request.getParameter("action");
 
-            int quantity = Integer.valueOf(request.getParameter("quantity"));
+            int quantity = Integer.valueOf(request.getParameter("qty"));
             out.println(product + "\n");
             out.println(quantity);
 
@@ -135,7 +137,7 @@ public class AddToShoppingCartServlet extends HttpServlet {
                 session.setAttribute("temporder", neworder); // new orderbean; reset
 
             }
-            response.sendRedirect("customerHOME.jsp");
+           response.sendRedirect("customerHOME.jsp");
 
         }
     }
