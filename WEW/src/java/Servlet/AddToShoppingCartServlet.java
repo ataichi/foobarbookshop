@@ -69,11 +69,30 @@ public class AddToShoppingCartServlet extends HttpServlet {
             temporder.setQuantity(quantity);
             temporder.setPrice(productbean.getPrice() * quantity);
 
-            order.add(temporder);
+            int sum = 0;
+            double total = 0;
+            boolean check = false;
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getProductorder_productID() == temporder.getProductorder_productID()) {
+                    sum = order.get(i).getQuantity() + temporder.getQuantity();
+                    total = sum * temporder.getPrice();
 
-            out.println(order.size());
-            
-            tempproductlist.add(productbean);
+                    order.get(i).setPrice(total);
+                    order.get(i).setProductorderID(order.get(i).getProductorderID());
+                    order.get(i).setProductorder_productID(temporder.getProductorder_productID());
+                    order.get(i).setQuantity(sum);
+                    check = true;
+                    break;
+                }
+
+            }
+
+            if (!check) { // not found
+                order.add(temporder);
+                out.println(order.size());
+                tempproductlist.add(productbean);
+            }
+
             if (action.equals("Add to Cart")) {
                 session.setAttribute("temporder", order);
                 session.setAttribute("tempproductlist", tempproductlist);
@@ -88,8 +107,6 @@ public class AddToShoppingCartServlet extends HttpServlet {
                 out.println(homeuser.getAccountID());
 
                 cartbean.setShoppingcart_customerID(homeuser.getAccountID());
-
-                double total = 0;
 
                 for (i = 0; i < order.size(); i++) { // update total
                     total += order.get(i).getPrice() * order.get(i).getQuantity();

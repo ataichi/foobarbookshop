@@ -78,6 +78,9 @@ public class LoginServlet extends HttpServlet {
                 }
             } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType()) && !account.getLocked()) {
 
+                ArrayList<LogBean> loglist = new ArrayList<LogBean>();
+                loglist = logdao.getAllLogs();
+                
                 log.setActivity("Admin Login");
                 log.setLog_accountID(account.getAccountID());
 
@@ -85,10 +88,11 @@ public class LoginServlet extends HttpServlet {
                 Timestamp time = new Timestamp(date.getTime());
                 log.setTime(time);
                 if (logdao.addLog(log)) {
+                    session.setAttribute("loglist", loglist);
                     session.setAttribute("homeadmin", account);
-                    out.println("here");
+                    out.println(time);
 
-                    response.sendRedirect("adminHOME.jsp");
+               //     response.sendRedirect("adminHOME.jsp");
                 }
 
             } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType()) && !account.getLocked()) {

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Nov 27, 2014, 1:05:07 AM
-    Author     : Danica
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

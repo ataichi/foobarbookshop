@@ -1,7 +1,18 @@
+<%@page import="Beans.ReviewBean"%>
+<%@page import="Beans.ShoppingCartBean"%>
+<%@page import="Beans.ProductOrderBean"%>
+<%@page import="Beans.ProductOrderBean"%>
+<%@page import="Beans.ProductBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+
+    ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
+    ArrayList<ProductOrderBean> finalproductorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("finalproductorderlist");
+    ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
+    ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
 
 %>
 <!DOCTYPE html>
@@ -45,7 +56,7 @@
                                 <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
+                                <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
                             </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
@@ -69,11 +80,42 @@
                         <h3 class="panel-title">Transactions</h3>
                     </div>
                     <div class="panel-body">
+                        <%
+                            for (int i = 0; i < shoppingcartlist.size(); i++) {
+                                out.println("<h1>" + shoppingcartlist.get(i).getOrderDate() + "</h1>");
+                                for (int j = 0; j < finalproductorderlist.size(); j++) {
+                                    if (shoppingcartlist.get(i).getShoppingcartID() == finalproductorderlist.get(j).getProductorder_shoppingcartID()) {
+
+                                        for (int k = 0; k < productlist.size(); k++) {
+
+                                            if (productlist.get(k).getProductID() == finalproductorderlist.get(j).getProductorder_productID()) {
+                                                out.println("Title: " + productlist.get(k).getTitle()
+                                                        + "\n Price: " + productlist.get(k).getPrice()
+                                                        + "\n Review: "
+                                                );
+                                                for (int a = 0; a < reviewlist.size(); i++) {
+                                                    if (reviewlist.get(a).getReview_productID() == productlist.get(k).getProductID()) {
+                                                        out.println(reviewlist.get(a).getReview());
+                                                        break;
+                                                    } else {
+                                                        out.println("No review yet.");
+                                                    }
+                                                }
+                                                break;
+                                            }
+
+                                        }
+                                        break;
+                                    }
+
+                                }
+                            }
+                        %>
                     </div>
                 </div>
             </div>
         </div>
-                            
+
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>

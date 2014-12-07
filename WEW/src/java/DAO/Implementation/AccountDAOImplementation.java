@@ -477,16 +477,45 @@ public class AccountDAOImplementation implements AccountDAOInterface {
 
         }
     }
-    
-       //prevents XSS and SQL Injection
-    public static String inputSanitizer(String input){
+
+    //prevents XSS and SQL Injection
+    public static String inputSanitizer(String input) {
         String filtered = input.replaceAll("(?i)<script.*?>.*?</script.*?>", ""); // remove <script>  
         filtered = filtered.replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", ""); // remove javascript calls
         filtered = filtered.replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", ""); //remove onLoad or onClick 
-        filtered = filtered.replaceAll("--",""); //remove comments in SQL
-        
+        filtered = filtered.replaceAll("--", ""); //remove comments in SQL
+
         filtered = filtered.replaceAll("([^A-Za-z0-9@. ]+)", "");
         return filtered;
     }
-    
+
+    @Override
+    public boolean isUsernameAvailable(String username) {
+        boolean found = false;
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from account where username = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            String compare;
+
+            while (resultSet.next()) {
+                compare = resultSet.getString("username");
+                found=true;
+
+            }
+            connection.close();
+            return found;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return found;
+
+    }
+
 }

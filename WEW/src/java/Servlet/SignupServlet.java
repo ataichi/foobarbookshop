@@ -104,7 +104,7 @@ public class SignupServlet extends HttpServlet {
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
-            if (checkAccount && checkCustomer) {
+            if (checkAccount && checkCustomer && userdao.isUsernameAvailable(username)) {
                 log.setActivity(username + "Customer SignUps");
                 log.setLog_accountID(customer_accountID);
 

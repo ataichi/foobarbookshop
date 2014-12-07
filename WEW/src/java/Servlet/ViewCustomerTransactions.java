@@ -9,6 +9,7 @@ import Beans.AccountBean;
 import Beans.CustomerBean;
 import Beans.ProductBean;
 import Beans.ProductOrderBean;
+import Beans.ReviewBean;
 import Beans.ShoppingCartBean;
 import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
@@ -41,15 +42,6 @@ public class ViewCustomerTransactions extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ViewCustomerTransactions</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ViewCustomerTransactions at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
 
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
@@ -63,32 +55,42 @@ public class ViewCustomerTransactions extends HttpServlet {
             ProductBean product = new ProductBean();
             ArrayList<ShoppingCartBean> shoppingcartlist = new ArrayList<ShoppingCartBean>();
             ProductDAOInterface productdao = new ProductDAOImplementation();
+            ReviewBean review = new ReviewBean();
+            ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
 
             out.println("CustomerID:" + tempcustomer.getCustomerID());
             shoppingcartlist = customerdao.getShoppingCartByCustomerID(tempcustomer.getCustomerID());
 
             out.println(shoppingcartlist.get(0).getShoppingcartID());
             out.println(shoppingcartlist.get(1).getShoppingcartID());
+
             for (int i = 0; i < shoppingcartlist.size(); i++) {
-                    productorderlist = customerdao.getProductOrderByShoppingCartID(shoppingcartlist.get(i).getShoppingcartID());
+                productorderlist = customerdao.getProductOrderByShoppingCartID(shoppingcartlist.get(i).getShoppingcartID());
                 out.println(shoppingcartlist.get(i).getOrderDate());
                 out.println(shoppingcartlist.get(i).getShoppingcartID());
-                    for (int j = 0; j < productorderlist.size(); j++) {
-                 // transfer productorderlist sa finalproductorderlist
-                 productorder = productorderlist.get(j);
-                 finalproductorderlist.add(productorder);
+                for (int j = 0; j < productorderlist.size(); j++) {
+                    // transfer productorderlist sa finalproductorderlist
+                    productorder = productorderlist.get(j);
+                    finalproductorderlist.add(productorder);
 
-                 //arraylist of products bought
-                 product = productdao.getProductById(productorder.getProductorder_productID());
-                 productlist.add(product);
-                 }
-                 
+                    //arraylist of products bought
+                    product = productdao.getProductById(productorder.getProductorder_productID());
+                    productlist.add(product);
+                    
+                    review = new ReviewBean();
+                    review = customerdao.getCustomerReviewForProduct(product.getProductID(), tempcustomer.getCustomerID());
+                    if (review != null) {
+                        reviewlist.add(review);
+                    }
+                }
+
             }
 
             // get transactions by customer
             session.setAttribute("productlist", productlist);
             session.setAttribute("finalproductorderlist", finalproductorderlist);
             session.setAttribute("shoppingcartlist", shoppingcartlist);
+            session.setAttribute("reviewlist", reviewlist);
             /*
              out.println("Productlist:" + productlist.size());
              out.println("\nFinalProductOrderList" + finalproductorderlist.size());
@@ -112,7 +114,7 @@ public class ViewCustomerTransactions extends HttpServlet {
              out.println("\n");
              }
              */
-                response.sendRedirect("customerTransactions.jsp");
+            response.sendRedirect("customerTransactions.jsp");
         }
     }
 

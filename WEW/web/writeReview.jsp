@@ -101,7 +101,8 @@
                                     + "<dt>"
                                     + "<input type='submit' value='Submit Review'/>"
                                     + "</dt>"
-                                    + "</form>");
+                                    + "</form>"
+                                    + "<a href='customerHOME.jsp'><button>Back</button></a>");
 
                         }
                     }

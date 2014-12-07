@@ -10,6 +10,7 @@ public interface AccountDAOInterface {
     public boolean doesUserExist(String username, String password);
     public boolean updateAccount(AccountBean accountBean);
     public boolean updateAccountPassword(AccountBean accountBean);
+    public boolean isUsernameAvailable(String username);
     
     public ArrayList<AccountBean> getAccountByName(String firstname, String lastname);
     public ArrayList<AccountBean> getAccountByFirstName(String firstname);

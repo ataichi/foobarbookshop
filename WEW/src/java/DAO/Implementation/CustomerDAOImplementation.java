@@ -460,9 +460,11 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
             while (rs.next()) {
 
+                bean = new ReviewBean();
+                
                 reviewID = rs.getInt("reviewID");
                 review_productID = rs.getInt("review_productID");
-                review_customerID = rs.getInt("review_customeID");
+                review_customerID = rs.getInt("review_customerID");
 
                 reviewString = rs.getString("reviewString");
 

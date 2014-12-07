@@ -147,14 +147,11 @@
                                 }
                             %>
                         </dl>
+
                         <dl class="dl-horizontal">
                             <dt>Reviews</dt>
-                            <dd></dd>
                         </dl>
-                        <dl class="dl-horizontal">
-                            <dt><a href="customerHOME.jsp"><button>Back</button></a><dt>
-                            <dd></dd>
-                        </dl>
+                        <a href="productmanagerHOME.jsp"><button>Back</button></a>
                     </div>
                 </div>
             </div>
