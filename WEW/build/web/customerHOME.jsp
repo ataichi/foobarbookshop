@@ -182,7 +182,7 @@
                 </div>              
 
 
-                <div class="col-md-4" style="padding-left: 20px;">
+                <div class="col-md-4" style="padding-left: 20px; padding-top: 20px;">
                     <div class="pull-right affix">
                         <div class="panel panel-default" style='height: 550px; width: 500px; max-height: 10;overflow-y: scroll;'>
                             <div class="panel-heading">
