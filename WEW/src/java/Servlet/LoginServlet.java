@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean account = new AccountBean();
 
-            String username = request.getParameter("loguser");
+            String username = AccountDAOImplementation.inputSanitizer(request.getParameter("loguser"));
             String password = request.getParameter("logpass");
 
             int ctr_try = Integer.parseInt(request.getParameter("ctr_try")); // start

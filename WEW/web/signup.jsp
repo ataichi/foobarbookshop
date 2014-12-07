@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="mname">Middle Initial</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial (Use 1 letter only)" onblur="mnameCheck();" onfocus="backWhite(this);" required>
+                                <input type="text" class="form-control" id="mname" name="mname" placeholder="(Up to 2 letters are allowed)" onblur="mnameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -78,7 +78,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="uname">Username</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameCheck();" onfocus="backWhite(this);" required>
+                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Only letters, numbers, hyphens, underscores" onblur="unameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
