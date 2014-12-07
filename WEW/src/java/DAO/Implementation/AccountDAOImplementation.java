@@ -477,4 +477,16 @@ public class AccountDAOImplementation implements AccountDAOInterface {
 
         }
     }
+    
+       //prevents XSS and SQL Injection
+    public static String inputSanitizer(String input){
+        String filtered = input.replaceAll("(?i)<script.*?>.*?</script.*?>", ""); // remove <script>  
+        filtered = filtered.replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", ""); // remove javascript calls
+        filtered = filtered.replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", ""); //remove onLoad or onClick 
+        filtered = filtered.replaceAll("--",""); //remove comments in SQL
+        
+        filtered = filtered.replaceAll("([^A-Za-z0-9@. _-]+)", "");
+        return filtered;
+    }
+    
 }

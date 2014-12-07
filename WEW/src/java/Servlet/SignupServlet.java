@@ -84,28 +84,28 @@ public class SignupServlet extends HttpServlet {
 
             int customer_accountID = userdao.getUserByUsername(username).getAccountID();
 
-            customer.setApartmentNoBA(apartmentnoBA);
-            customer.setApartmentNoDA(apartmentnoDA);
-            customer.setCityBA(cityBA);
-            customer.setCityDA(cityDA);
-            customer.setCountryBA(countryBA);
-            customer.setCountryDA(countryDA);
+            customer.setApartmentNoBA(AccountDAOImplementation.inputSanitizer(apartmentnoBA));
+            customer.setApartmentNoDA(AccountDAOImplementation.inputSanitizer(apartmentnoDA));
+            customer.setCityBA(AccountDAOImplementation.inputSanitizer(cityBA));
+            customer.setCityDA(AccountDAOImplementation.inputSanitizer(cityDA));
+            customer.setCountryBA(AccountDAOImplementation.inputSanitizer(countryBA));
+            customer.setCountryDA(AccountDAOImplementation.inputSanitizer(countryDA));
 
             customer.setCustomer_accountID(customer_accountID);
 
             customer.setPostalCodeBA(postalcodeBA);
             customer.setPostalCodeDA(postalcodeDA);
-            customer.setStreetBA(streetBA);
-            customer.setStreetDA(streetDA);
-            customer.setSubdivisionBA(subdivisionBA);
-            customer.setSubdivisionDA(subdivisionDA);
+            customer.setStreetBA(AccountDAOImplementation.inputSanitizer(streetBA));
+            customer.setStreetDA(AccountDAOImplementation.inputSanitizer(streetDA));
+            customer.setSubdivisionBA(AccountDAOImplementation.inputSanitizer(subdivisionBA));
+            customer.setSubdivisionDA(AccountDAOImplementation.inputSanitizer(subdivisionDA));
 
             checkCustomer = customerdao.addCustomer(customer);
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
             if (checkAccount && checkCustomer) {
-                log.setActivity(username + "Customer Sign Up");
+                log.setActivity(username + "Customer SignUps");
                 log.setLog_accountID(customer_accountID);
 
                 java.util.Date date = new java.util.Date();
@@ -113,11 +113,14 @@ public class SignupServlet extends HttpServlet {
                 log.setTime(time);
 
                 if (logdao.addLog(log)) {
-        //            AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
-                    response.sendRedirect("login.jsp");
+                    session.setAttribute("username", username);
                 }
+
+                AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
+
+                response.sendRedirect("login.jsp");
             } else {
-        //        AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
+                AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
                 response.sendRedirect("signupfail.jsp");
             }
         } finally {
