@@ -105,22 +105,19 @@ public class SignupServlet extends HttpServlet {
             LogDAOInterface logdao = new LogDAOImplementation();
 
             if (checkAccount && checkCustomer) {
-                log.setActivity(username + "Customer SignUps");
-                log.setLog_accountID(account.getAccountID());
+                log.setActivity(username + "Customer Sign Up");
+                log.setLog_accountID(customer_accountID);
 
                 java.util.Date date = new java.util.Date();
                 Timestamp time = new Timestamp(date.getTime());
                 log.setTime(time);
 
                 if (logdao.addLog(log)) {
-                    session.setAttribute("username", username);
+        //            AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
+                    response.sendRedirect("login.jsp");
                 }
-
-                AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
-
-                response.sendRedirect("login.jsp");
             } else {
-                AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
+        //        AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
                 response.sendRedirect("signupfail.jsp");
             }
         } finally {
