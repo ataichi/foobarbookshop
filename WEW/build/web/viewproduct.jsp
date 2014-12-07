@@ -72,8 +72,8 @@
             </div>
         </nav>
 
-            <div class="container"  style="padding-top: 100px;">
-                <div class="row">
+        <div class="container"  style="padding-top: 100px;">
+            <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Product Information</h3>
