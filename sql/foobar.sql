@@ -333,6 +333,43 @@ LOCK TABLES `product` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `review`
+--
+
+DROP TABLE IF EXISTS `review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+
+CREATE TABLE `foobar`.`review` (
+  `reviewID` INT(11) NOT NULL AUTO INCREMENT,
+  `review` VARCHAR(45) NOT NULL,
+  `review_customerID` INT(11) NOT NULL,
+  `review_productID` INT(11) NOT NULL,
+  PRIMARY KEY (`reviewID`),
+  INDEX `reiew_customerID_idx` (`reviewID` ASC, `review_customerID` ASC),
+  INDEX `review_productID_idx` (`review_productID` ASC),
+  CONSTRAINT `reiew_customerID`
+    FOREIGN KEY (`reviewID` , `review_customerID`)
+    REFERENCES `foobar`.`customer` (`customerID` , `customerID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `review_productID`
+    FOREIGN KEY (`review_productID`)
+    REFERENCES `foobar`.`product` (`productID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+--
+-- Dumping data for table `review`
+--
+
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (1,'123','2','3'),(2,'1','','2'),(3,'1','','3'),(4,'12312323132',' ','1/'),(5,'qwe',' 3','1'),(6,'1211111','5','1');
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `productorder`
 --
 

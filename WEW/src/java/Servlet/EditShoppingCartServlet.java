@@ -67,7 +67,7 @@ public class EditShoppingCartServlet extends HttpServlet {
                         
                         
                         session.setAttribute("temporder", temporder);
-                        response.sendRedirect("customerHOME.jsp");
+                        response.sendRedirect("customerConfirmCart.jsp");
                         out.println("yes");
                         break;
                     }
@@ -82,7 +82,7 @@ public class EditShoppingCartServlet extends HttpServlet {
                         temporder.get(i).setPrice(quantity * productbean.getPrice());
                         out.println(temporder.get(i).getPrice());
                         session.setAttribute("temporder", temporder);
-                        response.sendRedirect("customerHOME.jsp");
+                        response.sendRedirect("customerConfirmCart.jsp");
                         break;
 
                     }
