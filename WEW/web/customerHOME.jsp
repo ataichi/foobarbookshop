@@ -182,76 +182,61 @@
                 </div>              
 
 
-                <div class="col-md-4 well" style="padding-left: 20px;">
+                <div class="col-md-4" style="padding-left: 20px;">
                     <div class="pull-right affix">
-                        <div class="panel-body"> 
-                            <%
-                                // insert shopping cart here!
-                                if (temporder.size()
-                                        == 0) {
-                                    out.println("<p> Shopping cart empty.</p>");
-                                } else {
-                                    out.println("<form action='ConfirmCartServlet'>"
-                                            + "<input type='submit' value='Buy' name='action'/>"
-                                            + "</form>");
-                                    for (int i = 0; i < temporder.size(); i++) { //gets total order
-                                        for (int j = 0; j < tempproductlist.size(); j++) {
-                                            if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
+                        <div class="panel panel-default" style='height: 550px; width: 500px; max-height: 10;overflow-y: scroll;'>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Shopping Cart</h3>
+                            </div>
+                            <div class="panel-body"> 
+                                <%
+                                    // insert shopping cart here!
+                                    if (temporder.size()
+                                            == 0) {
+                                        out.println("<p> Shopping cart empty.</p>");
+                                    } else {
+                                        out.println("<form action='ConfirmCartServlet'>"
+                                                + "<input type='submit' value='Buy' name='action'/>"
+                                                + "</form>");
+                                        for (int i = 0; i < temporder.size(); i++) { //gets total order
+                                            for (int j = 0; j < tempproductlist.size(); j++) {
+                                                if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
 
-                                                out.println("<table>"
-                                                        + "<form action='EditShoppingCartServlet'>"
-                                                        + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
-                                                        + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
-                                                        + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/></td></tr>"
-                                                        + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
-                                                        // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
-                                                        + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
-                                                        + "<tr><input type='submit' value='Save' name='action'/></tr>"
-                                                        + "<tr><input type='submit' value='Remove' name='action'/></tr>"
-                                                        + "</table>"
-                                                        + "</form>"
-                                                        + "<br/><br/>");
-                                                break;
+                                                    out.println("<table>"
+                                                            + "<form action='EditShoppingCartServlet'>"
+                                                            + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
+                                                            + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
+                                                            + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/ readonly></td></tr>"
+                                                            + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
+                                                            // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
+                                                            + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
+                                                            + "<tr><input type='submit' value='Save' name='action'/></tr>"
+                                                            + "<tr><input type='submit' value='Remove' name='action'/></tr>"
+                                                            + "</table>"
+                                                            + "</form>"
+                                                            + "<br/><br/>");
+                                                    break;
+                                                }
                                             }
+
                                         }
 
                                     }
+                                %>
 
-                                }
-                            %>
-
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="cartright">
-            <ul class="dropdown">
-                <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false">Shopping Cart <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <%
-                        if (temporder.size() == 0) {
-                            out.println("<li>Please add an item first.</li>");
-                        } else {
-                            out.println("HERE");
-
-                            out.println("<li><a href='#'>My Cart Item 1<span class='glyphicon glyphicon-edit'></span></a></li>"
-                                    + "<li><a href='#'>My Cart Item 2 <span class='glyphicon glyphicon-edit'></span></a></li>"
-                                    + "<li><a href='#'>Checkout <span class='glyphicon glyphicon-edit'></span></a></li>"
-                            );
-                        }
-                    %>
-                </ul>
-            </ul>
-        </div>
-
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
         <script>
-            $(document).ready(function() {
-                $("#qty").click(function() {
+            $(document).ready(function () {
+                $("#qty").click(function () {
                     var $n = $("#final");
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });

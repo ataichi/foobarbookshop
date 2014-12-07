@@ -2,7 +2,6 @@ package DAO.Implementation;
 
 import Beans.AudioCDBean;
 import Beans.CustomerBean;
-import Beans.CustomerCreditCardBean;
 import Beans.ProductBean;
 import Beans.ProductOrderBean;
 import Beans.ReviewBean;
