@@ -341,16 +341,16 @@ DROP TABLE IF EXISTS `review`;
 /*!40101 SET character_set_client = utf8 */;
 
 CREATE TABLE `foobar`.`review` (
-  `reviewID` INT(11) NOT NULL AUTO INCREMENT,
-  `review` VARCHAR(45) NOT NULL,
+  `reviewID` INT(11) NOT NULL AUTO_INCREMENT,
+  `reviewString` VARCHAR(45) NOT NULL,
   `review_customerID` INT(11) NOT NULL,
   `review_productID` INT(11) NOT NULL,
   PRIMARY KEY (`reviewID`),
   INDEX `reiew_customerID_idx` (`reviewID` ASC, `review_customerID` ASC),
   INDEX `review_productID_idx` (`review_productID` ASC),
-  CONSTRAINT `reiew_customerID`
-    FOREIGN KEY (`reviewID` , `review_customerID`)
-    REFERENCES `foobar`.`customer` (`customerID` , `customerID`)
+  CONSTRAINT `review_customerID`
+    FOREIGN KEY (`review_customerID`)
+    REFERENCES `foobar`.`customer` (`customerID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `review_productID`
