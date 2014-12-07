@@ -219,11 +219,11 @@
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg center-block">Edit Product</button>
                                 </div>
+                                <div class="form-group">
+                                    <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                                </div>
                             </div>
                         </form>
-                        <div class="form-group">
-                            <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
-                        </div>
                     </div>
                 </div>
             </div>

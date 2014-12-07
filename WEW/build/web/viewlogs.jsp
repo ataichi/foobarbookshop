@@ -1,9 +1,12 @@
+<%@page import="Beans.LogBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <%
     AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
+    ArrayList<LogBean> loglist = (ArrayList<LogBean>) session.getAttribute("loglist");
 %>
 
 <html>
@@ -75,7 +78,25 @@
                                 <h3 class="panel-title">View Logs</h3>
                             </div>
                             <div class="panel-body">
-                                
+                                <%
+                                    out.println("<table><tr><th>Time</th><th>Activity</th><th>By</th></tr>");
+
+                                    for (int i = 0; i < loglist.size(); i++) {
+                                        out.println("<tr>"
+                                                + "<td>"
+                                                + loglist.get(i).getTime()
+                                                + "</td>"
+                                                + "<td>"
+                                                + loglist.get(i).getActivity()
+                                                + "</td>"
+                                                + "<td>"
+                                                + loglist.get(i).getLog_accountID()
+                                                + "</td>"
+                                                + "</tr>");
+                                    }
+
+                                    out.println("</table>");
+                                %>
                             </div>
                         </div>
                     </div>
