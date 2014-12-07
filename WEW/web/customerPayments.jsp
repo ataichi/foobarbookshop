@@ -46,8 +46,8 @@
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
                                 <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
-                                <li><a href="customerTransactions.jsp"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
-                            </ul>
+                                <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
+                          </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
@@ -98,7 +98,7 @@
                                         <input type="date" class="form-control" placeholder="Enter Expirtion Date"  name='cardExpDate' required>
                                     </div>
                                 </div>
-                               
+
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg center-block" type='submit' value='Submit'>Save Changes</button>
                                 </div>
@@ -112,7 +112,7 @@
 
             </div>
         </div>
-                                        
+
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>

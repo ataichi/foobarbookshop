@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -316,97 +317,6 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
     }
 
     @Override
-    public boolean addCustomerCreditCard(CustomerCreditCardBean customercreditcard) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "insert into customercreditcard (customercreditcard_customerID, customercreditcard_creditcardID)"
-                    + "values(?, ?)";
-            PreparedStatement ps = connection.prepareStatement(query);
-
-            ps.setInt(1, customercreditcard.getCustomercreditcard_customerID());
-            ps.setInt(2, customercreditcard.getCustomercreditcard_creditcardID());
-            ps.executeUpdate();
-            connection.close();
-
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean removeCustomerCreditCard(int customercreditcard_customerID) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "delete from customercreditcard where customercreditcardid_customerID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, customercreditcard_customerID);
-
-            ps.executeUpdate();
-            connection.close();
-
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean removeCustomerCreditCardByCreditCardID(int creditcardID) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "delete from customercreditcard where customercreditcardid_creditcardID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, creditcardID);
-
-            ps.executeUpdate();
-            connection.close();
-
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    @Override
-    public CustomerCreditCardBean getCustomerCreditCardByCustomerID(int customerID) {
-        try {
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            String query = "select * from customercreditcard where customercreditcardid_customerID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, customerID);
-
-            ResultSet resultset = ps.executeQuery();
-            CustomerCreditCardBean customercreditcardbean = new CustomerCreditCardBean();
-            int customercreditcardID, customercreditcard_customerID, customercreditcard_creditcardID;
-            while (resultset.next()) {
-                customercreditcardID = resultset.getInt("customercreditcardID");
-                customercreditcard_customerID = resultset.getInt("customercreditcard_customerID");
-                customercreditcard_creditcardID = resultset.getInt("customercreditcard_creditcardID");
-
-                customercreditcardbean.setCustomercreditcardID(customercreditcardID);
-                customercreditcardbean.setCustomercreditcard_creditcardID(customercreditcard_creditcardID);
-                customercreditcardbean.setCustomercreditcard_customerID(customercreditcard_customerID);
-
-            }
-            connection.close();
-
-            return customercreditcardbean;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    @Override
     public boolean addProductsToCart(ProductOrderBean orderbean, int shoppingcardID) {
         try {
             Connector c = new Connector();
@@ -418,7 +328,6 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             ps.setInt(2, orderbean.getProductorder_productID());
             ps.setDouble(3, orderbean.getPrice());
             ps.setInt(4, orderbean.getQuantity());
-            //     ps.setString(5, orderbean.getReview());
             ps.executeUpdate();
             connection.close();
             return true;
@@ -456,7 +365,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "insert into review (review_customerID, review_productID, review) values(?, ?, ?)";
+            String query = "insert into review (review_customerID, review_productID, reviewString) values(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, review.getReview_customerID());
             ps.setInt(2, review.getReview_productID());
@@ -518,7 +427,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "update review set review = ? where review_customerID = ? AND review_productID = ?";
+            String query = "update review set reviewString = ? where review_customerID = ? AND review_productID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, review.getReview());
             ps.setInt(2, review.getReview_customerID());
@@ -535,7 +444,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
     @Override
     public ReviewBean getCustomerReviewForProduct(int productID, int customerID) {
-   try {
+        try {
             String query = "select * from review where review_productID = ? and review_customerID = ?";
             Connector c = new Connector();
             Connection connection = c.getConnection();
@@ -547,26 +456,123 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
             ReviewBean bean = new ReviewBean();
             int reviewID, review_productID, review_customerID;
-            String review;
+            String reviewString;
 
             while (rs.next()) {
-                
+
                 reviewID = rs.getInt("reviewID");
                 review_productID = rs.getInt("review_productID");
                 review_customerID = rs.getInt("review_customeID");
-                
-                review = rs.getString("review");
-              
+
+                reviewString = rs.getString("reviewString");
+
                 bean.setReviewID(reviewID);
                 bean.setReview_customerID(review_customerID);
                 bean.setReview_productID(review_productID);
-                        
-                bean.setReview(review);
+
+                bean.setReview(reviewString);
 
             }
 
             connection.close();
             return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<ShoppingCartBean> getShoppingCartByCustomerID(int customerID) {
+        try {
+            String query = "select * from shoppingcart where shoppingcart_customerID = ? ";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, customerID);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ShoppingCartBean> list = new ArrayList<ShoppingCartBean>();
+            ShoppingCartBean bean = new ShoppingCartBean();
+
+            int shoppingcartID, shoppingcart_customerID;
+            Timestamp orderdate;
+            double total;
+
+            while (rs.next()) {
+
+                bean = new ShoppingCartBean();
+
+                shoppingcartID = rs.getInt("shoppingcartID");
+                shoppingcart_customerID = rs.getInt("shoppingcart_customerID");
+
+                orderdate = rs.getTimestamp("orderdate");
+
+                total = rs.getDouble("total");
+
+                bean.setShoppingcartID(shoppingcartID);
+                bean.setShoppingcart_customerID(shoppingcart_customerID);
+
+                bean.setOrderDate(orderdate);
+
+                bean.setTotal(total);
+
+                list.add(bean);
+
+                System.out.println("Shopping cart id:" + bean.getShoppingcartID());
+
+            }
+
+            connection.close();
+            return list;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<ProductOrderBean> getProductOrderByShoppingCartID(int shoppingcartID) {
+        try {
+            String query = "select * from productorder where productorder_shoppingcartID = ? ";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, shoppingcartID);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ProductOrderBean> list = new ArrayList<ProductOrderBean>();
+            ProductOrderBean bean = new ProductOrderBean();
+
+            int productorder_shoppingcartID, productorder_productID, quantity;
+            double price;
+
+            while (rs.next()) {
+                
+                bean = new ProductOrderBean();
+                
+                productorder_shoppingcartID = rs.getInt("productorder_shoppingcartID");
+                productorder_productID = rs.getInt("productorder_productID");
+                quantity = rs.getInt("quantity");
+
+                price = rs.getDouble("price");
+
+                bean.setProductorder_shoppingcartID(productorder_shoppingcartID);
+                bean.setProductorder_productID(productorder_productID);
+                bean.setQuantity(quantity);
+
+                bean.setPrice(price);
+
+                list.add(bean);
+
+            }
+
+            connection.close();
+            return list;
 
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);

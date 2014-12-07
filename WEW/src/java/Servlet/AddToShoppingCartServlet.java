@@ -56,7 +56,7 @@ public class AddToShoppingCartServlet extends HttpServlet {
             ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
             ProductDAOInterface productdao = new ProductDAOImplementation();
 
-            int product = Integer.valueOf(request.getParameter("productid"));
+            int product = Integer.valueOf(request.getParameter("product"));
             productbean = productdao.getProductById(product);
 
             String action = request.getParameter("action");
@@ -89,7 +89,6 @@ public class AddToShoppingCartServlet extends HttpServlet {
 
                 cartbean.setShoppingcart_customerID(homeuser.getAccountID());
 
-                cartbean.setShoppingcart_creditcardID(1);
                 double total = 0;
 
                 for (i = 0; i < order.size(); i++) { // update total

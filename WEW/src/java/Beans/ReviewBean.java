@@ -10,10 +10,10 @@ public class ReviewBean {
     protected int reviewID;
     protected int review_customerID;
     protected int review_productID;
-    protected String review;
+    protected String reviewString;
 
     public String getReview() {
-        return review;
+        return reviewString;
     }
 
     public int getReviewID() {
@@ -28,8 +28,8 @@ public class ReviewBean {
         return review_productID;
     }
 
-    public void setReview(String review) {
-        this.review = review;
+    public void setReview(String reviewString) {
+        this.reviewString = reviewString;
     }
 
     public void setReviewID(int reviewID) {

@@ -7,8 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeuser");
-    AccountBean productmanager = (AccountBean) session.getAttribute("homeproduct");
-    
+
     ProductBean productBean = (ProductBean) session.getAttribute("viewproduct");
 
     AudioCDBean audiocdbean = (AudioCDBean) session.getAttribute("viewaudiocd");
@@ -134,7 +133,7 @@
                             %>
 
                         </dl>
-                        <a href="productmanagerHOME.jsp"><button>Back</button></a>
+                        <a href="customerHOME.jsp"><button>Back</button></a>
                     </div>
                 </div>
             </div>

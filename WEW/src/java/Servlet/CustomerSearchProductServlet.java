@@ -110,7 +110,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
                 }
                 searchproductlist.add(productlist.get(i));
             }
-            
+
             out.println("Genre: ");
             productlist = productdao.getProductsByGenre(searchstring);
             for (int i = 0; i < productlist.size(); i++) {
