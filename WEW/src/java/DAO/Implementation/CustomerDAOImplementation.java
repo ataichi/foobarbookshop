@@ -192,12 +192,11 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             boolean check;
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "insert into shoppingcart (shoppingcart_customerID,shoppingcart_creditcardID,total,orderDate) value(?, ?, ?, ?)";
+            String query = "insert into shoppingcart (shoppingcart_customerID,total,orderDate) value(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, shopbean.getShoppingcart_customerID());
-            ps.setInt(2, shopbean.getShoppingcart_creditcardID());
-            ps.setDouble(3, shopbean.getTotal());
-            ps.setTimestamp(4, shopbean.getOrderDate());
+            ps.setDouble(2, shopbean.getTotal());
+            ps.setTimestamp(3, shopbean.getOrderDate());
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -390,14 +389,14 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
                 customercreditcardID = resultset.getInt("customercreditcardID");
                 customercreditcard_customerID = resultset.getInt("customercreditcard_customerID");
                 customercreditcard_creditcardID = resultset.getInt("customercreditcard_creditcardID");
-                
+
                 customercreditcardbean.setCustomercreditcardID(customercreditcardID);
                 customercreditcardbean.setCustomercreditcard_creditcardID(customercreditcard_creditcardID);
                 customercreditcardbean.setCustomercreditcard_customerID(customercreditcard_customerID);
 
             }
             connection.close();
-            
+
             return customercreditcardbean;
 
         } catch (SQLException ex) {
@@ -471,8 +470,8 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
     @Override
     public ProductOrderBean getProductOrderBeanByID(int id) {
-  
-      try {
+
+        try {
             String query = "select * from productorder where productorderID = ?";
             Connector c = new Connector();
             Connection connection = c.getConnection();
@@ -486,19 +485,19 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             double price;
 
             while (rs.next()) {
-                
+
                 productorderID = rs.getInt("productorderID");
                 productorder_shoppingcartID = rs.getInt("product_shoppingcartID");
                 productorder_productID = rs.getInt("product_productID");
                 quantity = rs.getInt("quantity");
-                
+
                 price = rs.getDouble("price");
 
                 bean.setProductorderID(productorderID);
                 bean.setProductorder_shoppingcartID(productorder_shoppingcartID);
                 bean.setProductorder_productID(productorder_productID);
                 bean.setQuantity(quantity);
-                
+
                 bean.setPrice(price);
             }
 

@@ -1,10 +1,14 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,8 +36,16 @@ public class EditProductManagerAccountServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
             AccountBean bean = new AccountBean();
+
+            log.setActivity("Edit Product Manager Account ID: " + account.getAccountID());
+            log.setLog_accountID(account.getAccountID());
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+            log.setTime(time);
 
             String firstName, lastName, middleInitial, username, emailAdd;
 
@@ -82,8 +94,10 @@ public class EditProductManagerAccountServlet extends HttpServlet {
 
             boolean edit = accountdao.updateAccount(bean);
             if (edit) {
+                if(logdao.addLog(log)){ // edit account successfully -> log
                 session.setAttribute("homeproduct", bean);
                 response.sendRedirect("productmanagerHOME.jsp");
+                }
             } else {
                 session.setAttribute("homeproduct", bean);
                 response.sendRedirect("productmanagerAccount.jsp");

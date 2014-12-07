@@ -7,10 +7,14 @@ package Servlet;
 
 import Beans.AccountBean;
 import Beans.CustomerBean;
+import Beans.LogBean;
 import DAO.Implementation.CustomerDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -78,14 +82,24 @@ public class EditBillingInfoServlet extends HttpServlet {
             cbean.setSubdivisionBA(subBA);
             cbean.setSubdivisionDA(subDA);
 
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setLog_accountID(oldbean.getAccountID());
+            log.setTime(time);
+            log.setActivity("Edit Billing Information of Account ID " + oldbean.getAccountID());
             out.println(cbean.getCustomerID());
             boolean check;
             if (cbean.getCustomerID() == 0) {
                 check = cdao.addCustomer(cbean);
                 if (check) {
-                    session.setAttribute("tempcustomer", cbean);
-                    response.sendRedirect("customerHOME.jsp");
-                    out.println("yes");
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("tempcustomer", cbean);
+                        response.sendRedirect("customerHOME.jsp");
+                        out.println("yes");
+                    }
                 } else {
                     session.setAttribute("tempcustomer", cbean);
                     response.sendRedirect("customerAccount.jsp");
@@ -94,9 +108,11 @@ public class EditBillingInfoServlet extends HttpServlet {
             } else {
                 check = cdao.editAddress(cbean);
                 if (check) {
+                    if(logdao.addLog(log)){
                     session.setAttribute("tempcustomer", cbean);
                     response.sendRedirect("customerHOME.jsp");
                     out.println("yehey");
+                    }
                 } else {
                     session.setAttribute("tempcustomer", cbean);
                     response.sendRedirect("customerAccount.jsp");

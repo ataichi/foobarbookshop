@@ -6,10 +6,14 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "EditAccountingManagerAccountServlet", urlPatterns = {"/EditAccountingManagerAccountServlet"})
 public class EditAccountingManagerAccountServlet extends HttpServlet {
 
@@ -41,6 +41,9 @@ public class EditAccountingManagerAccountServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
+
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
             AccountBean bean = new AccountBean();
             String firstName, lastName, middleInitial, username, emailAdd;
@@ -88,10 +91,18 @@ public class EditAccountingManagerAccountServlet extends HttpServlet {
             bean.setPassword(password);
             bean.setAccountType("accounting manager");
 
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setLog_accountID(account.getAccountID());
+            log.setTime(time);
+            log.setActivity("Edit Accounting Manager ID " + account.getAccountID());
             boolean edit = accountdao.updateAccount(bean);
             if (edit) {
-                session.setAttribute("homeaccounting", bean);
-                response.sendRedirect("accountingmanagerHOME.jsp");
+                if (logdao.addLog(log)) {
+                    session.setAttribute("homeaccounting", bean);
+                    response.sendRedirect("accountingmanagerHOME.jsp");
+                }
             } else {
                 session.setAttribute("homeaccounting", bean);
                 response.sendRedirect("accountingmanagerAccount.jsp");

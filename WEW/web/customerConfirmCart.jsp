@@ -1,19 +1,12 @@
-
 <%@page import="Beans.ProductBean"%>
 <%@page import="Beans.ProductOrderBean"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Beans.ShoppingCartBean"%>
 <%@page import="Beans.AccountBean"%>
-<%@page import="Beans.CustomerBean"%>
-<%
-    AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-    CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
-    ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
-    ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-    ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
-%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+   ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+   ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,8 +23,7 @@
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
-
-        <title>Customer Home Page</title>
+        <title>JSP Page</title>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -85,10 +77,7 @@
 
                     </div> 
                 </div>
-                <div class="col-md-7" style="padding-left: 20px;">
-                    <div class="well" id="shoplist">
-                    </div>
-                </div>
+
                 <div class="col-md-4 well" style="padding-left: 20px;">
                     <div class="pull-right affix">
                         <div class="panel-body"> 
@@ -97,7 +86,7 @@
                                 if (temporder.size() == 0) {
                                     out.println("<p> Shopping cart empty.</p>");
                                 } else {
-                                    out.println("<form action='ConfirmCartServlet'>"
+                                    out.println("<form action='ShoppingServlet'>"
                                             + "<input type='submit' value='Buy' name='action'/>"
                                             + "</form>");
                                     for (int i = 0; i < temporder.size(); i++) { //gets total order
@@ -131,38 +120,5 @@
                 </div>
             </div>
 
-
-            <div class="cartright">
-                <ul class="dropdown">
-                    <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false">Shopping Cart <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <%
-                            if (temporder.size() == 0) {
-                                out.println("<li>Please add an item first.</li>");
-                            } else {
-                                out.println("HERE");
-
-                                out.println("<li><a href='#'>My Cart Item 1<span class='glyphicon glyphicon-edit'></span></a></li>"
-                                        + "<li><a href='#'>My Cart Item 2 <span class='glyphicon glyphicon-edit'></span></a></li>"
-                                        + "<li><a href='#'>Checkout <span class='glyphicon glyphicon-edit'></span></a></li>"
-                                );
-                            }
-                        %>
-                    </ul>
-                </ul>
-            </div>
-
-            <script src="dist/js/jquery-2.1.0.min.js"></script>
-            <script src="dist/js/query.js"></script>
-            <script src="dist/js/bootstrap.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $("#qty").click(function() {
-                        var $n = $("#final");
-                        $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
-                    });
-                });
-            </script>
     </body>
-
 </html>

@@ -1,12 +1,16 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AdminDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.AdminDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,10 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "ProductManagerSignupServlet", urlPatterns = {"/ProductManagerSignupServlet"})
 public class ProductManagerSignupServlet extends HttpServlet {
 
@@ -31,6 +31,9 @@ public class ProductManagerSignupServlet extends HttpServlet {
             AccountBean account = new AccountBean();
             AccountDAOInterface userdao = new AccountDAOImplementation();
             AdminDAOInterface admindao = new AdminDAOImplementation();
+            AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
             account.setFirstName(request.getParameter("fname"));
             account.setLastName(request.getParameter("lname"));
@@ -47,24 +50,31 @@ public class ProductManagerSignupServlet extends HttpServlet {
             if (addUser) {
                 //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
                 //productManager.setProdmanager_accountID(productmanager_accountID);
+
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+
+                log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
+                log.setTime(time);
+                log.setActivity("Product Manager Sign Up");
+                if(logdao.addLog(log))
                 response.sendRedirect("adminHOME.jsp");
 
-            }
-            else {
+            } else {
                 response.sendRedirect("signupfail.jsp");
             }
 
             //productManager.setProdType(request.getParameter("prodType"));
             /*
 
-            boolean addProductmanager = admindao.addProductManager(productManager);
+             boolean addProductmanager = admindao.addProductManager(productManager);
 
-            if (addUser && addProductmanager) {
-                response.sendRedirect("adminHOME.jsp");
-            } else {
-                response.sendRedirect("signupfail.jsp");
-            }
-            */
+             if (addUser && addProductmanager) {
+             response.sendRedirect("adminHOME.jsp");
+             } else {
+             response.sendRedirect("signupfail.jsp");
+             }
+             */
         } finally {
             out.close();
         }

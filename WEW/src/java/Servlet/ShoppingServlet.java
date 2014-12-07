@@ -53,7 +53,6 @@ public class ShoppingServlet extends HttpServlet {
             CustomerBean customer = new CustomerBean();
 
             CustomerDAOInterface cdao = new CustomerDAOImplementation();
-            cartbean.setShoppingcart_creditcardID(1); // pero remove this kasi di naman kelangan hahaha
             double total = 0;
 
             boolean shopcartcheck = false;
@@ -64,26 +63,24 @@ public class ShoppingServlet extends HttpServlet {
             out.println(homeuser.getAccountID());
 
             // cartbean.setShoppingcartID(shoppingcartID);
-            cartbean.setShoppingcart_customerID(customer.getCustomerID());
-
             for (i = 0; i < orderlist.size(); i++) { // update total
 
                 total += orderlist.get(i).getPrice() * orderlist.get(i).getQuantity();
             }
-            cartbean.setTotal(total);
 
             Timestamp orderTime;
             java.util.Date date = new java.util.Date();
             orderTime = new Timestamp(date.getTime());
-            cartbean.setOrderDate(orderTime);
 
-            
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
-            
-            out.println(shoppingcartID + 1);
-            shopcartcheck = cdao.purchase(cartbean);
 
+            cartbean.setOrderDate(orderTime);
+            cartbean.setShoppingcart_customerID(customer.getCustomerID());
+            cartbean.setTotal(total);
+         
+            out.println(customer.getCustomerID());
+            shopcartcheck = cdao.purchase(cartbean);
             if (shopcartcheck) {
                 cartbean.setShoppingcart_customerID(homeuser.getAccountID());
                 for (i = 0; i < orderlist.size(); i++) {
@@ -94,11 +91,11 @@ public class ShoppingServlet extends HttpServlet {
                 log.setActivity("Purchase Shopping Cart ID " + shoppingcartID + 1);
                 log.setLog_accountID(homeuser.getAccountID());
                 log.setTime(orderTime);
-                
-                if(logdao.addLog(log)){
-                session.setAttribute("temporder", order);
-                out.println("yehey");
-                response.sendRedirect("customerHOME.jsp");
+
+                if (logdao.addLog(log)) {
+                    session.setAttribute("temporder", order);
+                    out.println("yehey");
+                    response.sendRedirect("customerHOME.jsp");
                 }
             } else {
                 //response.sendRedirect("");

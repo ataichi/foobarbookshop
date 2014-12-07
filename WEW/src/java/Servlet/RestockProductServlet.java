@@ -5,13 +5,18 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
+import Beans.LogBean;
 import Beans.ProductBean;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
+import DAO.Interface.LogDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,19 +43,29 @@ public class RestockProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             ProductBean productbean = new ProductBean();
+            AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
             ProductDAOInterface productdao = new ProductDAOImplementation();
-            
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+
             int product = Integer.valueOf(request.getParameter("product"));
             productbean = productdao.getProductById(product);
-            
-            session.setAttribute("restockproduct", productbean);
-            response.sendRedirect("restockproduct.jsp");
-            
-            
-        }
-        catch(Exception e) {
-            
+
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setLog_accountID(homeproduct.getAccountID());
+            log.setTime(time);
+            log.setActivity("Restock Product ID " + product);
+
+            if (logdao.addLog(log)) {
+                session.setAttribute("restockproduct", productbean);
+                response.sendRedirect("restockproduct.jsp");
+            }
+
+        } catch (Exception e) {
+
         }
     }
 

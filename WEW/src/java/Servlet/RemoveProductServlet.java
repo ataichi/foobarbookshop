@@ -10,6 +10,7 @@ import DAO.Implementation.*;
 import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "RemoveProductServlet", urlPatterns = {"/RemoveProductServlet"})
 public class RemoveProductServlet extends HttpServlet {
 
@@ -44,8 +41,9 @@ public class RemoveProductServlet extends HttpServlet {
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
             ArrayList<ProductBean> plist = new ArrayList<ProductBean>();
-            
-            
+
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
             int productID = Integer.parseInt(request.getParameter("product"));
             ProductBean removeproduct = pdao.getProductById(productID);
@@ -59,6 +57,13 @@ public class RemoveProductServlet extends HttpServlet {
                 removeaudio = audiodao.getAudioCDByProductID(productID);
                 ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
 
+                log.setActivity("Remove " + type + " " + removeproduct.getTitle());
+
+                log.setLog_accountID(homeproduct.getAccountID());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setTime(time);
+
                 check_removespecificproduct = audiodao.deleteAudioCD(removeaudio.getAudiocdID());
                 if (check_removespecificproduct) {
                     check_removeproduct = pdao.removeProduct(productID);
@@ -67,9 +72,12 @@ public class RemoveProductServlet extends HttpServlet {
                         out.println("delete cd");
                         plist = pdao.getProductsByType(type);
                         cdlist = audiodao.getAllAudioCD();
-                        session.setAttribute("audiocdlist", cdlist);
-                        session.setAttribute("productlist", plist);
-                        response.sendRedirect("productmanagerHOME.jsp");
+
+                        if (logdao.addLog(log)) {
+                            session.setAttribute("audiocdlist", cdlist);
+                            session.setAttribute("productlist", plist);
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
                     } else {
                         out.println("failed to remove cd");
                         //response.sendRedirect("productmanagerHOME.jsp");
@@ -91,11 +99,13 @@ public class RemoveProductServlet extends HttpServlet {
                         booklist = bookmanagerdao.getAllBooks();
                         plist = pdao.getProductsByType(type);
 
-                        session.setAttribute("booklist", booklist);
-                        session.setAttribute("productlist", plist);
-                        
-                        out.println("delete book");
-                        response.sendRedirect("productmanagerHOME.jsp");
+                        if (logdao.addLog(log)) {
+                            session.setAttribute("booklist", booklist);
+                            session.setAttribute("productlist", plist);
+
+                            out.println("delete book");
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
                     } else {
                         out.println("failed to remove book");
                         //response.sendRedirect("productmanagerHOME.jsp");
@@ -116,10 +126,12 @@ public class RemoveProductServlet extends HttpServlet {
                         //dvdlist = dvddao.deleteDVD();
                         plist = pdao.getProductsByType(type);
 
-                        session.setAttribute("dvdlist", dvdlist);
-                        session.setAttribute("productlist", plist);
-                        out.println("delete dvd");
-                        response.sendRedirect("productmanagerHOME.jsp");
+                        if (logdao.addLog(log)) {
+                            session.setAttribute("dvdlist", dvdlist);
+                            session.setAttribute("productlist", plist);
+                            out.println("delete dvd");
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
                     } else {
                         out.println("failed to remove dvd");
                         //response.sendRedirect("productmanagerHOME.jsp");
@@ -142,10 +154,12 @@ public class RemoveProductServlet extends HttpServlet {
                         magazinelist = magazinemanagerdao.getAllMagazine();
                         plist = pdao.getProductsByType(type);
 
-                        session.setAttribute("productlist", plist);
-                        session.setAttribute("magazinelist", magazinelist);
+                        if (logdao.addLog(log)) {
+                            session.setAttribute("productlist", plist);
+                            session.setAttribute("magazinelist", magazinelist);
 
-                        response.sendRedirect("productmanagerHOME.jsp");
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
                     } else {
                         out.println("failed to remove magazine");
                         //response.sendRedirect("productmanagerHOME.jsp");

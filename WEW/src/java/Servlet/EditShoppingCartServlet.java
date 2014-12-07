@@ -64,9 +64,10 @@ public class EditShoppingCartServlet extends HttpServlet {
                 for (int i = 0; i < temporder.size(); i++) {
                     if (temporder.get(i).getProductorder_productID() == productid) {
                         temporder.remove(i);
-
+                        
+                        
                         session.setAttribute("temporder", temporder);
-                        response.sendRedirect("customerHOME.jsp");
+                        response.sendRedirect("customerConfirmCart.jsp");
                         out.println("yes");
                         break;
                     }
@@ -81,7 +82,7 @@ public class EditShoppingCartServlet extends HttpServlet {
                         temporder.get(i).setPrice(quantity * productbean.getPrice());
                         out.println(temporder.get(i).getPrice());
                         session.setAttribute("temporder", temporder);
-                        response.sendRedirect("customerHOME.jsp");
+                        response.sendRedirect("customerConfirmCart.jsp");
                         break;
 
                     }

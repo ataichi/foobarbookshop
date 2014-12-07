@@ -7,8 +7,10 @@ package Servlet;
 
 import Beans.AccountBean;
 import Beans.LogBean;
+import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AdminDAOImplementation;
 import DAO.Implementation.LogDAOImplementation;
+import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,6 +44,9 @@ public class UnlockAccountServlet extends HttpServlet {
 
             int accountID = Integer.parseInt(request.getParameter("accountid"));
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
+            AccountBean account = new AccountBean();
+            AccountDAOInterface accountdao = new AccountDAOImplementation();
+    //        account = accountdao.
 
             out.println(accountID);
             out.println("wala eh");
@@ -56,20 +61,20 @@ public class UnlockAccountServlet extends HttpServlet {
             out.println(time);
 
             int unlockcheck = 0;
-            
-             if (admindao.unlockAccount(accountID)) {
-             out.println("yehey");
-             log.setLog_accountID(homeadmin.getAccountID());
-             log.setTime(time);
-             log.setActivity("Unlock accountID " + accountID);
 
-                  if(logdao.addLog(log))
-                  response.sendRedirect("unlock_account.jsp");
-             } else {
-             out.println("bye");
-             response.sendRedirect("unlock_account.jsp");
-             }
-             
+            if (admindao.unlockAccount(accountID)) {
+                out.println("yehey");
+                log.setLog_accountID(homeadmin.getAccountID());
+                log.setTime(time);
+                log.setActivity("Unlock account " + accountID);
+
+                if (logdao.addLog(log)) {
+                    response.sendRedirect("unlock_account.jsp");
+                }
+            } else {
+                out.println("bye");
+                response.sendRedirect("unlock_account.jsp");
+            }
 
         } catch (Exception e) {
 

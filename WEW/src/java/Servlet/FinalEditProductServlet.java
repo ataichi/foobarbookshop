@@ -10,6 +10,7 @@ import DAO.Implementation.*;
 import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +48,8 @@ public class FinalEditProductServlet extends HttpServlet {
             ProductManagerDAOInterface productdao = new ProductManagerDAOImplementation();
             out.println(editproduct.getProductID());
             ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
             String type, title, summary, genre;
             double price;
@@ -68,6 +71,12 @@ public class FinalEditProductServlet extends HttpServlet {
             editproduct.setNumberStocks(numberStocks);
             editproduct.setProductID(editproduct.getProductID());
 
+            log.setLog_accountID(homeproduct.getAccountID());
+            java.util.Date date1 = new java.util.Date();
+            Timestamp time = new Timestamp(date1.getTime());
+            log.setTime(time);
+
+            log.setActivity("Edit " + editproduct.getTitle() + " Type: " + editproduct.getType());
             if (type.equals("Audio CD")) {
 
                 AudioCDBean audiocd = new AudioCDBean();
@@ -89,8 +98,11 @@ public class FinalEditProductServlet extends HttpServlet {
 
                 if (editProduct && editCD) {
                     productlist = productdao.getProductsByType(type);
-                    session.setAttribute("productlist", productlist);
-                    response.sendRedirect("productmanagerHOME.jsp");
+
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("productlist", productlist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
                 } else {
                     out.println("fail");
                 }
@@ -131,8 +143,10 @@ public class FinalEditProductServlet extends HttpServlet {
 
                 if (editProduct && editBook) {
                     productlist = productdao.getProductsByType(type);
-                    session.setAttribute("productlist", productlist);
-                    response.sendRedirect("productmanagerHOME.jsp");
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("productlist", productlist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
                 } else {
                     out.println("fail");
                 }
@@ -155,7 +169,7 @@ public class FinalEditProductServlet extends HttpServlet {
                 dvd.setDvd_productID(dvd.getDvd_productID());
                 dvd.setMainActors(actor);
                 dvd.setProductionCompany(productCompany);
-                
+
                 boolean editProduct = productdao.editProduct(editproduct);
                 boolean editDVD = dvdmanagerdao.editDVD(dvd);
 
@@ -164,8 +178,10 @@ public class FinalEditProductServlet extends HttpServlet {
 
                 if (editProduct && editDVD) {
                     productlist = productdao.getProductsByType(type);
-                    session.setAttribute("productlist", productlist);
-                    response.sendRedirect("productmanagerHOME.jsp");
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("productlist", productlist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
                 } else {
                     out.println("fail");
                 }
@@ -204,8 +220,11 @@ public class FinalEditProductServlet extends HttpServlet {
 
                 if (editProduct && editMagazine) {
                     productlist = productdao.getProductsByType(type);
-                    session.setAttribute("productlist", productlist);
-                    response.sendRedirect("productmanagerHOME.jsp");
+
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("productlist", productlist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
                 } else {
                     out.println("fail");
                 }

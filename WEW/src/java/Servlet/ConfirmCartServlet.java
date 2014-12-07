@@ -6,14 +6,12 @@
 package Servlet;
 
 import Beans.AccountBean;
-import Beans.LogBean;
-import DAO.Implementation.AccountDAOImplementation;
-import DAO.Implementation.LogDAOImplementation;
-import DAO.Interface.AccountDAOInterface;
-import DAO.Interface.LogDAOInterface;
+import Beans.CustomerBean;
+import Beans.ProductOrderBean;
+import Beans.ShoppingCartBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,9 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "EditCustomerAccountServlet", urlPatterns = {"/EditCustomerAccountServlet"})
-
-public class EditCustomerAccountServlet extends HttpServlet {
+@WebServlet(name = "ConfirmCartServlet", urlPatterns = {"/ConfirmCartServlet"})
+public class ConfirmCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,59 +36,28 @@ public class EditCustomerAccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ConfirmCartServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ConfirmCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+
             HttpSession session = request.getSession();
-            AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
 
-            AccountBean bean = new AccountBean();
+            ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+            ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
+            ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+            
+            session.setAttribute("temporder", orderlist);
+            session.setAttribute("shoppingcart", cartbean);
+            session.setAttribute("homeuser", homeuser);
 
-            String firstName, lastName, middleInitial, username, emailAdd;
-
-            firstName = request.getParameter("fname");
-
-            lastName = request.getParameter("lname");
-
-            middleInitial = request.getParameter("mname");
-
-            username = request.getParameter("uname");
-
-            emailAdd = request.getParameter("email");
-
-            boolean locked = false;
-            int id = account.getAccountID();
-
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            log.setTime(time);
-            log.setLog_accountID(account.getAccountID());
-            log.setActivity("Edit Customer Account " + account.getUsername());
-
-            AccountDAOInterface accountdao = new AccountDAOImplementation();
-            bean.setAccountID(id);
-            bean.setFirstName(firstName);
-            bean.setLastName(lastName);
-            bean.setMiddleInitial(middleInitial);
-            bean.setUsername(username);
-            bean.setEmailAdd(emailAdd);
-            bean.setLocked(locked);
-            bean.setAccountType("Customer");
-
-            boolean edit = accountdao.updateAccount(bean);
-            out.println(edit);
-
-            if (edit) {
-                if (logdao.addLog(log)) {
-                    session.setAttribute("homeuser", bean);
-                    response.sendRedirect("customerHOME.jsp");
-                }
-            } else {
-                session.setAttribute("homeuser", bean);
-                response.sendRedirect("customerAccount.jsp");
-            }
-
-        } catch (Exception e) {
-
+            response.sendRedirect("customerConfirmCart.jsp");
         }
     }
 
