@@ -2,10 +2,13 @@ package Servlet;
 
 import Beans.AccountBean;
 import Beans.CustomerBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.CustomerDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.CustomerDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import DBConnection.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -98,13 +101,23 @@ public class SignupServlet extends HttpServlet {
             customer.setSubdivisionDA(subdivisionDA);
 
             checkCustomer = customerdao.addCustomer(customer);
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
             if (checkAccount && checkCustomer) {
+                log.setActivity(username + "Customer SignUps");
+                log.setLog_accountID(account.getAccountID());
 
-                
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setTime(time);
+
+                if (logdao.addLog(log)) {
+                    session.setAttribute("username", username);
+                }
+
                 AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
-                
-                
+
                 response.sendRedirect("login.jsp");
             } else {
                 AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
