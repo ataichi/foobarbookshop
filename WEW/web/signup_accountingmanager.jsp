@@ -19,7 +19,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-        <script src="js/customercheck.js" type="text/javascript"></script>
+        <script src="js/managercheck.js" type="text/javascript"></script>
 
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
@@ -76,7 +76,7 @@
                     <div class="text-center">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Add Product Manager</h3>
+                                <h3 class="panel-title">Add Accounting Manager</h3>
                             </div>
                             <div class="panel-body">
                                 <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return managerCustomerCheck();" action="AccountingSignupServlet" method="post">
@@ -84,43 +84,43 @@
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="fname">First Name</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameManagerCheck();" onfocus="backWhite(this);">
+                                                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameManagerCheck();" onfocus="backWhite(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="mname">Middle Initial</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameManagerCheck();" onfocus="backWhite(this);">
+                                                <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameManagerCheck();" onfocus="backWhite(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="lname">Last Name</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameManagerCheck();" onfocus="backWhite(this);">
+                                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameManagerCheck();" onfocus="backWhite(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="uname">Username</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameManagerCheck();" onfocus="backWhite(this);">
+                                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameManagerCheck();" onfocus="backWhite(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="email">Email</label>
                                             <div class="col-sm-3">
-                                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailManagerCheck();" onfocus="backWhite(this);" >
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailManagerCheck();" onfocus="backWhite(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="pass1">Password</label>
                                             <div class="col-sm-3">
-                                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Password" onblur="passManagerCheck();" onfocus="backWhite(this);">
+                                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Password" onblur="passManagerCheck();" onfocus="backWhite(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="pass2">Verify Password</label>
                                             <div class="col-sm-3">
-                                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Verify Password" onblur="passManagerCheck();" onfocus="backWhite(this);">
+                                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Verify Password" onblur="passManagerCheck();" onfocus="backWhite(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group">

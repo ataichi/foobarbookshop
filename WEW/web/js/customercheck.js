@@ -102,7 +102,7 @@ function lnameCheck() {
 
 function unameCheck() {
     var user = document.forms["customercheck"]["uname"].value;
-    if (user == "" || user == null) {
+    if (user == "" || user == null || !(/^[0-9a-zA-Z_-]+$/.test(user))) {
         document.forms["customercheck"]["uname"].style.backgroundColor = "pink";
         return false;
     }
