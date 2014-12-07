@@ -456,7 +456,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "insert into review (review_customerID, review_productID, review) values(?, ?, ?)";
+            String query = "insert into review (review_customerID, review_productID, reviewString) values(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, review.getReview_customerID());
             ps.setInt(2, review.getReview_productID());
@@ -518,7 +518,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "update review set review = ? where review_customerID = ? AND review_productID = ?";
+            String query = "update review set reviewString = ? where review_customerID = ? AND review_productID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, review.getReview());
             ps.setInt(2, review.getReview_customerID());
@@ -547,7 +547,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
             ReviewBean bean = new ReviewBean();
             int reviewID, review_productID, review_customerID;
-            String review;
+            String reviewString;
 
             while (rs.next()) {
                 
@@ -555,13 +555,13 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
                 review_productID = rs.getInt("review_productID");
                 review_customerID = rs.getInt("review_customeID");
                 
-                review = rs.getString("review");
+                reviewString = rs.getString("reviewString");
               
                 bean.setReviewID(reviewID);
                 bean.setReview_customerID(review_customerID);
                 bean.setReview_productID(review_productID);
                         
-                bean.setReview(review);
+                bean.setReview(reviewString);
 
             }
 

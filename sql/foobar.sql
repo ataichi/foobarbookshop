@@ -57,9 +57,9 @@ DROP TABLE IF EXISTS `audiocd`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `audiocd` (
   `audiocdID` int(11) NOT NULL AUTO_INCREMENT,
+  `audiocd_productID` int(11) NOT NULL,
   `artist` varchar(45) NOT NULL,
   `recordCompany` varchar(45) NOT NULL,
-  `audiocd_productID` int(11) NOT NULL,
   PRIMARY KEY (`audiocdID`),
   KEY `audiocd_accountID_idx` (`audiocd_productID`),
   CONSTRAINT `audiocd_accountID` FOREIGN KEY (`audiocd_productID`) REFERENCES `product` (`productID`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -104,32 +104,6 @@ LOCK TABLES `book` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `creditcard`
---
-
-DROP TABLE IF EXISTS `creditcard`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `creditcard` (
-  `creditcardID` int(11) NOT NULL AUTO_INCREMENT,
-  `cardName` varchar(45) NOT NULL,
-  `cardNo` varchar(45) NOT NULL,
-  `cardType` varchar(45) NOT NULL,
-  `cardExpDate` varchar(45) NOT NULL,
-  PRIMARY KEY (`creditcardID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `creditcard`
---
-
-LOCK TABLES `creditcard` WRITE;
-/*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
-/*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `customer`
 --
 
@@ -138,6 +112,7 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
   `customerID` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_accountID` int(11) NOT NULL,
   `apartmentnoBA` varchar(45) NOT NULL,
   `streetBA` varchar(45) NOT NULL,
   `subdivisionBA` varchar(45) NOT NULL,
@@ -150,7 +125,6 @@ CREATE TABLE `customer` (
   `cityDA` varchar(45) NOT NULL,
   `postalcodeDA` int(11) NOT NULL,
   `countryDA` varchar(45) NOT NULL,
-  `customer_accountID` int(11) NOT NULL,
   PRIMARY KEY (`customerID`),
   KEY `customer_accountID_idx` (`customer_accountID`),
   CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -165,33 +139,6 @@ LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 INSERT INTO `customer` VALUES (3,'B6 L21','Yen','Villa Carolina 1','Laguna',2098,'Philippines','B6 L21','Yen','Villa Carolina 1','Laguna',2098,'Philippines',3);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customercreditcard`
---
-
-DROP TABLE IF EXISTS `customercreditcard`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customercreditcard` (
-  `customercreditcardID` int(11) NOT NULL AUTO_INCREMENT,
-  `customercreditcard_accountID` int(11) NOT NULL,
-  `customercreditcard_creditcardID` int(11) NOT NULL,
-  PRIMARY KEY (`customercreditcardID`),
-  KEY `customercreditcard_creditcardID_idx` (`customercreditcard_creditcardID`),
-  CONSTRAINT `customercreditcard_accountID` FOREIGN KEY (`customercreditcardID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `customercreditcard_creditcardID` FOREIGN KEY (`customercreditcard_creditcardID`) REFERENCES `creditcard` (`creditcardID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customercreditcard`
---
-
-LOCK TABLES `customercreditcard` WRITE;
-/*!40000 ALTER TABLE `customercreditcard` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customercreditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -346,7 +293,7 @@ CREATE TABLE `foobar`.`review` (
   `review_customerID` INT(11) NOT NULL,
   `review_productID` INT(11) NOT NULL,
   PRIMARY KEY (`reviewID`),
-  INDEX `reiew_customerID_idx` (`reviewID` ASC, `review_customerID` ASC),
+  INDEX `review_customerID_idx` (`reviewID` ASC, `review_customerID` ASC),
   INDEX `review_productID_idx` (`review_productID` ASC),
   CONSTRAINT `review_customerID`
     FOREIGN KEY (`review_customerID`)
@@ -413,7 +360,8 @@ CREATE TABLE `shoppingcart` (
   `orderDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`shoppingcartID`),
   KEY `shoppingcart_customerID_idx` (`shoppingcart_customerID`),
-  CONSTRAINT `shoppingcart_customerID` FOREIGN KEY (`shoppingcart_customerID`) REFERENCES `customer` (`customerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `shoppingcart_customerID` FOREIGN KEY (`shoppingcart_customerID`) REFERENCES `
+` (`customerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

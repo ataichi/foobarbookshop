@@ -69,6 +69,9 @@ public class WriteReview extends HttpServlet {
 
                 if(logdao.addLog(log))
                 response.sendRedirect("customerHOME.jsp");
+            }else{
+                
+                out.println("Write review not successful");
             }
 
         }
