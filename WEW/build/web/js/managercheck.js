@@ -28,7 +28,7 @@ function fnameManagerCheck() {
 
 function mnameManagerCheck() {
     var middle = document.forms["managercheck"]["middle"].value;
-    if (middle == "" || middle == null || !(/^[A-z ]+$/.test(middle))) {
+    if (middle == "" || middle == null ||  !(/^[A-Za-z ]{1,2}$/.test(middle))) {
         document.forms["managercheck"]["middle"].style.backgroundColor = "pink";
         return false;
     }
@@ -52,7 +52,7 @@ function lnameManagerCheck() {
 
 function unameManagerCheck() {
     var user = document.forms["managercheck"]["user"].value;
-    if (user == "" || user == null) {
+    if (user == "" || user == null || !(/^[0-9a-zA-Z_-]+$/.test(user))) {
         document.forms["managercheck"]["user"].style.backgroundColor = "pink";
         return false;
     }
@@ -79,7 +79,7 @@ function emailManagerCheck() {
 function passManagerCheck() {
     var pass1 = document.forms["managercheck"]["pass1"].value;
     var pass2 = document.forms["managercheck"]["pass2"].value;
-    if (pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
+    if (!(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass1)) || pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
         document.forms["managercheck"]["pass1"].style.backgroundColor = "pink";
         document.forms["managercheck"]["pass2"].style.backgroundColor = "pink";
         return false;

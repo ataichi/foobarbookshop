@@ -46,12 +46,12 @@ public class AccountingSignupServlet extends HttpServlet {
             String pass1 = request.getParameter("pass1");
             boolean locked = false;
 
-            account.setFirstName(firstname);
-            account.setLastName(lastname);
-            account.setMiddleInitial(mInitial);
+            account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
+            account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));
+            account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(mInitial));
             account.setPassword(pass1);
             account.setEmailAdd(email);
-            account.setUsername(username);
+            account.setUsername(AccountDAOImplementation.inputSanitizer(username));
             account.setAccountType("Accounting Manager");
             account.setLocked(locked);
 
