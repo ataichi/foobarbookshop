@@ -90,13 +90,13 @@
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="pass1">Password</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="(Atleast 2 special char)" onblur="passCheck();" onfocus="backWhite(this);" required>
+                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Should be strong Ex: Sakura7!" onblur="passCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="pass2">Verify Password</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="(Atleast 2 special char)" onblur="passCheck();" onfocus="backWhite(this);" required>
+                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Should be same as above" onblur="passCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                     </div>

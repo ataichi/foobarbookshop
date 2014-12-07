@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Servlet;
 
 import Beans.AccountBean;
@@ -45,8 +41,8 @@ public class EditCustomerPassword extends HttpServlet {
             LogDAOInterface logdao = new LogDAOImplementation();
             String currpass, newpass, reenter;
             currpass = account.getPassword();
-            newpass = request.getParameter("newpass");
-            reenter = request.getParameter("reenter");
+            newpass = request.getParameter("pass1");
+            reenter = request.getParameter("pass2");
 
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
