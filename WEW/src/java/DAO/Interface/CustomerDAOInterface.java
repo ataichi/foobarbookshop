@@ -10,6 +10,7 @@ import Beans.CustomerBean;
 import Beans.CustomerCreditCardBean;
 import Beans.ProductBean;
 import Beans.ProductOrderBean;
+import Beans.ReviewBean;
 import Beans.ShoppingCartBean;
 import java.util.ArrayList;
 
@@ -30,7 +31,10 @@ public interface CustomerDAOInterface {
     public boolean purchase(ShoppingCartBean shopbean);
     public boolean addProductsToCart(ProductOrderBean orderbean, int shoppingcardID);
     public int getShoppingCartID();
-    public boolean writeReview(int productorderID, String review);
+    
+    public boolean writeReview(ReviewBean review);
+    public boolean editReview(ReviewBean review);
+    public ReviewBean getCustomerReviewForProduct(int productid, int customerID);
     
     public ProductOrderBean getProductOrderBeanByID(int id);
     

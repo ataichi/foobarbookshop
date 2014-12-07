@@ -23,7 +23,7 @@
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
-        <title>JSP Page</title>
+        <title>Confirm Shopping Cart</title>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
