@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 <%@page import="Beans.ReviewBean"%>
+=======
+>>>>>>> 86c3ee58952cecf8a490238cb7be2d7bc813f29d
 <%@page import="Beans.ShoppingCartBean"%>
 <%@page import="Beans.ProductOrderBean"%>
 <%@page import="Beans.ProductOrderBean"%>
@@ -12,7 +15,10 @@
     ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
     ArrayList<ProductOrderBean> finalproductorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("finalproductorderlist");
     ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
+<<<<<<< HEAD
     ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
+=======
+>>>>>>> 86c3ee58952cecf8a490238cb7be2d7bc813f29d
 
 %>
 <!DOCTYPE html>
@@ -87,6 +93,7 @@
                                     if (shoppingcartlist.get(i).getShoppingcartID() == finalproductorderlist.get(j).getProductorder_shoppingcartID()) {
 
                                         for (int k = 0; k < productlist.size(); k++) {
+<<<<<<< HEAD
 
                                             if (productlist.get(k).getProductID() == finalproductorderlist.get(j).getProductorder_productID()) {
                                                 out.println("Title: " + productlist.get(k).getTitle()
@@ -101,6 +108,12 @@
                                                         out.println("No review yet.");
                                                     }
                                                 }
+=======
+                                            if (productlist.get(k).getProductID() == finalproductorderlist.get(j).getProductorder_productID()) {
+                                                out.println("Title: " + productlist.get(k).getTitle()
+                                                        + "\n Price: " + productlist.get(k).getPrice()
+                                                );
+>>>>>>> 86c3ee58952cecf8a490238cb7be2d7bc813f29d
                                                 break;
                                             }
 
