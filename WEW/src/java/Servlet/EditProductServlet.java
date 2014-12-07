@@ -93,7 +93,7 @@ public class EditProductServlet extends HttpServlet {
                 MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                 magazine = magazinedao.getMagazineByProductID(productID);
                 out.println(productID);
-                out.println(magazine.getIssueNo());
+                out.println(magazine.getDatePublished());
                 session.setAttribute("editmagazine", magazine);
                 
                 session.setAttribute("editaudio", null);
@@ -102,7 +102,7 @@ public class EditProductServlet extends HttpServlet {
             }
             
             session.setAttribute("editproduct", editproduct);
-            response.sendRedirect("editproduct.jsp");
+          //  response.sendRedirect("editproduct.jsp");
 
         }
     }
