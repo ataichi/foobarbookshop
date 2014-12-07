@@ -35,12 +35,12 @@ public class ProductManagerSignupServlet extends HttpServlet {
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
-            account.setFirstName(AccountDAOImplementation.inputSanitizer(request.getParameter("fname")));
-            account.setLastName(AccountDAOImplementation.inputSanitizer(request.getParameter("lname")));
-            account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(request.getParameter("mname")));
+            account.setFirstName(request.getParameter("fname"));
+            account.setLastName(request.getParameter("lname"));
+            account.setMiddleInitial(request.getParameter("mname"));
             account.setPassword(request.getParameter("pass1"));
             account.setEmailAdd(request.getParameter("email1"));
-            account.setUsername(AccountDAOImplementation.inputSanitizer(request.getParameter("uname")));
+            account.setUsername(request.getParameter("uname"));
             //account.setAccountType("product manager");
             account.setAccountType(request.getParameter("prodType") + " Manager");
             account.setLocked(false);
@@ -61,7 +61,7 @@ public class ProductManagerSignupServlet extends HttpServlet {
                 response.sendRedirect("adminHOME.jsp");
 
             } else {
-                response.sendRedirect("signupfail.jsp");
+                response.sendRedirect("signup_productmanager.jsp");
             }
 
             //productManager.setProdType(request.getParameter("prodType"));
