@@ -1,4 +1,5 @@
 
+<%@page import="DAO.Implementation.ProductDAOImplementation"%>
 <%@page import="Beans.ProductBean"%>
 <%@page import="Beans.ProductOrderBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -76,7 +77,6 @@
                 </div>
             </div>
         </nav>
-
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">
                 <!--
@@ -112,11 +112,11 @@
                                         <center>
                                             <div><strong><% out.println(booklist.get(a).getTitle()); %></strong></div>
                                             <div>P<% out.println(booklist.get(a).getPrice()); %></div>
-                                            <form action='#' id='<% out.println(booklist.get(a).getProductID()); %>' method='post'>
+                                            <form action='ViewCustomerProductServlet' id='<% out.println(booklist.get(a).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(booklist.get(a).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='View Details' name='<% out.println(booklist.get(a).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
-                                            <form action='#' id='<% out.println(booklist.get(a).getProductID()); %>' method='post'>
+                                            <form action='AddToShoppingCartServlet' id='<% out.println(booklist.get(a).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(booklist.get(a).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='Add to Cart' name='<% out.println(booklist.get(a).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
@@ -134,11 +134,11 @@
                                         <center>
                                             <div><strong><% out.println(maglist.get(b).getTitle()); %></strong></div>
                                             <div>P<% out.println(maglist.get(b).getPrice()); %></div>
-                                            <form action='#' id='<% out.println(maglist.get(b).getProductID()); %>' method='post'>
+                                            <form action='ViewCustomerProductServlet' id='<% out.println(maglist.get(b).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(maglist.get(b).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='View Details' name='<% out.println(maglist.get(b).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
-                                            <form action='#' id='<% out.println(maglist.get(b).getProductID()); %>' method='post'>
+                                            <form action='AddToShoppingCartServlet' id='<% out.println(maglist.get(b).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(maglist.get(b).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='Add to Cart' name='<% out.println(maglist.get(b).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
@@ -156,11 +156,11 @@
                                         <center>
                                             <div><strong><% out.println(cdlist.get(c).getTitle()); %></strong></div>
                                             <div>P<% out.println(cdlist.get(c).getPrice()); %></div>
-                                            <form action='#' id='<% out.println(cdlist.get(c).getProductID()); %>' method='post'>
+                                            <form action='ViewCustomerProductServlet' id='<% out.println(cdlist.get(c).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(cdlist.get(c).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='View Details' name='<% out.println(cdlist.get(c).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
-                                            <form action='#' id='<% out.println(booklist.get(c).getProductID()); %>' method='post'>
+                                            <form action='AddToShoppingCartServlet' id='<% out.println(booklist.get(c).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(cdlist.get(c).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='Add to Cart' name='<% out.println(cdlist.get(c).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
@@ -178,11 +178,11 @@
                                         <center>
                                             <div><strong><% out.println(dvdlist.get(d).getTitle()); %></strong></div>
                                             <div>P<% out.println(dvdlist.get(d).getPrice()); %></div>
-                                            <form action='#' id='<% out.println(dvdlist.get(d).getProductID()); %>' method='post'>
+                                            <form action='ViewCustomerProductServlet' id='<% out.println(dvdlist.get(d).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(dvdlist.get(d).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='View Details' name='<% out.println(dvdlist.get(d).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
-                                            <form action='#' id='<% out.println(booklist.get(d).getProductID()); %>' method='post'>
+                                            <form action='AddToShoppingCartServlet' id='<% out.println(booklist.get(d).getProductID()); %>' method='post'>
                                                 <input type='hidden' id='productid' name='productid' value='<% out.println(dvdlist.get(d).getProductID()); %>'>
                                                 <input type='submit' id='submit' value='Add to Cart' name='<% out.println(dvdlist.get(d).getProductID()); %>' style='border-color: transparent; background-color: transparent'/>
                                             </form>
@@ -208,7 +208,7 @@
                                     if (temporder.size() == 0) {
                                         out.println("<p> Shopping cart empty.</p>");
                                     } else {
-                                        out.println("<form action='ShoppingServlet'>"
+                                        out.println("<form action='ConfirmCartServlet'>"
                                                 + "<input type='submit' value='Buy' name='action'/>"
                                                 + "</form>");
                                         for (int i = 0; i < temporder.size(); i++) { //gets total order
@@ -243,30 +243,10 @@
             </div>
         </div>
 
-
-        <div class="cartright">
-            <ul class="dropdown">
-                <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false">Shopping Cart <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <%
-                        if (temporder.size() == 0) {
-                            out.println("<li>Please add an item first.</li>");
-                        } else {
-                            out.println("HERE");
-
-                            out.println("<li><a href='#'>My Cart Item 1<span class='glyphicon glyphicon-edit'></span></a></li>"
-                                    + "<li><a href='#'>My Cart Item 2 <span class='glyphicon glyphicon-edit'></span></a></li>"
-                                    + "<li><a href='#'>Checkout <span class='glyphicon glyphicon-edit'></span></a></li>"
-                            );
-                        }
-                    %>
-                </ul>
-            </ul>
-        </div>
-
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
+
         <script>
             $(document).ready(function () {
                 $("#qty").click(function () {

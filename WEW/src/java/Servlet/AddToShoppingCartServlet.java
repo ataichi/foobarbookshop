@@ -56,7 +56,7 @@ public class AddToShoppingCartServlet extends HttpServlet {
             ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
             ProductDAOInterface productdao = new ProductDAOImplementation();
 
-            int product = Integer.valueOf(request.getParameter("product"));
+            int product = Integer.valueOf(request.getParameter("productid"));
             productbean = productdao.getProductById(product);
 
             String action = request.getParameter("action");
