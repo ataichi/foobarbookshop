@@ -5,6 +5,7 @@ import Beans.CustomerBean;
 import Beans.CustomerCreditCardBean;
 import Beans.ProductBean;
 import Beans.ProductOrderBean;
+import Beans.ReviewBean;
 import Beans.ShoppingCartBean;
 import DAO.Interface.CustomerDAOInterface;
 import DBConnection.Connector;
@@ -378,7 +379,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "get * from customercreditcard where customercreditcardid_customerID = ?";
+            String query = "select * from customercreditcard where customercreditcardid_customerID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, customerID);
 
@@ -451,14 +452,16 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
     }
 
     @Override
-    public boolean writeReview(int productorderID, String review) {
+    public boolean writeReview(ReviewBean review) {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "update productorder set reviews=? where productorderID=?";
+            String query = "insert into review (review_customerID, review_productID, review) values(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, review);
-            ps.setInt(2, productorderID);
+            ps.setInt(1, review.getReview_customerID());
+            ps.setInt(2, review.getReview_productID());
+            ps.setString(3, review.getReview());
+
             ps.executeUpdate();
             connection.close();
             return true;
@@ -499,6 +502,67 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
                 bean.setQuantity(quantity);
 
                 bean.setPrice(price);
+            }
+
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean editReview(ReviewBean review) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "update review set review = ? where review_customerID = ? AND review_productID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, review.getReview());
+            ps.setInt(2, review.getReview_customerID());
+            ps.setInt(3, review.getReview_productID());
+
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public ReviewBean getCustomerReviewForProduct(int productID, int customerID) {
+   try {
+            String query = "select * from review where review_productID = ? and review_customerID = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, productID);
+            ps.setInt(2, customerID);
+
+            ResultSet rs = ps.executeQuery();
+
+            ReviewBean bean = new ReviewBean();
+            int reviewID, review_productID, review_customerID;
+            String review;
+
+            while (rs.next()) {
+                
+                reviewID = rs.getInt("reviewID");
+                review_productID = rs.getInt("review_productID");
+                review_customerID = rs.getInt("review_customeID");
+                
+                review = rs.getString("review");
+              
+                bean.setReviewID(reviewID);
+                bean.setReview_customerID(review_customerID);
+                bean.setReview_productID(review_productID);
+                        
+                bean.setReview(review);
+
             }
 
             connection.close();
