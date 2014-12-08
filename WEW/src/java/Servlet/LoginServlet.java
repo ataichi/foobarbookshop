@@ -60,6 +60,11 @@ public class LoginServlet extends HttpServlet {
                 CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
                 ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
                 CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
+                ProductDAOImplementation productdao = new ProductDAOImplementation();
+                ArrayList<ProductBean> booklist = productdao.getAllProductsByType("Book");
+                ArrayList<ProductBean> maglist = productdao.getAllProductsByType("Magazine");
+                ArrayList<ProductBean> dvdlist = productdao.getAllProductsByType("DVD");
+                ArrayList<ProductBean> cdlist = productdao.getAllProductsByType("Audio CD");
                 out.println(tempcustomer.getCustomerID());
 
                 type = "Customer";
@@ -71,6 +76,10 @@ public class LoginServlet extends HttpServlet {
                 log.setTime(time);
 
                 if (logdao.addLog(log)) {
+                    session.setAttribute("booklist", booklist);
+                    session.setAttribute("maglist", maglist);
+                    session.setAttribute("dvdlist", dvdlist);
+                    session.setAttribute("cdlist", cdlist);
                     session.setAttribute("type", type);
                     session.setAttribute("tempcustomer", tempcustomer);
                     session.setAttribute("shoppingcart", shoppingcart);

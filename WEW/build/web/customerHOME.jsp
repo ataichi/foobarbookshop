@@ -8,19 +8,16 @@
 <%@page import="Beans.CustomerBean"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-     if (homeuser == null) {
-        response.sendRedirect("login.jsp");
-    }else {
     CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
     ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
     ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
     ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
 
     ProductDAOImplementation pdao = new ProductDAOImplementation();
-    ArrayList<ProductBean> booklist = pdao.getAllProductsByType("Book");
-    ArrayList<ProductBean> maglist = pdao.getAllProductsByType("Magazine");
-    ArrayList<ProductBean> dvdlist = pdao.getAllProductsByType("DVD");
-    ArrayList<ProductBean> cdlist = pdao.getAllProductsByType("Audio CD");
+    ArrayList<ProductBean> booklist = ArrayList<ProductBean> session.getAttribute("booklist");
+    ArrayList<ProductBean> maglist = ArrayList<ProductBean> session.getAttribute("maglist");
+    ArrayList<ProductBean> dvdlist = ArrayList<ProductBean> session.getAttribute("dvdlist");
+    ArrayList<ProductBean> cdlist = ArrayList<ProductBean> session.getAttribute("cdlist");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -249,4 +246,3 @@
     </body>
 
 </html>
-<%}%>
