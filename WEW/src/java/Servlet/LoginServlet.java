@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 
             String username = AccountDAOImplementation.inputSanitizer(request.getParameter("loguser"));
             String password = request.getParameter("logpass");
+            String type;
 
             int ctr_try = Integer.parseInt(request.getParameter("ctr_try")); // start
             System.out.println("CTR_TRY" + ctr_try);
@@ -61,6 +62,7 @@ public class LoginServlet extends HttpServlet {
                 CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
                 out.println(tempcustomer.getCustomerID());
 
+                type = "Customer";
                 log.setActivity("Customer Login");
                 log.setLog_accountID(account.getAccountID());
 
@@ -69,6 +71,7 @@ public class LoginServlet extends HttpServlet {
                 log.setTime(time);
 
                 if (logdao.addLog(log)) {
+                    session.setAttribute("type", type);
                     session.setAttribute("tempcustomer", tempcustomer);
                     session.setAttribute("shoppingcart", shoppingcart);
                     session.setAttribute("homeuser", account);
@@ -80,7 +83,8 @@ public class LoginServlet extends HttpServlet {
 
                 ArrayList<LogBean> loglist = new ArrayList<LogBean>();
                 loglist = logdao.getAllLogs();
-                
+
+                type = "Admin";
                 log.setActivity("Admin Login");
                 log.setLog_accountID(account.getAccountID());
 
@@ -88,11 +92,12 @@ public class LoginServlet extends HttpServlet {
                 Timestamp time = new Timestamp(date.getTime());
                 log.setTime(time);
                 if (logdao.addLog(log)) {
+                    session.setAttribute("type", type);
                     session.setAttribute("loglist", loglist);
                     session.setAttribute("homeadmin", account);
                     out.println(time);
 
-               //     response.sendRedirect("adminHOME.jsp");
+                    //     response.sendRedirect("adminHOME.jsp");
                 }
 
             } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType()) && !account.getLocked()) {
@@ -100,6 +105,7 @@ public class LoginServlet extends HttpServlet {
                 ArrayList<BookBean> booklist = new ArrayList<BookBean>();
                 booklist = bookdao.getAllBooks();
                 session.setAttribute("booklist", booklist);
+                type = "Book Manager";
 
                 productlist = pdao.getProductsByType("Book");
 
@@ -111,6 +117,7 @@ public class LoginServlet extends HttpServlet {
                 log.setTime(time);
 
                 if (logdao.addLog(log)) {
+                    session.setAttribute("type", type);
                     session.setAttribute("productlist", productlist);
                     session.setAttribute("homeproduct", account);
                     response.sendRedirect("productmanagerHOME.jsp");
@@ -120,6 +127,7 @@ public class LoginServlet extends HttpServlet {
                 ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
                 audiocdlist = cddao.getAllAudioCD();
                 session.setAttribute("audiocdlist", audiocdlist);
+                type = "Audio CD Manager";
 
                 log.setActivity("Audio CD Manager Login");
                 log.setLog_accountID(account.getAccountID());
@@ -129,6 +137,7 @@ public class LoginServlet extends HttpServlet {
                 log.setTime(time);
 
                 if (logdao.addLog(log)) {
+                    session.setAttribute("type", type);
                     productlist = pdao.getProductsByType("Audio CD");
                     session.setAttribute("productlist", productlist);
                     session.setAttribute("homeproduct", account);
@@ -139,6 +148,7 @@ public class LoginServlet extends HttpServlet {
                 ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
                 dvdlist = dvddao.viewAllDVD();
                 session.setAttribute("dvdlist", dvdlist);
+                type = "DVD Manager";
 
                 log.setActivity("DVD Manager Login");
                 log.setLog_accountID(account.getAccountID());
@@ -148,6 +158,7 @@ public class LoginServlet extends HttpServlet {
                 log.setTime(time);
 
                 if (logdao.addLog(log)) {
+                    session.setAttribute("type", type);
                     productlist = pdao.getProductsByType("DVD");
                     session.setAttribute("productlist", productlist);
                     session.setAttribute("homeproduct", account);
@@ -165,7 +176,10 @@ public class LoginServlet extends HttpServlet {
                 Timestamp time = new Timestamp(date.getTime());
                 log.setTime(time);
 
+                type = "Magazine Manager";
+
                 if (logdao.addLog(log)) {
+                    session.setAttribute("type", type);
                     productlist = pdao.getProductsByType("Magazine");
                     session.setAttribute("productlist", productlist);
                     session.setAttribute("homeproduct", account);
@@ -175,11 +189,13 @@ public class LoginServlet extends HttpServlet {
                 log.setActivity("Accounting Manager Login");
                 log.setLog_accountID(account.getAccountID());
 
+                type = "Accounting Manager";
                 java.util.Date date = new java.util.Date();
                 Timestamp time = new Timestamp(date.getTime());
                 log.setTime(time);
 
                 if (logdao.addLog(log)) {
+                    session.setAttribute("type", type);
                     session.setAttribute("homeaccounting", account);
                     response.sendRedirect("accountingmanagerHOME.jsp");
                 }
