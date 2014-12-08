@@ -202,6 +202,8 @@ CREATE TABLE `foobar`.`lockreport` (
   `lockreportID` INT NOT NULL AUTO_INCREMENT,
   `lockreport_accountID` INT NOT NULL,
   `reason` VARCHAR(45) NOT NULL,
+  `emailaddress` VARCHAR(45) NOT NULL,
+  `done` INT(1) NOT NULL,
   PRIMARY KEY (`lockreportID`),
   INDEX `lockreport_accountID_idx` (`lockreport_accountID` ASC),
   CONSTRAINT `lockreport_accountID`

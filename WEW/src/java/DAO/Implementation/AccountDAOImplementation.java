@@ -583,4 +583,54 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         return null;
     }
 
+    @Override
+    public AccountBean getUserByEmailAddress(String email) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from account where emailAdd = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, email);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            String firstName, lastName, middleInitial, uname, password, emailAdd, type;
+            int accountID;
+            boolean locked;
+
+            AccountBean bean = new AccountBean();
+
+            while (resultSet.next()) {
+                firstName = resultSet.getString("firstName");
+                lastName = resultSet.getString("lastName");
+                middleInitial = resultSet.getString("middleInitial");
+                uname = resultSet.getString("username");
+                password = resultSet.getString("password");
+                emailAdd = resultSet.getString("emailAdd");
+                type = resultSet.getString("accounttype");
+                accountID = resultSet.getInt("accountID");
+                locked = resultSet.getBoolean("locked");
+
+                bean.setAccountID(accountID);
+                bean.setAccountType(type);
+                bean.setEmailAdd(emailAdd);
+                bean.setFirstName(firstName);
+                bean.setLastName(lastName);
+                bean.setMiddleInitial(middleInitial);
+                bean.setPassword(password);
+                bean.setUsername(uname);
+                bean.setLocked(locked);
+
+                System.out.println("hssere");
+
+            }
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

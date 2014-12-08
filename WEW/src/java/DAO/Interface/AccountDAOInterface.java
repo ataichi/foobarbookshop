@@ -15,6 +15,7 @@ public interface AccountDAOInterface {
     public boolean changePassword(int accountID, String password);
     
     public AccountBean getUserByAccountID(int accountID);
+    public AccountBean getUserByEmailAddress(String email);
     public ArrayList<AccountBean> getAccountByName(String firstname, String lastname);
     public ArrayList<AccountBean> getAccountByFirstName(String firstname);
     public ArrayList<AccountBean> getAccountByLastName(String lastname);

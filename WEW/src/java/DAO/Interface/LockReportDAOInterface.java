@@ -11,9 +11,15 @@ import java.util.ArrayList;
 
 public interface LockReportDAOInterface {
     
-    public boolean addLockReport();
+    public boolean addLockReport(LockReportBean lockreport);
+    public boolean editLockReport(LockReportBean lockreport);
+    
+    public LockReportBean getLockReportByID(int id);
     public ArrayList<LockReportBean> getLockReportByAccountID(int id);
     public ArrayList<LockReportBean> getLockReportByReason(String reason);
     public ArrayList<LockReportBean> getAllLockReport(); 
+    
+    public ArrayList<LockReportBean> getAllDoneLockReport();
+    public ArrayList<LockReportBean> getAllNotDoneLockReport();
     
 }

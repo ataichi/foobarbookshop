@@ -83,6 +83,12 @@ public class LoginServlet extends HttpServlet {
 
                 ArrayList<LogBean> loglist = new ArrayList<LogBean>();
                 loglist = logdao.getAllLogs();
+                
+                ArrayList<LockReportBean> lockreportlist = new ArrayList<LockReportBean>();
+                ArrayList<AccountBean> lockedAccounts = new ArrayList<AccountBean>();
+                LockReportDAOInterface lockreportdao = new LockReportDAOImplementation();
+                lockreportlist = lockreportdao.getAllNotDoneLockReport();
+                lockedAccounts = accountdao.getAllLockedAccounts();
 
                 type = "Admin";
                 log.setActivity("Admin Login");
@@ -95,6 +101,8 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("type", type);
                     session.setAttribute("loglist", loglist);
                     session.setAttribute("homeadmin", account);
+                    session.setAttribute("lockedAccounts", lockedAccounts);
+                    session.setAttribute("lockreportlist", lockreportlist);
                     out.println(time);
 
                     response.sendRedirect("adminHOME.jsp");

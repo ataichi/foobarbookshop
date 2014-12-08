@@ -19,12 +19,46 @@
 
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <h1>ano ba dapat ilagay dito =)) </h1>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="homepage.jsp">Foobar</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="homepage.jsp">Home</a></li>    
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
 
-        <a href="login.jsp"><button>Login</button></a>
-        <a href="signup.jsp"><button >Sign up</button></a>
+        <div class="panel-body"  style="padding-left: 600px">
+            <div class="row" style="padding-top: 200px;">
+                <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="SendReport">
+                    <div class="form-group">
+                        <input id="email" name='email' onblur="emailCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="yourname@foobar.com">
+                    </div>
+                    <div class="panel-body">
+                        Enter Reason:
+                        <input id="reason" name='reason' onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Your reason here." required>
 
-
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block">Send Report</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
