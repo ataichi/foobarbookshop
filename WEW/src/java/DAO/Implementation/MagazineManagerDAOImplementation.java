@@ -89,7 +89,7 @@ public class MagazineManagerDAOImplementation implements MagazineManagerDAOInter
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            query = "update magazine set volumeNo = ?, issueNo = ?, publisher = ? datePublished = ? where magazine_productID = ?";
+            query = "update magazine set volumeNo = ?, issueNo = ?, publisher = ?, datePublished = ? where magazine_productID = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, magazine.getVolumeNo());
             ps.setInt(2, magazine.getIssueNo());

@@ -102,7 +102,7 @@ public class EditProductServlet extends HttpServlet {
             }
             
             session.setAttribute("editproduct", editproduct);
-          //  response.sendRedirect("editproduct.jsp");
+           response.sendRedirect("editproduct.jsp");
 
         }
     }

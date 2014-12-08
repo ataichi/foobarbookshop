@@ -5,24 +5,21 @@
  */
 package DAO.Interface;
 
+import Beans.AudioCDBean;
 import Beans.ProductBean;
-
 import java.util.ArrayList;
 
 public interface ProductManagerDAOInterface {
 
     public boolean addProduct(ProductBean product);
-
     public boolean editProduct(ProductBean product);
 
     public ProductBean getLastProduct();
-
     public ArrayList<ProductBean> getProductsByType(String type);
 
     public ProductBean getProductById(int id);
-
     public boolean removeProduct(int id);
-    
     public boolean restockProduct(int newstocks, int id);
+    
     
 }

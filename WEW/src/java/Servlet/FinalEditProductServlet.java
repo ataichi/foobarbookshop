@@ -106,7 +106,7 @@ public class FinalEditProductServlet extends HttpServlet {
                 } else {
                     out.println("fail");
                 }
-            } else if (type.equals("Books")) {
+            } else if (type.equals("Book")) {
                 BookBean book = new BookBean();
 
                 BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
@@ -129,8 +129,13 @@ public class FinalEditProductServlet extends HttpServlet {
                 try {
                     date = formatter.parse(bookDatePublished);
                     sqlDate = new java.sql.Date(date.getTime());
-                    book.setDatePublished(sqlDate);
                     out.println(formatter.format(sqlDate));
+
+                    book.setDatePublished(sqlDate);
+                    book.setAuthor(author);
+                    book.setBookID(book.getBookID());
+                    book.setBook_productID(book.getBook_productID());
+                    book.setPublisher(publisher);
                 } catch (ParseException ex) {
                     Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -201,13 +206,21 @@ public class FinalEditProductServlet extends HttpServlet {
                 volumeNo = Integer.valueOf(request.getParameter("magazineVolume"));
                 issueNo = Integer.valueOf(request.getParameter("magazineIssue"));
                 datePublished = request.getParameter("magazineDate");
+                publisher = request.getParameter("magazinePublisher");
 
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     date = formatter.parse(datePublished);
                     sqlDate = new java.sql.Date(date.getTime());
-                    magazine.setDatePublished(sqlDate);
                     out.println(formatter.format(sqlDate));
+
+                    magazine.setVolumeNo(volumeNo);
+                    magazine.setIssueNo(issueNo);
+                    magazine.setMagazineID(magazine.getMagazineID());
+                    magazine.setMagazine_productID(magazine.getMagazine_productID());
+                    magazine.setPublisher(publisher);
+                    magazine.setDatePublished(sqlDate);
+
                 } catch (ParseException ex) {
                     Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
