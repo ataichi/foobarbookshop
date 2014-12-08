@@ -12,6 +12,8 @@ public interface AccountDAOInterface {
     public boolean updateAccountPassword(AccountBean accountBean);
     public boolean isUsernameAvailable(String username);
     
+    public boolean changePassword(int accountID, String password);
+    
     public ArrayList<AccountBean> getAccountByName(String firstname, String lastname);
     public ArrayList<AccountBean> getAccountByFirstName(String firstname);
     public ArrayList<AccountBean> getAccountByLastName(String lastname);

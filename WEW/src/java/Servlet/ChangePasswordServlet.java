@@ -6,10 +6,14 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,12 +50,65 @@ public class ChangePasswordServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
 
-            AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            String type = (String) session.getAttribute("type");
+            AccountBean account = new AccountBean();
+            if (type.equals("Customer")) {
+                account = (AccountBean) session.getAttribute("homecustomer");
+            } else if (type.equals("Audio CD Manager") || type.equals("Book Manager") || type.equals("DVD Manager") || type.equals("Magazine Manager")) {
+                account = (AccountBean) session.getAttribute("homeproduct");
+            } else if (type.equals("Accounting Manager")) {
+                account = (AccountBean) session.getAttribute("homeaccounting");
+            } else if (type.equals("Admin")) {
+                account = (AccountBean) session.getAttribute("homeadmin");
+            }
+
             AccountDAOInterface accountdao = new AccountDAOImplementation();
 
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+
             String password1 = request.getParameter("password1");
+
+            // hash password here
             String password2 = request.getParameter("password2");
             String password3 = request.getParameter("password3");
+
+            boolean changepassword = accountdao.changePassword(account.getAccountID(), password3);
+
+            if (changepassword) {
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setTime(time);
+                log.setActivity("Change password account ID " + account.getAccountID());
+                log.setLog_accountID(account.getAccountID());
+
+                if (logdao.addLog(log)) {
+                    account.setAccountID(account.getAccountID());
+                    account.setAccountType(account.getAccountType());
+                    account.setEmailAdd(account.getEmailAdd());
+                    account.setFirstName(account.getFirstName());
+                    account.setLastName(account.getLastName());
+                    account.setLocked(false);
+                    account.setMiddleInitial(account.getMiddleInitial());
+                    // hashed value of password dapat
+                    account.setPassword(password3);
+                    account.setUsername(account.getUsername());
+
+                    if (type.equals("Customer")) {
+                        session.setAttribute("homecustomer", account);
+                        response.sendRedirect("customerHOME.jsp");
+                    } else if (type.equals("Audio CD Manager") || type.equals("Book Manager") || type.equals("DVD Manager") || type.equals("Magazine Manager")) {
+                        session.setAttribute("homeproduct", account);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else if (type.equals("Accounting Manager")) {
+                        session.setAttribute("homeaccounting", account);
+                        response.sendRedirect("accountingmanagerHOME.jsp");
+                    } else if (type.equals("Admin")) {
+                        session.setAttribute("homeadmin", account);
+                        response.sendRedirect("adminHOME.jsp");
+                    }
+                }
+            }
 
         }
     }

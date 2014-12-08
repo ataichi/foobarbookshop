@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="fname">Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="password1" name="password1" placeholder="Enter Password"onblur="currPassCheck();"  onfocus="backWhite(this);" value="<% out.println(homeproduct.getPassword());%>">
+                                        <input type="text" class="form-control" id="password1" name="password1" placeholder="Enter Password" onblur="currPassCheck();"  onfocus="backWhite(this);" value="<% out.println(homeproduct.getPassword());%>">
                                         <input type="hidden" class="form-control" id="currentpassword" name="currentpassword" value="<%out.println(homeproduct.getPassword());%>">
                                     </div>
                                 </div>

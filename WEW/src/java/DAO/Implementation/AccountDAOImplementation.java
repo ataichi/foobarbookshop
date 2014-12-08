@@ -518,4 +518,21 @@ public class AccountDAOImplementation implements AccountDAOInterface {
 
     }
 
+    @Override
+    public boolean changePassword(int accountID, String password) {
+         try {
+            String query = "update account set password=? where accountID=?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, password);
+            ps.setInt(2, accountID);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;   }
+
 }
