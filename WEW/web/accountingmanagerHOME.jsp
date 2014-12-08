@@ -163,7 +163,7 @@
                                                      */
                                                 %>
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade in well active" id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
+                                            <div role="tabpanel" class="tab-pane fade in well" id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
                                                 <%                                                    finalsales = 0;
                                                     sales = 0;
 
@@ -186,7 +186,7 @@
                                                 %>
 
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade in well active" id="viewcd" aria-labelledBy="cd-tab" style='height: 500px;'>
+                                            <div role="tabpanel" class="tab-pane fade in well " id="viewcd" aria-labelledBy="cd-tab" style='height: 500px;'>
                                                 <%                                                    finalsales = 0;
                                                     sales = 0;
 
@@ -210,7 +210,7 @@
 
 
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade in well active" id="viewdvd" aria-labelledBy="dvd-tab" style='height: 500px;'>
+                                            <div role="tabpanel" class="tab-pane fade in well " id="viewdvd" aria-labelledBy="dvd-tab" style='height: 500px;'>
                                                 <%                                                    finalsales = 0;
                                                     sales = 0;
 
