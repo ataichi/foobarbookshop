@@ -1,8 +1,6 @@
-<%-- 
-    Document   : logout
-    Created on : 18/11/2014, 3:46:11 AM
-    Author     : Evy
---%>
+<% 
+    session.invalidate();
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

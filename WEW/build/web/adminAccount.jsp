@@ -1,11 +1,10 @@
-<%-- 
-    Document   : adminAccount2
-    Created on : 15/11/2014, 8:16:45 PM
-    Author     : Evy
---%>
 <%@page import="Beans.AccountBean"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
+    if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    }else{
+
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,7 +18,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-        <script src="js/editadmincheck.js" type="text/javascript"></script>
+        <script src="js/customercheck.js" type="text/javascript"></script>
 
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
@@ -88,31 +87,31 @@
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="fname">First Name</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" placeholder="Enter First Name" type='text' id='editfirst' name='editfirst' value='<% out.println(homeuser.getFirstName()); %>' onblur='fnameAdminCheck();' onfocus='backWhite(this);'>
+                                                <input type="text" class="form-control" placeholder="Enter First Name" type='text' id='editfirst' name='editfirst' value='<% out.println(homeuser.getFirstName()); %>' onblur='fnameAdminCheck();' onfocus='backWhite(this);' required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="mname">Middle Initial</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" placeholder="Enter Middle Initial"  id='editmiddle' name='editmiddle' value='<% out.println(homeuser.getMiddleInitial()); %>' onblur='mnameAdminCheck();' onfocus='backWhite(this)'>
+                                                <input type="text" class="form-control" placeholder="Enter Middle Initial"  id='editmiddle' name='editmiddle' value='<% out.println(homeuser.getMiddleInitial()); %>' onblur='mnameAdminCheck();' onfocus='backWhite(this)' required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="lname">Last Name</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="editlast" name="editlast" placeholder="Enter Last Name" id='editlast' name='editlast' value='<% out.println(homeuser.getLastName()); %>' onblur='lnameAdminCheck();' onfocus='backWhite(this);'>
+                                                <input type="text" class="form-control" id="editlast" name="editlast" placeholder="Enter Last Name" id='editlast' name='editlast' value='<% out.println(homeuser.getLastName()); %>' onblur='lnameAdminCheck();' onfocus='backWhite(this);' required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="uname">Username</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="edituser" name="edituser" placeholder="Enter Username" id='edituser' name="edituser" value='<% out.println(homeuser.getUsername()); %>' onblur='unameAdminCheck();' onfocus='backWhite(this);'>
+                                                <input type="text" class="form-control" id="edituser" name="edituser" placeholder="Enter Username" id='edituser' name="edituser" value='<% out.println(homeuser.getUsername()); %>' onblur='unameAdminCheck();' onfocus='backWhite(this);' required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="email">Email</label>
                                             <div class="col-sm-3">
-                                                <input type="email" class="form-control" id='editemail' name="editemail" value="<% out.println(homeuser.getEmailAdd());%>" onblur='emailAdminCheck();' onfocus='backWhite(this);'>
+                                                <input type="email" class="form-control" id='editemail' name="editemail" value="<% out.println(homeuser.getEmailAdd());%>" onblur='emailAdminCheck();' onfocus='backWhite(this);' required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -140,3 +139,4 @@
 
     </body>
 </html>
+<%}%>

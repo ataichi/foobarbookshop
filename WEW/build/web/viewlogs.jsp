@@ -6,6 +6,9 @@
 <!DOCTYPE html>
 <%
     AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
+     if (homeadmin == null) {
+        response.sendRedirect("login.jsp");
+    } else {
     ArrayList<LogBean> loglist = (ArrayList<LogBean>) session.getAttribute("loglist");
 %>
 
@@ -45,6 +48,8 @@
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeadmin.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Edit Account</a></li>
+                                <li><a href="adminChangePassword.jsp"><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
+
                                 <!--
                                 <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
                                 <li><a href="signup_accountingmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
@@ -72,14 +77,14 @@
                 </div><!--/span-->
                 <div class="col-xs-12 col-sm-9 content">
 
-                    <div>
+                    <div class="text-center">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">View Logs</h3>
                             </div>
                             <div class="panel-body">
                                 <%
-                                    out.println("<div class='table-responsive'>"
+                                   out.println("<div class='table-responsive'>"
                                             + "<table class='table table-striped'>"
                                             + "<thead><tr>"
                                             + "<th>Time</th>"
@@ -87,7 +92,6 @@
                                             + "<th>By</th>"
                                             + "</tr></thead>"
                                             + "<tbody>");
-
                                     for (int i = 0; i < loglist.size(); i++) {
                                         out.println("<tr>"
                                                 + "<td>"
@@ -101,8 +105,7 @@
                                                 + "</td>"
                                                 + "</tr>");
                                     }
-
-                                    out.println(""
+                                   out.println(""
                                             + "</tbody></table></div>");
                                 %>
                             </div>
@@ -116,3 +119,4 @@
 
     </body>
 </html>
+<%}%>

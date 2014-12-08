@@ -3,6 +3,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+    if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    }else{
+
 %>
 
 <!DOCTYPE html>
@@ -113,3 +117,4 @@
 
     </body>
 </html>
+<%}%>

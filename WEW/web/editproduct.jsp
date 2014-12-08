@@ -9,6 +9,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+     if (homeproduct == null) {
+        response.sendRedirect("login.jsp");
+    } else {
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
     ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
@@ -231,3 +234,4 @@
 
     </body>
 </html>
+<%}%>

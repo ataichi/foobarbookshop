@@ -1,14 +1,22 @@
+<%@page import="Beans.LockReportBean"%>
 <%@page import="Beans.AccountBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="DAO.Implementation.AccountDAOImplementation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
+<<<<<<< HEAD
+    ArrayList<LockReportBean> lockreportlist = (ArrayList<LockReportBean>) session.getAttribute("lockreportlist");
+    ArrayList<AccountBean> lockedAccounts = (ArrayList<AccountBean>) session.getAttribute("lockedAccounts");
+=======
+     if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    } else {
     AccountDAOImplementation adao = new AccountDAOImplementation();
     ArrayList<AccountBean> accountlist = adao.getAllLockedAccounts();
+>>>>>>> af635b40688040c03f7fb9146e43b862c687a1ea
 %>
 
 <html>
@@ -83,19 +91,25 @@
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Username</th>
+                                    <th>Email Address</th>
                                     <th>Type</th>
+                                    <th>Reason</th>
                                     <th>Unlock Account<th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <% int i;
-                                    for (i = 0; i < accountlist.size(); i++) {
-                                        out.println("<tr><td>" + accountlist.get(i).getFirstName() + "</td>"
-                                                + "<td>" + accountlist.get(i).getLastName() + "</td>"
-                                                + "<td>" + accountlist.get(i).getUsername() + "</td>"
-                                                + "<td>" + accountlist.get(i).getAccountType() + "</td>"
+
+                                    for (i = 0; i < lockedAccounts.size(); i++) {
+                                        out.println("<tr><td>" + lockedAccounts.get(i).getFirstName() + "</td>"
+                                                + "<td>" + lockedAccounts.get(i).getLastName() + "</td>"
+                                                + "<td>" + lockedAccounts.get(i).getUsername() + "</td>"
+                                                + "<td>" + lockreportlist.get(i).getEmailaddress() + "</td>"
+                                                + "<td>" + lockedAccounts.get(i).getAccountType() + "</td>"
+                                                + "<td>" + lockreportlist.get(i).getReason() + "</td>"
                                                 + "<td><form action='UnlockAccountServlet'>"
-                                                + "<input type='hidden' name='accountid' value='" + accountlist.get(i).getAccountID() + "'/>"
+                                                + "<input type='hidden' name='lockreportid' value='" + lockreportlist.get(i).getLockreportID() + "'/>"
+                                                + "<input type='hidden' name='accountid' value='" + lockedAccounts.get(i).getAccountID() + "'/>"
                                                 + "<input type='submit' value='unlock' style='border-color: transparent; background-color: transparent'/>"
                                                 + "</td></form></tr>");
                                     }
@@ -117,3 +131,4 @@
 
     </body>
 </html>
+<%}%>
