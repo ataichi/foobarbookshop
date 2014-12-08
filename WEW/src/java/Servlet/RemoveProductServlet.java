@@ -51,13 +51,12 @@ public class RemoveProductServlet extends HttpServlet {
             boolean check_removespecificproduct = false;
 
             String type = removeproduct.getType();
+            log.setActivity("Remove " + type + " " + removeproduct.getTitle());
             if (type.equals("Audio CD")) {
                 AudioCDBean removeaudio = new AudioCDBean();
                 AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
                 removeaudio = audiodao.getAudioCDByProductID(productID);
                 ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
-
-                log.setActivity("Remove " + type + " " + removeproduct.getTitle());
 
                 log.setLog_accountID(homeproduct.getAccountID());
                 java.util.Date date = new java.util.Date();
@@ -79,6 +78,7 @@ public class RemoveProductServlet extends HttpServlet {
                             response.sendRedirect("productmanagerHOME.jsp");
                         }
                     } else {
+                        out.println(productID);
                         out.println("failed to remove cd");
                         //response.sendRedirect("productmanagerHOME.jsp");
                     }

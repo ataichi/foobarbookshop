@@ -294,15 +294,9 @@ CREATE TABLE `foobar`.`review` (
   `review_productID` INT(11) NOT NULL,
   PRIMARY KEY (`reviewID`),
   INDEX `review_customerID_idx` (`reviewID` ASC, `review_customerID` ASC),
-  INDEX `review_productID_idx` (`review_productID` ASC),
   CONSTRAINT `review_customerID`
     FOREIGN KEY (`review_customerID`)
     REFERENCES `foobar`.`customer` (`customerID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `review_productID`
-    FOREIGN KEY (`review_productID`)
-    REFERENCES `foobar`.`product` (`productID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -331,8 +325,6 @@ CREATE TABLE `productorder` (
   `quantity` int(11) NOT NULL,
   PRIMARY KEY (`productorderID`),
   KEY `productorder_shoppingcartID_idx` (`productorder_shoppingcartID`),
-  KEY `productorder_productID_idx` (`productorder_productID`),
-  CONSTRAINT `productorder_productID` FOREIGN KEY (`productorder_productID`) REFERENCES `product` (`productID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `productorder_shoppingcartID` FOREIGN KEY (`productorder_shoppingcartID`) REFERENCES `shoppingcart` (`shoppingcartID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
