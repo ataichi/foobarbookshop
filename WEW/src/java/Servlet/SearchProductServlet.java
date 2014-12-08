@@ -38,7 +38,7 @@ public class SearchProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-            String searchstring = request.getParameter("searchstring");
+            String searchstring = AccountDAOImplementation.inputSanitizer(request.getParameter("searchstring"));
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ProductDAOInterface productdao = new ProductDAOImplementation();
             ProductBean productbean = new ProductBean();
