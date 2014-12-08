@@ -34,6 +34,7 @@ public interface CustomerDAOInterface {
     public boolean writeReview(ReviewBean review);
     public boolean editReview(ReviewBean review);
     public ReviewBean getCustomerReviewForProduct(int productid, int customerID);
+    public ArrayList<ReviewBean> getReviewsByProductID(int productid);
     
     public ProductOrderBean getProductOrderBeanByID(int id);
     
