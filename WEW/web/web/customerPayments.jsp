@@ -1,7 +1,7 @@
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+    AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
 %>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
 
-        <title>Edit Account</title>
+        <title>Credit Card</title>
     </head>
     <body>
 
@@ -40,15 +40,18 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="customerHOME.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                         <li class="dropdown active">
-                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeproduct.getUsername());%> <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                   <li><a href="productmanagerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
-                                <li><a href="productmanagerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
-                            </ul>
+                                <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
+                                <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
+                                <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                                <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
+                          </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right" action='SearchProductServlet' method="post">
+                    <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
                         <div class="input-group input-group-sm" style="max-width:360px;">
                             <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
                             <div class="input-group-btn">
@@ -59,61 +62,57 @@
                 </div>
             </div>
         </nav>
-
         <div class="container"  style="padding-top: 100px;">
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Account Information</h3>
+                        <h3 class="panel-title">Change Password</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="managercheck" name="editaccount" onsubmit="return managerCheck();" action="EditProductManagerAccountServlet" method="post">
+                        <form class="form-horizontal" role="form" id='addcreditcard' action='AddCreditCardServlet' method='post'>
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
-                                    <label class="control-label col-lg-4">Basic Info</label>
+                                    <label class="control-label col-lg-4">Credit Card Information</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">First Name</label>
+                                    <label class="control-label col-lg-4">Card Name</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getFirstName()); %>">
+                                        <input type="text" class="form-control" placeholder="Enter Card Name" name='cardName' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="mname">Middle Initial</label>
+                                    <label class="control-label col-lg-4" >Card Number</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getMiddleInitial()); %>">
+                                        <input type="text" class="form-control" placeholder="Enter Card Number" name='cardNo' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="lname">Last Name</label>
+                                    <label class="control-label col-lg-4">Card Type</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getLastName()); %>">
+                                        <input type="text" class="form-control" placeholder="Enter Card Type" name='cardType' required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="uname">Username</label>
+                                    <label class="control-label col-lg-4">Expiration Date</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getUsername()); %>">
+                                        <input type="date" class="form-control" placeholder="Enter Expirtion Date"  name='cardExpDate' required>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="email">Email</label>
-                                    <div class="col-sm-3">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getEmailAdd());%>">
-                                    </div>
+                                    <button class="btn btn-primary btn-lg center-block" type='submit' value='Submit'>Save Changes</button>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-primary btn-lg center-block">Edit Account</button>
-                                </div>
-                                <div class="form-group">
-                                    <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                                    <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
+
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>

@@ -20,8 +20,7 @@
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
-
-        <title>Edit Account</title>
+        <title>Change Password</title>
     </head>
     <body>
 
@@ -42,7 +41,7 @@
                         <li class="dropdown active">
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeproduct.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                   <li><a href="productmanagerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
+                                <li><a href="productmanagerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
                                 <li><a href="productmanagerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                             </ul>
                         </li>
@@ -67,41 +66,31 @@
                         <h3 class="panel-title">Account Information</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="managercheck" name="editaccount" onsubmit="return managerCheck();" action="EditProductManagerAccountServlet" method="post">
+                        <form class="form-horizontal" role="form" id="changepassword" name="changepassword" action="EditProductManagerAccountServlet" method="post">
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
-                                    <label class="control-label col-lg-4">Basic Info</label>
+                                    <label class="control-label col-lg-4">Change Password</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">First Name</label>
+                                    <label class="control-label col-lg-4" for="fname">Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getFirstName()); %>">
+                                        <input type="text" class="form-control" id="password1" name="password1" placeholder="Enter Password"onblur="currPassCheck();"  onfocus="backWhite(this);" value="<% out.println(homeproduct.getPassword());%>">
+                                        <input type="hidden" class="form-control" id="currentpassword" name="currentpassword" value="<%out.println(homeproduct.getPassword());%>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="mname">Middle Initial</label>
+                                    <label class="control-label col-lg-4" for="mname">New Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getMiddleInitial()); %>">
+                                        <input type="text" class="form-control" id="password2" name="password2" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);">
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="lname">Last Name</label>
+                                    <label class="control-label col-lg-4" for="mname">Confirm Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getLastName()); %>">
+                                        <input type="text" class="form-control" id="password3" name="password3" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4" for="uname">Username</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getUsername()); %>">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4" for="email">Email</label>
-                                    <div class="col-sm-3">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getEmailAdd());%>">
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg center-block">Edit Account</button>
                                 </div>
@@ -114,9 +103,40 @@
                 </div>
             </div>
         </div>
+
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
+        <script>
 
+                                            function currPassCheck() {
+                                                var currPass = document.forms["changepassword"]["currentpassword"].value;
+                                                var password1 = document.forms["changepassword"]["password1"].value;
+                                                if ((currPass != password1) || password1 == "") {
+                                                    document.forms["changepassword"]["password1"].style.backgroundColor = "pink";
+                                                    return false;
+                                                } else {
+                                                    document.forms["changepassword"]["password1"].style.backgroundColor = "white";
+                                                    return true;
+                                                }
+
+                                            }
+
+                                            function passCheck() {
+                                                var pass1 = document.forms["changepassword"]["password2"].value;
+                                                var pass2 = document.forms["changepassword"]["password3"].value;
+                                                if (!(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass1))//!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
+                                                        || pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
+                                                    document.forms["changepassword"]["password2"].style.backgroundColor = "pink";
+                                                    document.forms["changepassword"]["password3"].style.backgroundColor = "pink";
+                                                    return false;
+                                                }
+                                                else {
+                                                    document.forms["changepassword"]["password2"].style.backgroundColor = "white";
+                                                    document.forms["changepassword"]["password3"].style.backgroundColor = "white";
+                                                    return true;
+                                                }
+                                            }
+        </script>
     </body>
 </html>
