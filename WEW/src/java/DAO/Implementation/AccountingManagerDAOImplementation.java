@@ -48,15 +48,15 @@ public class AccountingManagerDAOImplementation implements AccountingManagerDAOI
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "select * from product where year = ?";
+            String query = "select SUM(total) AS totalorders from shoppingcart where Year(orderDate) = ?"
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setDate(1, date);
 
             ResultSet resultSet = ps.executeQuery();
 
-            ProductBean product = new ProductBean();
+            //ProductBean product = new ProductBean();
 
-            int productID;
+            /*int productID;
             String type, title;
             double price;
             String summary, genre;
@@ -80,15 +80,19 @@ public class AccountingManagerDAOImplementation implements AccountingManagerDAOI
                 product.setGenre(genre);
                 product.setYear(year);
                 product.setNumberStocks(stocks);
+            }*/
+             while (resultSet.next()) {
+                total = resultSet.getInt("totalorders");
+                return total;
             }
             connection.close();
 
-            return product;
+            //return product;
 
         } catch (SQLException ex) {
             Logger.getLogger(AccountingManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return total;
     }
 
 }
