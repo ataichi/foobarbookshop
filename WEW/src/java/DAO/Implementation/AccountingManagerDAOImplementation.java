@@ -54,7 +54,7 @@ public class AccountingManagerDAOImplementation implements AccountingManagerDAOI
 
             ResultSet resultSet = ps.executeQuery();
 
-            ProductBean product = new ProductBean();
+            //ProductBean product = new ProductBean();
 
             /*int productID;
             String type, title;
@@ -87,12 +87,12 @@ public class AccountingManagerDAOImplementation implements AccountingManagerDAOI
             }
             connection.close();
 
-            return product;
+            //return product;
 
         } catch (SQLException ex) {
             Logger.getLogger(AccountingManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return total;
     }
 
 }
