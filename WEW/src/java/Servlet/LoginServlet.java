@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             hash.updateHash(password, "UTF-8");
-            password = hash.getHashBASE64();
+            //  password = hash.getHashBASE64();
 
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             account = accountdao.getUserByUsername(username);

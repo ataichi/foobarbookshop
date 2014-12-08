@@ -483,51 +483,6 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         }
         return null;
     }
-    
-    @Override
-    public ArrayList<ReviewBean> getReviewsByProductID(int productid) {
-        try {
-            String query = "select * from review where review_productID = ?";
-            Connector c = new Connector();
-            Connection connection = c.getConnection();
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, productid);
-
-            ResultSet rs = ps.executeQuery();
-
-            ReviewBean bean = new ReviewBean();
-            ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
-            int reviewID, review_productID, review_customerID;
-            String reviewString;
-
-            while (rs.next()) {
-
-                bean = new ReviewBean();
-                
-                reviewID = rs.getInt("reviewID");
-                review_productID = rs.getInt("review_productID");
-                review_customerID = rs.getInt("review_customerID");
-
-                reviewString = rs.getString("reviewString");
-
-                bean.setReviewID(reviewID);
-                bean.setReview_customerID(review_customerID);
-                bean.setReview_productID(review_productID);
-
-                bean.setReview(reviewString);
-                
-                reviewlist.add(bean);
-
-            }
-
-            connection.close();
-            return reviewlist;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 
     @Override
     public ArrayList<ShoppingCartBean> getShoppingCartByCustomerID(int customerID) {
@@ -625,7 +580,5 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         }
         return null;
     }
-
-    
 
 }
