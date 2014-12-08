@@ -10,6 +10,7 @@ import DAO.Implementation.*;
 import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +37,7 @@ public class ViewProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            
-            
+
             ProductDAOImplementation pdao = new ProductDAOImplementation();
             AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
             AudioCDBean audiocdbean = new AudioCDBean();
@@ -46,34 +46,48 @@ public class ViewProductServlet extends HttpServlet {
             DVDManagerDAOImplementation dvddao = new DVDManagerDAOImplementation();
             DVDBean dvdbean = new DVDBean();
             MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
-            MagazineBean magbean = new MagazineBean();  
-            
+            MagazineBean magbean = new MagazineBean();
+
             int productID = Integer.parseInt(request.getParameter("product"));
-                        
+            AccountDAOInterface adao = new AccountDAOImplementation();
+            CustomerDAOInterface cdao = new CustomerDAOImplementation();
+            ArrayList<ReviewBean> reviews = cdao.getReviewsByProductID(productID);
+            ArrayList<CustomerBean> customerlist = new ArrayList<CustomerBean>();
+            CustomerBean customer = new CustomerBean();
+            ArrayList<AccountBean> accountlist = new ArrayList<AccountBean>();
+            
+            
+            for(int i=0;i<reviews.size();i++){ // get customers
+                out.println(reviews.get(i).getReview_customerID());
+                customer = cdao.getCustomerById(reviews.get(i).getReview_customerID());
+                customerlist.add(customer);
+                out.println(customer.getCustomer_accountID());
+                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                accountlist.add(account);
+            }
             ProductBean productBean = new ProductBean();
             productBean = pdao.getProductById(productID);
             session.setAttribute("viewproduct", productBean);
+            session.setAttribute("accountlist", accountlist);
+            session.setAttribute("reviews", reviews);
+            session.setAttribute("customerlist", customerlist);
             
-            
-            if(productBean.getType().equals("Audio CD")) {
+            if (productBean.getType().equals("Audio CD")) {
                 audiocdbean = audiocddao.getAudioCDByProductID(productID);
                 session.setAttribute("viewaudiocd", audiocdbean);
                 response.sendRedirect("viewproduct.jsp");
-            }
-            else if(productBean.getType().equals("Book")) {
+            } else if (productBean.getType().equals("Book")) {
                 bookbean = bookdao.getBookByProductID(productID);
                 session.setAttribute("viewbook", bookbean);
                 response.sendRedirect("viewproduct.jsp");
-            }
-            else if(productBean.getType().equals("DVD")) {
+            } else if (productBean.getType().equals("DVD")) {
                 dvdbean = dvddao.getDVDByProductID(productID);
                 session.setAttribute("viewdvd", dvdbean);
                 response.sendRedirect("viewproduct.jsp");
-            }
-            else if(productBean.getType().equals("Magazine")) {
+            } else if (productBean.getType().equals("Magazine")) {
                 magbean = magdao.getMagazineByProductID(productID);
                 session.setAttribute("viewmagazine", magbean);
-               response.sendRedirect("viewproduct.jsp");
+                response.sendRedirect("viewproduct.jsp");
             }
         }
     }

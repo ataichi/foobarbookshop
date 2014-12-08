@@ -109,7 +109,7 @@
                                         }
                                     %>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
+                                <div role="tabpanel" class="tab-pane fade in well " id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
                                     <% int b;
                                         for (b = 0; b < maglist.size(); b++) {
                                             out.println("<div class='col-md-3'>"
@@ -132,21 +132,21 @@
                                     %>
 
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="viewcd" aria-labelledBy="cd-tab" style='height: 500px;'>
+                                <div role="tabpanel" class="tab-pane fade in well " id="viewcd" aria-labelledBy="cd-tab" style='height: 500px;'>
                                     <% int c;
                                         for (c = 0; c < cdlist.size(); c++) {
                                             out.println("<div class='col-md-3'>"
                                                     + "<center>"
                                                     + "<div><strong>" + cdlist.get(c).getTitle() + "</strong></div>"
                                                     + "<div>" + cdlist.get(c).getPrice() + "</div>"
-                                                    + "<form action='ViewCustomerProductServlet' id='" + cdlist.get(c).getProductID() + "' method='post'>"
-                                                    + " <input type='hidden' id='productid' name='productid' value='" + cdlist.get(c).getProductID() + "'>"
-                                                    + "<input type='submit' id='submit' value='View Details' name='action' style='border-color:transparent; background-color:transparent'/>"
-                                                    + "<form>"
+                                                    + "</form action='ViewCustomerProductServlet' id='" + cdlist.get(c).getProductID() + "' method='post'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + cdlist.get(c).getProductID() + "'/>"
+                                                    + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                    + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + cdlist.get(c).getProductID() + "' method='post'>"
-                                                    + "<input tpe='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type=hidden' id='product' name='productid' value='" + cdlist.get(c).getProductID() + "'>"
-                                                    + "<input type='submit' id='submit' value='Add to Cart'name='action' style='border-color:transparent; background-color:transparent'/>"
+                                                    + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + cdlist.get(c).getProductID() + "'>"
+                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "</center>"
                                                     + "</div>");
@@ -155,24 +155,25 @@
                                     %>
 
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="viewdvd" aria-labelledBy="dvd-tab" style='height: 500px;'>
+                                <div role="tabpanel" class="tab-pane fade in well " id="viewdvd" aria-labelledBy="dvd-tab" style='height: 500px;'>
                                     <% int d;
                                         for (d = 0; d < dvdlist.size(); d++) {
                                             out.println("<div class='col-md-3'>"
                                                     + "<center>"
                                                     + "<div><strong>" + dvdlist.get(d).getTitle() + "</strong></div>"
                                                     + "<div>" + dvdlist.get(d).getPrice() + "</div>"
-                                                    + "<form action='ViewCustomerProductServlet' id='" + dvdlist.get(d).getProductID() + "' method='post'>"
-                                                    + " <input type='hidden' id='productid' name='productid' value='" + dvdlist.get(d).getProductID() + "'>"
-                                                    + "<input type='submit' id='submit' value='View Details' name='action' style='border-color:transparent; background-color:transparent'/>"
-                                                    + "<form>"
+                                                    + "</form action='ViewCustomerProductServlet' id='" + dvdlist.get(d).getProductID() + "' method='post'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + dvdlist.get(d).getProductID() + "'/>"
+                                                    + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                    + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + dvdlist.get(d).getProductID() + "' method='post'>"
-                                                    + "<input tpe='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type=hidden' id='product' name='product' value='" + dvdlist.get(d).getProductID() + "'>"
-                                                    + "<input type='submit' id='submit' value='Add to Cart' name='action' style='border-color:transparent; background-color:transparent'/>"
+                                                    + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + dvdlist.get(d).getProductID() + "'>"
+                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "</center>"
                                                     + "</div>");
+
                                         }
                                     %>
                                 </div>

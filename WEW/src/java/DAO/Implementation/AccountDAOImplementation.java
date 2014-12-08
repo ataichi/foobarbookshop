@@ -505,7 +505,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
 
             while (resultSet.next()) {
                 compare = resultSet.getString("username");
-                found=true;
+                found = true;
 
             }
             connection.close();
@@ -520,7 +520,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
 
     @Override
     public boolean changePassword(int accountID, String password) {
-         try {
+        try {
             String query = "update account set password=? where accountID=?";
             Connector c = new Connector();
             Connection connection = c.getConnection();
@@ -533,7 +533,8 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;   }
+        return false;
+    }
 
     @Override
     public AccountBean getUserByAccountID(int accountID) {
@@ -571,7 +572,6 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setPassword(password);
                 bean.setUsername(uname);
                 bean.setLocked(locked);
-
 
             }
             connection.close();

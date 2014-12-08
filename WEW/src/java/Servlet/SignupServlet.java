@@ -116,7 +116,7 @@ public class SignupServlet extends HttpServlet {
                     session.setAttribute("username", username);
                 }
 
-                //AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
+               // AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
 
                 response.sendRedirect("login.jsp");
             } else {

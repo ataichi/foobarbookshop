@@ -1,9 +1,3 @@
-<%-- 
-    Document   : signup_productmanager
-    Created on : Nov 30, 2014, 12:53:13 AM
-    Author     : Danica
---%>
-
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%

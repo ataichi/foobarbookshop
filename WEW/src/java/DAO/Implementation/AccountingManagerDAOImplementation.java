@@ -7,6 +7,7 @@ package DAO.Implementation;
 
 import Beans.ProductBean;
 import Beans.ProductOrderBean;
+import Beans.ShoppingCartBean;
 import DAO.Interface.AccountingManagerDAOInterface;
 import DBConnection.Connector;
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,13 +46,13 @@ public class AccountingManagerDAOImplementation implements AccountingManagerDAOI
         return total;
     }
 
-    public ProductBean getSalesByYear(Date date) {
+    public ProductBean getSalesByYear(int year) {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
             String query = "select * from product where year = ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setDate(1, date);
+            ps.setInt(1, year);
 
             ResultSet resultSet = ps.executeQuery();
 
@@ -60,8 +62,8 @@ public class AccountingManagerDAOImplementation implements AccountingManagerDAOI
             String type, title;
             double price;
             String summary, genre;
-            int year, stocks;
-            
+            int year1, stocks;
+
             while (resultSet.next()) {
                 productID = resultSet.getInt("productID");
                 type = resultSet.getString("type");
@@ -85,6 +87,137 @@ public class AccountingManagerDAOImplementation implements AccountingManagerDAOI
 
             return product;
 
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountingManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<ProductOrderBean> getAllProductOrders() {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from productorder";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet resultSet = ps.executeQuery();
+
+            ArrayList<ProductOrderBean> list = new ArrayList<ProductOrderBean>();
+            ProductOrderBean bean = new ProductOrderBean();
+
+            int productorderID, productorder_shoppingcartID, productorder_productID, quantity;
+            double price;
+
+            while (resultSet.next()) {
+                productorderID = resultSet.getInt("productorderID");
+                productorder_shoppingcartID = resultSet.getInt("productorder_shoppingcartID");
+                productorder_productID = resultSet.getInt("productorder_productID");
+                quantity = resultSet.getInt("quantity");
+
+                price = resultSet.getDouble("price");
+
+                bean = new ProductOrderBean();
+
+                bean.setProductorderID(productorderID);
+                bean.setProductorder_shoppingcartID(productorder_shoppingcartID);
+                bean.setProductorder_productID(productorder_productID);
+                bean.setQuantity(quantity);
+
+                bean.setPrice(price);
+
+                list.add(bean);
+            }
+
+            connection.close();
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountingManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<ShoppingCartBean> getAllShoppingCart() {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from shoppingcart";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet resultSet = ps.executeQuery();
+
+            ArrayList<ShoppingCartBean> list = new ArrayList<ShoppingCartBean>();
+            ShoppingCartBean bean = new ShoppingCartBean();
+
+            int shoppingcartID, shoppingcart_customerID;
+            Timestamp orderDate;
+            double total;
+
+            while (resultSet.next()) {
+
+                shoppingcartID = resultSet.getInt("shoppingcartID");
+                shoppingcart_customerID = resultSet.getInt("shoppingcart_customerID");
+
+                orderDate = resultSet.getTimestamp("orderDate");
+
+                total = resultSet.getDouble("total");
+
+                bean = new ShoppingCartBean();
+
+                bean.setShoppingcartID(shoppingcartID);
+                bean.setShoppingcart_customerID(shoppingcart_customerID);
+
+                bean.setOrderDate(orderDate);
+
+                list.add(bean);
+            }
+
+            connection.close();
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountingManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+
+    @Override
+    public ArrayList<ProductOrderBean> getAllProductOrderByProductID(int productID) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from productorder where productorder_productID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, productID);
+            ResultSet resultSet = ps.executeQuery();
+
+            ArrayList<ProductOrderBean> list = new ArrayList<ProductOrderBean>();
+            ProductOrderBean bean = new ProductOrderBean();
+
+            int productorderID, productorder_shoppingcartID, productorder_productID, quantity;
+            double price;
+
+            while (resultSet.next()) {
+                productorderID = resultSet.getInt("productorderID");
+                productorder_shoppingcartID = resultSet.getInt("productorder_shoppingcartID");
+                productorder_productID = resultSet.getInt("productorder_productID");
+                quantity = resultSet.getInt("quantity");
+
+                price = resultSet.getDouble("price");
+
+                bean = new ProductOrderBean();
+
+                bean.setProductorderID(productorderID);
+                bean.setProductorder_shoppingcartID(productorder_shoppingcartID);
+                bean.setProductorder_productID(productorder_productID);
+                bean.setQuantity(quantity);
+
+                bean.setPrice(price);
+
+                list.add(bean);
+            }
+
+            connection.close();
+            return list;
         } catch (SQLException ex) {
             Logger.getLogger(AccountingManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }

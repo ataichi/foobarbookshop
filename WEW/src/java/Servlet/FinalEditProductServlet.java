@@ -239,7 +239,7 @@ public class FinalEditProductServlet extends HttpServlet {
                         response.sendRedirect("productmanagerHOME.jsp");
                     }
                 } else {
-                    AccountDAOImplementation.insertLog(request.getRemoteAddr(), type + " Manager failed to edit a product." , false);
+                    AccountDAOImplementation.insertLog(request.getRemoteAddr(), type + " Manager failed to edit a product.", false);
                     out.println("fail");
                 }
 

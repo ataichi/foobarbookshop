@@ -5,13 +5,25 @@
  */
 package DAO.Interface;
 
+import Beans.ProductBean;
+import Beans.ProductOrderBean;
+import Beans.ShoppingCartBean;
+import java.sql.Date;
+import java.util.ArrayList;
 
 public interface AccountingManagerDAOInterface {
-  
-  /*public viewSales ();
-  public viewSalesByProductType ();
-  public viewSalesByYear ();
-  public viewSalesByMonth ();
-  public viewSalesByWeek ();
-  public viewSalesByDaw ();**/
+
+    public int getSumSalesOfProductByID(int productID);
+
+    public ProductBean getSalesByYear(int year);
+    
+    public ArrayList<ProductOrderBean> getAllProductOrders();
+    public ArrayList<ShoppingCartBean> getAllShoppingCart();
+    public ArrayList<ProductOrderBean> getAllProductOrderByProductID(int productID);
+    /*public viewSales ();
+     public viewSalesByProductType ();
+     public viewSalesByYear ();
+     public viewSalesByMonth ();
+     public viewSalesByWeek ();
+     public viewSalesByDaw ();**/
 }

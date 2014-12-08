@@ -1,11 +1,4 @@
-<%-- 
-    Document   : viewproduct1
-    Created on : Dec 8, 2014, 1:17:19 PM
-    Author     : Danica
---%>
-
 <%@page import="Beans.CustomerBean"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.ReviewBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Beans.ProductBean"%>
@@ -14,10 +7,7 @@
 <%@page import="Beans.BookBean"%>
 <%@page import="Beans.AudioCDBean"%>
 <%@page import="Beans.AccountBean"%>
-<%@page import="DAO.Implementation.*" %>
-<%@page import="DAO.Interface.*"%>
-<!DOCTYPE html>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeuser");
 
@@ -28,16 +18,16 @@
     DVDBean dvdbean = (DVDBean) session.getAttribute("viewdvd");
     MagazineBean magbean = (MagazineBean) session.getAttribute("viewmagazine");
 
-    AccountDAOInterface adao = new AccountDAOImplementation();
-    CustomerDAOInterface cdao = new CustomerDAOImplementation();
-    ArrayList<ReviewBean> reviews = cdao.getReviewsByProductID(productBean.getProductID());
-    CustomerBean cbean = new CustomerBean();
+    ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+    ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+    ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+
 %>
 
+
+<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,6 +41,7 @@
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
+
         <title>View Product</title>
     </head>
     <body>
@@ -154,6 +145,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -161,23 +154,30 @@
                     </div>
                     <div class="panel-body">
                         <%
-                            AccountBean abean = new AccountBean();
-                            for(int i=0; i<reviews.size(); i++) {
-                                cbean = new CustomerBean();
-                                cbean = cdao.getCustomerById(reviews.get(i).getReview_customerID());
-                                abean = adao.getUserByAccountID(cbean.getCustomer_accountID());
-                                out.println("<div><p>" + abean.getFirstName() + " " + abean.getLastName() +"</p><p>"+ reviews.get(i).getReview() +"</p></div>"
-                                            + "<div class='divider'></div>");
+                            for (int i = 0; i < reviews.size(); i++) {
+
+                                for (int j = 0; j < customerlist.size(); j++) {
+                                    if (reviews.get(i).getReview_customerID() == customerlist.get(j).getCustomerID()) {
+                                        for (int k = 0; k < accountlist.size(); k++) {
+                                            if (accountlist.get(k).getAccountID() == customerlist.get(j).getCustomer_accountID()) {
+                                                out.println("<div><p>" + accountlist.get(k).getFirstName() + " " + accountlist.get(k).getLastName()
+                                                        + ": " + reviews.get(i).getReview() + "</p></div>");
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
                             }
-                        
+
                         %>
                     </div>
                 </div>
             </div>   
         </div>
 
-            <script src="dist/js/jquery-2.1.0.min.js"></script>
-            <script src="dist/js/query.js"></script>
-            <script src="dist/js/bootstrap.min.js"></script>
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>

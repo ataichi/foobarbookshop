@@ -65,53 +65,78 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
             CustomerBean bean = new CustomerBean();
             int customerID1, customer_accountID;
-            String streetBA, subdivisionBA, cityBA, countryBA;
-            int apartmentnoBA, postalcodeBA;
+            String streetBA, subdivisionBA, cityBA, countryBA, apartmentnoBA;
+            int postalcodeBA;
 
-            String streetDA, subdivisionDA, cityDA, countryDA;
-            int apartmentnoDA, postalcodeDA;
+            String streetDA, subdivisionDA, cityDA, countryDA, apartmentnoDA;
+            int postalcodeDA;
 
             while (rs.next()) {
                 streetBA = rs.getString("streetBA");
                 subdivisionBA = rs.getString("subdivisionBA");
                 cityBA = rs.getString("cityBA");
                 countryBA = rs.getString("countryBA");
-                apartmentnoBA = rs.getInt("apartmentnoBA");
+                apartmentnoBA = rs.getString("apartmentnoBA");
                 postalcodeBA = rs.getInt("postalcodeBA");
 
                 streetDA = rs.getString("streetDA");
-                subdivisionDA = rs.getString("subdivsionDA");
+                subdivisionDA = rs.getString("subdivisionDA");
                 cityDA = rs.getString("cityDA");
                 countryDA = rs.getString("countryDA");
-                apartmentnoDA = rs.getInt("apartmentnoDA");
+                apartmentnoDA = rs.getString("apartmentnoDA");
                 postalcodeDA = rs.getInt("postalcodeDA");
 
-                customer_accountID = rs.getInt("customerID");
+                customer_accountID = rs.getInt("customer_accountID");
                 customerID1 = rs.getInt("customerID");
 
                 bean = new CustomerBean();
 
+                System.out.println("A");
                 bean.setApartmentNoBA(streetBA);
+
+                System.out.println("B");
                 bean.setCityBA(cityBA);
+
+                System.out.println("C");
+
                 bean.setCountryBA(countryBA);
+
+                System.out.println("AD");
+
                 bean.setPostalCodeBA(postalcodeBA);
+                System.out.println("SA");
+
                 bean.setStreetBA(streetBA);
+                System.out.println("AAS");
+
                 bean.setSubdivisionBA(subdivisionBA);
+                System.out.println("AASDASD");
 
                 bean.setCityDA(cityDA);
+                System.out.println("AASDASDASD");
+
                 bean.setCountryDA(countryDA);
+                System.out.println("WE1A");
+
                 bean.setPostalCodeDA(postalcodeDA);
+                System.out.println("A123");
+
                 bean.setStreetDA(streetDA);
+                System.out.println("312312A");
+
                 bean.setSubdivisionDA(subdivisionDA);
+                System.out.println("AASDAS");
 
                 bean.setCustomer_accountID(customer_accountID);
+                System.out.println("A123ADSA");
+
                 bean.setCustomerID(customerID1);
+                System.out.println("AINAL");
 
             }
 
             connection.close();
             return bean;
-
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -460,7 +485,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             while (rs.next()) {
 
                 bean = new ReviewBean();
-                
+
                 reviewID = rs.getInt("reviewID");
                 review_productID = rs.getInt("review_productID");
                 review_customerID = rs.getInt("review_customerID");
@@ -553,9 +578,9 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             double price;
 
             while (rs.next()) {
-                
+
                 bean = new ProductOrderBean();
-                
+
                 productorder_shoppingcartID = rs.getInt("productorder_shoppingcartID");
                 productorder_productID = rs.getInt("productorder_productID");
                 quantity = rs.getInt("quantity");
@@ -579,6 +604,53 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<ReviewBean> getReviewsByProductID(int productid) {
+
+        try {
+            String query = "select * from review where review_productID = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, productid);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ReviewBean> list = new ArrayList<ReviewBean>();
+            ReviewBean bean = new ReviewBean();
+            int reviewID, review_productID, review_customerID;
+            String reviewString;
+
+            while (rs.next()) {
+
+                bean = new ReviewBean();
+
+                reviewID = rs.getInt("reviewID");
+                review_productID = rs.getInt("review_productID");
+                review_customerID = rs.getInt("review_customerID");
+
+                reviewString = rs.getString("reviewString");
+
+                bean.setReviewID(reviewID);
+                bean.setReview_customerID(review_customerID);
+                bean.setReview_productID(review_productID);
+
+                bean.setReview(reviewString);
+
+                list.add(bean);
+
+            }
+
+            connection.close();
+            return list;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
     }
 
 }

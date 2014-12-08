@@ -194,7 +194,27 @@ public class LoginServlet extends HttpServlet {
                 Timestamp time = new Timestamp(date.getTime());
                 log.setTime(time);
 
+                AccountingManagerDAOInterface accountingmanagerdao = new AccountingManagerDAOImplementation();
+                ArrayList<ProductOrderBean> productorderlist = new ArrayList<ProductOrderBean>();
+                ArrayList<ShoppingCartBean> shoppingcartlist = new ArrayList<ShoppingCartBean>();
+
+                productorderlist = accountingmanagerdao.getAllProductOrders();
+                shoppingcartlist = accountingmanagerdao.getAllShoppingCart();
+
+                ArrayList<ProductBean> audiolist = pdao.getProductsByType("Audio CD");
+                ArrayList<ProductBean> booklist = pdao.getProductsByType("Book");
+                ArrayList<ProductBean> dvdlist = pdao.getProductsByType("DVD");
+                ArrayList<ProductBean> magazinelist = pdao.getProductsByType("Magazine");
+
                 if (logdao.addLog(log)) {
+                    session.setAttribute("audiolist", audiolist);
+                    session.setAttribute("booklist", booklist);
+                    session.setAttribute("dvdlist", dvdlist);
+                    session.setAttribute("magazinelist", magazinelist);
+
+                    session.setAttribute("productorderlist", productorderlist);
+                    session.setAttribute("shoppingcartlist", shoppingcartlist);
+
                     session.setAttribute("type", type);
                     session.setAttribute("homeaccounting", account);
                     response.sendRedirect("accountingmanagerHOME.jsp");
@@ -205,7 +225,7 @@ public class LoginServlet extends HttpServlet {
                 out.println(accountdao.doesUserExist(username, password));
                 out.println(account.getAccountType());
                 ctr_try++;
-                AccountDAOImplementation.insertLog(request.getRemoteAddr(), username + " failed to login. Attempt: " +ctr_try, false);
+                AccountDAOImplementation.insertLog(request.getRemoteAddr(), username + " failed to login. Attempt: " + ctr_try, false);
 
                 if (ctr_try != 5) {
                     log.setActivity(username + " Login Attempt:" + ctr_try);
