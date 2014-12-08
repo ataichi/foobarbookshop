@@ -64,6 +64,7 @@ public class ConfirmRestockProductServlet extends HttpServlet {
                     response.sendRedirect("productmanagerHOME.jsp");
                 }
             } else {
+                AccountDAOImplementation.insertLog(request.getRemoteAddr(), restockproduct.getType() + " Manager failed to restock productID: "+restockproduct.getProductID() , false);
                 out.println("not successful");
             }
         }
