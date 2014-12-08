@@ -86,6 +86,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("homeuser", account);
                     session.setAttribute("temporder", temporder);
                     session.setAttribute("tempproductlist", productlist);
+                    session.setMaxInactiveInterval(-1);
                     response.sendRedirect("customerHOME.jsp");
                 }
             } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType()) && !account.getLocked()) {
@@ -129,6 +130,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("type", type);
                     session.setAttribute("productlist", productlist);
                     session.setAttribute("homeproduct", account);
+                    session.setMaxInactiveInterval(600);
                     response.sendRedirect("productmanagerHOME.jsp");
                 }
             } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType()) && !account.getLocked()) {
@@ -150,6 +152,7 @@ public class LoginServlet extends HttpServlet {
                     productlist = pdao.getProductsByType("Audio CD");
                     session.setAttribute("productlist", productlist);
                     session.setAttribute("homeproduct", account);
+                    session.setMaxInactiveInterval(600);
                     response.sendRedirect("productmanagerHOME.jsp");
                 }
             } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType()) && !account.getLocked()) {
@@ -171,6 +174,7 @@ public class LoginServlet extends HttpServlet {
                     productlist = pdao.getProductsByType("DVD");
                     session.setAttribute("productlist", productlist);
                     session.setAttribute("homeproduct", account);
+                    session.setMaxInactiveInterval(600);
                     response.sendRedirect("productmanagerHOME.jsp");
                 }
             } else if (accountdao.doesUserExist(username, password) && "Magazine Manager".equals(account.getAccountType()) && !account.getLocked()) {
@@ -192,6 +196,7 @@ public class LoginServlet extends HttpServlet {
                     productlist = pdao.getProductsByType("Magazine");
                     session.setAttribute("productlist", productlist);
                     session.setAttribute("homeproduct", account);
+                    session.setMaxInactiveInterval(600);
                     response.sendRedirect("productmanagerHOME.jsp");
                 }
             } else if (accountdao.doesUserExist(username, password) && "Accounting Manager".equals(account.getAccountType()) && !account.getLocked()) {
@@ -226,6 +231,7 @@ public class LoginServlet extends HttpServlet {
 
                     session.setAttribute("type", type);
                     session.setAttribute("homeaccounting", account);
+                    session.setMaxInactiveInterval(600);
                     response.sendRedirect("accountingmanagerHOME.jsp");
                 }
             } else if (account.getLocked()) { //locked na talaga yung account
