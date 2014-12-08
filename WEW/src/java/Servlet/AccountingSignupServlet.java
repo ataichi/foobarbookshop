@@ -35,13 +35,14 @@ public class AccountingSignupServlet extends HttpServlet {
             AccountBean account = new AccountBean();
             AccountDAOInterface userdao = new AccountDAOImplementation();
             AdminDAOInterface adao = new AdminDAOImplementation();
+            AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
 
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
             String firstname = request.getParameter("fname");
             String lastname = request.getParameter("lname");
             String mInitial = request.getParameter("mname");
-            String email = request.getParameter("email1");
+            String email = request.getParameter("email");
             String username = request.getParameter("uname");
             String pass1 = request.getParameter("pass1");
             boolean locked = false;
@@ -60,75 +61,72 @@ public class AccountingSignupServlet extends HttpServlet {
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
 
-            log.setLog_accountID(13); // temporary
+            log.setLog_accountID(homeadmin.getAccountID()); // temporary
             log.setTime(time);
             log.setActivity("Add new Accounting Manager " + account.getFirstName());
 
-                boolean addUser = userdao.addAccount(account);
-                if (addUser) {
+            boolean addUser = userdao.addAccount(account);
+
+            if (addUser) {
                 //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                    //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
-                    if (logdao.addLog(log)) {
-                        response.sendRedirect("adminHOME.jsp");
-                    }
-                } else {
-                    response.sendRedirect("signupfail.jsp");
+                //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
+                if (logdao.addLog(log)) {
+                    response.sendRedirect("adminHOME.jsp");
                 }
-                /*
-                 boolean addAccountingManager = adao.addAccountingManager(accountingManager);
-                 if (addUser && addAccountingManager) {
-                 response.sendRedirect("adminHOME.jsp");
-                 //successful
-                 } else {
-                 response.sendRedirect("signupfail.jsp");
-                 }
-                 */
-            }finally {
+            } else {
+                response.sendRedirect("signup_accountingmanager.jsp");
+            }
+            /*
+             boolean addAccountingManager = adao.addAccountingManager(accountingManager);
+             if (addUser && addAccountingManager) {
+             response.sendRedirect("adminHOME.jsp");
+             //successful
+             } else {
+             response.sendRedirect("signupfail.jsp");
+             }
+             */
+        } finally {
             out.close();
         }
-        }
-
-        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-        /**
-         * Handles the HTTP <code>GET</code> method.
-         *
-         * @param request servlet request
-         * @param response servlet response
-         * @throws ServletException if a servlet-specific error occurs
-         * @throws IOException if an I/O error occurs
-         */
-        @Override
-        protected void doGet
-        (HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            processRequest(request, response);
-        }
-
-        /**
-         * Handles the HTTP <code>POST</code> method.
-         *
-         * @param request servlet request
-         * @param response servlet response
-         * @throws ServletException if a servlet-specific error occurs
-         * @throws IOException if an I/O error occurs
-         */
-        @Override
-        protected void doPost
-        (HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            processRequest(request, response);
-        }
-
-        /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
-         */
-        @Override
-        public String getServletInfo
-        
-            () {
-        return "Short description";
-        }// </editor-fold>
-
     }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

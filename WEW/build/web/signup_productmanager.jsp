@@ -120,7 +120,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="pass2">Verify Password</label>
                                             <div class="col-sm-3">
-                                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Verify Password" onblur="passManagerCheck();" onfocus="backWhite(this);" required>
+                                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Verify Password" onblur="verifyPassCheck();" onfocus="backWhite(this);" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
