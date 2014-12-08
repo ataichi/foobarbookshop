@@ -41,7 +41,7 @@ public class ConfirmRestockProductServlet extends HttpServlet {
             ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
             ProductManagerDAOInterface productmanagerdao = new ProductManagerDAOImplementation();
             ProductDAOInterface productdao = new ProductDAOImplementation();
-            AccountBean account = (AccountBean) session.getAttribute("customer");
+            AccountBean account = (AccountBean) session.getAttribute("homeproduct");
 
             int newstocks = Integer.valueOf(request.getParameter("numberstocks"));
 
@@ -52,7 +52,7 @@ public class ConfirmRestockProductServlet extends HttpServlet {
 
             log.setLog_accountID(account.getAccountID());
             log.setTime(time);
-            log.setActivity("Restock Confirm Restock for Product ID ID " + restockproduct.getProductID());
+            log.setActivity("Restock Confirm Restock for Product ID " + restockproduct.getProductID());
 
             out.println(newstocks);
             boolean checkRestock = productmanagerdao.restockProduct(newstocks, restockproduct.getProductID());
@@ -64,8 +64,7 @@ public class ConfirmRestockProductServlet extends HttpServlet {
                     response.sendRedirect("productmanagerHOME.jsp");
                 }
             } else {
-                AccountDAOImplementation.insertLog(request.getRemoteAddr(), restockproduct.getType() + " Manager failed to restock productID: "+restockproduct.getProductID() , false);
-                out.println("not successful");
+                response.sendRedirect("restockproduct.jsp");
             }
         }
     }
