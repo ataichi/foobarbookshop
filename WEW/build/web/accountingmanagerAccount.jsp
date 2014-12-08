@@ -93,22 +93,22 @@
                                     <label class="control-label col-lg-4" for="uname">Username</label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" placeholder="Enter Username" id='uname' type='text' name="uname" value='<% out.println(homeaccounting.getUsername()); %>' onblur='unameManagerCheck();' onfocus='backWhite(this);' required>
-                                               </div>
-                                               </div>
-                                               <div class="form-group">
-                                               <label class="control-label col-lg-4" for="email">Email</label>
-                                        <div class="col-sm-3">
-                                            <input type="email" class="form-control" placeholder="Enter Email" id='email' type='email' name="email" value='<% out.println(homeaccounting.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);' required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-primary btn-lg center-block">Edit Account</button>
-                                    </div>
-                                    <div class="form-group">
-                                        <a href='accountingmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" for="email">Email</label>
+                                    <div class="col-sm-3">
+                                        <input type="email" class="form-control" placeholder="Enter Email" id='email' type='email' name="email" value='<% out.println(homeaccounting.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);' required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg center-block">Edit Account</button>
+                                </div>
+                            </div>
                         </form>
+                        <div class="form-group">
+                            <a href='accountingmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                        </div>
                     </div>
                 </div>
 

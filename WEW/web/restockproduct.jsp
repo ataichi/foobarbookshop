@@ -50,7 +50,6 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span>Address</a></li>
-                                <li><a href="customerPayments.jsp"><span class="glyphicon glyphicon-edit"></span>Credit Card</a></li>
                                 <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                                 <li><a href="customerTransactions.jsp"><span class="glyphicon glyphicon-usd"></span> View Transactions</a></li>
                             </ul>
@@ -87,15 +86,16 @@
                                         <input type="text" class="form-control" id="numberstocks" name="numberstocks" placeholder="Enter Number" onfocus="backWhite(this);" value="<% out.println(restockproduct.getNumberStocks());%>">
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg center-block">Restock</button></a>
+                                </div>
                             </div>
                         </form>
                         <div class="form-group">
-                            <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Restock</button></a>
+                            <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
