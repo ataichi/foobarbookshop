@@ -2,6 +2,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+    if (homeproduct == null) {
+        response.sendRedirect("login.jsp");
+    } else {
 
 %>
 <!DOCTYPE html>
@@ -140,3 +143,4 @@
         </script>
     </body>
 </html>
+<%}%>

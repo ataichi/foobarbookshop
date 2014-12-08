@@ -6,6 +6,9 @@
 <!DOCTYPE html>
 <%
     AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
+     if (homeadmin == null) {
+        response.sendRedirect("login.jsp");
+    } else {
     ArrayList<LogBean> loglist = (ArrayList<LogBean>) session.getAttribute("loglist");
 %>
 
@@ -116,3 +119,4 @@
 
     </body>
 </html>
+<%}%>

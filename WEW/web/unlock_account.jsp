@@ -7,6 +7,9 @@
 
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
+     if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    } else {
     AccountDAOImplementation adao = new AccountDAOImplementation();
     ArrayList<AccountBean> accountlist = adao.getAllLockedAccounts();
 %>
@@ -117,3 +120,4 @@
 
     </body>
 </html>
+<%}%>
