@@ -39,7 +39,7 @@ public class ProductManagerSignupServlet extends HttpServlet {
             account.setLastName(request.getParameter("lname"));
             account.setMiddleInitial(request.getParameter("mname"));
             account.setPassword(request.getParameter("pass1"));
-            account.setEmailAdd(request.getParameter("email1"));
+            account.setEmailAdd(request.getParameter("email"));
             account.setUsername(request.getParameter("uname"));
             //account.setAccountType("product manager");
             account.setAccountType(request.getParameter("prodType") + " Manager");

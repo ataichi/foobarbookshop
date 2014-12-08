@@ -97,7 +97,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("homeadmin", account);
                     out.println(time);
 
-                    //     response.sendRedirect("adminHOME.jsp");
+                    response.sendRedirect("adminHOME.jsp");
                 }
 
             } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType()) && !account.getLocked()) {
