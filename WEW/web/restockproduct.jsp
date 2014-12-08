@@ -10,9 +10,6 @@
 <%
     ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-    if (homeproduct == null) {
-        response.sendRedirect("login.jsp");
-    } else {
 
 %>
 <!DOCTYPE html>
@@ -96,10 +93,10 @@
                         </form>
                         <div class="form-group">
                             <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
 
         <script src="dist/js/jquery-2.1.0.min.js"></script>
@@ -107,4 +104,3 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
-<%}%>

@@ -1,10 +1,5 @@
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    if (session.getAttribute("homeadmin") == null) {
-        response.sendRedirect("login.jsp");
-    } else {
-%>
 
 <!DOCTYPE html>
 <html>
@@ -94,4 +89,3 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
-<%}%>

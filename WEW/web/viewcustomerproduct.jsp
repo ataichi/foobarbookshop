@@ -18,9 +18,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-     if (homeuser == null) {
-        response.sendRedirect("login.jsp");
-    } else {
     ProductBean productBean = (ProductBean) session.getAttribute("viewcustomerproduct");
 
     ProductDAOImplementation pdao = new ProductDAOImplementation();
@@ -169,4 +166,3 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
-<%}%>

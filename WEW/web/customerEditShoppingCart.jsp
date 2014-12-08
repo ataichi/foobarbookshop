@@ -9,9 +9,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-     if (homeuser == null) {
-        response.sendRedirect("login.jsp");
-    } else {
     ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
     ProductOrderBean tempproductorder = (ProductOrderBean) session.getAttribute("tempproductorder");
 %>
@@ -116,4 +113,3 @@
 
                 </body>
                 </html>
-<%}%>

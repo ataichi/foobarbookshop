@@ -8,9 +8,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-    if (homeuser == null) {
-        response.sendRedirect("login.jsp");
-    }else{
 
     ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
     ArrayList<ProductOrderBean> finalproductorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("finalproductorderlist");
@@ -125,4 +122,3 @@
 
     </body>
 </html>
-<%}%>

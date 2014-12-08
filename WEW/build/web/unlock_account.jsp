@@ -96,7 +96,7 @@
                                         out.println("<tr><td>" + lockedAccounts.get(i).getFirstName() + "</td>"
                                                 + "<td>" + lockedAccounts.get(i).getLastName() + "</td>"
                                                 + "<td>" + lockedAccounts.get(i).getUsername() + "</td>"
-                                                + "<td>" + lockreportlist.get(i).getEmailaddress() + "</td>"
+                                                + "<td>" + lockreportlist.get(i).getEmailAddress() + "</td>"
                                                 + "<td>" + lockedAccounts.get(i).getAccountType() + "</td>"
                                                 + "<td>" + lockreportlist.get(i).getReason() + "</td>"
                                                 + "<td><form action='UnlockAccountServlet'>"

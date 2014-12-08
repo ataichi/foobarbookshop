@@ -37,7 +37,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-            String searchstring = AccountDAOImplementation.inputSanitizer(request.getParameter("srch-term"));
+            String searchstring = request.getParameter("srch-term");
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ArrayList<ProductBean> searchproductlist = new ArrayList<ProductBean>();
             ArrayList<AudioCDBean> searchaudiocdlist = new ArrayList<AudioCDBean>();

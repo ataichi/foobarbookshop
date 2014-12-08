@@ -225,7 +225,7 @@ function countryBACheck() {
 
 function postalcodeBACheck() {
     var postalcodeBA = document.forms["customercheck"]["postalcodeBA"].value;
-    if (postalcodeBA == "" || postalcodeBA == null || !(/^[0-9]{2,20}$/.test(postalcodeBA))) { //kulang pa ng pag check kung digit
+    if (postalcodeBA == "" || postalcodeBA == null || !(/^(?:[0-9]\d{3})$/.test(postalcodeBA))) { //kulang pa ng pag check kung digit
         document.forms["customercheck"]["postalcodeBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -295,7 +295,7 @@ function countryDACheck() {
 
 function postalcodeDACheck() {
     var postalcodeDA = document.forms["customercheck"]["postalcodeDA"].value;
-    if (postalcodeDA == "" || postalcodeDA == null || !(/^[0-9]{2,20}$/.test(postalcodeDA))) { //kulang pa ng pag check kung digit
+    if (postalcodeDA == "" || postalcodeDA == null || !(/^(?:[0-9]\d{3})$/.test(postalcodeDA))) { //kulang pa ng pag check kung digit
         document.forms["customercheck"]["postalcodeDA"].style.backgroundColor = "pink";
         return false;
     }

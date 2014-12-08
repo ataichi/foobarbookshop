@@ -25,9 +25,6 @@
 
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-     if (homeproduct == null) {
-        response.sendRedirect("login.jsp");
-    } else {
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
     ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
 
@@ -174,4 +171,3 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
-<%}%>

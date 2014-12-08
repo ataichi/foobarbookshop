@@ -6,20 +6,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
-    if (account == null) {
-        response.sendRedirect("login.jsp");
-    } else {
+    ArrayList<ProductOrderBean> productorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("productorderlist");
+    ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
 
-        ArrayList<ProductOrderBean> productorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("productorderlist");
-        ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
+    ArrayList<ProductBean> audiolist = (ArrayList<ProductBean>) session.getAttribute("audiolist");
+    ArrayList<ProductBean> booklist = (ArrayList<ProductBean>) session.getAttribute("booklist");
+    ArrayList<ProductBean> dvdlist = (ArrayList<ProductBean>) session.getAttribute("dvdlist");
+    ArrayList<ProductBean> magazinelist = (ArrayList<ProductBean>) session.getAttribute("magazinelist");
 
-        ArrayList<ProductBean> audiolist = (ArrayList<ProductBean>) session.getAttribute("audiolist");
-        ArrayList<ProductBean> booklist = (ArrayList<ProductBean>) session.getAttribute("booklist");
-        ArrayList<ProductBean> dvdlist = (ArrayList<ProductBean>) session.getAttribute("dvdlist");
-        ArrayList<ProductBean> magazinelist = (ArrayList<ProductBean>) session.getAttribute("magazinelist");
-
-        double finalsales = 0;
-        double sales = 0;
+    double finalsales = 0;
+    double sales = 0;
 
 %>
 <!DOCTYPE html>
@@ -292,14 +288,14 @@
                       //     + productlist.get(i).getYear()
                       //     + "</td></tr>");
                       // }
-        %>
+%>
                                                                                                                                                                                                         </tbody>
                                                                                                                                                                                                         </table>
                                                                                                                                                                                                         </div>
                                                                                                                                                                                                         </div>-->
 
         <script>
-            var randomScalingFactor = function () {
+            var randomScalingFactor = function() {
                 return Math.round(Math.random() * 100)
             };
 
@@ -316,7 +312,7 @@
                 ]
 
             }
-            window.onload = function () {
+            window.onload = function() {
                 var ctx = document.getElementById("canvas").getContext("2d");
                 window.myBar = new Chart(ctx).Bar(barChartData, {
                     responsive: true
@@ -344,4 +340,3 @@
 
     </body>
 </html>
-<%}%>

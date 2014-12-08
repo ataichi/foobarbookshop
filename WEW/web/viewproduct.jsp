@@ -10,20 +10,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeuser");
-    if (account == null) {
-        response.sendRedirect("login.jsp");
-    } else {
 
-        ProductBean productBean = (ProductBean) session.getAttribute("viewproduct");
+    ProductBean productBean = (ProductBean) session.getAttribute("viewproduct");
 
-        AudioCDBean audiocdbean = (AudioCDBean) session.getAttribute("viewaudiocd");
-        BookBean bookbean = (BookBean) session.getAttribute("viewbook");
-        DVDBean dvdbean = (DVDBean) session.getAttribute("viewdvd");
-        MagazineBean magbean = (MagazineBean) session.getAttribute("viewmagazine");
+    AudioCDBean audiocdbean = (AudioCDBean) session.getAttribute("viewaudiocd");
+    BookBean bookbean = (BookBean) session.getAttribute("viewbook");
+    DVDBean dvdbean = (DVDBean) session.getAttribute("viewdvd");
+    MagazineBean magbean = (MagazineBean) session.getAttribute("viewmagazine");
 
-        ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
-        ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
-        ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+    ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+    ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+    ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
 
 %>
 
@@ -154,7 +151,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Reviews</h3>
-                    </div>   
+                    </div>
                     <div class="panel-body">
                         <%
                             for (int i = 0; i < reviews.size(); i++) {
@@ -184,4 +181,3 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
-<%}%>

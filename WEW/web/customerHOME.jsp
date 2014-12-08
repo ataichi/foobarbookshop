@@ -14,10 +14,10 @@
     ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
 
     ProductDAOImplementation pdao = new ProductDAOImplementation();
-    ArrayList<ProductBean> booklist = (ArrayList<ProductBean>) session.getAttribute("booklist");
-    ArrayList<ProductBean> maglist = (ArrayList<ProductBean>) session.getAttribute("maglist");
-    ArrayList<ProductBean> dvdlist = (ArrayList<ProductBean>) session.getAttribute("dvdlist");
-    ArrayList<ProductBean> cdlist = (ArrayList<ProductBean>) session.getAttribute("cdlist");
+    ArrayList<ProductBean> booklist = pdao.getAllProductsByType("Book");
+    ArrayList<ProductBean> maglist = pdao.getAllProductsByType("Magazine");
+    ArrayList<ProductBean> dvdlist = pdao.getAllProductsByType("DVD");
+    ArrayList<ProductBean> cdlist = pdao.getAllProductsByType("Audio CD");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
