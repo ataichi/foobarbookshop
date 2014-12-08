@@ -19,7 +19,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-        <script src="js/customercheck.js" type="text/javascript"></script>
+        <script src="js/editadmincheck.js" type="text/javascript"></script>
 
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
@@ -100,13 +100,13 @@
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="lname">Last Name</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" id='editlast' name='editlast' value='<% out.println(homeuser.getLastName()); %>' onblur='lnameAdminCheck();' onfocus='backWhite(this);'>
+                                                <input type="text" class="form-control" id="editlast" name="editlast" placeholder="Enter Last Name" id='editlast' name='editlast' value='<% out.println(homeuser.getLastName()); %>' onblur='lnameAdminCheck();' onfocus='backWhite(this);'>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="uname">Username</label>
                                             <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" id='edituser' name="edituser" value='<% out.println(homeuser.getUsername()); %>' onblur='unameAdminCheck();' onfocus='backWhite(this);'>
+                                                <input type="text" class="form-control" id="edituser" name="edituser" placeholder="Enter Username" id='edituser' name="edituser" value='<% out.println(homeuser.getUsername()); %>' onblur='unameAdminCheck();' onfocus='backWhite(this);'>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -121,7 +121,7 @@
                                     </div>
                                 </form>
                                 <div class="form-group">
-                                    <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                                    <a href='adminHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
                                 </div>
                             </div>
                         </div>

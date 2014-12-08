@@ -15,11 +15,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@WebServlet(name = "EditAdminAccountServlet", urlPatterns = {"/EditAdminAccountServlet"})
 public class EditAdminAccountServlet extends HttpServlet {
 
     /**
@@ -36,6 +38,7 @@ public class EditAdminAccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            out.println("here");
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeadmin");
 
@@ -45,35 +48,12 @@ public class EditAdminAccountServlet extends HttpServlet {
             AccountBean bean = new AccountBean();
             String firstName, lastName, middleInitial, username, emailAdd;
 
-            if (request.getParameter("editfirst").isEmpty()) {
-                firstName = account.getFirstName();
-            } else {
-                firstName = request.getParameter("editfirst");
-            }
+            firstName = request.getParameter("editfirst");
+            lastName = request.getParameter("editlast");
+            middleInitial = request.getParameter("editmiddle");
+            username = request.getParameter("edituser");
+            emailAdd = request.getParameter("editemail");
 
-            if (request.getParameter("editlast").isEmpty()) {
-                lastName = account.getLastName();
-            } else {
-                lastName = request.getParameter("editlast");
-            }
-
-            if (request.getParameter("editmiddle").isEmpty()) {
-                middleInitial = account.getMiddleInitial();
-            } else {
-                middleInitial = request.getParameter("editmiddle");
-            }
-
-            if (request.getParameter("edituser").isEmpty()) {
-                username = account.getUsername();
-            } else {
-                username = request.getParameter("edituser");
-            }
-
-            if (request.getParameter("editemail").isEmpty()) {
-                emailAdd = account.getEmailAdd();
-            } else {
-                emailAdd = request.getParameter("editemail");
-            }
             boolean locked = false;
             String password = account.getPassword();
             int id = account.getAccountID();
@@ -86,7 +66,7 @@ public class EditAdminAccountServlet extends HttpServlet {
             bean.setEmailAdd(emailAdd);
             bean.setLocked(locked);
             bean.setPassword(password);
-            bean.setAccountType("admin");
+            bean.setAccountType("Admin");
 
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
@@ -96,16 +76,18 @@ public class EditAdminAccountServlet extends HttpServlet {
             log.setActivity("Edit Admin Account ID " + account.getAccountID());
 
             boolean edit = accountdao.updateAccount(bean);
-            if (edit) {
-                if (logdao.addLog(log)) {
-                    session.setAttribute("homeadmin", bean);
-                    response.sendRedirect("adminHOME.jsp");
-                }
-            } else {
-                session.setAttribute("homeadmin", bean);
-                response.sendRedirect("adminAccount.jsp");
-            }
-
+            //out.println(edit);
+            
+             if (edit) {
+             if (logdao.addLog(log)) {
+             session.setAttribute("homeadmin", bean);
+             response.sendRedirect("adminHOME.jsp");
+             }
+             } else {
+             session.setAttribute("homeadmin", bean);
+             response.sendRedirect("adminAccount.jsp");
+             }
+             
         }
     }
 
