@@ -153,6 +153,18 @@ function checkcurrentpass(){
         return true;
     }
 }
+
+function admincheckcurrentpass(){
+        var pass1 = document.forms["admincheck"]["currpass"].value;
+     if (pass1 == "" || pass1 == null) {
+        document.forms["admincheck"]["currpass"].style.backgroundColor = "pink";
+        return false;
+    }
+    else {
+        document.forms["admincheck"]["currpass"].style.backgroundColor = "white";
+        return true;
+    }
+}
 function apartmentnoBACheck() {
     var aptnoBA = document.forms["customercheck"]["apartmentnoBA"].value;
     if (aptnoBA == "" || aptnoBA == null ) { //|| !(/^[A-z ]+$/.test(aptnoBA))

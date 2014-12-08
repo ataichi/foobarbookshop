@@ -66,12 +66,12 @@ public class AddProductServlet extends HttpServlet {
             int year, numberStocks;
 
             type = prodType;
-            title = request.getParameter("productTitle");
-            summary = request.getParameter("productSummary");
-            genre = request.getParameter("productGenre");
+            title = AccountDAOImplementation.inputSanitizer(request.getParameter("productTitle"));
+            summary = AccountDAOImplementation.inputSanitizer(request.getParameter("productSummary"));
+            genre = AccountDAOImplementation.inputSanitizer(request.getParameter("productGenre"));
             price = Double.parseDouble(request.getParameter("productPrice"));
-            year = Integer.parseInt(request.getParameter("productYear"));
-            numberStocks = Integer.parseInt(request.getParameter("productStocks"));
+            year = Integer.parseInt(AccountDAOImplementation.inputSanitizer(request.getParameter("productYear")));
+            numberStocks = Integer.parseInt(AccountDAOImplementation.inputSanitizer(request.getParameter("productStocks")));
 
             product.setGenre(genre);
             product.setNumberStocks(numberStocks);

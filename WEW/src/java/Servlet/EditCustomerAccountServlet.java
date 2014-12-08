@@ -69,10 +69,10 @@ public class EditCustomerAccountServlet extends HttpServlet {
 
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             bean.setAccountID(id);
-            bean.setFirstName(firstName);
-            bean.setLastName(lastName);
+            bean.setFirstName(AccountDAOImplementation.inputSanitizer(firstName));
+            bean.setLastName(AccountDAOImplementation.inputSanitizer(lastName));
             bean.setMiddleInitial(middleInitial);
-            bean.setUsername(username);
+            bean.setUsername(AccountDAOImplementation.inputSanitizer(username));
             bean.setEmailAdd(emailAdd);
             bean.setLocked(locked);
             bean.setAccountType("Customer");

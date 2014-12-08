@@ -56,12 +56,12 @@ public class FinalEditProductServlet extends HttpServlet {
             int year, numberStocks;
 
             type = editproduct.getType();
-            title = request.getParameter("productTitle");
-            summary = request.getParameter("productSummary");
-            genre = request.getParameter("productGenre");
+            title = AccountDAOImplementation.inputSanitizer(request.getParameter("productTitle"));
+            summary = AccountDAOImplementation.inputSanitizer(request.getParameter("productSummary"));
+            genre = AccountDAOImplementation.inputSanitizer(request.getParameter("productGenre"));
             price = Double.parseDouble(request.getParameter("productPrice"));
-            year = Integer.parseInt(request.getParameter("productYear"));
-            numberStocks = Integer.parseInt(request.getParameter("productStocks"));
+            year = Integer.parseInt(AccountDAOImplementation.inputSanitizer(request.getParameter("productYear")));
+            numberStocks = Integer.parseInt(AccountDAOImplementation.inputSanitizer(request.getParameter("productStocks")));
 
             editproduct.setTitle(title);
             editproduct.setSummary(summary);
@@ -239,6 +239,7 @@ public class FinalEditProductServlet extends HttpServlet {
                         response.sendRedirect("productmanagerHOME.jsp");
                     }
                 } else {
+                    AccountDAOImplementation.insertLog(request.getRemoteAddr(), type + " Manager failed to edit a product." , false);
                     out.println("fail");
                 }
 

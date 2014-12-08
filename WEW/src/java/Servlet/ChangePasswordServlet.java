@@ -67,13 +67,13 @@ public class ChangePasswordServlet extends HttpServlet {
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
-            String password1 = request.getParameter("password1");
+            String currpass = request.getParameter("currpass");
 
             // hash password here
-            String password2 = request.getParameter("password2");
-            String password3 = request.getParameter("password3");
+            String pass1 = request.getParameter("pass1");
+            String pass2 = request.getParameter("pass2");
 
-            boolean changepassword = accountdao.changePassword(account.getAccountID(), password3);
+            boolean changepassword = accountdao.changePassword(account.getAccountID(), pass2);
 
             if (changepassword) {
                 java.util.Date date = new java.util.Date();
@@ -91,7 +91,7 @@ public class ChangePasswordServlet extends HttpServlet {
                     account.setLocked(false);
                     account.setMiddleInitial(account.getMiddleInitial());
                     // hashed value of password dapat
-                    account.setPassword(password3);
+                    account.setPassword(pass2);
                     account.setUsername(account.getUsername());
 
                     if (type.equals("Customer")) {

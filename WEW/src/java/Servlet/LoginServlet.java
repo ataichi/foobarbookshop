@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             hash.updateHash(password, "UTF-8");
-            password = hash.getHashBASE64();
+            //  password = hash.getHashBASE64();
 
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             account = accountdao.getUserByUsername(username);
@@ -205,6 +205,7 @@ public class LoginServlet extends HttpServlet {
                 out.println(accountdao.doesUserExist(username, password));
                 out.println(account.getAccountType());
                 ctr_try++;
+                AccountDAOImplementation.insertLog(request.getRemoteAddr(), username + " failed to login. Attempt: " +ctr_try, false);
 
                 if (ctr_try != 5) {
                     log.setActivity(username + " Login Attempt:" + ctr_try);
