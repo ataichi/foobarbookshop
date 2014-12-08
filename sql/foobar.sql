@@ -195,6 +195,35 @@ LOCK TABLES `error_logs` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `lockreport`
+--
+
+CREATE TABLE `foobar`.`lockreport` (
+  `lockreportID` INT NOT NULL AUTO_INCREMENT,
+  `lockreport_accountID` INT NOT NULL,
+  `reason` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`lockreportID`),
+  INDEX `lockreport_accountID_idx` (`lockreport_accountID` ASC),
+  CONSTRAINT `lockreport_accountID`
+    FOREIGN KEY (`lockreport_accountID`)
+    REFERENCES `foobar`.`account` (`accountID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+--
+-- Dumping data for table `lockreport`
+--
+
+LOCK TABLES `lockreport` WRITE;
+/*!40000 ALTER TABLE `lockreport` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lockreport` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `magazine`
+--
+
+--
 -- Table structure for table `logs`
 --
 
