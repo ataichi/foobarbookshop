@@ -105,10 +105,16 @@
                 <%
                     // insert shopping cart here!
                     out.println("<form action='ConfirmCreditCardServlet' method='post'>"
+                            + "Credit Card Name"
+                            + "<input type='text' name'cardName'/>"
+                            + "<br/>"
                             + "Credit Card ID"
-                            + "<input type='text' name='creditcardid'/>"
+                            + "<input type='text' name='cardNo'/>"
                             + "<br/>Expiration Date:"
-                            + "<input type='date' name='expirationdate'/>"
+                            + "<input type='date' name='cardExpDate'/>"
+                            + "<br/>"
+                            + "Card Type"
+                            + "<input type='text' name='cardType'/>"
                             + "<br/>"
                             + "<input type='submit' value='Submit' name='action'/>"
                             + "</form>");

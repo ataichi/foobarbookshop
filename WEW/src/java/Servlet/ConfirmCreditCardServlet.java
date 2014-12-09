@@ -46,6 +46,8 @@ public class ConfirmCreditCardServlet extends HttpServlet {
                 session.setAttribute("temporder", orderlist);
                 session.setAttribute("shoppingcart", cartbean);
                 session.setAttribute("homeuser", homeuser);
+                // add log
+                
                 response.sendRedirect("customerProceed.jsp");
             } else {
                 response.sendRedirect("customerPayments.jsp");
