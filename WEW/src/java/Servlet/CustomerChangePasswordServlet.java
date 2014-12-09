@@ -61,7 +61,7 @@ public class CustomerChangePasswordServlet extends HttpServlet {
             try {
                 checkhash = new Hasher("MD5");
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CustomerChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             checkhash.updateHash(currpass, "UTF-8");
             currpass = checkhash.getHashBASE64();
