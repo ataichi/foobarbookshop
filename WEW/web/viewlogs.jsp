@@ -6,14 +6,26 @@
 <!DOCTYPE html>
 <%
     AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
-	if(homeadmin==null){
-	response.sendRedirect("login.jsp");
-	}else{
-    ArrayList<LogBean> loglist = (ArrayList<LogBean>) session.getAttribute("loglist");
+    if (homeadmin == null) {
+        response.sendRedirect("login.jsp");
+    } else {
+        ArrayList<LogBean> loglist = (ArrayList<LogBean>) session.getAttribute("loglist");
 %>
 
 <html>
     <head>
+        <% response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -78,7 +90,7 @@
                             </div>
                             <div class="panel-body">
                                 <%
-                                   out.println("<div class='table-responsive'>"
+                                    out.println("<div class='table-responsive'>"
                                             + "<table class='table table-striped'>"
                                             + "<thead><tr>"
                                             + "<th>Time</th>"
@@ -99,7 +111,7 @@
                                                 + "</td>"
                                                 + "</tr>");
                                     }
-                                   out.println(""
+                                    out.println(""
                                             + "</tbody></table></div>");
                                 %>
                             </div>

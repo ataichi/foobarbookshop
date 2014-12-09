@@ -6,6 +6,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <% response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
@@ -60,24 +72,23 @@
                 </div>
             </div>
             <div class="row" style="padding-left: 150px;">
-              
-                         <%
-                            out.println("  <form class='col-md-4' id='logform' name='login' onsubmit='return logcheck();' method='post' action='LoginServlet'>"
-                                    + "<div class='form-group'>"
-                                    + "<input id='loguser' name='loguser' onblur='usernameCheck();' onfocus='backWhite(this);' type='text' class='form-control input-lg' placeholder='Username'>"
-                                    + "<input type='hidden' name='ctr_try' value='"+ctr_try+"'/>"
-                                    + "</div>"
-                                    + "<div class='form-group'>"
-                                    + "<input id='logpass' name='logpass' onblur='passwordCheck();' onfocus='backWhite(this);' type='password' class='form-control input-lg' placeholder='Password'/>"
-                                    + "</div>"
-                                    + "<div class='form-group'>"
-                                    + "<button class='btn btn-primary btn-lg btn-block'> Sign In </button>"
-                                    + "<span class='pull-right'><a href='signup.jsp'> New Registration</a></span>"
-                                    + "</div>"
-                                    + "</form>"
-                            
-                            );
-                        %>
+
+                <%
+                    out.println("  <form class='col-md-4' id='logform' name='login' onsubmit='return logcheck();' method='post' action='LoginServlet'>"
+                            + "<div class='form-group'>"
+                            + "<input id='loguser' name='loguser' onblur='usernameCheck();' onfocus='backWhite(this);' type='text' class='form-control input-lg' placeholder='Username'>"
+                            + "<input type='hidden' name='ctr_try' value='" + ctr_try + "'/>"
+                            + "</div>"
+                            + "<div class='form-group'>"
+                            + "<input id='logpass' name='logpass' onblur='passwordCheck();' onfocus='backWhite(this);' type='password' class='form-control input-lg' placeholder='Password'/>"
+                            + "</div>"
+                            + "<div class='form-group'>"
+                            + "<button class='btn btn-primary btn-lg btn-block'> Sign In </button>"
+                            + "<span class='pull-right'><a href='signup.jsp'> New Registration</a></span>"
+                            + "</div>"
+                            + "</form>"
+                    );
+                %>
             </div>
         </div>
         <script src="dist/js/jquery-2.1.0.min.js"></script>

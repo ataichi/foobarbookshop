@@ -2,13 +2,25 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeaccounting = (AccountBean) session.getAttribute("homeaccounting");
-	  if (homeaccounting == null) {
-       response.sendRedirect("login.jsp");
-    } 
+    if (homeaccounting == null) {
+        response.sendRedirect("login.jsp");
+    } else {
 %>
 <!DOCTYPE html>
 <html>
     <head>
+        <%
+            response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +28,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-		 <script src="js/customercheck.js" type="text/javascript"></script>
+        <script src="js/customercheck.js" type="text/javascript"></script>
         <script src="js/managercheck.js" type="text/javascript"></script>
         <link href="css/wadesign.css" rel="stylesheet">
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -78,26 +90,26 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="fname">First Name</label>
                                     <div class="col-sm-3">
-               <input type="text" class="form-control" placeholder="Enter First Name" id='first' name='first' value='<% out.println(homeaccounting.getFirstName()); %>' onblur='fnameManagerCheck();' onfocus='backWhite(this);' required>
-                                       </div>
+                                        <input type="text" class="form-control" placeholder="Enter First Name" id='first' name='first' value='<% out.println(homeaccounting.getFirstName()); %>' onblur='fnameManagerCheck();' onfocus='backWhite(this);' required>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">Middle Initial</label>
                                     <div class="col-sm-3">
-                  <input type="text" class="form-control" placeholder="Enter Middle Initial" id='middle' name='middle' value='<% out.println(homeaccounting.getMiddleInitial()); %>' onblur='mnameManagerCheck();' onfocus='backWhite(this)' required>
-                                                  </div>
+                                        <input type="text" class="form-control" placeholder="Enter Middle Initial" id='middle' name='middle' value='<% out.println(homeaccounting.getMiddleInitial()); %>' onblur='mnameManagerCheck();' onfocus='backWhite(this)' required>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="lname">Last Name</label>
                                     <div class="col-sm-3">
-                                             <input type="text" class="form-control" placeholder="Enter Last Name" id='last' type='text' name="last" value='<% out.println(homeaccounting.getLastName()); %>' onblur='lnameManagerCheck();' onfocus='backWhite(this);' required>
-                                </div>
+                                        <input type="text" class="form-control" placeholder="Enter Last Name" id='last' type='text' name="last" value='<% out.println(homeaccounting.getLastName()); %>' onblur='lnameManagerCheck();' onfocus='backWhite(this);' required>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="uname">Username</label>
                                     <div class="col-sm-3">
-                                             <input type="text" class="form-control" placeholder="Enter Username" id='user' type='text' name="user" value='<% out.println(homeaccounting.getUsername()); %>' onblur='unameManagerCheck();' onfocus='backWhite(this);' required>
-                                         </div>
+                                        <input type="text" class="form-control" placeholder="Enter Username" id='user' type='text' name="user" value='<% out.println(homeaccounting.getUsername()); %>' onblur='unameManagerCheck();' onfocus='backWhite(this);' required>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="email">Email</label>
@@ -125,3 +137,4 @@
 
     </body>
 </html>
+<%}%>

@@ -7,24 +7,35 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
-	if(account==null){
-	response.sendRedirect("login.jsp");
-	}else{
-    ArrayList<ProductOrderBean> productorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("productorderlist");
-    ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
+    if (account == null) {
+        response.sendRedirect("login.jsp");
+    } else {
+        ArrayList<ProductOrderBean> productorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("productorderlist");
+        ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
 
-    ArrayList<ProductBean> audiolist = (ArrayList<ProductBean>) session.getAttribute("audiolist");
-    ArrayList<ProductBean> booklist = (ArrayList<ProductBean>) session.getAttribute("booklist");
-    ArrayList<ProductBean> dvdlist = (ArrayList<ProductBean>) session.getAttribute("dvdlist");
-    ArrayList<ProductBean> magazinelist = (ArrayList<ProductBean>) session.getAttribute("magazinelist");
+        ArrayList<ProductBean> audiolist = (ArrayList<ProductBean>) session.getAttribute("audiolist");
+        ArrayList<ProductBean> booklist = (ArrayList<ProductBean>) session.getAttribute("booklist");
+        ArrayList<ProductBean> dvdlist = (ArrayList<ProductBean>) session.getAttribute("dvdlist");
+        ArrayList<ProductBean> magazinelist = (ArrayList<ProductBean>) session.getAttribute("magazinelist");
 
-    double finalsales = 0;
-    double sales = 0;
+        double finalsales = 0;
+        double sales = 0;
 
 %>
 <!DOCTYPE html>
 <html >
     <head>
+        <%                    response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -141,7 +152,7 @@
 
                                                     /*
                                                      int a;
-														for (a = 0; a < booklist.size(); a++) {
+                                                     for (a = 0; a < booklist.size(); a++) {
                                                      out.println("<div class='col-md-3'>"
                                                      + "<center>"
                                                      + "<div><strong>" + booklist.get(a).getTitle() + "</strong></div>"

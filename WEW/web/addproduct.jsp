@@ -2,16 +2,29 @@
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
 <%@page import="Beans.AccountBean"%>
 <%
-       AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+    AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
     if (homeproduct == null) {
         response.sendRedirect("login.jsp");
-    }else{  String accountType = homeproduct.getAccountType();
-    String productType = null;
+    } else {
+        String accountType = homeproduct.getAccountType();
+        String productType = null;
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <%
+            response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -84,7 +97,7 @@
                             <h3 class="panel-title">Add <% out.println(productType); %></h3>
                         </div>
                         <div class="panel-body">
-                            
+
                             <form class="form-horizontal" role="form" name="productcheck" id="productcheck" action='AddProductServlet' onsubmit="return productcheck(this)"  method="post">
                                 <div>
                                     <div class="form-group">
