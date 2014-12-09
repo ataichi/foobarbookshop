@@ -1,10 +1,8 @@
-<%-- 
-    Document   : viewcustomerproduct
-    Created on : Dec 7, 2014, 1:06:58 PM
-    Author     : Danica
---%>
-
+<%@page import="Beans.ReviewBean"%>
+<%@page import="Beans.CustomerBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Beans.MagazineBean"%>
+%@page import="Beans.MagazineBean"%>
 <%@page import="DAO.Implementation.MagazineManagerDAOImplementation"%>
 <%@page import="Beans.DVDBean"%>
 <%@page import="DAO.Implementation.DVDManagerDAOImplementation"%>
@@ -18,20 +16,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-   if (homeuser == null) {
+    if (homeuser == null) {
         response.sendRedirect("login.jsp");
     } else {
-    ProductBean productBean = (ProductBean) session.getAttribute("viewcustomerproduct");
+        ProductBean productBean = (ProductBean) session.getAttribute("viewproduct");
+        String prodType = (String) session.getAttribute("prodType");
+        ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+        ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+        ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+        AudioCDBean viewaudiocd = (AudioCDBean) session.getAttribute("viewaudiocd");
+        BookBean viewbook = (BookBean) session.getAttribute("viewbook");
+        DVDBean viewdvd = (DVDBean) session.getAttribute("viewdvd");
+        MagazineBean viewmagazine = (MagazineBean) session.getAttribute("viewmagazine");
 
-    ProductDAOImplementation pdao = new ProductDAOImplementation();
-    AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
-    AudioCDBean audiocdbean = (AudioCDBean) session.getAttribute("viewcustomeraudiocd");
-    BookManagerDAOImplementation bookdao = new BookManagerDAOImplementation();
-    BookBean bookbean = (BookBean) session.getAttribute("viewcustomerbook");
-    DVDManagerDAOImplementation dvddao = new DVDManagerDAOImplementation();
-    DVDBean dvdbean = (DVDBean) session.getAttribute("viewcustomerdvd");
-    MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
-    MagazineBean magbean = (MagazineBean) session.getAttribute("viewcustomermagazine");
 
 %>
 <!DOCTYPE html>
@@ -127,37 +124,37 @@
                             %>
 
                             <dt>Artist</dt>
-                            <dd><% out.println(audiocdbean.getArtist()); %></dd>
+                            <dd><% out.println(viewaudiocd.getArtist()); %></dd>
                             <dt>Record Company</dt>
-                            <dd><% out.println(audiocdbean.getRecordCompany()); %></dd>
+                            <dd><% out.println(viewaudiocd.getRecordCompany()); %></dd>
                             <% } else if (productBean.getType().equals("Book")) {
                             %>
                             <dt>Author</dt>
-                            <dd><% out.println(bookbean.getAuthor()); %></dd>
+                            <dd><% out.println(viewbook.getAuthor()); %></dd>
                             <dt>Publisher</dt>
-                            <dd><% out.println(bookbean.getPublisher()); %></dd>
+                            <dd><% out.println(viewbook.getPublisher()); %></dd>
                             <dt>Date Published</dt>
-                            <dd><% out.println(bookbean.getDatePublished()); %></dd>
+                            <dd><% out.println(viewbook.getDatePublished()); %></dd>
                             <%
                             } else if (productBean.getType().equals("DVD")) {
                             %>
                             <dt>Director</dt>
-                            <dd><% out.println(dvdbean.getDirector()); %></dd>
+                            <dd><% out.println(viewdvd.getDirector()); %></dd>
                             <dt>Actor</dt>
-                            <dd><% out.println(dvdbean.getMainActors()); %></dd>
+                            <dd><% out.println(viewdvd.getMainActors()); %></dd>
                             <dt>Producer</dt>
-                            <dd><% out.println(dvdbean.getProductionCompany()); %></dd>
+                            <dd><% out.println(viewdvd.getProductionCompany()); %></dd>
                             <%
                             } else if (productBean.getType().equals("Magazine")) {
                             %>
                             <dt>Volume No</dt>
-                            <dd><% out.println(magbean.getVolumeNo()); %></dd>
+                            <dd><% out.println(viewmagazine.getVolumeNo()); %></dd>
                             <dt>Issue No</dt>
-                            <dd><% out.println(magbean.getIssueNo()); %></dd>
+                            <dd><% out.println(viewmagazine.getIssueNo()); %></dd>
                             <dt>Publisher</dt>
-                            <dd><% out.println(magbean.getPublisher()); %></dd>
+                            <dd><% out.println(viewmagazine.getPublisher()); %></dd>
                             <dt>Date Published</dt>
-                            <dd><% out.println(magbean.getDatePublished()); %></dd>
+                            <dd><% out.println(viewmagazine.getDatePublished()); %></dd>
                             <%
                                 }
                             %>
@@ -165,7 +162,24 @@
 
                         <dl class="dl-horizontal">
                             <dt>Reviews</dt>
-                            <dd></dd>
+                            <dd>
+
+                                <%                            for (int i = 0; i < reviews.size(); i++) {
+                                        for (int j = 0; j < customerlist.size(); j++) {
+                                            if (reviews.get(i).getReview_customerID() == customerlist.get(j).getCustomerID()) {
+                                                for (int k = 0; k < accountlist.size(); k++) {
+                                                    if (accountlist.get(k).getAccountID() == customerlist.get(j).getCustomer_accountID()) {
+                                                        out.println("<div><p>" + accountlist.get(k).getFirstName() + " " + accountlist.get(k).getLastName()
+                                                                + ": " + reviews.get(i).getReview() + "</p></div>");
+                                                        break;
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                %>
+                            </dd>
                         </dl>
                         <dl class="horizontal">
                             <dt><a href="customerHOME.jsp"><button class="btn center-block">Back</button></a></dt>

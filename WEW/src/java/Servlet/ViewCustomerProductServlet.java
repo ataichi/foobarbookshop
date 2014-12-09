@@ -8,16 +8,23 @@ package Servlet;
 import Beans.AccountBean;
 import Beans.AudioCDBean;
 import Beans.BookBean;
+import Beans.CustomerBean;
 import Beans.DVDBean;
 import Beans.MagazineBean;
 import Beans.ProductBean;
+import Beans.ReviewBean;
+import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
+import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
+import DAO.Interface.AccountDAOInterface;
+import DAO.Interface.CustomerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,11 +53,6 @@ public class ViewCustomerProductServlet extends HttpServlet {
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
 
             if (account.getAccesscontrol().isViewproduct()) {
-                int productID = Integer.parseInt(request.getParameter("productid"));
-                out.println(request.getParameter("productid"));
-                out.println(productID);
-                out.println("wala");
-
                 ProductDAOImplementation pdao = new ProductDAOImplementation();
                 AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
                 AudioCDBean audiocdbean = new AudioCDBean();
@@ -60,29 +62,60 @@ public class ViewCustomerProductServlet extends HttpServlet {
                 DVDBean dvdbean = new DVDBean();
                 MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
                 MagazineBean magbean = new MagazineBean();
+                ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
+                ReviewBean review = new ReviewBean();
+                AccountBean accountbean = new AccountBean();
 
+                AccountDAOInterface adao = new AccountDAOImplementation();
+                CustomerDAOInterface cdao = new CustomerDAOImplementation();
+
+                ArrayList<CustomerBean> customerlist = new ArrayList<CustomerBean>();
+                CustomerBean customer = new CustomerBean();
+                ArrayList<AccountBean> accountlist = new ArrayList<AccountBean>();
+
+                int productID = Integer.parseInt(request.getParameter("product"));
+                ArrayList<ReviewBean> reviews = cdao.getReviewsByProductID(productID);
+
+                out.println("\nReviews : " + reviews.size());
+                for (int i = 0; i < reviews.size(); i++) { // get customers
+                    out.println(reviews.get(i).getReview_customerID());
+                    customer = cdao.getCustomerById(reviews.get(i).getReview_customerID());
+                    customerlist.add(customer);
+                    out.println(customer.getCustomer_accountID());
+                    account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                    accountlist.add(account);
+                }
                 ProductBean productBean = new ProductBean();
                 productBean = pdao.getProductById(productID);
-                session.setAttribute("viewcustomerproduct", productBean);
+                session.setAttribute("viewproduct", productBean);
+                session.setAttribute("accountlist", accountlist);
+                session.setAttribute("reviews", reviews);
+                session.setAttribute("customerlist", customerlist);
+                session.setAttribute("prodType", productBean.getType());
+
+                out.println("\nAccount List " + accountlist.size());
+                out.println("\n view product: " + productBean.getTitle());
+                out.println("\nCustomer list" + customerlist.size());
 
                 if (productBean.getType().equals("Audio CD")) {
                     audiocdbean = audiocddao.getAudioCDByProductID(productID);
-                    session.setAttribute("viewcustomeraudiocd", audiocdbean);
+                    session.setAttribute("viewaudiocd", audiocdbean);
                     response.sendRedirect("viewcustomerproduct.jsp");
                 } else if (productBean.getType().equals("Book")) {
                     bookbean = bookdao.getBookByProductID(productID);
-                    session.setAttribute("viewcustomerbook", bookbean);
+                    session.setAttribute("viewbook", bookbean);
                     response.sendRedirect("viewcustomerproduct.jsp");
                 } else if (productBean.getType().equals("DVD")) {
                     dvdbean = dvddao.getDVDByProductID(productID);
-                    session.setAttribute("viewcustomerdvd", dvdbean);
+                    session.setAttribute("viewdvd", dvdbean);
                     response.sendRedirect("viewcustomerproduct.jsp");
                 } else if (productBean.getType().equals("Magazine")) {
                     magbean = magdao.getMagazineByProductID(productID);
-                    session.setAttribute("viewcustomermagazine", magbean);
+                    session.setAttribute("viewmagazine", magbean);
                     response.sendRedirect("viewcustomerproduct.jsp");
+                } else {
+                    out.println("WALA EH");
                 }
-
             } else {
                 out.println("ACCESS DENIED");
             }

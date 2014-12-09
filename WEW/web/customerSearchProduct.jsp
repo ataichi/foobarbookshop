@@ -109,7 +109,7 @@
                                     out.println("Title:" + searchproductlist.get(i).getTitle()
                                             + "<br/>Price:" + searchproductlist.get(i).getPrice()
                                             + "<br/>Product Type:" + searchproductlist.get(i).getType()
-                                            + "<form action='ViewProductServlet' method='post'>"
+                                            + "<form action='ViewCustomerProductServlet' method='post'>"
                                             + "<input type='hidden' name='product' value='" + searchproductlist.get(i).getProductID() + "'/>"
                                             + "<input type='submit' value='View' name='viewProduct'/></form>"
                                             + "<form action='AddToShoppingCartServlet' method='post'>"
