@@ -93,6 +93,11 @@ public class LoginServlet extends HttpServlet {
                     CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
                     CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
 
+                    productaudiolist = pdao.getProductsByType("Audio CD");
+                    productbooklist = pdao.getProductsByType("Book");     
+                    productdvdlist = pdao.getProductsByType("DVD");
+                    productmagazinelist = pdao.getProductsByType("Magazine");
+
                     System.out.println(tempcustomer.getCustomerID());
 
                     type = "Customer";
@@ -109,7 +114,13 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("shoppingcart", shoppingcart);
                         session.setAttribute("homeuser", account);
                         session.setAttribute("temporder", temporder);
+
                         session.setAttribute("tempproductlist", productlist);
+                        session.setAttribute("productaudiolist", productaudiolist);
+                        session.setAttribute("productbooklist", productbooklist);
+                        session.setAttribute("productdvdlist", productdvdlist);
+                        session.setAttribute("productmagazinelist", productmagazinelist);
+
                         System.out.println("TRY TRY TRY");
                         response.sendRedirect("customerHOME.jsp");
                     }

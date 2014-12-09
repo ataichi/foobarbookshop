@@ -13,13 +13,13 @@
     ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
     ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
 
-    ProductDAOImplementation pdao = new ProductDAOImplementation();
-    ArrayList<ProductBean> booklist = pdao.getAllProductsByType("Book");
-    ArrayList<ProductBean> maglist = pdao.getAllProductsByType("Magazine");
-    ArrayList<ProductBean> dvdlist = pdao.getAllProductsByType("DVD");
-    ArrayList<ProductBean> cdlist = pdao.getAllProductsByType("Audio CD");
-%>
+    ArrayList<ProductBean> productaudiolist = (ArrayList<ProductBean>) session.getAttribute("productaudiolist");
+    ArrayList<ProductBean> productbooklist = (ArrayList<ProductBean>) session.getAttribute("productbooklist");
+    ArrayList<ProductBean> productdvdlist = (ArrayList<ProductBean>) session.getAttribute("productdvdlist");
+    ArrayList<ProductBean> productmagazinelist = (ArrayList<ProductBean>) session.getAttribute("productmagazinelist");
 
+
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -91,17 +91,17 @@
                             <div id="myTabContent" class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in well active" id="viewbook" aria-labelledBy="book-tab" style='height: 500px;'>
                                     <% int a;
-                                        for (a = 0; a < booklist.size(); a++) {
+                                        for (a = 0; a < productbooklist.size(); a++) {
                                             out.println("<div class='col-md-3'>"
                                                     + "<center>"
-                                                    + "<div><strong>" + booklist.get(a).getTitle() + "</strong></div>"
-                                                    + "<form action='ViewCustomerProductServlet' id='" + booklist.get(a).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + booklist.get(a).getProductID() + "'/>"
+                                                    + "<div><strong>" + productbooklist.get(a).getTitle() + "</strong></div>"
+                                                    + "<form action='ViewCustomerProductServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productbooklist.get(a).getProductID() + "'/>"
                                                     + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
-                                                    + "<form action='AddToShoppingCartServlet' id='" + booklist.get(a).getProductID() + "' method='post'>"
+                                                    + "<form action='AddToShoppingCartServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
                                                     + " <input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + " <input type='hidden' id='productid' name='productid' value='" + booklist.get(a).getProductID() + "'>"
+                                                    + " <input type='hidden' id='productid' name='productid' value='" + productbooklist.get(a).getProductID() + "'>"
                                                     + "<input type='submit' id='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color: transparent'/>"
                                                     + "</center>"
                                                     + "</div>");
@@ -111,18 +111,18 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade in well " id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
                                     <% int b;
-                                        for (b = 0; b < maglist.size(); b++) {
+                                        for (b = 0; b < productmagazinelist.size(); b++) {
                                             out.println("<div class='col-md-3'>"
                                                     + "<center>"
-                                                    + "<div><strong>" + maglist.get(b).getTitle() + "</strong></div>"
-                                                    + "<div>" + maglist.get(b).getPrice() + "</div>"
-                                                    + "</form action='ViewCustomerProductServlet' id='" + maglist.get(b).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + maglist.get(b).getProductID() + "'/>"
+                                                    + "<div><strong>" + productmagazinelist.get(b).getTitle() + "</strong></div>"
+                                                    + "<div>" + productmagazinelist.get(b).getPrice() + "</div>"
+                                                    + "</form action='ViewCustomerProductServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productmagazinelist.get(b).getProductID() + "'/>"
                                                     + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
-                                                    + "<form action='AddToShoppingCartServlet' id='" + maglist.get(b).getProductID() + "' method='post'>"
+                                                    + "<form action='AddToShoppingCartServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
                                                     + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + maglist.get(b).getProductID() + "'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productmagazinelist.get(b).getProductID() + "'>"
                                                     + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "</center>"
@@ -134,18 +134,18 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade in well " id="viewcd" aria-labelledBy="cd-tab" style='height: 500px;'>
                                     <% int c;
-                                        for (c = 0; c < cdlist.size(); c++) {
+                                        for (c = 0; c < productaudiolist.size(); c++) {
                                             out.println("<div class='col-md-3'>"
                                                     + "<center>"
-                                                    + "<div><strong>" + cdlist.get(c).getTitle() + "</strong></div>"
-                                                    + "<div>" + cdlist.get(c).getPrice() + "</div>"
-                                                    + "</form action='ViewCustomerProductServlet' id='" + cdlist.get(c).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + cdlist.get(c).getProductID() + "'/>"
+                                                    + "<div><strong>" + productaudiolist.get(c).getTitle() + "</strong></div>"
+                                                    + "<div>" + productaudiolist.get(c).getPrice() + "</div>"
+                                                    + "</form action='ViewCustomerProductServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productaudiolist.get(c).getProductID() + "'/>"
                                                     + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
-                                                    + "<form action='AddToShoppingCartServlet' id='" + cdlist.get(c).getProductID() + "' method='post'>"
+                                                    + "<form action='AddToShoppingCartServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
                                                     + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + cdlist.get(c).getProductID() + "'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productaudiolist.get(c).getProductID() + "'>"
                                                     + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "</center>"
@@ -157,18 +157,18 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade in well " id="viewdvd" aria-labelledBy="dvd-tab" style='height: 500px;'>
                                     <% int d;
-                                        for (d = 0; d < dvdlist.size(); d++) {
+                                        for (d = 0; d < productdvdlist.size(); d++) {
                                             out.println("<div class='col-md-3'>"
                                                     + "<center>"
-                                                    + "<div><strong>" + dvdlist.get(d).getTitle() + "</strong></div>"
-                                                    + "<div>" + dvdlist.get(d).getPrice() + "</div>"
-                                                    + "</form action='ViewCustomerProductServlet' id='" + dvdlist.get(d).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + dvdlist.get(d).getProductID() + "'/>"
+                                                    + "<div><strong>" + productdvdlist.get(d).getTitle() + "</strong></div>"
+                                                    + "<div>" + productdvdlist.get(d).getPrice() + "</div>"
+                                                    + "</form action='ViewCustomerProductServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productdvdlist.get(d).getProductID() + "'/>"
                                                     + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
-                                                    + "<form action='AddToShoppingCartServlet' id='" + dvdlist.get(d).getProductID() + "' method='post'>"
+                                                    + "<form action='AddToShoppingCartServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
                                                     + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + dvdlist.get(d).getProductID() + "'>"
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productdvdlist.get(d).getProductID() + "'>"
                                                     + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "</center>"
@@ -236,8 +236,8 @@
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $("#qty").click(function () {
+            $(document).ready(function() {
+                $("#qty").click(function() {
                     var $n = $("#final");
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });
