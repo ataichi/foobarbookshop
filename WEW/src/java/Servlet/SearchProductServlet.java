@@ -38,7 +38,9 @@ public class SearchProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-             String searchstring = AccountDAOImplementation.inputSanitizer(request.getParameter("searchstring"));  ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+            String searchstring = AccountDAOImplementation.inputSanitizer(request.getParameter("srch-term"));
+            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+            ArrayList<ProductBean> finalproductlist = new ArrayList<ProductBean>();
             ProductDAOInterface productdao = new ProductDAOImplementation();
             ProductBean productbean = new ProductBean();
 
@@ -58,12 +60,21 @@ public class SearchProductServlet extends HttpServlet {
                 }
 
                 if (prodType.equals("Book")) { //book manager
+                    BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
+                    BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+                    ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+                    BookBean bookbean = new BookBean();
+                    ArrayList<BookBean> finalbooklist = new ArrayList<BookBean>();
 
-                    out.println("Product:");
+                    out.println("Produhjhjct:");
                     out.println("title:");
                     productlist = productdao.getProductsByTitle(searchstring);
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Book")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
+                            finalbooklist.add(bookbean);
                             out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
                         }
                     }
@@ -72,6 +83,10 @@ public class SearchProductServlet extends HttpServlet {
                     productlist = productdao.getProductsBySummary(searchstring);
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Book")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
+                            finalbooklist.add(bookbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
                         }
                     }
@@ -80,13 +95,13 @@ public class SearchProductServlet extends HttpServlet {
 
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Book")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
+                            finalbooklist.add(bookbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
                         }
                     }
-
-                    BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
-                    BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-                    ArrayList<BookBean> booklist = new ArrayList<BookBean>();
 
                     out.println("\n\nBOOKS:");
 
@@ -94,6 +109,9 @@ public class SearchProductServlet extends HttpServlet {
                     out.println("\nAuthor:");
                     for (int i = 0; i < booklist.size(); i++) {
                         productbean = productdao.getProductById(booklist.get(i).getBook_productID());
+                        finalproductlist.add(productbean);
+                        bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
+                        finalbooklist.add(bookbean);
                         out.println(productbean.getTitle() + booklist.get(i).getAuthor());
                     }
 
@@ -101,23 +119,34 @@ public class SearchProductServlet extends HttpServlet {
                     out.println("\nPublisher");
                     for (int i = 0; i < booklist.size(); i++) {
                         productbean = productdao.getProductById(booklist.get(i).getBook_productID());
+                        finalproductlist.add(productbean);
+                        bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
+                        finalbooklist.add(bookbean);
                         out.println(productbean.getTitle() + booklist.get(i).getPublisher());
                     }
 
                     //datePublished
-                    session.setAttribute("booklist", booklist);
-                    session.setAttribute("productlist", productlist);
+                    session.setAttribute("booklist", finalbooklist);
+                    session.setAttribute("prodType", prodType);
+                    session.setAttribute("searchproductlist", finalproductlist);
+                    response.sendRedirect("productmanagerSearchProduct.jsp");
 
                 } else if (prodType.equals("Audio CD")) { // audio cd manager
-                    AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
+                    //     AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
                     AudioCDManagerDAOInterface audiocddao = new AudioCDManagerDAOImplementation();
                     ArrayList<AudioCDBean> audiolist = new ArrayList<AudioCDBean>();
+                    ArrayList<AudioCDBean> finalaudiolist = new ArrayList<AudioCDBean>();
+                    AudioCDBean audiocdbean = new AudioCDBean();
 
                     out.println("Product:");
                     out.println("title:");
                     productlist = productdao.getProductsByTitle(searchstring);
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Audio CD")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
+                            finalaudiolist.add(audiocdbean);
                             out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
                         }
                     }
@@ -126,6 +155,10 @@ public class SearchProductServlet extends HttpServlet {
                     productlist = productdao.getProductsBySummary(searchstring);
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Audio CD")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
+                            finalaudiolist.add(audiocdbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
                         }
                     }
@@ -134,6 +167,10 @@ public class SearchProductServlet extends HttpServlet {
 
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Audio CD")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
+                            finalaudiolist.add(audiocdbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
                         }
                     }
@@ -144,6 +181,9 @@ public class SearchProductServlet extends HttpServlet {
                     out.println("\nArtist");
                     for (int i = 0; i < audiolist.size(); i++) {
                         productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
+                        finalproductlist.add(productbean);
+                        audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
+                        finalaudiolist.add(audiocdbean);
                         out.println(productbean.getTitle() + audiolist.get(i).getArtist());
                     }
 
@@ -151,24 +191,34 @@ public class SearchProductServlet extends HttpServlet {
                     out.println("\nRecord Company:");
                     for (int i = 0; i < audiolist.size(); i++) {
                         productbean = productdao.getProductById(audiolist.get(i).getAudiocd_productID());
+
+                        finalproductlist.add(productbean);
+
+                        audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
+                        finalaudiolist.add(audiocdbean);
                         out.println(productbean.getTitle() + audiolist.get(i).getRecordCompany());
                     }
 
-                    session.setAttribute("audiocdlist", audiolist);
-
-                    productlist = pdao.getProductsByType(prodType);
-                    session.setAttribute("productlist", productlist);
-
+                    session.setAttribute("audiolist", finalaudiolist);
+                    session.setAttribute("prodType", prodType);
+                    session.setAttribute("searchproductlist", finalproductlist);
+                    response.sendRedirect("productmanagerSearchProduct.jsp");
                 } else if (prodType.equals("DVD")) { //dvd manager
                     DVDManagerDAOInterface dvdmanagerdao = new DVDManagerDAOImplementation();
                     DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
                     ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+                    ArrayList<DVDBean> finaldvdlist = new ArrayList<DVDBean>();
+                    DVDBean dvdbean = new DVDBean();
 
                     out.println("Product:");
                     out.println("title:");
                     productlist = productdao.getProductsByTitle(searchstring);
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("DVD")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
+                            finaldvdlist.add(dvdbean);
                             out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
                         }
                     }
@@ -177,6 +227,10 @@ public class SearchProductServlet extends HttpServlet {
                     productlist = productdao.getProductsBySummary(searchstring);
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("DVD")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
+                            finaldvdlist.add(dvdbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
                         }
                     }
@@ -185,6 +239,10 @@ public class SearchProductServlet extends HttpServlet {
 
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("DVD")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
+                            finaldvdlist.add(dvdbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
                         }
                     }
@@ -195,6 +253,11 @@ public class SearchProductServlet extends HttpServlet {
                     out.println("\nActor");
                     for (int i = 0; i < dvdlist.size(); i++) {
                         productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                        if (productbean != null) {
+                            finalproductlist.add(productbean);
+                            dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
+                            finaldvdlist.add(dvdbean);
+                        }
                         out.println(productbean.getTitle() + dvdlist.get(i).getMainActors());
                     }
 
@@ -202,6 +265,11 @@ public class SearchProductServlet extends HttpServlet {
                     out.println("\nDirector");
                     for (int i = 0; i < dvdlist.size(); i++) {
                         productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                        if (productbean != null) {
+                            finalproductlist.add(productbean);
+                            dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
+                            finaldvdlist.add(dvdbean);
+                        }
                         out.println(productbean.getTitle() + dvdlist.get(i).getDirector());
                     }
 
@@ -209,24 +277,33 @@ public class SearchProductServlet extends HttpServlet {
                     out.println("\nProduction Company:");
                     for (int i = 0; i < dvdlist.size(); i++) {
                         productbean = productdao.getProductById(dvdlist.get(i).getDvd_productID());
+                        if (productbean != null) {
+                            finalproductlist.add(productbean);
+                            dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
+                            finaldvdlist.add(dvdbean);
+                        }
                         out.println(productbean.getTitle() + dvdlist.get(i).getProductionCompany());
                     }
 
-                    session.setAttribute("dvdlist", dvdlist);
-
-                    productlist = pdao.getProductsByType(prodType);
-                    session.setAttribute("productlist", productlist);
-
+                    session.setAttribute("prodType", prodType);
+                    session.setAttribute("dvdlist", finaldvdlist);
+                    session.setAttribute("searchproductlist", finalproductlist);
+                    response.sendRedirect("productmanagerSearchProduct.jsp");
                 } else if (prodType.equals("Magazine")) { //magazine manager
-                    MagazineManagerDAOInterface magazinemanagerdao = new MagazineManagerDAOImplementation();
                     MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                     ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                    ArrayList<MagazineBean> finalmagazinelist = new ArrayList<MagazineBean>();
+                    MagazineBean magazinebean = new MagazineBean();
 
                     out.println("Product:");
                     out.println("title:");
                     productlist = productdao.getProductsByTitle(searchstring);
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Magazine")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            magazinebean = magazinedao.getMagazineByProductID(productbean.getProductID());
+                            finalmagazinelist.add(magazinebean);
                             out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
                         }
                     }
@@ -235,6 +312,10 @@ public class SearchProductServlet extends HttpServlet {
                     productlist = productdao.getProductsBySummary(searchstring);
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Magazine")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            magazinebean = magazinedao.getMagazineByProductID(productbean.getProductID());
+                            finalmagazinelist.add(magazinebean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
                         }
                     }
@@ -243,6 +324,10 @@ public class SearchProductServlet extends HttpServlet {
 
                     for (int i = 0; i < productlist.size(); i++) {
                         if (productlist.get(i).getType().equals("Magazine")) {
+                            productbean = productlist.get(i);
+                            finalproductlist.add(productbean);
+                            magazinebean = magazinedao.getMagazineByProductID(productbean.getProductID());
+                            finalmagazinelist.add(magazinebean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
                         }
                     }
@@ -273,12 +358,19 @@ public class SearchProductServlet extends HttpServlet {
                     magazinelist = magazinedao.getMagazineByPublisher(searchstring);
                     for (int i = 0; i < magazinelist.size(); i++) {
                         productbean = productdao.getProductById(magazinelist.get(i).getMagazine_productID());
+                        if (productbean != null) {
+                            finalproductlist.add(productbean);
+                            magazinebean = magazinedao.getMagazineByProductID(productbean.getProductID());
+                            finalmagazinelist.add(magazinebean);
+                        }
                         out.println(productbean.getTitle() + magazinelist.get(i).getPublisher());
                     }
 
-                    productlist = pdao.getProductsByType(prodType);
-                    session.setAttribute("productlist", productlist);
-
+                    //productlist = pdao.getProductsByType(prodType);
+                    session.setAttribute("prodType", prodType);
+                    session.setAttribute("magazinelist", finalmagazinelist);
+                    session.setAttribute("searchproductlist", productlist);
+                    response.sendRedirect("productmanagerSearchProduct.jsp");
                 }
 
             }
