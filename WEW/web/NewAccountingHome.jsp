@@ -10,6 +10,10 @@
     <head>
         <%
             response.addHeader("X-FRAME-OPTIONS", "DENY");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-store");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
         %>
         <style id="antiClickjack">body{display:none !important;}</style>
         <script type="text/javascript">
@@ -163,34 +167,36 @@
                                       //        + productlist.get(i).getGenre()
                                       //       + "</td><td>"
                                       //     + productlist.get(i).getYear()
-                                    //     + "</td></tr>");
-                                    // }
-%>
-                              </tbody>
-                          </table>
-                      </div>
-          </div>-->
+                                      //     + "</td></tr>");
+                                      // }
+                        %>
+                                                      </tbody>
+                                                  </table>
+                                              </div>
+                                  </div>-->
 
                         <script>
-	var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+                            var randomScalingFactor = function () {
+                                return Math.round(Math.random() * 100)
+                            };
 
                             var barChartData = {
-		labels : ["January","February","March","April","May","June","July","August","September","October","November","December"],
-		datasets : [
+                                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                                datasets: [
                                     {
-				fillColor : "rgba(220,220,220,0.5)",
-				strokeColor : "rgba(220,220,220,0.8)",
+                                        fillColor: "rgba(220,220,220,0.5)",
+                                        strokeColor: "rgba(220,220,220,0.8)",
                                         highlightFill: "rgba(220,220,220,0.75)",
                                         highlightStroke: "rgba(220,220,220,1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
                                     }
                                 ]
 
                             }
-	window.onload = function(){
+                            window.onload = function () {
                                 var ctx = document.getElementById("canvas").getContext("2d");
                                 window.myBar = new Chart(ctx).Bar(barChartData, {
-			responsive : true
+                                    responsive: true
                                 });
                             }
 
@@ -212,4 +218,4 @@
 
                         </body>
                         </html>
-<%}%>
+                        <%}%>

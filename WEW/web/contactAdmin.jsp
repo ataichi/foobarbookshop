@@ -4,6 +4,10 @@
     <head>
         <%
             response.addHeader("X-FRAME-OPTIONS", "DENY");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-store");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
         %>
         <style id="antiClickjack">body{display:none !important;}</style>
         <script type="text/javascript">
@@ -52,10 +56,18 @@
             </div>
         </nav>
 
+
+
+        <div class="row" style="padding-top: 100px; padding-left: 400px">
+            <div class="alert alert-danger col-md-8" role="alert">
+                <strong>Unfortunately, you're account got locked. Contact the Administrator to unlock.</strong>
+            </div>
+        </div>
         <div class="panel-body"  style="padding-left: 600px">
-            <div class="row" style="padding-top: 200px;">
+            <div class="row" style="padding-top: 100px;">
                 <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="SendReport">
                     <div class="form-group">
+                        E-mail Address:
                         <input id="email" name='email' onblur="emailCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="yourname@foobar.com">
                     </div>
                     <div class="panel-body">

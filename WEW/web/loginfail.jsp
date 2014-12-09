@@ -1,12 +1,17 @@
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% int ctr_try = (Integer) session.getAttribute("ctr_try");
-    String username = (String) session.getAttribute("username");
+
+        String username = (String) session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <% response.addHeader("X-FRAME-OPTIONS", "DENY");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-store");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
         %>
         <style id="antiClickjack">body{display:none !important;}</style>
         <script type="text/javascript">
@@ -96,3 +101,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+

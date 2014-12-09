@@ -1,14 +1,13 @@
-<%-- 
-    Document   : logout
-    Created on : 18/11/2014, 3:46:11 AM
-    Author     : Evy
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <% response.addHeader("X-FRAME-OPTIONS", "DENY");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-store");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
         %>
         <style id="antiClickjack">body{display:none !important;}</style>
         <script type="text/javascript">

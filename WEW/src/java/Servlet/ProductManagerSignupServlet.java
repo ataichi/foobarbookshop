@@ -9,13 +9,16 @@ import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.AdminDAOInterface;
 import DAO.Interface.LogDAOInterface;
 import DBConnection.Hasher;
+import Security.Cookies;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.Hashtable;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,80 +32,85 @@ public class ProductManagerSignupServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            Cookie userCookie;
+            Hashtable cookies = new Cookies().cookieTable(request.getCookies());
 
             HttpSession session = request.getSession();
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
 
             //if (homeadmin.getAccesscontrol().isCreateproductmanager()) {
-                AccountBean account = new AccountBean();
-                AccountDAOInterface userdao = new AccountDAOImplementation();
-                AdminDAOInterface admindao = new AdminDAOImplementation();
-                LogBean log = new LogBean();
-                LogDAOInterface logdao = new LogDAOImplementation();
+            AccountBean account = new AccountBean();
+            AccountDAOInterface userdao = new AccountDAOImplementation();
+            AdminDAOInterface admindao = new AdminDAOImplementation();
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
-                String pass1 = request.getParameter("pass1");
+            String pass1 = request.getParameter("pass1");
 
-                Hasher hash = null;
+            Hasher hash = null;
 
-                try {
-                    hash = new Hasher("MD5");
-                } catch (NoSuchAlgorithmException ex) {
-                    java.util.logging.Logger.getLogger(ProductManagerSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                hash = new Hasher("MD5");
+            } catch (NoSuchAlgorithmException ex) {
+                java.util.logging.Logger.getLogger(ProductManagerSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            hash.updateHash(pass1, "UTF-8");
+            pass1 = hash.getHashBASE64();
+
+            account.setFirstName(AccountDAOImplementation.inputSanitizer(request.getParameter("fname")));
+            account.setLastName(AccountDAOImplementation.inputSanitizer(request.getParameter("lname")));
+            account.setMiddleInitial(request.getParameter("mname"));
+            account.setPassword(pass1);
+            account.setEmailAdd(request.getParameter("email"));
+            account.setUsername(AccountDAOImplementation.inputSanitizer(request.getParameter("uname")));
+            //account.setAccountType("product manager");
+            account.setAccountType(request.getParameter("prodType") + " Manager");
+            account.setLocked(false);
+
+            int productmanager_accountID;
+            boolean addUser = userdao.addAccount(account);
+            if (addUser) {
+                //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
+                //productManager.setProdmanager_accountID(productmanager_accountID);
+
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+
+                log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
+                log.setTime(time);
+                log.setActivity("Product Manager Sign Up");
+                if (logdao.addLog(log)) {
+                    userCookie = new Cookie("name", request.getParameter("uname"));
+                    userCookie.setMaxAge(86400);
+                    response.addCookie(userCookie);
+                    response.sendRedirect("adminHOME.jsp");
                 }
 
-                hash.updateHash(pass1, "UTF-8");
-                pass1 = hash.getHashBASE64();
-
-                account.setFirstName(AccountDAOImplementation.inputSanitizer(request.getParameter("fname")));
-                account.setLastName(AccountDAOImplementation.inputSanitizer(request.getParameter("lname")));
-                account.setMiddleInitial(request.getParameter("mname"));
-                account.setPassword(pass1);
-                account.setEmailAdd(request.getParameter("email"));
-                account.setUsername(AccountDAOImplementation.inputSanitizer(request.getParameter("uname")));
-                //account.setAccountType("product manager");
-                account.setAccountType(request.getParameter("prodType") + " Manager");
-                account.setLocked(false);
-
-                int productmanager_accountID;
-                boolean addUser = userdao.addAccount(account);
-                if (addUser) {
-                    //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                    //productManager.setProdmanager_accountID(productmanager_accountID);
-
-                    java.util.Date date = new java.util.Date();
-                    Timestamp time = new Timestamp(date.getTime());
-
-                    log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
-                    log.setTime(time);
-                    log.setActivity("Product Manager Sign Up");
-                    if (logdao.addLog(log)) {
-                        response.sendRedirect("adminHOME.jsp");
-                    }
-
-                } else {
-                    response.sendRedirect("signup_productmanager.jsp");
-                }
+            } else {
+                response.sendRedirect("signup_productmanager.jsp");
+            }
 
                 //productManager.setProdType(request.getParameter("prodType"));
             /*
 
-                 boolean addProductmanager = admindao.addProductManager(productManager);
+             boolean addProductmanager = admindao.addProductManager(productManager);
 
-                 if (addUser && addProductmanager) {
-                 response.sendRedirect("adminHOME.jsp");
-                 } else {
-                 response.sendRedirect("signupfail.jsp");
-                 }
-                 */
-           // } else {
-           //     out.println("ACCESS DENIED");
-           // }
+             if (addUser && addProductmanager) {
+             response.sendRedirect("adminHOME.jsp");
+             } else {
+             response.sendRedirect("signupfail.jsp");
+             }
+             */
+        // } else {
+            //     out.println("ACCESS DENIED");
+            // }
         } finally {
             out.close();
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

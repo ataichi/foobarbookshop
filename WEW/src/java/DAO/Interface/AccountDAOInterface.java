@@ -22,6 +22,7 @@ public interface AccountDAOInterface {
     public ArrayList<AccountBean> getAllAccounts();
     public ArrayList<AccountBean> getAllLockedAccounts();
     public boolean deleteAccount(int accountID);
+    
 
     /*
     public boolean isAdmin(String username, String password);

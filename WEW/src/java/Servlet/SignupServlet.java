@@ -58,70 +58,74 @@ public class SignupServlet extends HttpServlet {
             hash.updateHash(pass1, "UTF-8");
             pass1 = hash.getHashBASE64();
 
-            account.setFirstName(firstname);
-            account.setLastName(lastname);
-            account.setMiddleInitial(mInitial);
-            account.setPassword(pass1);
-            account.setEmailAdd(email);
-            account.setUsername(username);
-            account.setAccountType("Customer");
-            account.setLocked(false);
-
-            checkAccount = userdao.addAccount(account);
-            String apartmentnoBA = request.getParameter("apartmentnoBA");
-            String streetBA = request.getParameter("streetBA");
-            String subdivisionBA = request.getParameter("subdivisionBA");
-            String cityBA = request.getParameter("cityBA");
-            int postalcodeBA = Integer.valueOf(request.getParameter("postalcodeBA"));
-            String countryBA = request.getParameter("countryBA");
-
-            String apartmentnoDA = request.getParameter("apartmentnoDA");
-            String streetDA = request.getParameter("streetDA");
-            String subdivisionDA = request.getParameter("subdivisionDA");
-            String cityDA = request.getParameter("cityDA");
-            int postalcodeDA = Integer.valueOf(request.getParameter("postalcodeDA"));
-            String countryDA = request.getParameter("countryDA");
-
-            int customer_accountID = userdao.getUserByUsername(username).getAccountID();
-
-            customer.setApartmentNoBA(AccountDAOImplementation.inputSanitizer(apartmentnoBA));
-            customer.setApartmentNoDA(AccountDAOImplementation.inputSanitizer(apartmentnoDA));
-            customer.setCityBA(AccountDAOImplementation.inputSanitizer(cityBA));
-            customer.setCityDA(AccountDAOImplementation.inputSanitizer(cityDA));
-            customer.setCountryBA(AccountDAOImplementation.inputSanitizer(countryBA));
-            customer.setCountryDA(AccountDAOImplementation.inputSanitizer(countryDA));
-
-            customer.setCustomer_accountID(customer_accountID);
-
-            customer.setPostalCodeBA(postalcodeBA);
-            customer.setPostalCodeDA(postalcodeDA);
-            customer.setStreetBA(AccountDAOImplementation.inputSanitizer(streetBA));
-            customer.setStreetDA(AccountDAOImplementation.inputSanitizer(streetDA));
-            customer.setSubdivisionBA(AccountDAOImplementation.inputSanitizer(subdivisionBA));
-            customer.setSubdivisionDA(AccountDAOImplementation.inputSanitizer(subdivisionDA));
-
-            checkCustomer = customerdao.addCustomer(customer);
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
-
-            if (checkAccount && checkCustomer && userdao.isUsernameAvailable(username)) {
-                log.setActivity(username + "Customer SignUps");
-                log.setLog_accountID(customer_accountID);
-
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
-
-                if (logdao.addLog(log)) {
-                    session.setAttribute("username", username);
-                }
-
-               // AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
-
-                response.sendRedirect("login.jsp");
-            } else {
-                AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
+            boolean check = userdao.isUsernameAvailable(username);
+            if (check) { // meron nang username
                 response.sendRedirect("signupfail.jsp");
+            } else {
+                account.setFirstName(firstname);
+                account.setLastName(lastname);
+                account.setMiddleInitial(mInitial);
+                account.setPassword(pass1);
+                account.setEmailAdd(email);
+                account.setUsername(username);
+                account.setAccountType("Customer");
+                account.setLocked(false);
+                
+                checkAccount = userdao.addAccount(account);
+                String apartmentnoBA = request.getParameter("apartmentnoBA");
+                String streetBA = request.getParameter("streetBA");
+                String subdivisionBA = request.getParameter("subdivisionBA");
+                String cityBA = request.getParameter("cityBA");
+                int postalcodeBA = Integer.valueOf(request.getParameter("postalcodeBA"));
+                String countryBA = request.getParameter("countryBA");
+
+                String apartmentnoDA = request.getParameter("apartmentnoDA");
+                String streetDA = request.getParameter("streetDA");
+                String subdivisionDA = request.getParameter("subdivisionDA");
+                String cityDA = request.getParameter("cityDA");
+                int postalcodeDA = Integer.valueOf(request.getParameter("postalcodeDA"));
+                String countryDA = request.getParameter("countryDA");
+
+                int customer_accountID = userdao.getUserByUsername(username).getAccountID();
+
+                customer.setApartmentNoBA(AccountDAOImplementation.inputSanitizer(apartmentnoBA));
+                customer.setApartmentNoDA(AccountDAOImplementation.inputSanitizer(apartmentnoDA));
+                customer.setCityBA(AccountDAOImplementation.inputSanitizer(cityBA));
+                customer.setCityDA(AccountDAOImplementation.inputSanitizer(cityDA));
+                customer.setCountryBA(AccountDAOImplementation.inputSanitizer(countryBA));
+                customer.setCountryDA(AccountDAOImplementation.inputSanitizer(countryDA));
+
+                customer.setCustomer_accountID(customer_accountID);
+
+                customer.setPostalCodeBA(postalcodeBA);
+                customer.setPostalCodeDA(postalcodeDA);
+                customer.setStreetBA(AccountDAOImplementation.inputSanitizer(streetBA));
+                customer.setStreetDA(AccountDAOImplementation.inputSanitizer(streetDA));
+                customer.setSubdivisionBA(AccountDAOImplementation.inputSanitizer(subdivisionBA));
+                customer.setSubdivisionDA(AccountDAOImplementation.inputSanitizer(subdivisionDA));
+
+                // checkCustomer = customerdao.addCustomer(customer);
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
+
+                if (checkAccount && checkCustomer && !userdao.isUsernameAvailable(username)) {
+                    log.setActivity(username + "Customer SignUps");
+                    log.setLog_accountID(customer_accountID);
+
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
+
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("username", username);
+                    }
+
+                    // AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
+                    //     response.sendRedirect("login.jsp");
+                } else {
+                    AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
+                    //       
+                }
             }
         } finally {
             out.close();
