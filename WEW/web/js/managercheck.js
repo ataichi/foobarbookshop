@@ -5,8 +5,9 @@ function managerCheck() {
     var user = unameManagerCheck();
     var email = emailManagerCheck();
     var pass = verifyPassCheck();
+    var pass2 = passManagerCheck();
 
-    if (first == false || last == false || middle == false || user == false || email == false || pass == false) {
+    if (first == false || last == false || middle == false || user == false || email == false || pass == false || pass2 == false) {
         return false;
     }
     else {
