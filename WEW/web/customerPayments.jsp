@@ -4,12 +4,16 @@
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
     if (homeuser == null) {
         response.sendRedirect("login.jsp");
-    }else{
+    } else {
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <% response.addHeader("X-FRAME-OPTIONS", "DENY");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-store");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
         %>
         <style id="antiClickjack">body{display:none !important;}</style>
         <script type="text/javascript">

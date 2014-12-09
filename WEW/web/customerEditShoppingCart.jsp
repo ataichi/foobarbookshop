@@ -9,17 +9,21 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-   if (homeuser == null) {
+    if (homeuser == null) {
         response.sendRedirect("login.jsp");
     } else {
-    ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
-    ProductOrderBean tempproductorder = (ProductOrderBean) session.getAttribute("tempproductorder");
+        ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
+        ProductOrderBean tempproductorder = (ProductOrderBean) session.getAttribute("tempproductorder");
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <%
             response.addHeader("X-FRAME-OPTIONS", "DENY");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-store");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
         %>
         <style id="antiClickjack">body{display:none !important;}</style>
         <script type="text/javascript">
@@ -128,4 +132,4 @@
 
                 </body>
                 </html>
-<%}%>
+                <%}%>
