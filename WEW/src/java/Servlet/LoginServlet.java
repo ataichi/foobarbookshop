@@ -4,12 +4,15 @@ import Beans.*;
 import DAO.Implementation.*;
 import DAO.Interface.*;
 import DBConnection.Hasher;
+import Process.Randomizer;
 import Security.LoginAuthenticator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -84,6 +87,33 @@ public class LoginServlet extends HttpServlet {
 
             hash.updateHash(password, "UTF-8");
             password = hash.getHashBASE64();
+            
+            String salt = null;
+            String token = null;
+            String address = request.getRemoteAddr();
+            
+            Random random = new Random();
+            SecureRandom randomGen;
+            
+            try {
+                randomGen = SecureRandom.getInstance("SHA1PRNG");
+                randomGen.setSeed(12);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            Hasher hashGen;
+            
+            try {
+                salt = Long.toString(random.nextLong());
+                hashGen = new Hasher("MD5");
+                hashGen.updateHash(address, "UTF-8");
+            token = hashGen.getHashBASE64();
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
 
             LoginAuthenticator loginauthenticator = new LoginAuthenticator();
 
@@ -108,6 +138,9 @@ public class LoginServlet extends HttpServlet {
                     java.util.Date date = new java.util.Date();
                     Timestamp time = new Timestamp(date.getTime());
                     log.setTime(time);
+                    log.setIp_address(address);
+                    log.setSalt(salt);
+                    log.setToken(token);
 
                     if (logdao.addLog(log)) {
                         session.setAttribute("type", type);
