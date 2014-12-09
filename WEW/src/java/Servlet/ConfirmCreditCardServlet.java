@@ -1,18 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Servlet;
 
+import Beans.AccountBean;
+import Beans.ProductOrderBean;
+import Beans.ShoppingCartBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ConfirmCreditCardServlet", urlPatterns = {"/ConfirmCreditCardServlet"})
 public class ConfirmCreditCardServlet extends HttpServlet {
@@ -31,17 +30,26 @@ public class ConfirmCreditCardServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ConfirmCreditCardServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ConfirmCreditCardServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
             
-            response.sendRedirect("customerProceed.jsp");
+            HttpSession session = request.getSession();
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+
+            String cardName = request.getParameter("cardName");
+            int cardNo = Integer.parseInt(request.getParameter("cardNo"));
+            String cardType = request.getParameter("cardType");
+            String cardExpDate = request.getParameter("cardExpDate");
+            if (homeuser.getAccesscontrol().isBuyproduct()) {
+                ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+                ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
+                ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
+
+                session.setAttribute("temporder", orderlist);
+                session.setAttribute("shoppingcart", cartbean);
+                session.setAttribute("homeuser", homeuser);
+                response.sendRedirect("customerProceed.jsp");
+            } else {
+                response.sendRedirect("customerPayments.jsp");
+            }
         }
     }
 
