@@ -63,54 +63,66 @@ public class ChangePasswordServlet extends HttpServlet {
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
 
+                // hash current password to match password in db
                 String currpass = request.getParameter("currpass");
+                Hasher checkhash = null;
+                try {
+                    checkhash = new Hasher("MD5");
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                checkhash.updateHash(currpass, "UTF-8");
+                currpass = checkhash.getHashBASE64();
 
-                // hash password here
-                String pass1 = request.getParameter("pass1");
-                String pass2 = request.getParameter("pass2");
-         // hash password here
-            Hasher hash = null;
-            try {
-                hash = new Hasher("MD5");
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            hash.updateHash(pass2, "UTF-8");
-            //  password = hash.getHashBASE64();
+                if (account.getPassword() == currpass) {
 
-                boolean changepassword = accountdao.changePassword(account.getAccountID(), pass2);
+                    // hash password here
+                    String pass1 = request.getParameter("pass1");
+                    String pass2 = request.getParameter("pass2");
+                    // hash password here
+                    Hasher hash = null;
+                    try {
+                        hash = new Hasher("MD5");
+                    } catch (NoSuchAlgorithmException ex) {
+                        Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    hash.updateHash(pass2, "UTF-8");
+                    pass1 = hash.getHashBASE64();
 
-                if (changepassword) {
-                    java.util.Date date = new java.util.Date();
-                    Timestamp time = new Timestamp(date.getTime());
-                    log.setTime(time);
-                    log.setActivity("Change password account ID " + account.getAccountID());
-                    log.setLog_accountID(account.getAccountID());
+                    boolean changepassword = accountdao.changePassword(account.getAccountID(), pass1);
 
-                    if (logdao.addLog(log)) {
-                        account.setAccountID(account.getAccountID());
-                        account.setAccountType(account.getAccountType());
-                        account.setEmailAdd(account.getEmailAdd());
-                        account.setFirstName(account.getFirstName());
-                        account.setLastName(account.getLastName());
-                        account.setLocked(false);
-                        account.setMiddleInitial(account.getMiddleInitial());
-                        // hashed value of password dapat
-                        account.setPassword(pass2);
-                        account.setUsername(account.getUsername());
+                    if (changepassword) {
+                        java.util.Date date = new java.util.Date();
+                        Timestamp time = new Timestamp(date.getTime());
+                        log.setTime(time);
+                        log.setActivity("Change password account ID " + account.getAccountID());
+                        log.setLog_accountID(account.getAccountID());
 
-                        if (type.equals("Customer")) {
-                            session.setAttribute("homecustomer", account);
-                            response.sendRedirect("customerHOME.jsp");
-                        } else if (type.equals("Audio CD Manager") || type.equals("Book Manager") || type.equals("DVD Manager") || type.equals("Magazine Manager")) {
-                            session.setAttribute("homeproduct", account);
-                            response.sendRedirect("productmanagerHOME.jsp");
-                        } else if (type.equals("Accounting Manager")) {
-                            session.setAttribute("homeaccounting", account);
-                            response.sendRedirect("accountingmanagerHOME.jsp");
-                        } else if (type.equals("Admin")) {
-                            session.setAttribute("homeadmin", account);
-                            response.sendRedirect("adminHOME.jsp");
+                        if (logdao.addLog(log)) {
+                            account.setAccountID(account.getAccountID());
+                            account.setAccountType(account.getAccountType());
+                            account.setEmailAdd(account.getEmailAdd());
+                            account.setFirstName(account.getFirstName());
+                            account.setLastName(account.getLastName());
+                            account.setLocked(false);
+                            account.setMiddleInitial(account.getMiddleInitial());
+                            // hashed value of password dapat
+                            account.setPassword(pass2);
+                            account.setUsername(account.getUsername());
+
+                            if (type.equals("Customer")) {
+                                session.setAttribute("homecustomer", account);
+                                response.sendRedirect("customerHOME.jsp");
+                            } else if (type.equals("Audio CD Manager") || type.equals("Book Manager") || type.equals("DVD Manager") || type.equals("Magazine Manager")) {
+                                session.setAttribute("homeproduct", account);
+                                response.sendRedirect("productmanagerHOME.jsp");
+                            } else if (type.equals("Accounting Manager")) {
+                                session.setAttribute("homeaccounting", account);
+                                response.sendRedirect("accountingmanagerHOME.jsp");
+                            } else if (type.equals("Admin")) {
+                                session.setAttribute("homeadmin", account);
+                                response.sendRedirect("adminHOME.jsp");
+                            }
                         }
                     }
                 }
