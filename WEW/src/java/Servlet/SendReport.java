@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Servlet;
 
 import Beans.AccountBean;
 import Beans.LockReportBean;
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.LockReportDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.LockReportDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,35 +43,47 @@ public class SendReport extends HttpServlet {
 
             LockReportBean lockreport = new LockReportBean();
             LockReportDAOInterface lockreportdao = new LockReportDAOImplementation();
-            
-            
+
             String email = request.getParameter("email");
             String reason = request.getParameter("reason");
-            
+
             out.println(email);
             out.println(reason);
-            
+
             AccountDAOInterface accountdao = new AccountDAOImplementation();
             AccountBean account = accountdao.getUserByEmailAddress(email);
-            
-            if(account.getAccountID() == 0){
+
+            if (account.getAccountID() == 0) {
                 out.println("User does not exist");
-            }else{
+            } else {
                 out.println(account.getAccountID());
                 out.println("HERE!! :)");
-                
+
                 lockreport.setDone(0);
                 lockreport.setEmailaddress(email);
                 lockreport.setLockreport_accountID(account.getAccountID());
                 lockreport.setReason(reason);
+
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
                 
-                if(lockreportdao.addLockReport(lockreport)){
+                Timestamp time;
+                java.util.Date date = new java.util.Date();
+                time = new Timestamp(date.getTime());
+                String activity = account.getAccountID() + " lock";
+                // not sure if customerID or accountID dapat :)
+
+                log.setActivity(activity);
+                log.setLog_accountID(account.getAccountID());
+                log.setTime(time);
+
+                if (lockreportdao.addLockReport(lockreport) && logdao.addLog(log)) {
                     out.println("successful");
                     response.sendRedirect("homepage.jsp");
-                }else{
+                } else {
                     out.println("wag ka iiyak");
                 }
-                
+
             }
         }
     }

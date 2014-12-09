@@ -7,13 +7,17 @@ package Servlet;
 
 import Beans.AccountBean;
 import Beans.CustomerBean;
+import Beans.LogBean;
 import Beans.ReviewBean;
 import DAO.Implementation.CustomerDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Implementation.ReviewDAOImplementation;
 import DAO.Interface.CustomerDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import DAO.Interface.ReviewDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,9 +60,21 @@ public class ConfirmEditReview extends HttpServlet {
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             if (homeuser.getAccesscontrol().isEditmessage()) {
+
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
+                Timestamp time;
+                java.util.Date date = new java.util.Date();
+                time = new Timestamp(date.getTime());
+                log.setTime(time);
+
                 String review = request.getParameter("review");
                 int review_productID = Integer.valueOf(request.getParameter("productid"));
                 int reviewID = Integer.valueOf(request.getParameter("reviewID"));
+
+                String activity = "Edit Review for product " + review_productID;
+                log.setActivity(activity);
+                log.setLog_accountID(homeuser.getAccountID());
 
                 CustomerBean customer = new CustomerBean();
                 CustomerDAOInterface customerdao = new CustomerDAOImplementation();
@@ -77,8 +93,9 @@ public class ConfirmEditReview extends HttpServlet {
 
                 editreview = customerdao.editReview(reviewbean);
 
-                if (editreview) {
+                if (editreview && logdao.addLog(log)) {
                     // successful mag-edit
+
                     response.sendRedirect("customerviewreviews.jsp");
                 } else {
                     //unsuccessful

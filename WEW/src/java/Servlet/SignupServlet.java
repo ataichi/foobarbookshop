@@ -118,7 +118,7 @@ public class SignupServlet extends HttpServlet {
                     LogDAOInterface logdao = new LogDAOImplementation();
 
                     if (checkAccount && checkCustomer && !userdao.isUsernameAvailable(username)) {
-                        log.setActivity(username + "Customer SignUps");
+                        log.setActivity(username + " Customer SignUps");
                         log.setLog_accountID(customer_accountID);
 
                         java.util.Date date = new java.util.Date();

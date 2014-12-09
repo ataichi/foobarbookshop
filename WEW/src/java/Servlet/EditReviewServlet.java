@@ -6,14 +6,18 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import Beans.ProductBean;
 import Beans.ReviewBean;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ReviewDAOImplementation;
+import DAO.Interface.LogDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import DAO.Interface.ReviewDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,7 +56,20 @@ public class EditReviewServlet extends HttpServlet {
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             if (homeuser.getAccesscontrol().isEditmessage()) {
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
+                Timestamp time;
+                java.util.Date date = new java.util.Date();
+                time = new Timestamp(date.getTime());
+                // not sure if customerID or accountID dapat :)
+
+                log.setLog_accountID(homeuser.getAccountID());
+                log.setTime(time);
+
                 int reviewID = Integer.valueOf(request.getParameter("reviewid"));
+                String activity = "Edit review ID " + reviewID;
+                log.setActivity(activity);
+
                 ReviewBean reviewbean = new ReviewBean();
                 ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
                 ProductDAOInterface productdao = new ProductDAOImplementation();
@@ -61,19 +78,24 @@ public class EditReviewServlet extends HttpServlet {
                 reviewbean = reviewdao.getReviewByReviewID(reviewID);
                 productbean = productdao.getProductById(reviewbean.getReview_productID());
 
-                session.setAttribute("reviewbean", reviewbean);
-                session.setAttribute("productbean", productbean);
-                out.println(reviewbean.getReview_productID());
-                out.println(productbean.getTitle());
-           //     response.sendRedirect("customereditreview.jsp");
-                out.println("YEHEY PWEDE");
+                if (logdao.addLog(log)) {
+                    session.setAttribute("reviewbean", reviewbean);
+
+                    session.setAttribute("productbean", productbean);
+                    out.println(reviewbean.getReview_productID());
+                    out.println(productbean.getTitle());
+                    //     response.sendRedirect("customereditreview.jsp");
+                    out.println("YEHEY PWEDE");
+                } else {
+                    out.println("UNABLE TO EDIT");
+                }
             } else {
                 out.println("ACCESS DENIED");
             }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

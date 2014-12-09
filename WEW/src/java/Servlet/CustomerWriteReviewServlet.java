@@ -53,7 +53,9 @@ public class CustomerWriteReviewServlet extends HttpServlet {
 
                 log.setLog_accountID(account.getAccountID());
                 log.setTime(time);
-                log.setActivity("Write Review Product ID " + 0); //na kelangan edit pa to and write codes 
+                log.setActivity("Write new Review Product ID " + 0); //na kelangan edit pa to and write codes 
+                
+                
             }else{
                 out.println("ACCESS DENIED");
             }
