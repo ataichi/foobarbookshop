@@ -14,7 +14,7 @@
         ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
         ArrayList<ProductOrderBean> finalproductorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("finalproductorderlist");
         ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
-        ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
+  //      ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
 
 %>
 <!DOCTYPE html>
@@ -111,14 +111,14 @@
                                                         + "\n Price: " + productlist.get(k).getPrice()
                                                         + "\n Review: "
                                                 );
-                                                for (int a = 0; a < reviewlist.size(); i++) {
-                                                    if (reviewlist.get(a).getReview_productID() == productlist.get(k).getProductID()) {
-                                                        out.println(reviewlist.get(a).getReview());
-                                                        break;
-                                                    } else {
-                                                        out.println("No review yet.");
-                                                    }
-                                                }
+                                                /*
+                                                 for (int a = 0; a < reviewlist.size(); i++) {
+                                                 if (reviewlist.get(a).getReview_productID() == productlist.get(k).getProductID()) {
+                                                 out.println(reviewlist.get(a).getReview());
+                                                 break;
+                                                 }
+                                                 }
+                                                 */
                                                 break;
                                             }
 

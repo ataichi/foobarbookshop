@@ -79,11 +79,13 @@ public class ViewCustomerTransactions extends HttpServlet {
                         product = productdao.getProductById(productorder.getProductorder_productID());
                         productlist.add(product);
 
-                        review = new ReviewBean();
-                        review = customerdao.getCustomerReviewForProduct(product.getProductID(), tempcustomer.getCustomerID());
-                        if (review != null) {
-                            reviewlist.add(review);
-                        }
+                        /*
+                         review = new ReviewBean();
+                         review = customerdao.getCustomerReviewForProduct(product.getProductID(), tempcustomer.getCustomerID());
+                         if (review != null) {
+                         reviewlist.add(review);
+                         }
+                         */
                     }
 
                 }
@@ -92,7 +94,7 @@ public class ViewCustomerTransactions extends HttpServlet {
                 session.setAttribute("productlist", productlist);
                 session.setAttribute("finalproductorderlist", finalproductorderlist);
                 session.setAttribute("shoppingcartlist", shoppingcartlist);
-                session.setAttribute("reviewlist", reviewlist);
+                //      session.setAttribute("reviewlist", reviewlist);
                 /*
                  out.println("Productlist:" + productlist.size());
                  out.println("\nFinalProductOrderList" + finalproductorderlist.size());
