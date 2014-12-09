@@ -79,7 +79,7 @@ public class ConfirmEditReview extends HttpServlet {
 
                 if (editreview) {
                     // successful mag-edit
-                    response.sendRedirect("customerviewrevews.jsp");
+                    response.sendRedirect("customerviewreviews.jsp");
                 } else {
                     //unsuccessful
                 }

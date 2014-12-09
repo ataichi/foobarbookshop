@@ -66,9 +66,10 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
+                                <li><span class="glyphicon glyphicon-edit"></span><form action='ViewCustomerReview'><input type='submit' value='View Review' style='background-color: transparent; border:none'/></form></li>
                                 <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
-                            </ul>
+                               </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
@@ -97,13 +98,14 @@
                             </thead>
                             <tbody>
                                 <%
-                                    
-                                    out.println("<form action='ConfirmEditReview' method='post'>"
-                                            + "Product:"+productbean.getTitle()
+
+                                    out.println("<form method='post' action='ConfirmEditReview' >"
+                                            + "Product:" + productbean.getTitle()
+                                            + "<br>"
                                             + "Review:"
-                                            + "<input type='text' value='"+reviewbean.getReview()+"' name='review'/>"
-                                            + "<input type='hidden' value='"+reviewbean.getReview_productID()+"' name='productid'/>"
-                                            + "<input type='hidden' value='"+reviewbean.getReviewID()+"'name='reviewid'/>"
+                                            + "<input type='text' value='" + reviewbean.getReview() + "' name='review'/>"
+                                            + "<input type='hidden' value='" + reviewbean.getReview_productID() + "' name='productid'>"
+                                            + "<input type='hidden' value='" + reviewbean.getReviewID() + "'name='reviewid'>"
                                             + "<input typpe='submit' value='Save' name='action' style='border-color: transparent; background-color: transparent'/>"
                                             + "</form>");
                                 %>

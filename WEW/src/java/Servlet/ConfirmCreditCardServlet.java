@@ -3,15 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Servlet;
 
-import Beans.AccountBean;
-import Beans.ProductBean;
-import Beans.ReviewBean;
-import DAO.Implementation.ProductDAOImplementation;
-import DAO.Implementation.ReviewDAOImplementation;
-import DAO.Interface.ProductDAOInterface;
-import DAO.Interface.ReviewDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,10 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "EditReviewServlet", urlPatterns = {"/EditReviewServlet"})
-public class EditReviewServlet extends HttpServlet {
+@WebServlet(name = "ConfirmCreditCardServlet", urlPatterns = {"/ConfirmCreditCardServlet"})
+public class ConfirmCreditCardServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,35 +34,12 @@ public class EditReviewServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditReviewServlet</title>");
+            out.println("<title>Servlet ConfirmCreditCardServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditReviewServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConfirmCreditCardServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-
-            HttpSession session = request.getSession();
-            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-
-            if (homeuser.getAccesscontrol().isEditmessage()) {
-                int reviewID = Integer.valueOf(request.getParameter("reviewid"));
-                ReviewBean reviewbean = new ReviewBean();
-                ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
-                ProductDAOInterface productdao = new ProductDAOImplementation();
-                ProductBean productbean = new ProductBean();
-
-                reviewbean = reviewdao.getReviewByReviewID(reviewID);
-                productbean = productdao.getProductById(reviewbean.getReview_productID());
-
-                session.setAttribute("reviewbean", reviewbean);
-                session.setAttribute("productbean", productbean);
-                out.println(reviewbean.getReview_productID());
-                out.println(productbean.getTitle());
-           //     response.sendRedirect("customereditreview.jsp");
-                out.println("YEHEY PWEDE");
-            } else {
-                out.println("ACCESS DENIED");
-            }
         }
     }
 
