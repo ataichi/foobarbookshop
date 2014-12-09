@@ -37,6 +37,9 @@ public class EditProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            
+          if(homeproduct.getAccesscontrol().isEditproduct()){
+            
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
             
             String prodType = null;
@@ -52,6 +55,7 @@ public class EditProductServlet extends HttpServlet {
             else if(homeproduct.getAccountType().equals("Magazine Manager")) {
                 prodType = "Magazine";
             }
+            
 
             int productID = Integer.parseInt(request.getParameter("product"));
             ProductBean editproduct = new ProductBean();
@@ -104,6 +108,9 @@ public class EditProductServlet extends HttpServlet {
             session.setAttribute("editproduct", editproduct);
            response.sendRedirect("editproduct.jsp");
 
+        }else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 

@@ -36,8 +36,12 @@ public class EditProductManagerAccountServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
+            
+            if(account.getAccesscontrol().isEditproductmanager()){
+                
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
+            
 
             AccountBean bean = new AccountBean();
 
@@ -103,7 +107,10 @@ public class EditProductManagerAccountServlet extends HttpServlet {
                 response.sendRedirect("productmanagerAccount.jsp");
             }
 
-        }
+        }else {
+                out.println("ACCESS DENIED");
+            }
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -146,3 +153,4 @@ public class EditProductManagerAccountServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

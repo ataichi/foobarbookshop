@@ -2,9 +2,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeadmin");
-	if(account==null){
-	response.sendRedirect("login.jsp");
-	}else{
+        if(account==null){
+        response.sendRedirect("login.jsp");
+        }else{
 %>
 <!DOCTYPE html>
 <html>
@@ -43,7 +43,7 @@
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + account.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Edit Account</a></li>
-                                <li><a href="adminChangePassword.jsp"><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
                                 <!--
                                 <li><a href="signup_productmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Product Manager</a></li>
                                 <li><a href="signup_accountingmanager.jsp"><span class="glyphicon glyphicon-edit"></span>Add Accounting Manager</a></li>
@@ -72,8 +72,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Current Password</label>
                                     <div class="col-sm-3">
-                                <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="checkcurrentpass();" onfocus="backWhite(this);" required value="<%out.println(account.getPassword());%>" required>
-                                            </div>
+                                        <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="checkcurrentpass();" onfocus="backWhite(this);" required value="<%out.println(account.getPassword());%>" required>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" >New Password</label>
@@ -87,15 +87,14 @@
                                         <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Re-Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg center-block">Save Changes</button>
                                 </div>
-                                <div class="form-group">
-                                    <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
-                                </div>
                             </div>
                         </form>
+                        <div class="form-group">
+                            <a href='adminHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                        </div>
                     </div>
                 </div>
 

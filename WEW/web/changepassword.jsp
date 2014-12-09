@@ -3,10 +3,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-	if(homeuser==null){
-	response.sendRedirect("login.jsp");
-	}else{
-	
+    if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    } else {
+
 %>
 
 <!DOCTYPE html>
@@ -97,15 +97,15 @@
                                         <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Re-Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
-                               
+
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg center-block">Save Changes</button>
                                 </div>
-                                <div class="form-group">
-                                    <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
-                                </div>
                             </div>
                         </form>
+                        <div class="form-group">
+                            <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                        </div>
                     </div>
                 </div>
 

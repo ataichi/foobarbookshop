@@ -94,37 +94,37 @@
                         <form class="form-horizontal" role="form" id="productcheck" name="productcheck" action="FinalEditProductServlet" onsubmit="return productCheck(this)" method="post">
                             <div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">Title</label>
+                                    <label class="control-label col-lg-4" for="productTitle">Title</label>
                                     <div class="col-sm-3">
                                         <input type='text' class="form-control" id='productTitle' name='productTitle' onblur="productTitleCheck()" onfocus='backWhite(this);' value='<% out.println(editproduct.getTitle()); %>'/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">Price</label>
+                                    <label class="control-label col-lg-4" for="productPrice">Price</label>
                                     <div class="col-sm-3">
                                         <input type='text' class="form-control" id='productPrice' name='productPrice' onblur="productPriceCheck()" onfocus='backWhite(this);' value='<% out.println(editproduct.getPrice()); %>'/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">Summary</label>
+                                    <label class="control-label col-lg-4" for="productSummary">Summary</label>
                                     <div class="col-sm-3">
                                         <input type='text' class="form-control" id='productSummary' name='productSummary' onblur="productSummaryCheck()" onfocus='backWhite(this);' value='<% out.println(editproduct.getSummary()); %>'/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">Genre</label>
+                                    <label class="control-label col-lg-4" for="productGenre">Genre</label>
                                     <div class="col-sm-3">
                                         <input type='text' class="form-control" id='productGenre' name='productGenre' onblur="productGenreCheck()" onfocus='backWhite(this);' value='<% out.println(editproduct.getGenre()); %>'/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">Year</label>
+                                    <label class="control-label col-lg-4" for="productYear">Year</label>
                                     <div class="col-sm-3">
                                         <input type='text' class="form-control" id='productYear' name='productYear' onblur="productYearCheck()" onfocus='backWhite(this);' value='<% out.println(editproduct.getYear()); %>'/>       
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">Stocks</label>
+                                    <label class="control-label col-lg-4" for="productStocks">Stocks</label>
                                     <div class="col-sm-3">
                                         <input type='text' class="form-control" id='productStocks' name='productStocks' onblur="productStocksCheck()" onfocus='backWhite(this);' value='<% out.println(editproduct.getNumberStocks()); %>'/>
                                     </div>
@@ -132,13 +132,13 @@
                                 <% if (prodType.equals("Audio CD")) {
 
                                         out.println("<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Artist</label>"
+                                                + "<label class='control-label col-lg-4' for='cdArtist'>Artist</label>"
                                                 + "<divclass='col-sm-3'>"
                                                 + "<input type='text' clas='form-control' id='cdArtist' name='cdArtist' onfocus-'backWhite(this);' value='" + audiocd.getArtist() + "'/>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Record Company</label>"
+                                                + "<label class='control-label col-lg-4' for='cdRecord'>Record Company</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='text' class='form-label' id='cdRecord' name='cdRecord' onfocus='backWhite(thist);'vlaue='" + audiocd.getRecordCompany() + "'/>"
                                                 + "</div>"
@@ -146,19 +146,19 @@
                                         );
                                     } else if (prodType.equals("Book")) {
                                         out.println("<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Author</label>"
+                                                + "<label class='control-label col-lg-4' for='bookAuthor'>Author</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='text' class='form-control' id='bookAuthor' name='bookAuthor' onfocus='backWhite(this);' value='" + book.getAuthor() + "'/>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Publisher</label>"
+                                                + "<label class='control-label col-lg-4' for='bookPublisher'>Publisher</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='text' class='form-control' id='bookPublisher' name='bookPublisher' onfocus='backWhite(this);' value='" + book.getPublisher() + "'/>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Date Published</label>"
+                                                + "<label class='control-label col-lg-4' for='bookDatePublished'>Date Published</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='date' class='form-control' id='bookDatePublished' name='bookDatePublished' onfocus='backWhite(this);' value='" + book.getDatePublished() + "'/>"
                                                 + "</div>"
@@ -166,44 +166,44 @@
 
                                     } else if (prodType.equals("DVD")) {
                                         out.println("<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Director</label>"
+                                                + "<label class='control-label col-lg-4' for='dvdDirector'>Director</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='text' class='form-control' id='dvdDirector' name='dvdDirector' onfocus='backWhite(this);' value='" + dvd.getDirector() + "'/>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Actor</label>"
+                                                + "<label class='control-label col-lg-4' for='dvdActor'>Actor</label>"
                                                 + "<div class='col-sm-3'>"
-                                                + "<input type='text' class='form-control' id='dvdActor' name='bookPublisher' onfocus='backWhite(this);' value='" + dvd.getMainActors() + "'/>"
+                                                + "<input type='text' class='form-control' id='dvdActor' name='dvdActor' onfocus='backWhite(this);' value='" + dvd.getMainActors() + "'/>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Producer</label>"
+                                                + "<label class='control-label col-lg-4' for='dvdProducer'>Producer</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='text' class='form-control' id='dvdProducer' name='dvdProducer' onfocus='backWhite(this);' value='" + dvd.getProductionCompany() + "'/>"
                                                 + "</div>"
                                                 + "</div>");
                                     } else if (prodType.equals("Magazine")) {
                                         out.println("<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Volume Number</label>"
+                                                + "<label class='control-label col-lg-4' for='magazineVolume'>Volume Number</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='text' class='form-control' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);' value='" + magazine.getVolumeNo() + "'/>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Issue Number</label>"
+                                                + "<label class='control-label col-lg-4' for='magazineIssue'>Issue Number</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='text' class='form-control' id='magazineIssue' name='magazineIssue' onfocus='backWhite(this);' value='" + magazine.getIssueNo() + "'/>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Publisher</label>"
+                                                + "<label class='control-label col-lg-4' for='magazinePublisher'>Publisher</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='text' class='form-control' id='magazinePublisher' name='magazinePublisher' onfocus='backWhite(this);' value='" + magazine.getPublisher() + "'/>"
                                                 + "</div>"
                                                 + "</div>"
                                                 + "<div class='form-group'>"
-                                                + "<label class='control-label col-lg-4' for='fname'>Date Published</label>"
+                                                + "<label class='control-label col-lg-4' for='magazineDate'>Date Published</label>"
                                                 + "<div class='col-sm-3'>"
                                                 + "<input type='date' class='form-control' id='magazineDate' name='magazineDate' onfocus='backWhite(this);' value='" + magazine.getDatePublished() + "'/>"
                                                 + "</div>"

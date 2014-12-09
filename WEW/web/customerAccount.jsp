@@ -2,10 +2,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-	if(homeuser==null){
-	response.sendRedirect("login.jsp");
-	}else{
-	
+    if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    } else {
+
 %>
 <!DOCTYPE html>
 <html>
@@ -48,8 +48,8 @@
                                 <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
                                 <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
-                                     <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
-                       </ul>
+                                <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
+                            </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
@@ -110,11 +110,11 @@
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg center-block">Edit Account</button>
                                 </div>
-                                <div class="form-group">
-                                    <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
-                                </div>
                             </div>
                         </form>
+                        <div class="form-group">
+                            <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                        </div>
                     </div>
                 </div>
 
