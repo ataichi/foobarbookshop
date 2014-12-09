@@ -54,6 +54,12 @@ public class ShoppingServlet extends HttpServlet {
                 ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
                 ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
                 ArrayList<ProductBean> orderproductlist = new ArrayList<ProductBean>();
+
+                ArrayList<ProductBean> productaudiolist = (ArrayList<ProductBean>) session.getAttribute("productaudiolist");
+                ArrayList<ProductBean> productbooklist = (ArrayList<ProductBean>) session.getAttribute("productbooklist");
+                ArrayList<ProductBean> productdvdlist = (ArrayList<ProductBean>) session.getAttribute("productdvdlist");
+                ArrayList<ProductBean> productmagazinelist = (ArrayList<ProductBean>) session.getAttribute("productmagazinelist");
+
                 ProductBean orderproduct = new ProductBean();
                 ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
                 CustomerBean customer = new CustomerBean();
@@ -89,6 +95,9 @@ public class ShoppingServlet extends HttpServlet {
 
                 out.println(customer.getCustomerID());
                 shopcartcheck = cdao.purchase(cartbean);
+                int quantity;
+                int newstocks;
+                boolean updatestocks = false;
                 if (shopcartcheck) {
                     cartbean.setShoppingcart_customerID(homeuser.getAccountID());
                     for (i = 0; i < orderlist.size(); i++) {
@@ -97,16 +106,41 @@ public class ShoppingServlet extends HttpServlet {
 
                         // gets product
                         productid = orderlist.get(i).getProductorder_productID();
+                        quantity = orderlist.get(i).getQuantity();
+
                         orderproduct = productdao.getProductById(productid);
-                        orderproductlist.add(orderproduct);
-                        out.println(productid);
+
+                        newstocks = orderproduct.getNumberStocks() - quantity;
+                        if (newstocks >= 0) {
+
+                            updatestocks = productdao.updateStocks(productid, newstocks);
+
+                            // update stocks
+                            orderproduct.setNumberStocks(orderproduct.getNumberStocks() - quantity);
+                            orderproduct.setGenre(orderproduct.getGenre());
+
+                            orderproductlist.add(orderproduct);
+                            out.println(productid);
+                        } else {
+                            out.println("kulang stocks teh");
+                        }
                     }
 
                     log.setActivity("Purchase Shopping Cart ID " + shoppingcartID + 1);
                     log.setLog_accountID(homeuser.getAccountID());
                     log.setTime(orderTime);
 
+                    productaudiolist = productdao.getAllAvailableProductsByType("Audio CD");
+                    productbooklist = productdao.getAllAvailableProductsByType("Book");
+                    productdvdlist = productdao.getAllAvailableProductsByType("DVD");
+                    productmagazinelist = productdao.getAllAvailableProductsByType("Magazine");
+
                     if (logdao.addLog(log)) {
+                        // update all products
+                        session.setAttribute("productaudiolist", productaudiolist);
+                        session.setAttribute("productbooklist", productbooklist);
+                        session.setAttribute("productdvdlist", productdvdlist);
+                        session.setAttribute("productmagazinelist", productmagazinelist);
                         session.setAttribute("orderproductlist", orderproductlist);
                         session.setAttribute("temporder", order); //reset
                         out.println("yehey");
