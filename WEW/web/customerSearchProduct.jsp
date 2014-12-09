@@ -8,15 +8,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-	if(homeuser==null){
-	response.sendRedirect("login.jsp");
-	}else{
-    ArrayList<ProductBean> searchproductlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
-    ArrayList<AudioCDBean> searchaudiocdlist = (ArrayList<AudioCDBean>) session.getAttribute("searchaudiocdlist");
-    ArrayList<BookBean> searchbooklist = (ArrayList<BookBean>) session.getAttribute("searchbooklist");
-    ArrayList<DVDBean> searchdvdlist = (ArrayList<DVDBean>) session.getAttribute("searchdvdlist");
-    ArrayList<MagazineBean> searchmagazinelist = (ArrayList<MagazineBean>) session.getAttribute("searchmagazinelist");
-    ProductBean product = new ProductBean();
+    if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    } else {
+        ArrayList<ProductBean> searchproductlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
+        ArrayList<AudioCDBean> searchaudiocdlist = (ArrayList<AudioCDBean>) session.getAttribute("searchaudiocdlist");
+        ArrayList<BookBean> searchbooklist = (ArrayList<BookBean>) session.getAttribute("searchbooklist");
+        ArrayList<DVDBean> searchdvdlist = (ArrayList<DVDBean>) session.getAttribute("searchdvdlist");
+        ArrayList<MagazineBean> searchmagazinelist = (ArrayList<MagazineBean>) session.getAttribute("searchmagazinelist");
+        ProductBean product = new ProductBean();
 %>
 <!DOCTYPE html>
 <html>
@@ -51,7 +51,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li class="active"><a href="customerHOME.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -59,7 +59,7 @@
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
                                 <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
-                          </ul>
+                            </ul>
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
@@ -112,12 +112,13 @@
                         %>
                     </div>
                 </div>
+            </div>
+        </div>
 
 
-                <script src="dist/js/jquery-2.1.0.min.js"></script>
-                <script src="dist/js/query.js"></script>
-                <script src="dist/js/bootstrap.min.js"></script>
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
 
-                </body>
-                </html>
-<%}%>
+    </body>
+</html>

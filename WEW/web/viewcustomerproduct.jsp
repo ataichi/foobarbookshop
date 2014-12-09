@@ -153,7 +153,7 @@
                             <dd></dd>
                         </dl>
                         <dl class="horizontal">
-                            <dt><a href="customerHOME.jsp"><button>Back</button></a></dt>
+                            <dt><a href="customerHOME.jsp"><button class="btn center-block">Back</button></a></dt>
                             <dd></dd>
                         </dl>
                     </div>

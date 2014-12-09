@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 
 <%
-    AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
+    AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
     if(homeadmin==null){
 	response.sendRedirect("login.jsp");
 	}else{
@@ -49,7 +49,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="adminHOME.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                         <li class="dropdown active">
-                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeadmin.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="adminAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Edit Account</a></li>
                                 <!--
