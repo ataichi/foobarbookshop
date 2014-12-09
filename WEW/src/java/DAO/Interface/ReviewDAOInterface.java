@@ -10,13 +10,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 import Beans.ReviewBean;
 
-/**
- *
- * @author Juan Paolo A. Coloma
- */
 public interface ReviewDAOInterface {
       
     public boolean deleteReview (int ReviewID);
-    public ArrayList<ReviewBean> getAllReviews(int ID);
+    public ArrayList<ReviewBean> getAllReviews();
+    public ReviewBean getReviewByReviewID(int reviewID);
     
 }

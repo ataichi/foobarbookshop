@@ -1,21 +1,17 @@
-<%@page import="DAO.Implementation.ReviewDAOImplementation"%>
 <%@page import="Beans.ProductBean"%>
-<%@page import="Beans.ProductOrderBean"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="Beans.ShoppingCartBean"%>
-<%@page import="Beans.*"%>
-<%@page import="Beans.CustomerBean"%>
+<%@page import="Beans.ReviewBean"%>
+<%@page import="Beans.AccountBean"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
     if (homeuser == null) {
         response.sendRedirect("login.jsp");
     } else {
-
-     ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
-            
+        ReviewBean reviewbean = (ReviewBean) session.getAttribute("reviewbean");
+        ProductBean productbean = (ProductBean) session.getAttribute("productbean");
 
 %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -48,8 +44,7 @@
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
-
-        <title>Customer Home Page</title>
+        <title>Customer Edit Review Page</title>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -102,17 +97,15 @@
                             </thead>
                             <tbody>
                                 <%
-                                    int i;
-                                    for (i = 0; i < reviewlist.size(); i++) {
-                                        out.println("<tr>"
-                                                + "<td>"
-                                                + reviewlist.get(i).getReview()
-                                                + "</td><td>"
-                                                + "<form id='" + reviewlist.get(i).getReviewID() + "' method='post' action='DeleteReviewServlet'>"
-                                                + "<input type='submit' id='submit' value='Delete' name='" + reviewlist.get(i).getReviewID() + "' style='border-color: transparent; background-color: transparent'/>"
-                                                + "</form>"
-                                                + "</td></tr>");
-                                    }
+                                    
+                                    out.println("<form action='ConfirmEditReview' method='post'>"
+                                            + "Product:"+productbean.getTitle()
+                                            + "Review:"
+                                            + "<input type='text' value='"+reviewbean.getReview()+"' name='review'/>"
+                                            + "<input type='hidden' value='"+reviewbean.getReview_productID()+"' name='productid'/>"
+                                            + "<input type='hidden' value='"+reviewbean.getReviewID()+"'name='reviewid'/>"
+                                            + "<input typpe='submit' value='Save' name='action' style='border-color: transparent; background-color: transparent'/>"
+                                            + "</form>");
                                 %>
                             </tbody>
                         </table>
@@ -133,6 +126,5 @@
             });
         </script>
     </body>
-
 </html>
 <%}%>

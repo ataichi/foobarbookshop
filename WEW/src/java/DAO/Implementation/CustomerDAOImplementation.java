@@ -653,4 +653,49 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 
     }
 
+    @Override
+    public ArrayList<ReviewBean> getReviewsByCustomer(int customerID) {
+        try {
+            String query = "select * from review where review_customerID = ?";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, customerID);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ReviewBean> list = new ArrayList<ReviewBean>();
+            ReviewBean bean = new ReviewBean();
+            int reviewID, review_productID, review_customerID;
+            String reviewString;
+
+            while (rs.next()) {
+
+                bean = new ReviewBean();
+
+                reviewID = rs.getInt("reviewID");
+                review_productID = rs.getInt("review_productID");
+                review_customerID = rs.getInt("review_customerID");
+
+                reviewString = rs.getString("reviewString");
+
+                bean.setReviewID(reviewID);
+                bean.setReview_customerID(review_customerID);
+                bean.setReview_productID(review_productID);
+
+                bean.setReview(reviewString);
+
+                list.add(bean);
+
+            }
+
+            connection.close();
+            return list;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

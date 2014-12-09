@@ -11,8 +11,7 @@
         response.sendRedirect("login.jsp");
     } else {
 
-     ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
-            
+        ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
 
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -49,7 +48,7 @@
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
 
-        <title>Customer Home Page</title>
+        <title>Customer Review Page</title>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -109,7 +108,12 @@
                                                 + reviewlist.get(i).getReview()
                                                 + "</td><td>"
                                                 + "<form id='" + reviewlist.get(i).getReviewID() + "' method='post' action='DeleteReviewServlet'>"
-                                                + "<input type='submit' id='submit' value='Delete' name='" + reviewlist.get(i).getReviewID() + "' style='border-color: transparent; background-color: transparent'/>"
+                                                + "<input type='submit' id='submit' value='Delete' name='action' style='border-color: transparent; background-color: transparent'/>"
+                                                + "<input type='hidden' name='reviewid' value='" + reviewlist.get(i).getReviewID() + "'/>"
+                                                + "</form>"
+                                                + "<form action='EditReviewServlet'>"
+                                                + "<input type='submit' id='submit' value='Edit' name='action' style='border-color: transparent; background-color: transparent'/>"
+                                                + "<input type='hidden' name='reviewid' value='" + reviewlist.get(i).getReviewID() + "'/>"
                                                 + "</form>"
                                                 + "</td></tr>");
                                     }

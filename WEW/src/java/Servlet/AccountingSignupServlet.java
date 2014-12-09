@@ -57,63 +57,69 @@ public class AccountingSignupServlet extends HttpServlet {
             String email = request.getParameter("email");
             String username = request.getParameter("uname");
             String pass1 = request.getParameter("pass1");
-            boolean locked = false;
-
-            Hasher hash = null;
-
-            try {
-                hash = new Hasher("MD5");
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(AccountingSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            hash.updateHash(pass1, "UTF-8");
-            pass1 = hash.getHashBASE64();
-
-            account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
-            account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));
-            account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(mInitial));
-            account.setPassword(pass1);
-            account.setEmailAdd(email);
-            account.setUsername(AccountDAOImplementation.inputSanitizer(username));
-            account.setAccountType("Accounting Manager");
-            account.setLocked(locked);
-
-            int accountingmanager_accountID;
-
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-
-            log.setLog_accountID(homeadmin.getAccountID()); // temporary
-            log.setTime(time);
-            log.setActivity("Add new Accounting Manager " + account.getFirstName());
-
-            boolean addUser = userdao.addAccount(account);
-
-            if (addUser) {
-                //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
-                if (logdao.addLog(log)) {
-                    userCookie = new Cookie("password", pass1);
-                    userCookie.setMaxAge(86400);
-                    response.addCookie(userCookie);
-                    response.sendRedirect("adminHOME.jsp");
-                }
+            String password = pass1;
+            if (password.toLowerCase().contains(username.toLowerCase()) || password.toLowerCase().contains(firstname.toLowerCase())
+                    || password.toLowerCase().contains(lastname.toLowerCase())) {
+                response.sendRedirect("accountingmanagersignupfail.jsp");
             } else {
-                response.sendRedirect("signup_accountingmanager.jsp");
-            }
+                boolean locked = false;
+
+                Hasher hash = null;
+
+                try {
+                    hash = new Hasher("MD5");
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(AccountingSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                hash.updateHash(pass1, "UTF-8");
+                pass1 = hash.getHashBASE64();
+
+                account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
+                account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));
+                account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(mInitial));
+                account.setPassword(pass1);
+                account.setEmailAdd(email);
+                account.setUsername(AccountDAOImplementation.inputSanitizer(username));
+                account.setAccountType("Accounting Manager");
+                account.setLocked(locked);
+
+                int accountingmanager_accountID;
+
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+
+                log.setLog_accountID(homeadmin.getAccountID()); // temporary
+                log.setTime(time);
+                log.setActivity("Add new Accounting Manager " + account.getFirstName());
+
+                boolean addUser = userdao.addAccount(account);
+
+                if (addUser) {
+                //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
+                    //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
+                    if (logdao.addLog(log)) {
+                        userCookie = new Cookie("password", pass1);
+                        userCookie.setMaxAge(86400);
+                        response.addCookie(userCookie);
+                        response.sendRedirect("adminHOME.jsp");
+                    }
+                } else {
+                    response.sendRedirect("signup_accountingmanager.jsp");
+                }
             //   } else {
-            //      out.println("ACCESS DENIED");
-            //  }
+                //      out.println("ACCESS DENIED");
+                //  }
             /*
-             boolean addAccountingManager = adao.addAccountingManager(accountingManager);
-             if (addUser && addAccountingManager) {
-             response.sendRedirect("adminHOME.jsp");
-             //successful
-             } else {
-             response.sendRedirect("signupfail.jsp");
-             }
-             */
+                 boolean addAccountingManager = adao.addAccountingManager(accountingManager);
+                 if (addUser && addAccountingManager) {
+                 response.sendRedirect("adminHOME.jsp");
+                 //successful
+                 } else {
+                 response.sendRedirect("signupfail.jsp");
+                 }
+                 */
+            }
         } finally {
             out.close();
         }

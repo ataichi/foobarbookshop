@@ -17,21 +17,16 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Juan Paolo A. Coloma
- */
 public class ReviewDAOImplementation implements ReviewDAOInterface {
-    
-     String query, reviewString;
-     int ID, source, product;
-     ArrayList<ReviewBean> rlist = new ArrayList<ReviewBean>();
-     ReviewBean bean;
-     
+
+    String query, reviewString;
+    int ID, source, product;
+    ArrayList<ReviewBean> rlist = new ArrayList<ReviewBean>();
+    ReviewBean bean;
 
     @Override
     public boolean deleteReview(int ReviewID) {
-         try {
+        try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
             query = "delete from review where reviewID = ?";
@@ -48,11 +43,11 @@ public class ReviewDAOImplementation implements ReviewDAOInterface {
     }
 
     @Override
-    public ArrayList<ReviewBean> getAllReviews(int ID) {
+    public ArrayList<ReviewBean> getAllReviews() {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            query = "select * from book";
+            query = "select * from review";
             PreparedStatement ps = connection.prepareStatement(query);
 
             ResultSet resultSet = ps.executeQuery();
@@ -60,15 +55,15 @@ public class ReviewDAOImplementation implements ReviewDAOInterface {
             while (resultSet.next()) {
                 ID = resultSet.getInt("reviewID");
                 reviewString = resultSet.getString("reviewString");
-                source = resultSet.getInt("review_CustomerID");   
-                product = resultSet.getInt("review_ProductID");  
-                
+                source = resultSet.getInt("review_CustomerID");
+                product = resultSet.getInt("review_ProductID");
+
                 bean = new ReviewBean();
 
-              bean.setReview(reviewString);
-              bean.setReviewID(ID);
-              bean.setReview_customerID(source);
-              bean.setReview_productID(product);
+                bean.setReview(reviewString);
+                bean.setReviewID(ID);
+                bean.setReview_customerID(source);
+                bean.setReview_productID(product);
 
                 rlist.add(bean);
             }
@@ -80,5 +75,38 @@ public class ReviewDAOImplementation implements ReviewDAOInterface {
         }
         return null;
     }
-    
+
+    @Override
+    public ReviewBean getReviewByReviewID(int reviewID) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            query = "select * from review where reviewID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, reviewID);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                ID = resultSet.getInt("reviewID");
+                reviewString = resultSet.getString("reviewString");
+                source = resultSet.getInt("review_CustomerID");
+                product = resultSet.getInt("review_ProductID");
+
+                bean = new ReviewBean();
+
+                bean.setReview(reviewString);
+                bean.setReviewID(ID);
+                bean.setReview_customerID(source);
+                bean.setReview_productID(product);
+            }
+            connection.close();
+            return bean;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BookManagerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }
