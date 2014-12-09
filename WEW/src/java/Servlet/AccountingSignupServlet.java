@@ -4,14 +4,17 @@ import Beans.*;
 import DAO.Implementation.*;
 import DAO.Interface.*;
 import DBConnection.Hasher;
+import Security.Cookies;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,67 +38,73 @@ public class AccountingSignupServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
+            Cookie userCookie;
+            Hashtable cookies = new Cookies().cookieTable(request.getCookies());
+
             HttpSession session = request.getSession();
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
 
             //if (homeadmin.getAccesscontrol().isCreateaccountingmanager()) {
-                AccountBean account = new AccountBean();
-                AccountDAOInterface userdao = new AccountDAOImplementation();
-                AdminDAOInterface adao = new AdminDAOImplementation();
+            AccountBean account = new AccountBean();
+            AccountDAOInterface userdao = new AccountDAOImplementation();
+            AdminDAOInterface adao = new AdminDAOImplementation();
 
-                LogBean log = new LogBean();
-                LogDAOInterface logdao = new LogDAOImplementation();
-                String firstname = request.getParameter("fname");
-                String lastname = request.getParameter("lname");
-                String mInitial = request.getParameter("mname");
-                String email = request.getParameter("email");
-                String username = request.getParameter("uname");
-                String pass1 = request.getParameter("pass1");
-                boolean locked = false;
-                
-                Hasher hash = null;
-                
-                try {
-                    hash = new Hasher("MD5");
-                } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(AccountingSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                hash.updateHash(pass1, "UTF-8");
-                pass1 = hash.getHashBASE64();
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+            String firstname = request.getParameter("fname");
+            String lastname = request.getParameter("lname");
+            String mInitial = request.getParameter("mname");
+            String email = request.getParameter("email");
+            String username = request.getParameter("uname");
+            String pass1 = request.getParameter("pass1");
+            boolean locked = false;
 
-                account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
-                account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));
-                account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(mInitial));
-                account.setPassword(pass1);
-                account.setEmailAdd(email);
-                account.setUsername(AccountDAOImplementation.inputSanitizer(username));
-                account.setAccountType("Accounting Manager");
-                account.setLocked(locked);
+            Hasher hash = null;
 
-                int accountingmanager_accountID;
+            try {
+                hash = new Hasher("MD5");
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(AccountingSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
+            hash.updateHash(pass1, "UTF-8");
+            pass1 = hash.getHashBASE64();
 
-                log.setLog_accountID(homeadmin.getAccountID()); // temporary
-                log.setTime(time);
-                log.setActivity("Add new Accounting Manager " + account.getFirstName());
+            account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
+            account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));
+            account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(mInitial));
+            account.setPassword(pass1);
+            account.setEmailAdd(email);
+            account.setUsername(AccountDAOImplementation.inputSanitizer(username));
+            account.setAccountType("Accounting Manager");
+            account.setLocked(locked);
 
-                boolean addUser = userdao.addAccount(account);
+            int accountingmanager_accountID;
 
-                if (addUser) {
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setLog_accountID(homeadmin.getAccountID()); // temporary
+            log.setTime(time);
+            log.setActivity("Add new Accounting Manager " + account.getFirstName());
+
+            boolean addUser = userdao.addAccount(account);
+
+            if (addUser) {
                 //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                    //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
-                    if (logdao.addLog(log)) {
-                        response.sendRedirect("adminHOME.jsp");
-                    }
-                } else {
-                    response.sendRedirect("signup_accountingmanager.jsp");
+                //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
+                if (logdao.addLog(log)) {
+                    userCookie = new Cookie("password", pass1);
+                    userCookie.setMaxAge(86400);
+                    response.addCookie(userCookie);
+                    response.sendRedirect("adminHOME.jsp");
                 }
-         //   } else {
-          //      out.println("ACCESS DENIED");
-          //  }
+            } else {
+                response.sendRedirect("signup_accountingmanager.jsp");
+            }
+            //   } else {
+            //      out.println("ACCESS DENIED");
+            //  }
             /*
              boolean addAccountingManager = adao.addAccountingManager(accountingManager);
              if (addUser && addAccountingManager) {
