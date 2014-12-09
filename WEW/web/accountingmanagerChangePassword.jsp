@@ -34,7 +34,6 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-        <script src="js/customercheck.js" type="text/javascript"></script>
         <script src="js/managercheck.js" type="text/javascript"></script>
         <link href="css/wadesign.css" rel="stylesheet">
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -66,14 +65,6 @@
                         </li>
                         <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
-                        <div class="input-group input-group-sm" style="max-width:360px;">
-                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </nav>
@@ -85,7 +76,7 @@
                         <h3 class="panel-title">Change Password</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return editPassword();" action="AccountingChangePasswordServlet" method="post">
+                        <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return managerEditPassword();" action="AccountingChangePasswordServlet" method="post">
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
                                     <label class="control-label col-lg-4">Password</label>

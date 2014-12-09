@@ -14,6 +14,64 @@ function managerCheck() {
     }
 }
 
+function editManagerCheck() {
+    var first = fnameManagerCheck();
+    var middle = mnameManagerCheck();
+    var last = lnameManagerCheck();
+    var user = unameManagerCheck();
+    var email = emailManagerCheck();
+    //var pass = verifyPassCheck();
+
+    if (first == false || last == false || middle == false || user == false || email == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function managerEditPassword() {
+    var pass1 = managercheckcurrentpass();
+    var pass2 = managerpasscheck();
+    var pass3 = managerpasscheck();
+    if (pass1 == false || pass2 == false || pass3 == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function managercheckcurrentpass() {
+    var pass1 = document.forms["managercheck"]["currpass"].value;
+    if (pass1 == "" || pass1 == null) {
+        document.forms["managercheck"]["currpass"].style.backgroundColor = "pink";
+        return false;
+    }
+    else {
+        document.forms["managercheck"]["currpass"].style.backgroundColor = "white";
+        return true;
+    }
+}
+
+function managerpasscheck() {
+    var pass1 = document.forms["managercheck"]["pass1"].value;
+    var pass2 = document.forms["managercheck"]["pass2"].value;
+    
+    if (!(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass1))//!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
+            || pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
+        document.forms["managercheck"]["pass1"].style.backgroundColor = "pink";
+        document.forms["managercheck"]["pass2"].style.backgroundColor = "pink";
+        return false;
+    }
+    else {
+        document.forms["managercheck"]["pass1"].style.backgroundColor = "white";
+        document.forms["managercheck"]["pass2"].style.backgroundColor = "white";
+        return true;
+    }
+    
+}
+
 function fnameManagerCheck() {
     var first = document.forms["managercheck"]["fname"].value;
     if (first == "" || first == null || !(/^[A-z ]+$/.test(first))) {
