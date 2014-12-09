@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
             ArrayList<ProductBean> productmagazinelist = new ArrayList<ProductBean>();
 
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+            ProductDAOInterface productdao = new ProductDAOImplementation();
 
             ArrayList<LogBean> loglist = new ArrayList<LogBean>();
             LogBean log = new LogBean();
@@ -125,10 +126,10 @@ public class LoginServlet extends HttpServlet {
                             CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
                             CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
 
-                            productaudiolist = pdao.getProductsByType("Audio CD");
-                            productbooklist = pdao.getProductsByType("Book");
-                            productdvdlist = pdao.getProductsByType("DVD");
-                            productmagazinelist = pdao.getProductsByType("Magazine");
+                            productaudiolist = productdao.getAllAvailableProductsByType("Audio CD");
+                            productbooklist = productdao.getAllAvailableProductsByType("Book");
+                            productdvdlist = productdao.getAllAvailableProductsByType("DVD");
+                            productmagazinelist = productdao.getAllAvailableProductsByType("Magazine");
 
 //                    System.out.println(tempcustomer.getCustomerID());
                             type = "Customer";
@@ -319,14 +320,14 @@ public class LoginServlet extends HttpServlet {
 
                         }
                     }
-                } else if (accountdao.isUsernameAvailable(username)){
+                } else if (accountdao.isUsernameAvailable(username)) {
                     account = accountdao.getUserByUsername(username);
-                    if(account.getLocked()){
+                    if (account.getLocked()) {
                         response.sendRedirect("contactAdmin.jsp");
-                    }else{
+                    } else {
                         out.println("hindi ko rin gets bakit e");
                     }
-                }else {
+                } else {
                     ctr_try++;
                     if (ctr_try <= 5) {
 

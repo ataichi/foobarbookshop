@@ -151,7 +151,7 @@ function passManagerCheck() {
 function verifyPassCheck() {
     var pass1 = document.forms["managercheck"]["pass1"].value;
     var pass2 = document.forms["managercheck"]["pass2"].value;
-    if(pass1 != pass2 || pass2 == "" || pass2 == null) {
+    if(pass1 != pass2 || pass2 == "" || pass2 == null || !(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass2))) {
         document.forms["managercheck"]["pass2"].style.backgroundColor = "pink";
         return false;
     }
