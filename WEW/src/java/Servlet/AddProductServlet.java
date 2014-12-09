@@ -45,6 +45,9 @@ public class AddProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            
+            if(homeproduct.getAccesscontrol().isAddproduct()){
+            
             ProductManagerDAOImplementation pdao = new ProductManagerDAOImplementation();
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
@@ -59,6 +62,8 @@ public class AddProductServlet extends HttpServlet {
             } else if (homeproduct.getAccountType().equals("Magazine Manager")) {
                 prodType = "Magazine";
             }
+            
+            
 
             ProductBean product = new ProductBean();
             String type, title, summary, genre;
@@ -266,6 +271,9 @@ public class AddProductServlet extends HttpServlet {
                 }
             }
 
+        } else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 

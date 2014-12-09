@@ -44,10 +44,17 @@ public class FinalEditProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            
+             if(homeproduct.getAccesscontrol().isEditproduct()){
+            
+            
             ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
             ProductManagerDAOInterface productdao = new ProductManagerDAOImplementation();
             out.println(editproduct.getProductID());
             ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
+            
+           
+            
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -245,6 +252,9 @@ public class FinalEditProductServlet extends HttpServlet {
 
             }
 
+        }else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 
