@@ -44,20 +44,19 @@ public class ChangePasswordServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
-
-            String type = (String) session.getAttribute("type");
+            //String type = (String) session.getAttribute("type");
             AccountBean account = new AccountBean();
-            if (type.equals("Customer")) {
+            if (account.getAccountType().equals("Customer")) {
                 account = (AccountBean) session.getAttribute("homecustomer");
-            } else if (type.equals("Audio CD Manager") || type.equals("Book Manager") || type.equals("DVD Manager") || type.equals("Magazine Manager")) {
+            } else if (account.getAccountType().equals("Audio CD Manager")|| account.getAccountType().equals("Book Manager")|| account.getAccountType().equals("DVD Manager")|| account.getAccountType().equals("Magazine Manager")) {
                 account = (AccountBean) session.getAttribute("homeproduct");
-            } else if (type.equals("Accounting Manager")) {
+            } else if (account.getAccountType().equals("Accounting Manager")) {
                 account = (AccountBean) session.getAttribute("homeaccounting");
-            } else if (type.equals("Admin")) {
+            } else if (account.getAccountType().equals("Admin")) {
                 account = (AccountBean) session.getAttribute("homeadmin");
             }
 
-            if (account.getAccesscontrol().isEditpassword()) {
+            //if (account.getAccesscontrol().isEditpassword()) {
                 AccountDAOInterface accountdao = new AccountDAOImplementation();
 
                 LogBean log = new LogBean();
@@ -75,7 +74,7 @@ public class ChangePasswordServlet extends HttpServlet {
                 currpass = checkhash.getHashBASE64();
 
                 if (account.getPassword() == currpass) {
-
+                    System.out.println("yehey");
                     // hash password here
                     String pass1 = request.getParameter("pass1");
                     String pass2 = request.getParameter("pass2");
@@ -110,25 +109,29 @@ public class ChangePasswordServlet extends HttpServlet {
                             account.setPassword(pass2);
                             account.setUsername(account.getUsername());
 
-                            if (type.equals("Customer")) {
+                            if (account.getAccountType().equals("Customer")) {
                                 session.setAttribute("homecustomer", account);
                                 response.sendRedirect("customerHOME.jsp");
-                            } else if (type.equals("Audio CD Manager") || type.equals("Book Manager") || type.equals("DVD Manager") || type.equals("Magazine Manager")) {
+                            } else if (account.getAccountType().equals("Audio CD Manager")|| account.getAccountType().equals("Book Manager")|| account.getAccountType().equals("DVD Manager")|| account.getAccountType().equals("Magazine Manager")) {
                                 session.setAttribute("homeproduct", account);
                                 response.sendRedirect("productmanagerHOME.jsp");
-                            } else if (type.equals("Accounting Manager")) {
+                            } else if (account.getAccountType().equals("Accounting Manager")) {
                                 session.setAttribute("homeaccounting", account);
                                 response.sendRedirect("accountingmanagerHOME.jsp");
-                            } else if (type.equals("Admin")) {
+                            } else if (account.getAccountType().equals("Admin")) {
                                 session.setAttribute("homeadmin", account);
                                 response.sendRedirect("adminHOME.jsp");
                             }
                         }
                     }
                 }
+                else {
+                    out.println("not allowed to change!");
+                }
+            /*
             } else {
                 out.println("ACCESS DENIED");
-            }
+            }*/
 
         }
     }

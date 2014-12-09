@@ -1,3 +1,9 @@
+<%-- 
+    Document   : accountingmanagerChangePassword
+    Created on : Dec 9, 2014, 11:49:56 PM
+    Author     : Danica
+--%>
+
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -35,10 +41,8 @@
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
         <link href="dist/css/font-awesome.min.css" rel="stylesheet">
-
-        <title>Edit Accounting Manager Account</title>
     </head>
-    <body>        
+    <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -73,68 +77,54 @@
                 </div>
             </div>
         </nav>
-
-
+                            
         <div class="container"  style="padding-top: 100px;">
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Account Information</h3>
+                        <h3 class="panel-title">Change Password</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return managerCheck(this)" action='EditAccountingManagerAccountServlet' method="post">
+                        <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return editPassword();" action="AccountingChangePasswordServlet" method="post">
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
-                                    <label class="control-label col-lg-4">Basic Info</label>
+                                    <label class="control-label col-lg-4">Password</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">First Name</label>
+                                    <label class="control-label col-lg-4">Current Password</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter First Name" id='first' name='first' value='<% out.println(homeaccounting.getFirstName()); %>' onblur='fnameManagerCheck();' onfocus='backWhite(this);' required>
+                                        <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="checkcurrentpass();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="mname">Middle Initial</label>
+                                    <label class="control-label col-lg-4" >New Password</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter Middle Initial" id='middle' name='middle' value='<% out.println(homeaccounting.getMiddleInitial()); %>' onblur='mnameManagerCheck();' onfocus='backWhite(this)' required>
+                                        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter New Password (strong)" onblur="passCheck();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="lname">Last Name</label>
+                                    <label class="control-label col-lg-4">Re-Enter New Password</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter Last Name" id='last' type='text' name="last" value='<% out.println(homeaccounting.getLastName()); %>' onblur='lnameManagerCheck();' onfocus='backWhite(this);' required>
+                                        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Re-Enter New Password" onblur="passCheck();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="uname">Username</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" placeholder="Enter Username" id='user' type='text' name="user" value='<% out.println(homeaccounting.getUsername()); %>' onblur='unameManagerCheck();' onfocus='backWhite(this);' required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4" for="email">Email</label>
-                                    <div class="col-sm-3">
-                                        <input type="email" class="form-control" placeholder="Enter Email" id='email' type='email' name="email" value='<% out.println(homeaccounting.getEmailAdd());%>' onblur='emailCheck();' onfocus='backWhite(this);' required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary btn-lg center-block">Edit Account</button>
+                                    <button class="btn btn-primary btn-lg center-block">Save Changes</button>
                                 </div>
                             </div>
                         </form>
                         <div class="form-group">
-                            <a href='accountingmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                            <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-
+                            
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
-
     </body>
 </html>
-<%}%>

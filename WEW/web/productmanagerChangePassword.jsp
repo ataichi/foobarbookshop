@@ -80,28 +80,27 @@
                         <h3 class="panel-title">Account Information</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="changepassword" name="changepassword" action="EditProductManagerAccountServlet" method="post">
+                        <form class="form-horizontal" role="form" id="changepassword" name="changepassword" action="ProductManagerChangePasswordServlet" method="post">
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
                                     <label class="control-label col-lg-4">Change Password</label>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4" for="fname">Password:</label>
+                                    <label class="control-label col-lg-4" for="fname">Current Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="password1" name="password1" placeholder="Enter Password" onblur="currPassCheck();"  onfocus="backWhite(this);" value="<% out.println(homeproduct.getPassword());%>" required>
-                                        <input type="hidden" class="form-control" id="currentpassword" name="currentpassword" value="<%out.println(homeproduct.getPassword());%>" >
+                                        <input type="text" class="form-control" id="currpass" name="currpass" placeholder="Enter Password" onblur="currPassCheck();"  onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">New Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="password2" name="password2" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
+                                        <input type="text" class="form-control" id="pass1" name="pass1" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">Confirm Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="password3" name="password3" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
+                                        <input type="text" class="form-control" id="pass2" name="pass2" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
 
