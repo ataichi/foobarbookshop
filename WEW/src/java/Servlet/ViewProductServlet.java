@@ -36,7 +36,7 @@ public class ViewProductServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            AccountBean account = (AccountBean) session.getAttribute("homeuser");
+            AccountBean account = (AccountBean) session.getAttribute("homeproduct");
 
             if (account.getAccesscontrol().isViewproduct()) {
                 ProductDAOImplementation pdao = new ProductDAOImplementation();

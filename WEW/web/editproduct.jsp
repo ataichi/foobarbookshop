@@ -9,9 +9,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-	if(homeproduct==null){
-	response.sendRedirect("login.jsp");
-	}else{
     ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
     ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
@@ -219,11 +216,11 @@
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg center-block">Edit Product</button>
                                 </div>
-                                <div class="form-group">
-                                    <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
-                                </div>
                             </div>
                         </form>
+                        <div class="form-group">
+                            <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -234,4 +231,3 @@
 
     </body>
 </html>
-<%}%>
