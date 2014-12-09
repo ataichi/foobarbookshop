@@ -79,6 +79,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
+                                <li><a href="DeleteReview.jsp"><span class="glyphicon glyphicon-edit"></span>Delete Review</a></li>
                                 <li><a href="changepassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
                             </ul>
@@ -119,8 +120,7 @@
                                                     + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
-                                                    + " <input type='number' name='qty' id='qty' min='1' max='" + productbooklist.get(a).getNumberStocks() + "' value='1'/>"
-                                                    + "<input type='hidden' name='productid' value='" + productbooklist.get(a).getProductID() + "'/>"
+                                                    + " <input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
                                                     + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</center>"
                                                     + "</div>");
@@ -140,7 +140,7 @@
                                                     + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
-                                                    + "<input type='number' name='qty' id='qty' min='1' max='" + productmagazinelist.get(b).getNumberStocks() + "' value='1'/>"
+                                                    + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
                                                     + "<input type='hidden' id='productid' name='productid' value='" + productmagazinelist.get(b).getProductID() + "'/> </form>"
                                                     + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</center>"
@@ -162,7 +162,7 @@
                                                     + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
-                                                    + "<input type='number' name='qty' id='qty' min='1' max='" + productaudiolist.get(c).getNumberStocks() + "' value='1'/>"
+                                                    + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
                                                     + "<input type='hidden' id='productid' name='productid' value='" + productaudiolist.get(c).getPrice() + "'/> </form>"
                                                     + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</center>"
@@ -184,7 +184,7 @@
                                                     + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
-                                                    + "<input type='number' name='qty' id='qty' min='1' max='" + productdvdlist.get(d).getNumberStocks() + "' value='1'/>"
+                                                    + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
                                                     + "<input type='hidden' id='productid' name='productid' value='" + productdvdlist.get(d).getProductID() + "'>"
                                                     + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</form>"
@@ -224,7 +224,7 @@
                                                             + "<form action='EditShoppingCartServlet'>"
                                                             + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
                                                             + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
-                                                            + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='" + tempproductlist.get(j).getNumberStocks() + "' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/ readonly></td></tr>"
+                                                            + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/ readonly></td></tr>"
                                                             + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
                                                             // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
                                                             + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
@@ -253,8 +253,8 @@
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
         <script>
-            $(document).ready(function() {
-                $("#qty").click(function() {
+            $(document).ready(function () {
+                $("#qty").click(function () {
                     var $n = $("#final");
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });
