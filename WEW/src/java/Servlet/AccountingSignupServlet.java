@@ -3,9 +3,13 @@ package Servlet;
 import Beans.*;
 import DAO.Implementation.*;
 import DAO.Interface.*;
+import DBConnection.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +52,17 @@ public class AccountingSignupServlet extends HttpServlet {
                 String username = request.getParameter("uname");
                 String pass1 = request.getParameter("pass1");
                 boolean locked = false;
+                
+                Hasher hash = null;
+                
+                try {
+                    hash = new Hasher("MD5");
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(AccountingSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                hash.updateHash(pass1, "UTF-8");
+                pass1 = hash.getHashBASE64();
 
                 account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
                 account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));

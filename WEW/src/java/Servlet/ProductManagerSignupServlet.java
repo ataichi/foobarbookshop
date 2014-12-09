@@ -8,15 +8,20 @@ import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.AdminDAOInterface;
 import DAO.Interface.LogDAOInterface;
+import DBConnection.Hasher;
+import com.sun.istack.internal.logging.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sun.util.logging.PlatformLogger;
 
 @WebServlet(name = "ProductManagerSignupServlet", urlPatterns = {"/ProductManagerSignupServlet"})
 public class ProductManagerSignupServlet extends HttpServlet {
@@ -36,11 +41,25 @@ public class ProductManagerSignupServlet extends HttpServlet {
                 AdminDAOInterface admindao = new AdminDAOImplementation();
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
+                
+                String pass1 = request.getParameter("pass1");
+                
+                Hasher hash = null;
+                
+                
+                try {
+                    hash = new Hasher("MD5");
+                } catch (NoSuchAlgorithmException ex) {
+                    java.util.logging.Logger.getLogger(ProductManagerSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                hash.updateHash(pass1, "UTF-8");
+                pass1 = hash.getHashBASE64();
 
                 account.setFirstName(AccountDAOImplementation.inputSanitizer(request.getParameter("fname")));
                 account.setLastName(AccountDAOImplementation.inputSanitizer(request.getParameter("lname")));
                 account.setMiddleInitial(request.getParameter("mname"));
-                account.setPassword(request.getParameter("pass1"));
+                account.setPassword(pass1);
                 account.setEmailAdd(request.getParameter("email"));
                 account.setUsername(AccountDAOImplementation.inputSanitizer(request.getParameter("uname")));
                 //account.setAccountType("product manager");
