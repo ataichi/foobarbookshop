@@ -24,6 +24,28 @@ public class ReviewDAOImplementation implements ReviewDAOInterface {
     ArrayList<ReviewBean> rlist = new ArrayList<ReviewBean>();
     ReviewBean bean;
 
+    public boolean AddReview(ReviewBean Rev) {
+        boolean result = false;
+
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            query = "INSERT INTO review(reviewString, review_CustomerID, review_ProductID) VALUES(?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, Rev.getReview());
+            ps.setInt(2, Rev.getReview_customerID());
+            ps.setInt(3, Rev.getReview_productID());
+
+            ps.executeUpdate();
+            connection.close();
+            result = true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return result;
+    }
+
     @Override
     public boolean deleteReview(int ReviewID) {
         try {
