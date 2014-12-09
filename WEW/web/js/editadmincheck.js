@@ -75,6 +75,49 @@ function emailAdminCheck() {
         return true;
     }
 }
+
+function adminEditPassword() {
+    var pass1 = admincheckcurrentpass();
+    var pass2 = adminpasscheck();
+    var pass3 = adminpasscheck();
+    if (pass1 == false || pass2 == false || pass3 == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function admincheckcurrentpass() {
+    var pass1 = document.forms["admincheck"]["currpass"].value;
+    if (pass1 == "" || pass1 == null) {
+        document.forms["admincheck"]["currpass"].style.backgroundColor = "pink";
+        return false;
+    }
+    else {
+        document.forms["admincheck"]["currpass"].style.backgroundColor = "white";
+        return true;
+    }
+}
+
+function adminpasscheck() {
+    var pass1 = document.forms["admincheck"]["pass1"].value;
+    var pass2 = document.forms["admincheck"]["pass2"].value;
+    
+    if (!(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass1))//!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
+            || pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
+        document.forms["admincheck"]["pass1"].style.backgroundColor = "pink";
+        document.forms["admincheck"]["pass2"].style.backgroundColor = "pink";
+        return false;
+    }
+    else {
+        document.forms["admincheck"]["pass1"].style.backgroundColor = "white";
+        document.forms["admincheck"]["pass2"].style.backgroundColor = "white";
+        return true;
+    }
+    
+}
+
 function backWhite(x) {
     x.style.background = "white";
 }
