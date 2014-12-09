@@ -5,8 +5,22 @@ function customerCheck() {
     var user = unameCheck();
     var email = emailCheck();
     var pass = passCheck();
+    var aptnoBA = apartmenttnoBACheck();
+    var streetBA = streetBACheck();
+    var subdivisionBA = subdivisiomBACheck();
+    var cityBA = cityBACheck();
+    var countryBA = countryBACheck();
+    var postalcodeBA = postalcodeBACheck();
+    var aptnoDA = apartmentnoDACheck();
+    var streetDA = streetDACheck();
+    var subdivisionDA = subdivisionDACheck();
+    var cityDA = cityDACheck();
+    var countryDA = countryDACheck();
+    var postalcodeDA = postalcodeDACheck();
 
-    if (first == false || last == false || middle == false || user == false || email == false || pass == false) {
+    if (first == false || last == false || middle == false || user == false || email == false || pass == false 
+            || aptnoBA == false || streetBA == false || subdivisionBA == false || cityBA == false || countryBA == false || postalcodeBA == false
+            || aptnoDA == false || streetDA == false || subdivisionDA == false || cityDA == false || countryDA == false || postalcodeDA == false) {
         return false;
     }
     else {
