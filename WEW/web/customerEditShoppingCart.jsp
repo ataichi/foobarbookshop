@@ -9,12 +9,27 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+   if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    } else {
     ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
     ProductOrderBean tempproductorder = (ProductOrderBean) session.getAttribute("tempproductorder");
 %>
 <!DOCTYPE html>
 <html>
     <head>
+        <%
+            response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -89,9 +104,9 @@
                         <%
 
                             out.println("Title: " + editproduct.getTitle()
-                                    + "<br/>Price: " +"<p id='price'>"+editproduct.getPrice()+"</p>"
+                                    + "<br/>Price: " + "<p id='price'>" + editproduct.getPrice() + "</p>"
                                     + "Qty: " + "<input type='number' value='" + tempproductorder.getQuantity() + "' name='qty' id='qty' onClick='updateTotal()'/>"
-                                    + "<br/>Total: " + "<p id='total' value='"+ tempproductorder.getPrice() +"'></p>");
+                                    + "<br/>Total: " + "<p id='total' value='" + tempproductorder.getPrice() + "'></p>");
 
                         %>
                     </div>
@@ -103,13 +118,14 @@
                 <script src="dist/js/bootstrap.min.js"></script>
 
                 <script>
-                    function updateTotal() {
-                        var x = document.getElementById("qty").value;
-                        var y = document.getElementById("price").value;
-                        var total1 = x * y;
-                        document.getElementById("total").innerHTML = total1;
-                    }
+            function updateTotal() {
+                var x = document.getElementById("qty").value;
+                var y = document.getElementById("price").value;
+                var total1 = x * y;
+                document.getElementById("total").innerHTML = total1;
+            }
                 </script>
 
                 </body>
                 </html>
+<%}%>

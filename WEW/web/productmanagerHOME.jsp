@@ -25,17 +25,20 @@
 
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-    ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-    ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
+    if (homeproduct == null) {
+        response.sendRedirect("login.jsp");
+    } else {
+        ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+        ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
 
-    BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-    AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
-    MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
-    DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-    ArrayList<BookBean> booklist = bookdao.getAllBooks();
-    ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
-    ArrayList<MagazineBean> magazinelist = magazinedao.getAllMagazine();
-    ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
+        BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+        AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
+        MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+        DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+        ArrayList<BookBean> booklist = bookdao.getAllBooks();
+        ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
+        ArrayList<MagazineBean> magazinelist = magazinedao.getAllMagazine();
+        ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
 
 %>
 
@@ -43,6 +46,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <% response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -162,3 +177,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+<%}%>

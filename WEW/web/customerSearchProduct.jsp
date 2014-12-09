@@ -1,3 +1,4 @@
+
 <%@page import="Beans.AccountBean"%>
 <%@page import="Beans.MagazineBean"%>
 <%@page import="Beans.DVDBean"%>
@@ -21,6 +22,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <% response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">

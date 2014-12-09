@@ -9,28 +9,43 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-    ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+    if (homeproduct == null) {
+        response.sendRedirect("login.jsp");
+    } else {
+        ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
-    ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
-    AudioCDBean audiocd = (AudioCDBean) session.getAttribute("editaudio");
-    BookBean book = (BookBean) session.getAttribute("editbook");
-    DVDBean dvd = (DVDBean) session.getAttribute("editdvd");
-    MagazineBean magazine = (MagazineBean) session.getAttribute("editmagazine");
+        ProductBean editproduct = (ProductBean) session.getAttribute("editproduct");
+        AudioCDBean audiocd = (AudioCDBean) session.getAttribute("editaudio");
+        BookBean book = (BookBean) session.getAttribute("editbook");
+        DVDBean dvd = (DVDBean) session.getAttribute("editdvd");
+        MagazineBean magazine = (MagazineBean) session.getAttribute("editmagazine");
 
-    String prodType = null;
-    if (homeproduct.getAccountType().equals("Audio CD Manager")) {
-        prodType = "Audio CD";
-    } else if (homeproduct.getAccountType().equals("Book Manager")) {
-        prodType = "Book";
-    } else if (homeproduct.getAccountType().equals("DVD Manager")) {
-        prodType = "DVD";
-    } else if (homeproduct.getAccountType().equals("Magazine Manager")) {
-        prodType = "Magazine";
-    }
+        String prodType = null;
+        if (homeproduct.getAccountType().equals("Audio CD Manager")) {
+            prodType = "Audio CD";
+        } else if (homeproduct.getAccountType().equals("Book Manager")) {
+            prodType = "Book";
+        } else if (homeproduct.getAccountType().equals("DVD Manager")) {
+            prodType = "DVD";
+        } else if (homeproduct.getAccountType().equals("Magazine Manager")) {
+            prodType = "Magazine";
+        }
 %>
 <!DOCTYPE html>
 <html>
     <head>
+        <% response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -231,3 +246,4 @@
 
     </body>
 </html>
+<%}%>

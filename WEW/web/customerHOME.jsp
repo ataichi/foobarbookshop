@@ -8,18 +8,18 @@
 <%@page import="Beans.CustomerBean"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-	if(homeuser==null){
-	response.sendRedirect("login.jsp");
-	}else{
-    CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
-    ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
-    ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-    ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
+    if (homeuser == null) {
+        response.sendRedirect("login.jsp");
+    } else {
+        CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
+        ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
+        ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+        ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
 
-    ArrayList<ProductBean> productaudiolist = (ArrayList<ProductBean>) session.getAttribute("productaudiolist");
-    ArrayList<ProductBean> productbooklist = (ArrayList<ProductBean>) session.getAttribute("productbooklist");
-    ArrayList<ProductBean> productdvdlist = (ArrayList<ProductBean>) session.getAttribute("productdvdlist");
-    ArrayList<ProductBean> productmagazinelist = (ArrayList<ProductBean>) session.getAttribute("productmagazinelist");
+        ArrayList<ProductBean> productaudiolist = (ArrayList<ProductBean>) session.getAttribute("productaudiolist");
+        ArrayList<ProductBean> productbooklist = (ArrayList<ProductBean>) session.getAttribute("productbooklist");
+        ArrayList<ProductBean> productdvdlist = (ArrayList<ProductBean>) session.getAttribute("productdvdlist");
+        ArrayList<ProductBean> productmagazinelist = (ArrayList<ProductBean>) session.getAttribute("productmagazinelist");
 
 
 %>
@@ -27,6 +27,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%            response.addHeader("X-FRAME-OPTIONS", "DENY");
+        %>
+        <style id="antiClickjack">body{display:none !important;}</style>
+        <script type="text/javascript">
+            if (self === top) {
+                var antiClickjack = document.getElementById("antiClickjack");
+                antiClickjack.parentNode.removeChild(antiClickjack);
+            } else {
+                top.location = self.location;
+            }
+        </script>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -104,8 +116,7 @@
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
                                                     + " <input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + " <input type='hidden' id='productid' name='productid' value='" + productbooklist.get(a).getProductID() + "'>"
-                                                    + "<input type='submit' id='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color: transparent'/>"
+                                                    + " <                                        background-color: transparent'/>"
                                                     + "</center>"
                                                     + "</div>");
 
@@ -125,9 +136,9 @@
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
                                                     + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + productmagazinelist.get(b).getProductID() + "'>"
-                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>"
+                                                    + "<input type='hidden' id='productid' name='productid' val                                                               + " <  / form >
+                                        
+                                        "
                                                     + "</center>"
                                                     + "</div>");
 
@@ -148,9 +159,9 @@
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
                                                     + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='productid' value='" + productaudiolist.get(c).getProductID() + "'>"
-                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>"
+                                                    + "<input type='hidden' id='productid' name='productid'                                                              + " <  / form >
+                                        
+                                        "
                                                     + "</center>"
                                                     + "</div>");
 
@@ -239,8 +250,8 @@
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
         <script>
-            $(document).ready(function() {
-                $("#qty").click(function() {
+            $(document).ready(function () {
+                $("#qty").click(function () {
                     var $n = $("#final");
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });
