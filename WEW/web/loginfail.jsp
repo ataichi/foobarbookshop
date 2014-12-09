@@ -1,7 +1,8 @@
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% int ctr_try = (Integer) session.getAttribute("ctr_try");
-    String username = (String) session.getAttribute("username");
+
+        String username = (String) session.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html>
@@ -96,3 +97,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+

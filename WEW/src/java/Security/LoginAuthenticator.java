@@ -28,7 +28,7 @@ public class LoginAuthenticator {
     public void setIsLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
     }
-    
+
     public AccountBean login(HttpServletRequest hsr, HttpServletResponse hsr1) throws AuthenticationException {
         AccountBean account = new AccountBean();
         AccountDAOInterface accountdao = new AccountDAOImplementation();
@@ -52,8 +52,6 @@ public class LoginAuthenticator {
                 Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
             }
             password = hash.getHashBASE64();
-            //      response.sendRedirect("main.jsp");
-
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginAuthenticator.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,6 +101,8 @@ public class LoginAuthenticator {
 
             account.setAccesscontrol(accesscontrol);
 
+            return account;
+
         } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType()) && !account.getLocked()) {
             // Admin
             accesscontrol.createcustomer = false;
@@ -145,6 +145,8 @@ public class LoginAuthenticator {
             accesscontrol.deleteadmin = false;
 
             account.setAccesscontrol(accesscontrol);
+
+            return account;
 
         } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType()) && !account.getLocked()) {
             // Book Manager
@@ -189,6 +191,8 @@ public class LoginAuthenticator {
 
             account.setAccesscontrol(accesscontrol);
 
+            return account;
+
         } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType()) && !account.getLocked()) {
             // Audio CD Manager
             accesscontrol.createcustomer = false;
@@ -231,6 +235,9 @@ public class LoginAuthenticator {
             accesscontrol.deleteadmin = false;
 
             account.setAccesscontrol(accesscontrol);
+
+            return account;
+
         } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType()) && !account.getLocked()) {
             // DVD Manager
             accesscontrol.createcustomer = false;
@@ -274,6 +281,8 @@ public class LoginAuthenticator {
 
             account.setAccesscontrol(accesscontrol);
 
+            return account;
+
         } else if (accountdao.doesUserExist(username, password) && "Magazine Manager".equals(account.getAccountType()) && !account.getLocked()) {
             // Magazine Manager
             accesscontrol.createcustomer = false;
@@ -316,6 +325,8 @@ public class LoginAuthenticator {
             accesscontrol.deleteadmin = false;
 
             account.setAccesscontrol(accesscontrol);
+
+            return account;
         } else if (accountdao.doesUserExist(username, password) && "Accounting Manager".equals(account.getAccountType()) && !account.getLocked()) {
             // Accounting Manager
             accesscontrol.createcustomer = false;
@@ -358,9 +369,11 @@ public class LoginAuthenticator {
             accesscontrol.deleteadmin = false;
 
             account.setAccesscontrol(accesscontrol);
-        }
 
-        return account;
+            return account;
+        }
+        return null;
+
     }
 
 }
