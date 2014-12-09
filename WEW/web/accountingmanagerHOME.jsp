@@ -135,43 +135,71 @@
                                             <li role="presentation"><a href="#viewcd" role="tab" id="cd-tab" data-toggle="tab" aria-controls="viewcd"><img src="./images/cd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
                                             <li role="presentation"><a href="#viewdvd" role="tab" id="dvd-tab" data-toggle="tab" aria-controls="viewdvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
                                             <li role="presentation"><a href="#viewtotal" role="tab" id="total-tab" data-toggle="tab" aria-controls="viewtotal">TOTAL</a></li>
+                                            <li role="presentation"><a href="#viewspecific" role="tab" id="specific-tab" data-toggle="tab" aria-controls="viewspecific">View Sales For This Year</a></li>
                                         </ul>
                                         <div id="myTabContent" class="tab-content">
                                             <div role="tabpanel" class="tab-pane fade in well active" id="viewbook" aria-labelledBy="book-tab" style='height: 500px;'>
                                                 <%                                                     finalsales = 0;
                                                     sales = 0;
 
-                                                    for (int i = 0; i < booklist.size(); i++) {
-                                                        out.println("<h4>Title: " + booklist.get(i).getTitle() + "</h4>");
-
-                                                        for (int j = 0; j < productorderlist.size(); j++) {
-                                                            if (booklist.get(i).getProductID() == productorderlist.get(j).getProductorder_productID()) {
-                                                                sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+                                                    for (int a = 0; a < booklist.size(); a++) {
+                                                        out.println("<h4>Title:" + booklist.get(a).getTitle() + "</h4>");
+                                                        for (int b = 0; b < shoppingcartlist.size(); b++) {
+                                                            for (int c = 0; c < productorderlist.size(); c++) {
+                                                                if (shoppingcartlist.get(b).getShoppingcartID() == productorderlist.get(b).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(b).getProductorder_productID() == booklist.get(a).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+                                                                    break;
+                                                                }
                                                             }
+
                                                         }
-                                                        out.println("<h4>Total Sales: " + sales + "</h4>");
                                                         finalsales += sales;
-                                                        sales = 0;
+                                                        out.println(sales);
                                                     }
                                                     out.println("<h3> Total Sales:</h3>" + finalsales);
+                                                    /*
+                                                     for (int a = 0; a < shoppingcartlist.size(); a++) {
+                                                     for (int b = 0; b < productorderlist.size(); b++) {
+                                                     if (productorderlist.get(b).getProductorder_shoppingcartID() == shoppingcartlist.get(a).getShoppingcartID()) {
+                                                     for (int c = 0; c < booklist.size(); c++) {
+                                                     out.println("<h4>Title: " + booklist.get(c).getTitle() + "</h4>");
+                                                     if (productorderlist.get(b).getProductorder_productID() == booklist.get(c).getProductID()) {
+                                                     sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+
+                                                     }
+                                                     out.println("<h4>Total Sales: " + sales + "</h4>");
+                                                     finalsales += sales;
+                                                     sales = 0;
+                                                     }
+
+                                                     }
+                                                     }
+                                                     }
+                                                     
+                                                     
+                                                     */
+
+
                                                 %>
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade in well" id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
                                                 <%                                                    finalsales = 0;
                                                     sales = 0;
-
-                                                    for (int i = 0; i < magazinelist.size(); i++) {
-                                                        out.println("<h4>Title: " + magazinelist.get(i).getTitle() + "</h4>");
-
-                                                        for (int j = 0; j < productorderlist.size(); j++) {
-                                                            if (magazinelist.get(i).getProductID() == productorderlist.get(j).getProductorder_productID()) {
-                                                                sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
-
+                                                    for (int a = 0; a < magazinelist.size(); a++) {
+                                                        out.println("<h4>Title:" + magazinelist.get(a).getTitle() + "</h4>");
+                                                        for (int b = 0; b < shoppingcartlist.size(); b++) {
+                                                            for (int c = 0; c < productorderlist.size(); c++) {
+                                                                if (shoppingcartlist.get(b).getShoppingcartID() == productorderlist.get(b).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(b).getProductorder_productID() == magazinelist.get(a).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+                                                                    break;
+                                                                }
                                                             }
+
                                                         }
-                                                        out.println("<h4>Total Sales: " + sales + "</h4>");
                                                         finalsales += sales;
-                                                        sales = 0;
+                                                        out.println(sales);
                                                     }
                                                     out.println("<h3> Total Sales:</h3>" + finalsales);
 
@@ -183,18 +211,20 @@
                                                 <%                                                    finalsales = 0;
                                                     sales = 0;
 
-                                                    for (int i = 0; i < audiolist.size(); i++) {
-                                                        out.println("<h4>Title: " + audiolist.get(i).getTitle() + "</h4>");
-
-                                                        for (int j = 0; j < productorderlist.size(); j++) {
-                                                            if (audiolist.get(i).getProductID() == productorderlist.get(j).getProductorder_productID()) {
-                                                                sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
-
+                                                    for (int a = 0; a < audiolist.size(); a++) {
+                                                        out.println("<h4>Title:" + audiolist.get(a).getTitle() + "</h4>");
+                                                        for (int b = 0; b < shoppingcartlist.size(); b++) {
+                                                            for (int c = 0; c < productorderlist.size(); c++) {
+                                                                if (shoppingcartlist.get(b).getShoppingcartID() == productorderlist.get(b).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(b).getProductorder_productID() == audiolist.get(a).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+                                                                    break;
+                                                                }
                                                             }
+
                                                         }
-                                                        out.println("<h4>Total Sales: " + sales + "</h4>");
                                                         finalsales += sales;
-                                                        sales = 0;
+                                                        out.println(sales);
                                                     }
                                                     out.println("<h3> Total Sales:</h3>" + finalsales);
 
@@ -207,82 +237,296 @@
                                                 <%                                                    finalsales = 0;
                                                     sales = 0;
 
-                                                    for (int i = 0; i < dvdlist.size(); i++) {
-                                                        out.println("<h4>Title: " + dvdlist.get(i).getTitle() + "</h4>");
-
-                                                        for (int j = 0; j < productorderlist.size(); j++) {
-                                                            if (dvdlist.get(i).getProductID() == productorderlist.get(j).getProductorder_productID()) {
-                                                                sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+                                                    for (int a = 0; a < dvdlist.size(); a++) {
+                                                        out.println("<h4>Title:" + dvdlist.get(a).getTitle() + "</h4>");
+                                                        for (int b = 0; b < shoppingcartlist.size(); b++) {
+                                                            for (int c = 0; c < productorderlist.size(); c++) {
+                                                                if (shoppingcartlist.get(b).getShoppingcartID() == productorderlist.get(b).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(b).getProductorder_productID() == dvdlist.get(a).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+                                                                    break;
+                                                                }
                                                             }
+
                                                         }
-                                                        out.println("<h4>Total Sales: " + sales + "</h4>");
                                                         finalsales += sales;
-                                                        sales = 0;
+                                                        out.println(sales);
                                                     }
                                                     out.println("<h3> Total Sales:</h3>" + finalsales);
 
                                                 %>
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade in well" id="viewtotal" aria-labelledBy="total-tabl" styele='height: 500px'>
+                                            <div role="tabpanel" class="tab-pane fade in well" id="viewtotal" aria-labelledBy="total-tab" style='height: 500px'>
                                                 <%                                                    // for book
-                                                    for (int i = 0; i < booklist.size(); i++) {
-                                                        for (int j = 0; j < productorderlist.size(); j++) {
-                                                            if (booklist.get(i).getProductID() == productorderlist.get(j).getProductorder_productID()) {
-                                                                sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+                                                    sales = 0;
+
+                                                    for (int a = 0; a < booklist.size(); a++) {
+                                                        //               out.println("<h4>Title:" + booklist.get(a).getTitle() + "</h4>");
+                                                        for (int b = 0; b < shoppingcartlist.size(); b++) {
+                                                            for (int c = 0; c < productorderlist.size(); c++) {
+                                                                if (shoppingcartlist.get(b).getShoppingcartID() == productorderlist.get(b).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(b).getProductorder_productID() == booklist.get(a).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+                                                                    break;
+                                                                }
                                                             }
+
                                                         }
                                                         total += sales;
                                                         finalsales += sales;
-                                                        sales = 0;
+                                                        out.println(sales);
                                                     }
+
                                                     out.println("<h3>Total Sales (Book):" + finalsales);
 
                                                     finalsales = 0;
                                                     // for audio cd
-                                                    for (int i = 0; i < audiolist.size(); i++) {
-                                                        for (int j = 0; j < productorderlist.size(); j++) {
-                                                            if (audiolist.get(i).getProductID() == productorderlist.get(j).getProductorder_productID()) {
-                                                                sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
 
+                                                    for (int a = 0; a < audiolist.size(); a++) {
+                                                        //                out.println("<h4>Title:" + audiolist.get(a).getTitle() + "</h4>");
+                                                        for (int b = 0; b < shoppingcartlist.size(); b++) {
+                                                            for (int c = 0; c < productorderlist.size(); c++) {
+                                                                if (shoppingcartlist.get(b).getShoppingcartID() == productorderlist.get(b).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(b).getProductorder_productID() == audiolist.get(a).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+                                                                    break;
+                                                                }
                                                             }
+
                                                         }
                                                         total += sales;
                                                         finalsales += sales;
-                                                        sales = 0;
+                                                        out.println(sales);
                                                     }
                                                     out.println("<h3>Total Sales (Audio CD):" + finalsales);
 
                                                     finalsales = 0;
                                                     // for magazine
-                                                    for (int i = 0; i < magazinelist.size(); i++) {
-                                                        for (int j = 0; j < productorderlist.size(); j++) {
-                                                            if (magazinelist.get(i).getProductID() == productorderlist.get(j).getProductorder_productID()) {
-                                                                sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+
+                                                    sales = 0;
+                                                    for (int a = 0; a < magazinelist.size(); a++) {
+                                                        //                   out.println("<h4>Title:" + magazinelist.get(a).getTitle() + "</h4>");
+                                                        for (int b = 0; b < shoppingcartlist.size(); b++) {
+                                                            for (int c = 0; c < productorderlist.size(); c++) {
+                                                                if (shoppingcartlist.get(b).getShoppingcartID() == productorderlist.get(b).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(b).getProductorder_productID() == magazinelist.get(a).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+                                                                    break;
+                                                                }
                                                             }
+
                                                         }
                                                         total += sales;
-                                                        sales = 0;
+                                                        finalsales += sales;
+                                                        out.println(sales);
                                                     }
 
-                                                    out.println("<h3>Total Sales (Magazine):" + finalsales);
+                                                    out.println("<h3>Total Sales (Magazine):" + finalsales + "</h3>");
                                                     finalsales = 0;
 
                                                     // for dvd
-                                                    for (int i = 0; i < dvdlist.size(); i++) {
-                                                        for (int j = 0; j < productorderlist.size(); j++) {
-                                                            if (dvdlist.get(i).getProductID() == productorderlist.get(j).getProductorder_productID()) {
-                                                                sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+                                                    sales = 0;
+
+                                                    for (int a = 0; a < dvdlist.size(); a++) {
+                                                        //                   out.println("<h4>Title:" + dvdlist.get(a).getTitle() + "</h4>");
+                                                        for (int b = 0; b < shoppingcartlist.size(); b++) {
+                                                            for (int c = 0; c < productorderlist.size(); c++) {
+                                                                if (shoppingcartlist.get(b).getShoppingcartID() == productorderlist.get(b).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(b).getProductorder_productID() == dvdlist.get(a).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
+                                                                    break;
+                                                                }
                                                             }
-                                                        }
-                                                        total += sales;
-                                                        sales = 0;
+
+                                                        }total += sales;
+                                                        finalsales += sales;
+                                                        out.println(sales);
                                                     }
                                                     out.println("<h3>Total Sales (DVD):" + finalsales);
-                                                    finalsales=0;
+                                                    finalsales = 0;
 
                                                     out.println("<h3>Total Sales (All in All):" + total);
                                                 %>
 
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade in well" id="viewspecific" aria-labelledBy="specific-tab" style='height: 500px'>
+                                                <%
+                                                    int year = new java.util.Date().getYear();
+
+                                                    out.println(year + 1900);
+                                                    sales = 0;
+                                                    total = 0;
+
+                                                    for (int i = 0; i < audiolist.size(); i++) {
+                                                        for (int j = 0; j < shoppingcartlist.size(); j++) {
+                                                            for (int k = 0; k < productorderlist.size(); k++) {
+                                                                if (shoppingcartlist.get(j).getOrderDate().getYear() == year
+                                                                        && shoppingcartlist.get(j).getShoppingcartID() == productorderlist.get(k).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(k).getProductorder_productID() == audiolist.get(i).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(k).getPrice() * productorderlist.get(k).getQuantity());
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                        total += sales;
+                                                        sales = 0;
+                                                    }
+                                                    out.println("<h3>Audio CD: " + total + "</h3>");
+
+                                                    total = 0;
+                                                    sales = 0;
+                                                    /*
+                                                     for (int i = 0; i < shoppingcartlist.size(); i++) {
+                                                     if (shoppingcartlist.get(i).getOrderDate().getYear() == year) { // get this year's sales
+                                                     for (int j = 0; j < productorderlist.size(); j++) { // get total sales
+                                                     for (int k = 0; k < audiolist.size(); k++) {
+                                                     if (productorderlist.get(j).getProductorder_productID() == audiolist.get(k).getProductID()) {
+                                                     sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+                                                     break;
+                                                     }
+                                                     }
+                                                     }
+                                                     }
+                                                     total += sales;
+                                                     sales = 0;
+                                                     }
+                                                     */
+
+                                                    // books
+                                                    for (int i = 0; i < booklist.size(); i++) {
+                                                        for (int j = 0; j < shoppingcartlist.size(); j++) {
+                                                            for (int k = 0; k < productorderlist.size(); k++) {
+                                                                if (shoppingcartlist.get(j).getOrderDate().getYear() == year
+                                                                        && shoppingcartlist.get(j).getShoppingcartID() == productorderlist.get(k).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(k).getProductorder_productID() == booklist.get(i).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(k).getPrice() * productorderlist.get(k).getQuantity());
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                        total += sales;
+                                                        sales = 0;
+                                                    }
+                                                    out.println("<h3>Books : " + total + "</h3>");
+
+                                                    total = 0;
+                                                    sales = 0;
+
+                                                    // dvd
+                                                    for (int i = 0; i < dvdlist.size(); i++) {
+                                                        for (int j = 0; j < shoppingcartlist.size(); j++) {
+                                                            for (int k = 0; k < productorderlist.size(); k++) {
+                                                                if (shoppingcartlist.get(j).getOrderDate().getYear() == year
+                                                                        && shoppingcartlist.get(j).getShoppingcartID() == productorderlist.get(k).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(k).getProductorder_productID() == dvdlist.get(i).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(k).getPrice() * productorderlist.get(k).getQuantity());
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                        total += sales;
+                                                        sales = 0;
+                                                    }
+                                                    out.println("<h3>DVD : " + total + "</h3>");
+
+                                                    total = 0;
+                                                    sales = 0;
+
+                                                    // dvd
+                                                    for (int i = 0; i < magazinelist.size(); i++) {
+                                                        for (int j = 0; j < shoppingcartlist.size(); j++) {
+                                                            for (int k = 0; k < productorderlist.size(); k++) {
+                                                                if (shoppingcartlist.get(j).getOrderDate().getYear() == year
+                                                                        && shoppingcartlist.get(j).getShoppingcartID() == productorderlist.get(k).getProductorder_shoppingcartID()
+                                                                        && productorderlist.get(k).getProductorder_productID() == magazinelist.get(i).getProductID()) {
+                                                                    sales = sales + (productorderlist.get(k).getPrice() * productorderlist.get(k).getQuantity());
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                        total += sales;
+                                                        sales = 0;
+                                                    }
+                                                    out.println("<h3>Magazine : " + total + "</h3>");
+
+                                                    total = 0;
+                                                    sales = 0;
+                                                    /*
+                                                     for (int i = 0; i < audiolist.size(); i++) {
+                                                     for (int j = 0; j < shoppingcartlist.size(); j++) {
+                                                     for (int k = 0; k < productorderlist.size(); k++) {
+                                                     if (shoppingcartlist.get(j).getOrderDate().getYear() == year
+                                                     && shoppingcartlist.get(j).getShoppingcartID() == productorderlist.get(k).getProductorder_shoppingcartID()
+                                                     && productorderlist.get(k).getProductorder_productID() == audiolist.get(i).getProductID()) {
+                                                     sales = sales + (productorderlist.get(k).getPrice() * productorderlist.get(k).getQuantity());
+                                                     break;
+                                                     }
+                                                     }
+                                                     }
+                                                     total += sales;
+                                                     sales = 0;
+                                                     }
+                                                     out.println("<h3>Audio CD: " + total + "</h3>");
+
+                                                     total = 0;
+                                                     sales = 0;
+                                                     
+                                                     for (int i = 0; i < shoppingcartlist.size(); i++) {
+                                                     if (shoppingcartlist.get(i).getOrderDate().getYear() == year) { // get this year's sales
+                                                     for (int j = 0; j < productorderlist.size(); j++) { // get total sales
+                                                     for (int k = 0; k < booklist.size(); k++) {
+                                                     if (productorderlist.get(j).getProductorder_productID() == booklist.get(k).getProductID()) {
+                                                     sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+                                                     break;
+                                                     }
+                                                     }
+                                                     }
+                                                     }
+                                                     total += sales;
+                                                     sales = 0;
+                                                     }
+                                                     out.println("<h3>Books " + total + "</h3>");
+
+                                                     total = 0;
+                                                     sales = 0;
+
+                                                     for (int i = 0; i < shoppingcartlist.size(); i++) {
+                                                     if (shoppingcartlist.get(i).getOrderDate().getYear() == year) { // get this year's sales
+                                                     for (int j = 0; j < productorderlist.size(); j++) { // get total sales
+                                                     for (int k = 0; k < dvdlist.size(); k++) {
+                                                     if (productorderlist.get(j).getProductorder_productID() == dvdlist.get(k).getProductID()) {
+                                                     sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+                                                     break;
+                                                     }
+                                                     }
+                                                     }
+                                                     }
+                                                     total += sales;
+                                                     sales = 0;
+                                                     }
+                                                     out.println("<h3>DVD: " + total + "</h3>");
+
+                                                     total = 0;
+                                                     sales = 0;
+
+                                                     for (int i = 0; i < shoppingcartlist.size(); i++) {
+                                                     if (shoppingcartlist.get(i).getOrderDate().getYear() == year) { // get this year's sales
+                                                     for (int j = 0; j < productorderlist.size(); j++) { // get total sales
+                                                     for (int k = 0; k < magazinelist.size(); k++) {
+                                                     if (productorderlist.get(j).getProductorder_productID() == magazinelist.get(k).getProductID()) {
+                                                     sales = sales + (productorderlist.get(j).getPrice() * productorderlist.get(j).getQuantity());
+                                                     break;
+                                                     }
+                                                     }
+                                                     }
+                                                     }
+                                                     total += sales;
+                                                     sales = 0;
+                                                     }
+                                                     out.println("<h3>Magazine: " + total + "</h3>");
+                                                     */
+
+                                                %>
                                             </div>
                                         </div>
                                     </div><!-- /example -->
@@ -350,6 +594,54 @@
         <script>
             var randomScalingFactor = function() {
                 return Math.round(Math.random() * 100)
+            };
+
+            var getJanuary = function() {
+
+            };
+
+            var getFebruary = function() {
+
+            };
+
+            var getMarch = function() {
+
+            };
+
+            var getApril = function() {
+
+            };
+
+            var getMay = function() {
+
+            };
+
+            var getJune = function() {
+
+            };
+
+            var getJuly = function() {
+
+            };
+
+            var getAugust = function() {
+
+            };
+
+            var getSeptember = function() {
+
+            };
+
+            var getOctober = function() {
+
+            };
+
+            var getNovember = function() {
+
+            };
+
+            var getDecember = function() {
+
             };
 
             var barChartData = {
