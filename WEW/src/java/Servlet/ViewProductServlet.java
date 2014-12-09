@@ -37,7 +37,10 @@ public class ViewProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
-
+            if (account == null) {
+                account = (AccountBean) session.getAttribute("homeuser");
+            }
+            out.println(account.getAccesscontrol().isViewproduct());
             if (account.getAccesscontrol().isViewproduct()) {
                 ProductDAOImplementation pdao = new ProductDAOImplementation();
                 AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
@@ -61,7 +64,8 @@ public class ViewProductServlet extends HttpServlet {
 
                 int productID = Integer.parseInt(request.getParameter("product"));
                 ArrayList<ReviewBean> reviews = cdao.getReviewsByProductID(productID);
-                
+
+                out.println("\nReviews : " +reviews.size());
                 for (int i = 0; i < reviews.size(); i++) { // get customers
                     out.println(reviews.get(i).getReview_customerID());
                     customer = cdao.getCustomerById(reviews.get(i).getReview_customerID());
@@ -76,7 +80,12 @@ public class ViewProductServlet extends HttpServlet {
                 session.setAttribute("accountlist", accountlist);
                 session.setAttribute("reviews", reviews);
                 session.setAttribute("customerlist", customerlist);
+                session.setAttribute("prodType", productBean.getType());
 
+                out.println("\nAccount List " + accountlist.size());
+                out.println("\n view product: " + productBean.getTitle());
+                out.println("\nCustomer list"+customerlist.size());
+                
                 if (productBean.getType().equals("Audio CD")) {
                     audiocdbean = audiocddao.getAudioCDByProductID(productID);
                     session.setAttribute("viewaudiocd", audiocdbean);
@@ -93,6 +102,8 @@ public class ViewProductServlet extends HttpServlet {
                     magbean = magdao.getMagazineByProductID(productID);
                     session.setAttribute("viewmagazine", magbean);
                     response.sendRedirect("viewproduct.jsp");
+                } else {
+                    out.println("WALA EH");
                 }
             } else {
                 out.println("ACCESS DENIED");

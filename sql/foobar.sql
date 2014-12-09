@@ -197,7 +197,7 @@ UNLOCK TABLES;
 --
 -- Table structure for table `lockreport`
 --
-
+DROP TABLE IF EXISTS `lockreport`;
 CREATE TABLE `foobar`.`lockreport` (
   `lockreportID` INT NOT NULL AUTO_INCREMENT,
   `lockreport_accountID` INT NOT NULL,

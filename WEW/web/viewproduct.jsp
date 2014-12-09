@@ -11,20 +11,73 @@
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeproduct");
     if (account == null) {
-        response.sendRedirect("login.jsp");
+        account = (AccountBean) session.getAttribute("homeuser");
+
+        System.out.println(account.getAccountID());
+        if (account != null) {
+            System.out.println("YEY");
+            /*  ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
+             out.println("Product list" + productlist.size());
+             String prodType = (String) session.getAttribute("prodType");
+
+             out.println("Type: " + prodType);
+             ArrayList<AudioCDBean> audiolist = (ArrayList<AudioCDBean>) session.getAttribute("audiolist");
+             out.println("Audio list" + audiolist.size());
+             ArrayList<BookBean> booklist = (ArrayList<BookBean>) session.getAttribute("booklist");
+             out.println("Book list" + booklist.size());
+             ArrayList<DVDBean> dvdlist = (ArrayList<DVDBean>) session.getAttribute("dvdlist");
+             out.println("DVD list:" + dvdlist.size());
+             ArrayList<MagazineBean> magazinelist = (ArrayList<MagazineBean>) session.getAttribute("magazinelist");
+             out.println("Magazine list" + magazinelist.size());
+
+             ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+
+             out.println("reviews :" + reviews.size());
+
+             ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+             out.println("Account list" + accountlist.size());
+             ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+             out.println("customerlist" + customerlist.size());
+             */
+            String prodType = (String) session.getAttribute("prodType");
+            System.out.println(prodType);
+            ProductBean viewproduct = (ProductBean) session.getAttribute("viewproduct");
+            System.out.println(viewproduct.getTitle());
+            ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+            
+            ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+            ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+            AudioCDBean viewaudiocd = (AudioCDBean) session.getAttribute("viewaudiocd");
+            BookBean viewbook = (BookBean) session.getAttribute("viewbook");
+            DVDBean viewdvd = (DVDBean) session.getAttribute("viewdvd");
+            MagazineBean viewMagazine = (MagazineBean) session.getAttribute("viewmagazine");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
     } else {
-        ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
+        /*
+         ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
+         String prodType = (String) session.getAttribute("prodType");
+
+         ArrayList<AudioCDBean> audiolist = (ArrayList<AudioCDBean>) session.getAttribute("audiolist");
+         ArrayList<BookBean> booklist = (ArrayList<BookBean>) session.getAttribute("booklist");
+         ArrayList<DVDBean> dvdlist = (ArrayList<DVDBean>) session.getAttribute("dvdlist");
+         ArrayList<MagazineBean> magazinelist = (ArrayList<MagazineBean>) session.getAttribute("magazinelist");
+
+         ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+
+         ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+         ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+         */
         String prodType = (String) session.getAttribute("prodType");
-
-        ArrayList<AudioCDBean> audiolist = (ArrayList<AudioCDBean>) session.getAttribute("audiolist");
-        ArrayList<BookBean> booklist = (ArrayList<BookBean>) session.getAttribute("booklist");
-        ArrayList<DVDBean> dvdlist = (ArrayList<DVDBean>) session.getAttribute("dvdlist");
-        ArrayList<MagazineBean> magazinelist = (ArrayList<MagazineBean>) session.getAttribute("magazinelist");
-
-        ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
-
+        ProductBean viewproduct = (ProductBean) session.getAttribute("viewproduct");
         ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+        ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
         ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+        AudioCDBean viewaudiocd = (AudioCDBean) session.getAttribute("viewaudiocd");
+        BookBean viewbook = (BookBean) session.getAttribute("viewbook");
+        DVDBean viewdvd = (DVDBean) session.getAttribute("viewdvd");
+        MagazineBean viewmagazine = (MagazineBean) session.getAttribute("viewmagazine");
 
 %>
 
@@ -105,184 +158,261 @@
                     <div class="panel-body">
                         <dl class="dl-horizontal">
 
-                            <% if (prodType.equals("Audio CD")) {
-                                    for (int j = 0; j < productlist.size(); j++) {
-                                        for (int i = 0; i < audiolist.size(); i++) {
-                                            if (productlist.get(j).getProductID() == audiolist.get(i).getAudiocd_productID()) {
-                                                out.println("<dt> Title </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getTitle()
-                                                        + "</dd>"
-                                                        + "<dt> Price </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getPrice()
-                                                        + "</dd>"
-                                                        + "<dt> Summary </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getSummary()
-                                                        + "</dd>"
-                                                        + "<dt> Genre </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getGenre()
-                                                        + "</dd>"
-                                                        + "<dt> Year </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getYear()
-                                                        + "</dd>"
-                                                        + "<dt> Stocks </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getNumberStocks()
-                                                        + "</dd>");
+                            <%
 
-                                                out.println("<dt>Artist</dt>"
-                                                        + "<dd>"
-                                                        + audiolist.get(i).getArtist()
-                                                        + "</dd>"
-                                                        + "<dt> Record Company</dt>"
-                                                        + "<dd>" + audiolist.get(i).getRecordCompany());
-                                            }
-                                        }
-                                    }
+                                out.println("<dt>Title</dt>"
+                                        + "<dd>"
+                                        + viewproduct.getTitle()
+                                        + "</dd>"
+                                        + "<dt> Price </dt>"
+                                        + "<dd>"
+                                        + viewproduct.getPrice()
+                                        + "</dd>"
+                                        + "<dt> Summary </dt>"
+                                        + "<dd>"
+                                        + viewproduct.getSummary()
+                                        + "</dd>"
+                                        + "<dt> Genre </dt>"
+                                        + "<dd>"
+                                        + viewproduct.getGenre()
+                                        + "</dd>"
+                                        + "<dt> Year </dt>"
+                                        + "<dd>"
+                                        + viewproduct.getYear()
+                                        + "</dd>"
+                                );
+                                if (prodType.equals("Audio CD")) {
 
+                                    out.println("<dt>Artist</dt>"
+                                            + "<dd>"
+                                            + viewaudiocd.getArtist()
+                                            + "</dd>"
+                                            + "<dt> Record Company</dt>"
+                                            + "<dd>" + viewaudiocd.getRecordCompany());
+                                    /*
+                                     for (int j = 0; j < productlist.size(); j++) {
+                                     for (int i = 0; i < audiolist.size(); i++) {
+                                     if (productlist.get(j).getProductID() == audiolist.get(i).getAudiocd_productID()) {
+                                     out.println("<dt> Title </dt>"
+                                     + "<dt> Summary </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getSummary()
+                                     + "</dd>"
+                                     + "<dt> Genre </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getGenre()
+                                     + "</dd>"
+                                     + "<dt> Year </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getYear()
+                                     + "</dd>"
+                                     + "<dt> Stocks </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getNumberStocks()
+                                     + "</dd>");
+                                     */
+                                    /*
+                                     out.println("<dt>Artist</dt>"
+                                     + "<dd>"
+                                     + audiolist.get(i).getArtist()
+                                     + "</dd>"
+                                     + "<dt> Record Company</dt>"
+                                     + "<dd>" + audiolist.get(i).getRecordCompany());
+                                     */
+                                    /*   }
+                                     }
+                                     }
+                                     */
                                 } else if (prodType.equals("Book")) {
-                                    for (int j = 0; j < productlist.size(); j++) {
-                                        for (int i = 0; i < booklist.size(); i++) {
-                                            if (productlist.get(j).getProductID() == booklist.get(i).getBook_productID()) {
-                                                out.println("<dt> Title </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getTitle()
-                                                        + "</dd>"
-                                                        + "<dt> Price </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getPrice()
-                                                        + "</dd>"
-                                                        + "<dt> Summary </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getSummary()
-                                                        + "</dd>"
-                                                        + "<dt> Genre </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getGenre()
-                                                        + "</dd>"
-                                                        + "<dt> Year </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getYear()
-                                                        + "</dd>"
-                                                        + "<dt> Stocks </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getNumberStocks()
-                                                        + "</dd>");
-                                                out.println("<dt>Author</dt>"
-                                                        + "<dd >"
-                                                        + booklist.get(i).getAuthor()
-                                                        + "</dd>"
-                                                        + "<dt> Date Published</dt>"
-                                                        + "<dd>" + booklist.get(i).getDatePublished()
-                                                        + "<dt> Publisher </dt>"
-                                                        + "<dd>"
-                                                        + booklist.get(i).getPublisher()
-                                                        + "</dd>"
-                                                        + "<dt> Date Published </dt>"
-                                                        + "<dd>"
-                                                        + booklist.get(i).getDatePublished()
-                                                        + "</dd>"
-                                                );
+                                    out.println("<dt> Author </dt>"
+                                            + "<dd>"
+                                            + viewbook.getAuthor()
+                                            + "</dd>"
+                                            + "<dt> Publisher </dt>"
+                                            + "<dd>"
+                                            + viewbook.getPublisher()
+                                            + "</dd>"
+                                            + "<dt> Date Published </dt>"
+                                            + "<dd>"
+                                            + viewbook.getDatePublished()
+                                            + "</dd>"
+                                    );
+                                    /*
+                                     for (int j = 0; j < productlist.size(); j++) {
+                                     for (int i = 0; i < booklist.size(); i++) {
+                                     if (productlist.get(j).getProductID() == booklist.get(i).getBook_productID()) {
+                                     out.println("<dt> Title </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getTitle()
+                                     + "</dd>"
+                                     + "<dt> Price </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getPrice()
+                                     + "</dd>"
+                                     + "<dt> Summary </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getSummary()
+                                     + "</dd>"
+                                     + "<dt> Genre </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getGenre()
+                                     + "</dd>"
+                                     + "<dt> Year </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getYear()
+                                     + "</dd>"
+                                     + "<dt> Stocks </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getNumberStocks()
+                                     + "</dd>");
+                                            
+                                     out
+                                     .println("<dt>Author</dt>"
+                                     + "<dd >"
+                                     + booklist.get(i).getAuthor()
+                                     + "</dd>"
+                                     + "<dt> Date Published</dt>"
+                                     + "<dd>" + booklist.get(i).getDatePublished()
+                                     + "<dt> Publisher </dt>"
+                                     + "<dd>"
+                                     + booklist.get(i).getPublisher()
+                                     + "</dd>"
+                                     + "<dt> Date Published </dt>"
+                                     + "<dd>"
+                                     + booklist.get(i).getDatePublished()
+                                     + "</dd>"
+                                     );
+                                            
+                                     }
+                                     }
+                                     }
 
-                                            }
-                                        }
-                                    }
+                                     */
+
                                 } else if (prodType.equals("DVD")) {
-                                    for (int j = 0; j < productlist.size(); j++) {
-                                        for (int i = 0; i < dvdlist.size(); i++) {
-                                            if (productlist.get(j).getProductID() == dvdlist.get(i).getDvd_productID()) {
-                                                out.println("<dt> Title </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getTitle()
-                                                        + "</dd>"
-                                                        + "<dt> Price </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getPrice()
-                                                        + "</dd>"
-                                                        + "<dt> Summary </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getSummary()
-                                                        + "</dd>"
-                                                        + "<dt> Genre </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getGenre()
-                                                        + "</dd>"
-                                                        + "<dt> Year </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getYear()
-                                                        + "</dd>"
-                                                        + "<dt> Stocks </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getNumberStocks()
-                                                        + "</dd>");
-                                                out.println("<dt>Actor: </dt>"
-                                                        + "<dd>"
-                                                        + dvdlist.get(i).getMainActors()
-                                                        + "</dd>"
-                                                        + "<dt> Director</dt>"
-                                                        + "<dd>" + dvdlist.get(i).getDirector()
-                                                        + "</dd>"
-                                                        + "<dt> Production Company: </dt>"
-                                                        + "<dd>"
-                                                        + dvdlist.get(i).getProductionCompany()
-                                                        + "</dd>"
-                                                );
+                                    out.println("<dt>Actor: </dt>"
+                                            + "<dd>"
+                                            + viewdvd.getMainActors()
+                                            + "</dd>"
+                                            + "<dt> Director</dt>"
+                                            + "<dd>" + viewdvd.getDirector()
+                                            + "</dd>"
+                                            + "<dt> Production Company: </dt>"
+                                            + "<dd>"
+                                            + viewdvd.getProductionCompany()
+                                            + "</dd>"
+                                    );
+                                    /*
+                                     for (int j = 0; j < productlist.size(); j++) {
+                                     for (int i = 0; i < dvdlist.size(); i++) {
+                                     if (productlist.get(j).getProductID() == dvdlist.get(i).getDvd_productID()) {
+                                     out.println("<dt> Title </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getTitle()
+                                     + "</dd>"
+                                     + "<dt> Price </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getPrice()
+                                     + "</dd>"
+                                     + "<dt> Summary </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getSummary()
+                                     + "</dd>"
+                                     + "<dt> Genre </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getGenre()
+                                     + "</dd>"
+                                     + "<dt> Year </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getYear()
+                                     + "</dd>"
+                                     + "<dt> Stocks </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getNumberStocks()
+                                     + "</dd>");
+                                     out.println("<dt>Actor: </dt>"
+                                     + "<dd>"
+                                     + dvdlist.get(i).getMainActors()
+                                     + "</dd>"
+                                     + "<dt> Director</dt>"
+                                     + "<dd>" + dvdlist.get(i).getDirector()
+                                     + "</dd>"
+                                     + "<dt> Production Company: </dt>"
+                                     + "<dd>"
+                                     + dvdlist.get(i).getProductionCompany()
+                                     + "</dd>"
+                                     );
 
-                                            }
-                                        }
-                                    }
+                                     }
+                                     }
+                                     }
+                                     */
                                 } else if (prodType.equals("Magazine")) {
-                                    for (int j = 0; j < productlist.size(); j++) {
-                                        for (int i = 0; i < magazinelist.size(); i++) {
-                                            if (productlist.get(j).getProductID() == magazinelist.get(i).getMagazine_productID()) {
-                                                out.println("<dt> Title </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getTitle()
-                                                        + "</dd>"
-                                                        + "<dt> Price </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getPrice()
-                                                        + "</dd>"
-                                                        + "<dt> Summary </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getSummary()
-                                                        + "</dd>"
-                                                        + "<dt> Genre </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getGenre()
-                                                        + "</dd>"
-                                                        + "<dt> Year </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getYear()
-                                                        + "</dd>"
-                                                        + "<dt> Stocks </dt>"
-                                                        + "<dd>"
-                                                        + productlist.get(j).getNumberStocks()
-                                                        + "</dd>");
+                                    out.println("<dt>Issue No </dt>"
+                                            + "<dd>"
+                                            + viewmagazine.getIssueNo()
+                                            + "</dd>"
+                                            + "<dt> Volume No </dt>"
+                                            + "<dd>" + viewmagazine.getVolumeNo()
+                                            + "</dd>"
+                                            + "<dt> Date Pubslihed </dt>"
+                                            + "<dd>"
+                                            + viewmagazine.getDatePublished()
+                                            + "</dd>"
+                                            + "<dt> Publisher </dt>"
+                                            + "<dd>"
+                                            + viewmagazine.getPublisher()
+                                            + "</dd>"
+                                    );
+                                    /*
+                                     for (int j = 0; j < productlist.size(); j++) {
+                                     for (int i = 0; i < magazinelist.size(); i++) {
+                                     if (productlist.get(j).getProductID() == magazinelist.get(i).getMagazine_productID()) {
+                                     out.println("<dt> Title </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getTitle()
+                                     + "</dd>"
+                                     + "<dt> Price </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getPrice()
+                                     + "</dd>"
+                                     + "<dt> Summary </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getSummary()
+                                     + "</dd>"
+                                     + "<dt> Genre </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getGenre()
+                                     + "</dd>"
+                                     + "<dt> Year </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getYear()
+                                     + "</dd>"
+                                     + "<dt> Stocks </dt>"
+                                     + "<dd>"
+                                     + productlist.get(j).getNumberStocks()
+                                     + "</dd>");
 
-                                                out.println("<dt>Issue No </dt>"
-                                                        + "<dd>"
-                                                        + magazinelist.get(i).getIssueNo()
-                                                        + "</dd>"
-                                                        + "<dt> Volume No </dt>"
-                                                        + "<dd>" + magazinelist.get(i).getVolumeNo()
-                                                        + "</dd>"
-                                                        + "<dt> Date Pubslihed </dt>"
-                                                        + "<dd>"
-                                                        + magazinelist.get(i).getDatePublished()
-                                                        + "</dd>"
-                                                        + "<dt> Publisher </dt>"
-                                                        + "<dd>"
-                                                        + magazinelist.get(i).getPublisher()
-                                                        + "</dd>"
-                                                );
-                                            }
-                                        }
-                                    }
+                                     out.println("<dt>Issue No </dt>"
+                                     + "<dd>"
+                                     + magazinelist.get(i).getIssueNo()
+                                     + "</dd>"
+                                     + "<dt> Volume No </dt>"
+                                     + "<dd>" + magazinelist.get(i).getVolumeNo()
+                                     + "</dd>"
+                                     + "<dt> Date Pubslihed </dt>"
+                                     + "<dd>"
+                                     + magazinelist.get(i).getDatePublished()
+                                     + "</dd>"
+                                     + "<dt> Publisher </dt>"
+                                     + "<dd>"
+                                     + magazinelist.get(i).getPublisher()
+                                     + "</dd>"
+                                     );
+                                     }
+                                     }
+                                     }
+                                     */
                                 }
 
                             %>
@@ -301,7 +431,6 @@
                     </div>
                     <div class="panel-body">
                         <%                            for (int i = 0; i < reviews.size(); i++) {
-
                                 for (int j = 0; j < customerlist.size(); j++) {
                                     if (reviews.get(i).getReview_customerID() == customerlist.get(j).getCustomerID()) {
                                         for (int k = 0; k < accountlist.size(); k++) {
@@ -315,7 +444,6 @@
                                     }
                                 }
                             }
-
                         %>
                     </div>
                 </div>

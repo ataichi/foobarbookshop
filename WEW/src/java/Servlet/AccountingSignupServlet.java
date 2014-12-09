@@ -38,7 +38,7 @@ public class AccountingSignupServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
 
-            if (homeadmin.getAccesscontrol().isCreateaccountingmanager()) {
+            //if (homeadmin.getAccesscontrol().isCreateaccountingmanager()) {
                 AccountBean account = new AccountBean();
                 AccountDAOInterface userdao = new AccountDAOImplementation();
                 AdminDAOInterface adao = new AdminDAOImplementation();
@@ -93,9 +93,9 @@ public class AccountingSignupServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("signup_accountingmanager.jsp");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+         //   } else {
+          //      out.println("ACCESS DENIED");
+          //  }
             /*
              boolean addAccountingManager = adao.addAccountingManager(accountingManager);
              if (addUser && addAccountingManager) {

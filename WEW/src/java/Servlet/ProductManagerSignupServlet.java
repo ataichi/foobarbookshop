@@ -9,7 +9,6 @@ import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.AdminDAOInterface;
 import DAO.Interface.LogDAOInterface;
 import DBConnection.Hasher;
-import com.sun.istack.internal.logging.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sun.util.logging.PlatformLogger;
 
 @WebServlet(name = "ProductManagerSignupServlet", urlPatterns = {"/ProductManagerSignupServlet"})
 public class ProductManagerSignupServlet extends HttpServlet {
@@ -35,24 +33,23 @@ public class ProductManagerSignupServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
 
-            if (homeadmin.getAccesscontrol().isCreateproductmanager()) {
+            //if (homeadmin.getAccesscontrol().isCreateproductmanager()) {
                 AccountBean account = new AccountBean();
                 AccountDAOInterface userdao = new AccountDAOImplementation();
                 AdminDAOInterface admindao = new AdminDAOImplementation();
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
-                
+
                 String pass1 = request.getParameter("pass1");
-                
+
                 Hasher hash = null;
-                
-                
+
                 try {
                     hash = new Hasher("MD5");
                 } catch (NoSuchAlgorithmException ex) {
                     java.util.logging.Logger.getLogger(ProductManagerSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 hash.updateHash(pass1, "UTF-8");
                 pass1 = hash.getHashBASE64();
 
@@ -69,7 +66,7 @@ public class ProductManagerSignupServlet extends HttpServlet {
                 int productmanager_accountID;
                 boolean addUser = userdao.addAccount(account);
                 if (addUser) {
-                //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
+                    //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
                     //productManager.setProdmanager_accountID(productmanager_accountID);
 
                     java.util.Date date = new java.util.Date();
@@ -86,7 +83,7 @@ public class ProductManagerSignupServlet extends HttpServlet {
                     response.sendRedirect("signup_productmanager.jsp");
                 }
 
-            //productManager.setProdType(request.getParameter("prodType"));
+                //productManager.setProdType(request.getParameter("prodType"));
             /*
 
                  boolean addProductmanager = admindao.addProductManager(productManager);
@@ -97,9 +94,9 @@ public class ProductManagerSignupServlet extends HttpServlet {
                  response.sendRedirect("signupfail.jsp");
                  }
                  */
-            } else {
-                out.println("ACCESS DENIED");
-            }
+           // } else {
+           //     out.println("ACCESS DENIED");
+           // }
         } finally {
             out.close();
         }
