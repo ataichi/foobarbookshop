@@ -10,44 +10,44 @@ import org.owasp.esapi.errors.AccessControlException;
 
 public class AccessController {
 
-    protected static boolean createcustomer = false;
-    protected static boolean editcustomer = false;
-    protected static boolean deletecustomer = false;
+    protected static boolean createcustomer;
+    protected static boolean editcustomer;
+    protected static boolean deletecustomer;
 
-    protected static boolean createproductmanager = false;
-    protected static boolean editproductmanager = false;
-    protected static boolean deleteproductmanager = false;
+    protected static boolean createproductmanager;
+    protected static boolean editproductmanager;
+    protected static boolean deleteproductmanager;
 
-    protected static boolean createaccountingmanager = false;
-    protected static boolean editaccountingmanager = false;
-    protected static boolean deleteaccountingmanager = false;
+    protected static boolean createaccountingmanager;
+    protected static boolean editaccountingmanager;
+    protected static boolean deleteaccountingmanager;
 
-    protected static boolean postmessage = false;
-    protected static boolean editmessage = false;
-    protected static boolean viewmessage = false;
-    protected static boolean deletemessage = false;
+    protected static boolean postmessage;
+    protected static boolean editmessage;
+    protected static boolean viewmessage;
+    protected static boolean deletemessage;
 
-    protected static boolean addproduct = false;
-    protected static boolean editproduct = false;
-    protected static boolean deleteproduct = false;
-    protected static boolean restockproduct = false;
+    protected static boolean addproduct;
+    protected static boolean editproduct;
+    protected static boolean deleteproduct;
+    protected static boolean restockproduct;
 
-    protected static boolean viewsales = false;
-    protected static boolean unlockuser = false;
-    protected static boolean viewtransactions = false;
-    protected static boolean viewactivity = false;
-    protected static boolean buyproduct = false;
+    protected static boolean viewsales;
+    protected static boolean unlockuser;
+    protected static boolean viewtransactions;
+    protected static boolean viewactivity;
+    protected static boolean buyproduct;
 
-    protected static boolean addtoshoppingcart = false;
-    protected static boolean editshoppingcart = false;
-    protected static boolean removeproductfromshoppingcart = false;
-    protected static boolean viewproduct = false;
+    protected static boolean addtoshoppingcart;
+    protected static boolean editshoppingcart;
+    protected static boolean removeproductfromshoppingcart;
+    protected static boolean viewproduct;
 
-    protected static boolean editpassword = false;
+    protected static boolean editpassword;
 
-    protected static boolean editadmin = false;
-    protected static boolean addadmin = false;
-    protected static boolean deleteadmin = false;
+    protected static boolean editadmin;
+    protected static boolean addadmin;
+    protected static boolean deleteadmin;
 
     public static boolean isAddadmin() {
         return addadmin;
