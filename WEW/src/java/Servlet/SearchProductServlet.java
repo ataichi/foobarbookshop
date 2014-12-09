@@ -44,6 +44,17 @@ public class SearchProductServlet extends HttpServlet {
             ProductDAOInterface productdao = new ProductDAOImplementation();
             ProductBean productbean = new ProductBean();
 
+            ArrayList<ReviewBean> reviews = new ArrayList<ReviewBean>();
+            ReviewBean reviewbean = new ReviewBean();
+            AccountDAOInterface adao = new AccountDAOImplementation();
+            ArrayList<AccountBean> accountlist = new ArrayList<AccountBean>();
+            AccountBean account = new AccountBean();
+
+            CustomerDAOInterface cdao = new CustomerDAOImplementation();
+            ArrayList<CustomerBean> customerlist = new ArrayList<CustomerBean>();
+            ArrayList<CustomerBean> finalcustomerlist = new ArrayList<CustomerBean>();
+
+            CustomerBean customer = new CustomerBean();
             if (homeproduct.getAccountID() != 0) { // product manager searches for a product
                 out.println("here");
                 ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
@@ -76,6 +87,18 @@ public class SearchProductServlet extends HttpServlet {
                             bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
                             finalbooklist.add(bookbean);
                             out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
+                            session.setAttribute("accountlist", accountlist);
+                            session.setAttribute("reviews", reviews);
+                            session.setAttribute("customerlist", customerlist);
                         }
                     }
 
@@ -88,6 +111,15 @@ public class SearchProductServlet extends HttpServlet {
                             bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
                             finalbooklist.add(bookbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
                     out.println("Genre:");
@@ -100,6 +132,15 @@ public class SearchProductServlet extends HttpServlet {
                             bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
                             finalbooklist.add(bookbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
 
@@ -113,6 +154,15 @@ public class SearchProductServlet extends HttpServlet {
                         bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
                         finalbooklist.add(bookbean);
                         out.println(productbean.getTitle() + booklist.get(i).getAuthor());
+
+                        for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                            out.println(reviews.get(k).getReview_customerID());
+                            customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                            customerlist.add(customer);
+                            out.println(customer.getCustomer_accountID());
+                            account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                            accountlist.add(account);
+                        }
                     }
 
                     booklist = bookdao.getBookByPublisher(searchstring);
@@ -123,6 +173,15 @@ public class SearchProductServlet extends HttpServlet {
                         bookbean = bookmanagerdao.getBookByProductID(productbean.getProductID());
                         finalbooklist.add(bookbean);
                         out.println(productbean.getTitle() + booklist.get(i).getPublisher());
+
+                        for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                            out.println(reviews.get(k).getReview_customerID());
+                            customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                            customerlist.add(customer);
+                            out.println(customer.getCustomer_accountID());
+                            account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                            accountlist.add(account);
+                        }
                     }
 
                     //datePublished
@@ -148,6 +207,15 @@ public class SearchProductServlet extends HttpServlet {
                             audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
                             finalaudiolist.add(audiocdbean);
                             out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
 
@@ -160,6 +228,15 @@ public class SearchProductServlet extends HttpServlet {
                             audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
                             finalaudiolist.add(audiocdbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
                     out.println("Genre:");
@@ -172,6 +249,15 @@ public class SearchProductServlet extends HttpServlet {
                             audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
                             finalaudiolist.add(audiocdbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
 
@@ -185,6 +271,15 @@ public class SearchProductServlet extends HttpServlet {
                         audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
                         finalaudiolist.add(audiocdbean);
                         out.println(productbean.getTitle() + audiolist.get(i).getArtist());
+
+                        for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                            out.println(reviews.get(k).getReview_customerID());
+                            customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                            customerlist.add(customer);
+                            out.println(customer.getCustomer_accountID());
+                            account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                            accountlist.add(account);
+                        }
                     }
 
                     audiolist = audiocddao.getAudioCDByRecordCompany(searchstring);
@@ -197,6 +292,15 @@ public class SearchProductServlet extends HttpServlet {
                         audiocdbean = audiocddao.getAudioCDByProductID(productbean.getProductID());
                         finalaudiolist.add(audiocdbean);
                         out.println(productbean.getTitle() + audiolist.get(i).getRecordCompany());
+
+                        for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                            out.println(reviews.get(k).getReview_customerID());
+                            customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                            customerlist.add(customer);
+                            out.println(customer.getCustomer_accountID());
+                            account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                            accountlist.add(account);
+                        }
                     }
 
                     session.setAttribute("audiolist", finalaudiolist);
@@ -220,6 +324,15 @@ public class SearchProductServlet extends HttpServlet {
                             dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
                             finaldvdlist.add(dvdbean);
                             out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
 
@@ -232,6 +345,15 @@ public class SearchProductServlet extends HttpServlet {
                             dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
                             finaldvdlist.add(dvdbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
                     out.println("Genre:");
@@ -244,6 +366,15 @@ public class SearchProductServlet extends HttpServlet {
                             dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
                             finaldvdlist.add(dvdbean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
 
@@ -257,6 +388,15 @@ public class SearchProductServlet extends HttpServlet {
                             finalproductlist.add(productbean);
                             dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
                             finaldvdlist.add(dvdbean);
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                         out.println(productbean.getTitle() + dvdlist.get(i).getMainActors());
                     }
@@ -269,6 +409,15 @@ public class SearchProductServlet extends HttpServlet {
                             finalproductlist.add(productbean);
                             dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
                             finaldvdlist.add(dvdbean);
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                         out.println(productbean.getTitle() + dvdlist.get(i).getDirector());
                     }
@@ -281,6 +430,15 @@ public class SearchProductServlet extends HttpServlet {
                             finalproductlist.add(productbean);
                             dvdbean = dvdmanagerdao.getDVDByProductID(productbean.getProductID());
                             finaldvdlist.add(dvdbean);
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                         out.println(productbean.getTitle() + dvdlist.get(i).getProductionCompany());
                     }
@@ -305,6 +463,15 @@ public class SearchProductServlet extends HttpServlet {
                             magazinebean = magazinedao.getMagazineByProductID(productbean.getProductID());
                             finalmagazinelist.add(magazinebean);
                             out.println(productlist.get(i).getProductID() + ":" + productlist.get(i).getTitle());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
 
@@ -317,6 +484,15 @@ public class SearchProductServlet extends HttpServlet {
                             magazinebean = magazinedao.getMagazineByProductID(productbean.getProductID());
                             finalmagazinelist.add(magazinebean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getSummary());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
                     out.println("Genre:");
@@ -329,6 +505,15 @@ public class SearchProductServlet extends HttpServlet {
                             magazinebean = magazinedao.getMagazineByProductID(productbean.getProductID());
                             finalmagazinelist.add(magazinebean);
                             out.println(productlist.get(i).getTitle() + productlist.get(i).getGenre());
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                     }
 
@@ -362,6 +547,15 @@ public class SearchProductServlet extends HttpServlet {
                             finalproductlist.add(productbean);
                             magazinebean = magazinedao.getMagazineByProductID(productbean.getProductID());
                             finalmagazinelist.add(magazinebean);
+
+                            for (int k = 0; k < reviews.size(); k++) { // get reviews for product
+                                out.println(reviews.get(k).getReview_customerID());
+                                customer = cdao.getCustomerById(reviews.get(k).getReview_customerID());
+                                customerlist.add(customer);
+                                out.println(customer.getCustomer_accountID());
+                                account = adao.getUserByAccountID(customer.getCustomer_accountID());
+                                accountlist.add(account);
+                            }
                         }
                         out.println(productbean.getTitle() + magazinelist.get(i).getPublisher());
                     }

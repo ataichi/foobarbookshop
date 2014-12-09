@@ -48,15 +48,20 @@ public class ViewProductServlet extends HttpServlet {
                 DVDBean dvdbean = new DVDBean();
                 MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
                 MagazineBean magbean = new MagazineBean();
+                ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
+                ReviewBean review = new ReviewBean();
+                AccountBean accountbean = new AccountBean();
 
-                int productID = Integer.parseInt(request.getParameter("product"));
                 AccountDAOInterface adao = new AccountDAOImplementation();
                 CustomerDAOInterface cdao = new CustomerDAOImplementation();
-                ArrayList<ReviewBean> reviews = cdao.getReviewsByProductID(productID);
+
                 ArrayList<CustomerBean> customerlist = new ArrayList<CustomerBean>();
                 CustomerBean customer = new CustomerBean();
                 ArrayList<AccountBean> accountlist = new ArrayList<AccountBean>();
 
+                int productID = Integer.parseInt(request.getParameter("product"));
+                ArrayList<ReviewBean> reviews = cdao.getReviewsByProductID(productID);
+                
                 for (int i = 0; i < reviews.size(); i++) { // get customers
                     out.println(reviews.get(i).getReview_customerID());
                     customer = cdao.getCustomerById(reviews.get(i).getReview_customerID());
