@@ -1,5 +1,17 @@
+<%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+	if(session.getAttribute("homeuser") != null){
+	response.sendRedirect("customerHOME.jsp");
+	}else if(session.getAttribute("homeadmin")!=null){
+	response.sendRedirect("adminHOME.jsp");
+	}else if(session.getAttribute("homeproduct")!=null){
+	response.sendRedirect("productmanagerHOME.jsp");
+	}else if(session.getAttribute("homeaccounting")!=null){
+	response.sendRedirect("accountingmanagerHOME.jsp");
+	}
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

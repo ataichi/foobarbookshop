@@ -7,7 +7,10 @@
 
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
-    ArrayList<LockReportBean> lockreportlist = (ArrayList<LockReportBean>) session.getAttribute("lockreportlist");
+    if(homeadmin==null){
+	response.sendRedirect("login.jsp");
+	}else{
+	ArrayList<LockReportBean> lockreportlist = (ArrayList<LockReportBean>) session.getAttribute("lockreportlist");
     ArrayList<AccountBean> lockedAccounts = (ArrayList<AccountBean>) session.getAttribute("lockedAccounts");
 %>
 
@@ -123,3 +126,4 @@
 
     </body>
 </html>
+<%}%>

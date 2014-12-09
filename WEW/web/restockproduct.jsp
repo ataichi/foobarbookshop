@@ -1,15 +1,14 @@
-<%-- 
-    Document   : restockproduct_1
-    Created on : Nov 30, 2014, 12:37:01 AM
-    Author     : Danica
---%>
 
 <%@page import="Beans.AccountBean"%>
 <%@page import="Beans.ProductBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
+
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+	if(homeproduct==null){
+	response.sendRedirect("login.jsp");
+	}else{
+    ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
 
 %>
 <!DOCTYPE html>
@@ -104,3 +103,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+<%}%>

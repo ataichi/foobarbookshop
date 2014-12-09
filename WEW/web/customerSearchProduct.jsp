@@ -8,6 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+	if(homeuser==null){
+	response.sendRedirect("login.jsp");
+	}else{
     ArrayList<ProductBean> searchproductlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
     ArrayList<AudioCDBean> searchaudiocdlist = (ArrayList<AudioCDBean>) session.getAttribute("searchaudiocdlist");
     ArrayList<BookBean> searchbooklist = (ArrayList<BookBean>) session.getAttribute("searchbooklist");
@@ -117,3 +120,4 @@
 
                 </body>
                 </html>
+<%}%>

@@ -2,7 +2,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-
+	if(homeproduct==null){
+	response.sendRedirect("login.jsp");
+	}else{
 %>
 <!DOCTYPE html>
 <html>
@@ -74,21 +76,21 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="fname">Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="password1" name="password1" placeholder="Enter Password" onblur="currPassCheck();"  onfocus="backWhite(this);" value="<% out.println(homeproduct.getPassword());%>">
-                                        <input type="hidden" class="form-control" id="currentpassword" name="currentpassword" value="<%out.println(homeproduct.getPassword());%>">
-                                    </div>
+                                            <input type="text" class="form-control" id="password1" name="password1" placeholder="Enter Password" onblur="currPassCheck();"  onfocus="backWhite(this);" value="<% out.println(homeproduct.getPassword());%>" required>
+                                       <input type="hidden" class="form-control" id="currentpassword" name="currentpassword" value="<%out.println(homeproduct.getPassword());%>" >
+                                 </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">New Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="password2" name="password2" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);">
-                                    </div>
+                             <input type="text" class="form-control" id="password2" name="password2" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
+                                                </div>
                                 </div> 
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">Confirm Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="password3" name="password3" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);">
-                                    </div>
+                            <input type="text" class="form-control" id="password3" name="password3" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
+                                                 </div>
                                 </div>
 
                                 <div class="form-group">
@@ -140,3 +142,4 @@
         </script>
     </body>
 </html>
+<%}%>

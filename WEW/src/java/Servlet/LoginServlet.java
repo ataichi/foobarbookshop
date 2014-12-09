@@ -89,6 +89,7 @@ public class LoginServlet extends HttpServlet {
 
             try {
                 account = loginauthenticator.login(request, response);
+                
                 if (account.getAccountType().equals("Customer")) {
                     CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
                     CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
@@ -122,6 +123,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("productmagazinelist", productmagazinelist);
 
                         System.out.println("TRY TRY TRY");
+						session.setMaxInactiveInterval(-1);
                         response.sendRedirect("customerHOME.jsp");
                     }
                 } else if (account.getAccountType().equals("Admin")) {
@@ -143,6 +145,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("lockedAccounts", lockedAccounts);
                         session.setAttribute("lockreportlist", lockreportlist);
                         System.out.println(time);
+						session.setMaxInactiveInterval(600);
                         response.sendRedirect("adminHOME.jsp");
                     }
 
@@ -164,7 +167,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("type", type);
                         session.setAttribute("productlist", productlist);
                         session.setAttribute("homeproduct", account);
-
+session.setMaxInactiveInterval(600);
                         response.sendRedirect("productmanagerHOME.jsp");
 
                     }
@@ -186,7 +189,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("type", type);
                         session.setAttribute("productlist", productlist);
                         session.setAttribute("homeproduct", account);
-
+session.setMaxInactiveInterval(600);
                         response.sendRedirect("productmanagerHOME.jsp");
                     }
 
@@ -208,6 +211,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("type", type);
                         session.setAttribute("productlist", productlist);
                         session.setAttribute("homeproduct", account);
+						session.setMaxInactiveInterval(600);
                         response.sendRedirect("productmanagerHOME.jsp");
                     }
 
@@ -231,6 +235,7 @@ public class LoginServlet extends HttpServlet {
 
                         session.setAttribute("productlist", productlist);
                         session.setAttribute("homeproduct", account);
+						session.setMaxInactiveInterval(600);
                         response.sendRedirect("productmanagerHOME.jsp");
                     }
 
@@ -262,6 +267,8 @@ public class LoginServlet extends HttpServlet {
 
                         session.setAttribute("type", type);
                         session.setAttribute("homeaccounting", account);
+						
+						session.setMaxInactiveInterval(600);
                         response.sendRedirect("accountingmanagerHOME.jsp");
                     }
 

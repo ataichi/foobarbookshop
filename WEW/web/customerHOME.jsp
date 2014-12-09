@@ -8,6 +8,9 @@
 <%@page import="Beans.CustomerBean"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+	if(homeuser==null){
+	response.sendRedirect("login.jsp");
+	}else{
     CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
     ShoppingCartBean shoppingcart = (ShoppingCartBean) session.getAttribute("shoppingcart");
     ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
@@ -246,3 +249,4 @@
     </body>
 
 </html>
+<%}%>

@@ -3,9 +3,13 @@
 <%@page import="Beans.ProductOrderBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Beans.AccountBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
+	if(account==null){
+	response.sendRedirect("login.jsp");
+	}else{
     ArrayList<ProductOrderBean> productorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("productorderlist");
     ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
 
@@ -43,6 +47,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <script src="js/customercheck.js" type="text/javascript"></script>
+        <script src="js/managercheck.js" type="text/javascript"></script>
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
@@ -136,7 +141,7 @@
 
                                                     /*
                                                      int a;
-                                                     for (a = 0; a < booklist.size(); a++) {
+														for (a = 0; a < booklist.size(); a++) {
                                                      out.println("<div class='col-md-3'>"
                                                      + "<center>"
                                                      + "<div><strong>" + booklist.get(a).getTitle() + "</strong></div>"
@@ -332,3 +337,4 @@
 
     </body>
 </html>
+<%}%>

@@ -4,7 +4,11 @@
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-    ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+    if(homeuser==null){
+	response.sendRedirect("login.jsp");
+	}else{
+	
+	ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
     ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
 %>
 <!DOCTYPE html>
@@ -122,3 +126,4 @@
 
     </body>
 </html>
+<%}%>

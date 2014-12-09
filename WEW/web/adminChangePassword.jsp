@@ -2,6 +2,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeadmin");
+	if(account==null){
+	response.sendRedirect("login.jsp");
+	}else{
 %>
 <!DOCTYPE html>
 <html>
@@ -69,8 +72,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Current Password</label>
                                     <div class="col-sm-3">
-                                        <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="checkcurrentpass();" onfocus="backWhite(this);" required value="<%out.println(account.getPassword());%>">
-                                    </div>
+                                <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Current Password" onblur="checkcurrentpass();" onfocus="backWhite(this);" required value="<%out.println(account.getPassword());%>" required>
+                                            </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" >New Password</label>
@@ -103,3 +106,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+<%}%>

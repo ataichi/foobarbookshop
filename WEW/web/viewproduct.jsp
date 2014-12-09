@@ -10,7 +10,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeuser");
-
+	if(account==null){
+	response.sendRedirect("login.jsp");
+}else{
     ProductBean productBean = (ProductBean) session.getAttribute("viewproduct");
 
     AudioCDBean audiocdbean = (AudioCDBean) session.getAttribute("viewaudiocd");
@@ -181,3 +183,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+<%}%>

@@ -1,14 +1,11 @@
-<%-- 
-    Document   : signup_productmanager
-    Created on : Nov 30, 2014, 12:53:13 AM
-    Author     : Danica
---%>
-
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
-%>
+if(homeadmin==null){
+response.sendRedirect("login.jsp");
+}else{
+	%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -145,3 +142,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+<%}%>

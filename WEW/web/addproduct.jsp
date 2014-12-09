@@ -2,8 +2,10 @@
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
 <%@page import="Beans.AccountBean"%>
 <%
-    AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-    String accountType = homeproduct.getAccountType();
+       AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+    if (homeproduct == null) {
+        response.sendRedirect("login.jsp");
+    }else{  String accountType = homeproduct.getAccountType();
     String productType = null;
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,6 +20,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <script src="js/customercheck.js" type="text/javascript"></script>
+        <script src="js/productcheck.js" type="text/javascript"></script>
 
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
@@ -226,3 +229,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+<%}%>

@@ -50,7 +50,6 @@ import org.owasp.esapi.errors.AuthenticationException;
 public class LoginAuthenticator {
 
     private boolean isLoggedIn = false;
-    private String type;
 
     public boolean isIsLoggedIn() {
         return isLoggedIn;
@@ -59,15 +58,7 @@ public class LoginAuthenticator {
     public void setIsLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
     }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    
     public AccountBean login(HttpServletRequest hsr, HttpServletResponse hsr1) throws AuthenticationException {
         AccountBean account = new AccountBean();
         AccountDAOInterface accountdao = new AccountDAOImplementation();

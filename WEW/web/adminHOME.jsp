@@ -1,6 +1,13 @@
 <%@page import="Beans.AccountBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+        <%
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
+			if(session.getAttribute("homeadmin")==null){
+			response.sendRedirect("login.jsp");
+			}else{
+		
+		
+		%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,9 +29,7 @@
     </head>
     <body>
 
-        <%
-            AccountBean homeuser = (AccountBean) session.getAttribute("homeadmin");
-        %>
+
 
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
@@ -89,3 +94,4 @@
         <script src="dist/js/bootstrap.min.js"></script>
     </body>
 </html>
+<%}%>

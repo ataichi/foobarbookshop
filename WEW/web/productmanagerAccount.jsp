@@ -2,6 +2,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+	if(homeproduct==nulll){
+	response.sendRedirect("login.jsp");
+	}else{
 
 %>
 <!DOCTYPE html>
@@ -75,32 +78,32 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="fname">First Name</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getFirstName()); %>">
-                                    </div>
+                                                           <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getFirstName()); %>" required>
+                  </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">Middle Initial</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getMiddleInitial()); %>">
-                                    </div>
+                                                  <input type="text" class="form-control" id="mname" name="mname" placeholder="Enter Middle Initial" onblur="mnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getMiddleInitial()); %>" required>
+                           </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="lname">Last Name</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getLastName()); %>">
-                                    </div>
+                                   <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getLastName()); %>" required>
+                                         </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="uname">Username</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getUsername()); %>">
-                                    </div>
+                             <input type="text" class="form-control" id="uname" name="uname" placeholder="Enter Username" onblur="unameManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getUsername()); %>" required>
+                                                </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="email">Email</label>
                                     <div class="col-sm-3">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getEmailAdd());%>">
-                                    </div>
+                                   <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" onblur="emailManagerCheck();" onfocus="backWhite(this);" value="<% out.println(homeproduct.getEmailAdd());%>" required>
+                                           </div>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg center-block">Edit Account</button>
@@ -120,3 +123,4 @@
 
     </body>
 </html>
+<%}%>

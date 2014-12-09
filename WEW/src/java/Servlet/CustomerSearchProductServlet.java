@@ -39,8 +39,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             if (homeuser.getAccesscontrol().isViewproduct()) {
-                String searchstring = request.getParameter("srch-term");
-                ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+              String searchstring = AccountDAOImplementation.inputSanitizer(request.getParameter("srch-term"));   ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
                 ArrayList<ProductBean> searchproductlist = new ArrayList<ProductBean>();
                 ArrayList<AudioCDBean> searchaudiocdlist = new ArrayList<AudioCDBean>();
                 ArrayList<BookBean> searchbooklist = new ArrayList<BookBean>();

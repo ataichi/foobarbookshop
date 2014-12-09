@@ -11,7 +11,9 @@ import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.LogDAOInterface;
+import DBConnection.Hasher;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import javax.servlet.ServletException;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/ChangePasswordServlet"})
 public class ChangePasswordServlet extends HttpServlet {
@@ -64,6 +68,15 @@ public class ChangePasswordServlet extends HttpServlet {
                 // hash password here
                 String pass1 = request.getParameter("pass1");
                 String pass2 = request.getParameter("pass2");
+         // hash password here
+            Hasher hash = null;
+            try {
+                hash = new Hasher("MD5");
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            hash.updateHash(pass2, "UTF-8");
+            //  password = hash.getHashBASE64();
 
                 boolean changepassword = accountdao.changePassword(account.getAccountID(), pass2);
 

@@ -1,4 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+	if(session.getAttribute("homeuser")!=null){
+	response.sendRedirect("customerHOME.jsp");
+	}else if(session.getAttribute("homeadmin")!=null){
+	response.sendRedirect("adminHOME.jsp");
+	}else if(session.getAttribute("homeproduct")!=null){
+	response.sendRedirect("productmanagerHOME.jsp");
+	}else if(session.getAttribute("homeaccounting")!=null){
+	response.sendRedirect("accountingmanagerHOME.jsp");
+	}
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
