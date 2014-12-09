@@ -116,7 +116,7 @@
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
                                                     + " <input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + " <                                        background-color: transparent'/>"
+                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</center>"
                                                     + "</div>");
 
@@ -136,9 +136,8 @@
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
                                                     + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='productid' val                                                               + " <  / form >
-                                        
-                                        "
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productmagazinelist.get(b).getProductID() + "'/> </form>"
+                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</center>"
                                                     + "</div>");
 
@@ -159,9 +158,8 @@
                                                     + "</form>"
                                                     + "<form action='AddToShoppingCartServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
                                                     + "<input type='number' name='qty' id='qty' min='1' max='10' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='productid'                                                              + " <  / form >
-                                        
-                                        "
+                                                    + "<input type='hidden' id='productid' name='productid' value='" + productaudiolist.get(c).getPrice() + "'/> </form>"
+                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
                                                     + "</center>"
                                                     + "</div>");
 
@@ -250,8 +248,8 @@
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $("#qty").click(function () {
+            $(document).ready(function() {
+                $("#qty").click(function() {
                     var $n = $("#final");
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });

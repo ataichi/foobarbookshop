@@ -9,7 +9,6 @@ import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.AdminDAOInterface;
 import DAO.Interface.LogDAOInterface;
 import DBConnection.Hasher;
-import com.sun.istack.internal.logging.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sun.util.logging.PlatformLogger;
 
 @WebServlet(name = "ProductManagerSignupServlet", urlPatterns = {"/ProductManagerSignupServlet"})
 public class ProductManagerSignupServlet extends HttpServlet {

@@ -1,4 +1,3 @@
-
 <%@page import="Beans.AccountBean"%>
 <%@page import="Beans.MagazineBean"%>
 <%@page import="Beans.DVDBean"%>
@@ -135,3 +134,4 @@
 
     </body>
 </html>
+<%}%>
