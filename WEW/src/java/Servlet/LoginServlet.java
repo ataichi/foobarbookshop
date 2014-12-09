@@ -126,10 +126,10 @@ public class LoginServlet extends HttpServlet {
                             CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
                             CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
 
-                            productaudiolist = productdao.getAllAvailableProductsByType("Audio CD");
-                            productbooklist = productdao.getAllAvailableProductsByType("Book");
-                            productdvdlist = productdao.getAllAvailableProductsByType("DVD");
-                            productmagazinelist = productdao.getAllAvailableProductsByType("Magazine");
+                            productaudiolist = productdao.getAllProductsByType("Audio CD");
+                            productbooklist = productdao.getAllProductsByType("Book");
+                            productdvdlist = productdao.getAllProductsByType("DVD");
+                            productmagazinelist = productdao.getAllProductsByType("Magazine");
 
 //                    System.out.println(tempcustomer.getCustomerID());
                             type = "Customer";

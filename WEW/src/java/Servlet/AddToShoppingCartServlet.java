@@ -50,8 +50,8 @@ public class AddToShoppingCartServlet extends HttpServlet {
 
                 ArrayList<ProductBean> productlist;
 
-                out.println(request.getParameter("productid"));
-                int product = Integer.valueOf(request.getParameter("productid"));
+                out.println(request.getParameter("product"));
+                int product = Integer.valueOf(request.getParameter("product"));
                 out.println(product);
                 productbean = productdao.getProductById(product);
 

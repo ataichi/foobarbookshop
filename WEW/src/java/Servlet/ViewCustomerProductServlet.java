@@ -73,6 +73,7 @@ public class ViewCustomerProductServlet extends HttpServlet {
                 CustomerBean customer = new CustomerBean();
                 ArrayList<AccountBean> accountlist = new ArrayList<AccountBean>();
 
+                // DITO LANG ICHECK
                 int productID = Integer.parseInt(request.getParameter("product"));
                 ArrayList<ReviewBean> reviews = cdao.getReviewsByProductID(productID);
 
