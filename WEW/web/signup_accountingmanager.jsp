@@ -93,7 +93,7 @@
                                 <h3 class="panel-title">Add Accounting Manager</h3>
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return managerCustomerCheck();" action="AccountingSignupServlet" method="post">
+                                <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return managerCheck();" action="AccountingSignupServlet" method="post">
                                     <div>
                                         <div class="form-group">
                                             <label class="control-label col-lg-4" for="fname">First Name</label>

@@ -117,7 +117,15 @@
         <div class="container-fluid" style="padding-top: 100px;">
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-1 main">
-
+                    <h1 class="page-header">List of Products</h1>
+                    <h3 class="sub-header"><a href="addproduct.jsp"><button class="btn btn-primary btn-sm">Add Product</button></a></h3>
+                    <div class="dropdown-header">Sort By:
+                        <select name="sort" id="sort">
+                            <option value="Title" name="sort" id="sort" class="dropdown-toggle">Title</option>
+                            <option value="Stocks" name="sort" id="sort" class="dropdown-toggle">Stocks</option>
+                            <option value="Year" name="sort" id="sort" class="dropdown-toggle">Year</option>
+                        </select>
+                    </div> 
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>

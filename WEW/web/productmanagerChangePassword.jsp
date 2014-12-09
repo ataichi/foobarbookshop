@@ -33,7 +33,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
         <script src="js/customercheck.js" type="text/javascript"></script>
-
+        <script src="js/customercheck.js" type="text/javascript"></script>
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/dashboard.css" rel="stylesheet">
         <link href="dist/css/morris.css" rel="stylesheet">
