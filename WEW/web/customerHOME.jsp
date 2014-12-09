@@ -4,7 +4,7 @@
 <%@page import="Beans.ProductOrderBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Beans.ShoppingCartBean"%>
-<%@page import="Beans.AccountBean"%>
+<%@page import="Beans.*"%>
 <%@page import="Beans.CustomerBean"%>
 <%
     AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");

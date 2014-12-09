@@ -101,14 +101,6 @@
                     </div>
                     <div class="panel-body">
                         <div id="morris-bar-chart"></div>
-                        <div class="dropdown-header">Sort By:
-                            <select name="prodType" id="prodType">
-                                <option value="Audio CD" name="prodType" id="prodType" class="dropdown-toggle">Audio CD</option>
-                                <option value="Book" name="prodType" id="prodType" class="dropdown-toggle">Book</option>
-                                <option value="DVD" name="prodType" id="prodType" class="dropdown-toggle">DVD</option>
-                                <option value="Magazine" name="prodType" id="prodType" class="dropdown-toggle">Magazine</option>
-                            </select>
-                        </div> 
                     </div>
 
                     <div class="container-fluid" style="padding-left: 30px;">
@@ -288,7 +280,7 @@
                       //     + productlist.get(i).getYear()
                       //     + "</td></tr>");
                       // }
-%>
+        %>
                                                                                                                                                                                                         </tbody>
                                                                                                                                                                                                         </table>
                                                                                                                                                                                                         </div>

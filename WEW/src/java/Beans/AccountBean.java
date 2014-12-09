@@ -1,6 +1,10 @@
 package Beans;
 
+import Security.AccessController;
+import security.AccessControl;
+
 public class AccountBean {
+
     protected int accountID;
     protected String accountType;
     protected String firstName;
@@ -10,15 +14,16 @@ public class AccountBean {
     protected String password;
     protected String emailAdd;
     protected boolean locked;
+    protected AccessController accesscontrol;
 
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
 
-    public boolean getLocked(){
+    public boolean getLocked() {
         return locked;
     }
-    
+
     public int getAccountID() {
         return accountID;
     }
@@ -81,6 +86,18 @@ public class AccountBean {
 
     public void setAccountType(String accountType) {
         this.accountType = accountType;
+    }
+
+    public AccountBean() {
+    }
+
+    // --- Access Control getters and setters
+    public AccessController getAccesscontrol() {
+        return accesscontrol;
+    }
+
+    public void setAccesscontrol(AccessController accesscontrol) {
+        this.accesscontrol = accesscontrol;
     }
 
 }

@@ -4,6 +4,7 @@ import Beans.*;
 import DAO.Implementation.*;
 import DAO.Interface.*;
 import DBConnection.Hasher;
+import Security.LoginAuthenticator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.owasp.esapi.errors.AuthenticationException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -28,6 +30,43 @@ public class LoginServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             AccountBean account = new AccountBean();
+            AccountDAOInterface accountdao = new AccountDAOImplementation();
+
+            ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
+
+            ShoppingCartBean shoppingcart = new ShoppingCartBean();
+
+            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+            ArrayList<ProductBean> productaudiolist = new ArrayList<ProductBean>();
+            ArrayList<ProductBean> productbooklist = new ArrayList<ProductBean>();
+            ArrayList<ProductBean> productdvdlist = new ArrayList<ProductBean>();
+            ArrayList<ProductBean> productmagazinelist = new ArrayList<ProductBean>();
+
+            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+
+            ArrayList<LogBean> loglist = new ArrayList<LogBean>();
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+
+            ArrayList<LockReportBean> lockreportlist = new ArrayList<LockReportBean>();
+            ArrayList<AccountBean> lockedAccounts = new ArrayList<AccountBean>();
+            LockReportDAOInterface lockreportdao = new LockReportDAOImplementation();
+
+            AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
+            ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
+
+            BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+            ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+
+            DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+            ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+
+            MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+            ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+
+            AccountingManagerDAOInterface accountingmanagerdao = new AccountingManagerDAOImplementation();
+            ArrayList<ProductOrderBean> productorderlist = new ArrayList<ProductOrderBean>();
+            ArrayList<ShoppingCartBean> shoppingcartlist = new ArrayList<ShoppingCartBean>();
 
             String username = AccountDAOImplementation.inputSanitizer(request.getParameter("loguser"));
             String password = request.getParameter("logpass");
@@ -46,195 +85,179 @@ public class LoginServlet extends HttpServlet {
             hash.updateHash(password, "UTF-8");
             //  password = hash.getHashBASE64();
 
-            AccountDAOInterface accountdao = new AccountDAOImplementation();
-            account = accountdao.getUserByUsername(username);
+            LoginAuthenticator loginauthenticator = new LoginAuthenticator();
 
-            ShoppingCartBean shoppingcart = new ShoppingCartBean();
-            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
-            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+            try {
+                account = loginauthenticator.login(request, response);
+                if (account.getAccountType().equals("Customer")) {
+                    CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
+                    CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
 
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
+                    System.out.println(tempcustomer.getCustomerID());
 
-            if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType()) && !account.getLocked()) {
-                CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
-                ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
-                CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
-                out.println(tempcustomer.getCustomerID());
+                    type = "Customer";
+                    log.setActivity("Customer Login");
+                    log.setLog_accountID(account.getAccountID());
 
-                type = "Customer";
-                log.setActivity("Customer Login");
-                log.setLog_accountID(account.getAccountID());
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
 
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("type", type);
+                        session.setAttribute("tempcustomer", tempcustomer);
+                        session.setAttribute("shoppingcart", shoppingcart);
+                        session.setAttribute("homeuser", account);
+                        session.setAttribute("temporder", temporder);
+                        session.setAttribute("tempproductlist", productlist);
+                        System.out.println("TRY TRY TRY");
+                        response.sendRedirect("customerHOME.jsp");
+                    }
+                } else if (account.getAccountType().equals("Admin")) {
+                    loglist = logdao.getAllLogs();
+                    lockreportlist = lockreportdao.getAllNotDoneLockReport();
+                    lockedAccounts = accountdao.getAllLockedAccounts();
 
-                if (logdao.addLog(log)) {
-                    session.setAttribute("type", type);
-                    session.setAttribute("tempcustomer", tempcustomer);
-                    session.setAttribute("shoppingcart", shoppingcart);
-                    session.setAttribute("homeuser", account);
-                    session.setAttribute("temporder", temporder);
-                    session.setAttribute("tempproductlist", productlist);
-                    response.sendRedirect("customerHOME.jsp");
-                }
-            } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType()) && !account.getLocked()) {
+                    type = "Admin";
+                    log.setActivity("Admin Login");
+                    log.setLog_accountID(account.getAccountID());
 
-                ArrayList<LogBean> loglist = new ArrayList<LogBean>();
-                loglist = logdao.getAllLogs();
-                
-                ArrayList<LockReportBean> lockreportlist = new ArrayList<LockReportBean>();
-                ArrayList<AccountBean> lockedAccounts = new ArrayList<AccountBean>();
-                LockReportDAOInterface lockreportdao = new LockReportDAOImplementation();
-                lockreportlist = lockreportdao.getAllNotDoneLockReport();
-                lockedAccounts = accountdao.getAllLockedAccounts();
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("type", type);
+                        session.setAttribute("loglist", loglist);
+                        session.setAttribute("homeadmin", account);
+                        session.setAttribute("lockedAccounts", lockedAccounts);
+                        session.setAttribute("lockreportlist", lockreportlist);
+                        System.out.println(time);
+                        response.sendRedirect("adminHOME.jsp");
+                    }
 
-                type = "Admin";
-                log.setActivity("Admin Login");
-                log.setLog_accountID(account.getAccountID());
-
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
-                if (logdao.addLog(log)) {
-                    session.setAttribute("type", type);
-                    session.setAttribute("loglist", loglist);
-                    session.setAttribute("homeadmin", account);
-                    session.setAttribute("lockedAccounts", lockedAccounts);
-                    session.setAttribute("lockreportlist", lockreportlist);
-                    out.println(time);
-
-                    response.sendRedirect("adminHOME.jsp");
-                }
-
-            } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType()) && !account.getLocked()) {
-                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-                ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-                booklist = bookdao.getAllBooks();
-                session.setAttribute("booklist", booklist);
-                type = "Book Manager";
-
-                productlist = pdao.getProductsByType("Book");
-
-                log.setActivity("Book Manager Login");
-                log.setLog_accountID(account.getAccountID());
-
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
-
-                if (logdao.addLog(log)) {
-                    session.setAttribute("type", type);
-                    session.setAttribute("productlist", productlist);
-                    session.setAttribute("homeproduct", account);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                }
-            } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType()) && !account.getLocked()) {
-                AudioCDManagerDAOInterface cddao = new AudioCDManagerDAOImplementation();
-                ArrayList<AudioCDBean> audiocdlist = new ArrayList<AudioCDBean>();
-                audiocdlist = cddao.getAllAudioCD();
-                session.setAttribute("audiocdlist", audiocdlist);
-                type = "Audio CD Manager";
-
-                log.setActivity("Audio CD Manager Login");
-                log.setLog_accountID(account.getAccountID());
-
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
-
-                if (logdao.addLog(log)) {
-                    session.setAttribute("type", type);
+                } else if (account.getAccountType().equals("Audio CD Manager")) {
+                    audiocdlist = cddao.getAllAudioCD();
                     productlist = pdao.getProductsByType("Audio CD");
-                    session.setAttribute("productlist", productlist);
-                    session.setAttribute("homeproduct", account);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                }
-            } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType()) && !account.getLocked()) {
-                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-                ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
-                dvdlist = dvddao.viewAllDVD();
-                session.setAttribute("dvdlist", dvdlist);
-                type = "DVD Manager";
 
-                log.setActivity("DVD Manager Login");
-                log.setLog_accountID(account.getAccountID());
+                    type = "Audio CD Manager";
 
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
+                    log.setActivity("Audio CD Manager Login");
+                    log.setLog_accountID(account.getAccountID());
 
-                if (logdao.addLog(log)) {
-                    session.setAttribute("type", type);
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
+
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("audiocdlist", audiocdlist);
+                        session.setAttribute("type", type);
+                        session.setAttribute("productlist", productlist);
+                        session.setAttribute("homeproduct", account);
+
+                        response.sendRedirect("productmanagerHOME.jsp");
+
+                    }
+
+                } else if (account.getAccountType().equals("Book Manager")) {
+                    booklist = bookdao.getAllBooks();
+                    productlist = pdao.getProductsByType("Book");
+                    type = "Book Manager";
+
+                    log.setActivity("Book Manager Login");
+                    log.setLog_accountID(account.getAccountID());
+
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
+
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("booklist", booklist);
+                        session.setAttribute("type", type);
+                        session.setAttribute("productlist", productlist);
+                        session.setAttribute("homeproduct", account);
+
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
+
+                } else if (account.getAccountType().equals("DVD Manager")) {
+                    dvdlist = dvddao.viewAllDVD();
+                    type = "DVD Manager";
                     productlist = pdao.getProductsByType("DVD");
-                    session.setAttribute("productlist", productlist);
-                    session.setAttribute("homeproduct", account);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                }
-            } else if (accountdao.doesUserExist(username, password) && "Magazine Manager".equals(account.getAccountType()) && !account.getLocked()) {
-                MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
-                ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
-                magazinelist = magazinedao.getAllMagazine();
 
-                log.setActivity("Customer Login");
-                log.setLog_accountID(account.getAccountID());
+                    log.setActivity("DVD Manager Login");
+                    log.setLog_accountID(account.getAccountID());
 
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
 
-                type = "Magazine Manager";
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("dvdlist", dvdlist);
 
-                if (logdao.addLog(log)) {
-                    session.setAttribute("type", type);
+                        session.setAttribute("type", type);
+                        session.setAttribute("productlist", productlist);
+                        session.setAttribute("homeproduct", account);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
+
+                } else if (account.getAccountType().equals("Magazine Manager")) {
+
+                    magazinelist = magazinedao.getAllMagazine();
                     productlist = pdao.getProductsByType("Magazine");
-                    session.setAttribute("productlist", productlist);
-                    session.setAttribute("homeproduct", account);
-                    response.sendRedirect("productmanagerHOME.jsp");
+
+                    log.setActivity("Magazine Manager Login");
+                    log.setLog_accountID(account.getAccountID());
+
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
+
+                    type = "Magazine Manager";
+
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("type", type);
+                        session.setAttribute("magazinelist", magazinelist);
+
+                        session.setAttribute("productlist", productlist);
+                        session.setAttribute("homeproduct", account);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
+
+                } else if (account.getAccountType().equals("Accounting Manager")) {
+                    log.setActivity("Accounting Manager Login");
+                    log.setLog_accountID(account.getAccountID());
+
+                    type = "Accounting Manager";
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
+
+                    productorderlist = accountingmanagerdao.getAllProductOrders();
+                    shoppingcartlist = accountingmanagerdao.getAllShoppingCart();
+
+                    productaudiolist = pdao.getProductsByType("Audio CD");
+                    productbooklist = pdao.getProductsByType("Book");
+                    productdvdlist = pdao.getProductsByType("DVD");
+                    productmagazinelist = pdao.getProductsByType("Magazine");
+
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("audiolist", productaudiolist);
+                        session.setAttribute("booklist", productbooklist);
+                        session.setAttribute("dvdlist", productdvdlist);
+                        session.setAttribute("magazinelist", productmagazinelist);
+
+                        session.setAttribute("productorderlist", productorderlist);
+                        session.setAttribute("shoppingcartlist", shoppingcartlist);
+
+                        session.setAttribute("type", type);
+                        session.setAttribute("homeaccounting", account);
+                        response.sendRedirect("accountingmanagerHOME.jsp");
+                    }
+
                 }
-            } else if (accountdao.doesUserExist(username, password) && "Accounting Manager".equals(account.getAccountType()) && !account.getLocked()) {
-                log.setActivity("Accounting Manager Login");
-                log.setLog_accountID(account.getAccountID());
-
-                type = "Accounting Manager";
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
-
-                AccountingManagerDAOInterface accountingmanagerdao = new AccountingManagerDAOImplementation();
-                ArrayList<ProductOrderBean> productorderlist = new ArrayList<ProductOrderBean>();
-                ArrayList<ShoppingCartBean> shoppingcartlist = new ArrayList<ShoppingCartBean>();
-
-                productorderlist = accountingmanagerdao.getAllProductOrders();
-                shoppingcartlist = accountingmanagerdao.getAllShoppingCart();
-
-                ArrayList<ProductBean> audiolist = pdao.getProductsByType("Audio CD");
-                ArrayList<ProductBean> booklist = pdao.getProductsByType("Book");
-                ArrayList<ProductBean> dvdlist = pdao.getProductsByType("DVD");
-                ArrayList<ProductBean> magazinelist = pdao.getProductsByType("Magazine");
-
-                if (logdao.addLog(log)) {
-                    session.setAttribute("audiolist", audiolist);
-                    session.setAttribute("booklist", booklist);
-                    session.setAttribute("dvdlist", dvdlist);
-                    session.setAttribute("magazinelist", magazinelist);
-
-                    session.setAttribute("productorderlist", productorderlist);
-                    session.setAttribute("shoppingcartlist", shoppingcartlist);
-
-                    session.setAttribute("type", type);
-                    session.setAttribute("homeaccounting", account);
-                    response.sendRedirect("accountingmanagerHOME.jsp");
-                }
-            } else if (account.getLocked()) { //locked na talaga yung account
-                response.sendRedirect("contactAdmin.jsp");
-            } else { // login fail
-                out.println(accountdao.doesUserExist(username, password));
-                out.println(account.getAccountType());
+            } catch (AuthenticationException ex) {
                 ctr_try++;
                 AccountDAOImplementation.insertLog(request.getRemoteAddr(), username + " failed to login. Attempt: " + ctr_try, false);
-
                 if (ctr_try != 5) {
                     log.setActivity(username + " Login Attempt:" + ctr_try);
                     log.setLog_accountID(account.getAccountID());
@@ -247,12 +270,12 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("username", username);
                         session.setAttribute("ctr_try", ctr_try);
                         System.out.println(ctr_try);
-                        response.sendRedirect("loginfail.jsp");
+                        //                response.sendRedirect("loginfail.jsp");
                     }
                 } else {//lock account
                     ctr_try = 0;
 
-                    out.println(account.getAccountID());
+                    System.out.println(account.getAccountID());
                     if (account.getAccountID() != 0) { // user exists -> lock account
                         boolean lock = accountdao.lockAccount(account);
                         if (lock) {
@@ -264,20 +287,22 @@ public class LoginServlet extends HttpServlet {
                             Timestamp time = new Timestamp(date.getTime());
                             log.setTime(time);
                             if (logdao.addLog(log)) {
-                                response.sendRedirect("contactAdmin.jsp");
-                                out.println("YES LOCK KA NA PO");
+                                //   response.sendRedirect("contactAdmin.jsp");
+                                System.out.println("YES LOCK KA NA PO");
                             }
 
                         } else {
-                            out.println("DI KO NA-LOCK");
+                            System.out.println("DI KO NA-LOCK");
                         }
                     } else { // user does not exist at all
 
-                        out.println("WALA KA NAMAN E");
+                        System.out.println("WALA KA NAMAN E");
                     }
 
                 }
+                out.println("sorry wala e");
             }
+
         } finally {
             out.close();
         }
