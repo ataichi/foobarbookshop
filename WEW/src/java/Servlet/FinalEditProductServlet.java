@@ -168,7 +168,7 @@ public class FinalEditProductServlet extends HttpServlet {
                 director = request.getParameter("dvdDirector");
                 actor = request.getParameter("dvdActor");
                 productCompany = request.getParameter("dvdProducer");
-
+                
                 dvd.setDirector(director);
                 dvd.setDvdID(dvd.getDvdID());
                 dvd.setDvd_productID(dvd.getDvd_productID());
