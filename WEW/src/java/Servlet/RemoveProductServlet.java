@@ -39,6 +39,9 @@ public class RemoveProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            
+             if(homeproduct.getAccesscontrol().isDeleteproduct()){
+            
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
             ArrayList<ProductBean> plist = new ArrayList<ProductBean>();
 
@@ -165,6 +168,9 @@ public class RemoveProductServlet extends HttpServlet {
                         //response.sendRedirect("productmanagerHOME.jsp");
                     }
                 }
+            }
+        }else {
+                out.println("ACCESS DENIED");
             }
         }
     }

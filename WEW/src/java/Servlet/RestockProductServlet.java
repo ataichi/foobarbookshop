@@ -42,8 +42,10 @@ public class RestockProductServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            ProductBean productbean = new ProductBean();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            
+            if(homeproduct.getAccesscontrol().isRestockproduct()){
+            ProductBean productbean = new ProductBean();
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
             ProductDAOInterface productdao = new ProductDAOImplementation();
             LogBean log = new LogBean();
@@ -64,8 +66,9 @@ public class RestockProductServlet extends HttpServlet {
                 response.sendRedirect("restockproduct.jsp");
             }
 
-        } catch (Exception e) {
-
+        } else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 
