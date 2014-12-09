@@ -107,7 +107,7 @@
                                 if (temporder.size() == 0) {
                                     out.println("<p> Shopping cart empty.</p>");
                                 } else {
-                                    out.println("<form action='ShoppingServlet'>"
+                                    out.println("<form action='customerConfirmBillingInformation.jsp'>"
                                             + "<input type='submit' value='Buy' name='action'/>"
                                             + "</form>");
                                     for (int i = 0; i < temporder.size(); i++) { //gets total order

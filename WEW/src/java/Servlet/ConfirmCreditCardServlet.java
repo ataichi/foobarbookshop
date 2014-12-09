@@ -40,6 +40,8 @@ public class ConfirmCreditCardServlet extends HttpServlet {
             out.println("<h1>Servlet ConfirmCreditCardServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            
+            response.sendRedirect("customerProceed.jsp");
         }
     }
 

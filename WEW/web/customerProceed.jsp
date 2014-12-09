@@ -104,14 +104,10 @@
             <dl class="dl-horizontal">
                 <%
                     // insert shopping cart here!
-                    out.println("<form action='ConfirmCreditCardServlet' method='post'>"
-                            + "Credit Card ID"
-                            + "<input type='text' name='creditcardid'/>"
-                            + "<br/>Expiration Date:"
-                            + "<input type='date' name='expirationdate'/>"
-                            + "<br/>"
-                            + "<input type='submit' value='Submit' name='action'/>"
-                            + "</form>");
+                    out.println("<form action='ShoppingServlet' method='post'>"
+                            + "<input type='submit' value='Yes' name='action'/>"
+                            + "</form>"
+                            + "<a href='customerHOME.jsp'><button>No</button></a>");
                 %>
 
             </dl>
