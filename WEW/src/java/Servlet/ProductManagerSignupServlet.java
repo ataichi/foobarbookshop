@@ -28,53 +28,59 @@ public class ProductManagerSignupServlet extends HttpServlet {
         try {
 
             HttpSession session = request.getSession();
-            AccountBean account = new AccountBean();
-            AccountDAOInterface userdao = new AccountDAOImplementation();
-            AdminDAOInterface admindao = new AdminDAOImplementation();
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
 
-            account.setFirstName(AccountDAOImplementation.inputSanitizer(request.getParameter("fname")));
-            account.setLastName(AccountDAOImplementation.inputSanitizer(request.getParameter("lname")));
-            account.setMiddleInitial(request.getParameter("mname"));
-            account.setPassword(request.getParameter("pass1"));
-            account.setEmailAdd(request.getParameter("email"));
-            account.setUsername(AccountDAOImplementation.inputSanitizer(request.getParameter("uname")));
-            //account.setAccountType("product manager");
-            account.setAccountType(request.getParameter("prodType") + " Manager");
-            account.setLocked(false);
+            if (homeadmin.getAccesscontrol().isCreateproductmanager()) {
+                AccountBean account = new AccountBean();
+                AccountDAOInterface userdao = new AccountDAOImplementation();
+                AdminDAOInterface admindao = new AdminDAOImplementation();
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            int productmanager_accountID;
-            boolean addUser = userdao.addAccount(account);
-            if (addUser) {
+                account.setFirstName(AccountDAOImplementation.inputSanitizer(request.getParameter("fname")));
+                account.setLastName(AccountDAOImplementation.inputSanitizer(request.getParameter("lname")));
+                account.setMiddleInitial(request.getParameter("mname"));
+                account.setPassword(request.getParameter("pass1"));
+                account.setEmailAdd(request.getParameter("email"));
+                account.setUsername(AccountDAOImplementation.inputSanitizer(request.getParameter("uname")));
+                //account.setAccountType("product manager");
+                account.setAccountType(request.getParameter("prodType") + " Manager");
+                account.setLocked(false);
+
+                int productmanager_accountID;
+                boolean addUser = userdao.addAccount(account);
+                if (addUser) {
                 //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                //productManager.setProdmanager_accountID(productmanager_accountID);
+                    //productManager.setProdmanager_accountID(productmanager_accountID);
 
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
 
-                log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
-                log.setTime(time);
-                log.setActivity("Product Manager Sign Up");
-                if(logdao.addLog(log))
-                response.sendRedirect("adminHOME.jsp");
+                    log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
+                    log.setTime(time);
+                    log.setActivity("Product Manager Sign Up");
+                    if (logdao.addLog(log)) {
+                        response.sendRedirect("adminHOME.jsp");
+                    }
 
-            } else {
-                response.sendRedirect("signup_productmanager.jsp");
-            }
+                } else {
+                    response.sendRedirect("signup_productmanager.jsp");
+                }
 
             //productManager.setProdType(request.getParameter("prodType"));
             /*
 
-             boolean addProductmanager = admindao.addProductManager(productManager);
+                 boolean addProductmanager = admindao.addProductManager(productManager);
 
-             if (addUser && addProductmanager) {
-             response.sendRedirect("adminHOME.jsp");
-             } else {
-             response.sendRedirect("signupfail.jsp");
-             }
-             */
+                 if (addUser && addProductmanager) {
+                 response.sendRedirect("adminHOME.jsp");
+                 } else {
+                 response.sendRedirect("signupfail.jsp");
+                 }
+                 */
+            } else {
+                out.println("ACCESS DENIED");
+            }
         } finally {
             out.close();
         }

@@ -1,7 +1,6 @@
 package Beans;
 
 import Security.AccessController;
-import security.AccessControl;
 
 public class AccountBean {
 

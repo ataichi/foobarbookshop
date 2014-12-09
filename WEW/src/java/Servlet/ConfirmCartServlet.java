@@ -36,28 +36,23 @@ public class ConfirmCartServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ConfirmCartServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ConfirmCartServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
 
             HttpSession session = request.getSession();
-
-            ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-            ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
-            ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
-            
-            session.setAttribute("temporder", orderlist);
-            session.setAttribute("shoppingcart", cartbean);
-            session.setAttribute("homeuser", homeuser);
 
-            response.sendRedirect("customerConfirmCart.jsp");
+            if (homeuser.getAccesscontrol().isBuyproduct()) {
+                ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+                ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
+                ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
+
+                session.setAttribute("temporder", orderlist);
+                session.setAttribute("shoppingcart", cartbean);
+                session.setAttribute("homeuser", homeuser);
+
+                response.sendRedirect("customerConfirmCart.jsp");
+            } else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 

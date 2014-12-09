@@ -41,10 +41,11 @@ public class EditBillingInfoServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            AccountBean oldbean = (AccountBean) session.getAttribute("homeuser");
 
+            
             CustomerDAOImplementation cdao = new CustomerDAOImplementation();
             CustomerBean cbean = (CustomerBean) session.getAttribute("tempcustomer");
-            AccountBean oldbean = (AccountBean) session.getAttribute("homeuser");
 
             cbean = cdao.getCustomerByAccountID(oldbean.getAccountID());
 

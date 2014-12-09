@@ -46,60 +46,64 @@ public class UnlockAccountServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
 
-            int accountID = Integer.parseInt(request.getParameter("accountid"));
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
-            AccountBean account = new AccountBean();
-            AccountDAOInterface accountdao = new AccountDAOImplementation();
-            //        account = accountdao.
+            if (homeadmin.getAccesscontrol().isUnlockuser()) {
+                int accountID = Integer.parseInt(request.getParameter("accountid"));
+                AccountBean account = new AccountBean();
+                AccountDAOInterface accountdao = new AccountDAOImplementation();
+                //        account = accountdao.
 
-            out.println(accountID);
-            out.println("wala eh");
-            AdminDAOImplementation admindao = new AdminDAOImplementation();
+                out.println(accountID);
+                out.println("wala eh");
+                AdminDAOImplementation admindao = new AdminDAOImplementation();
 
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
 
-            out.println(time);
+                out.println(time);
 
-            LockReportBean lockreport = new LockReportBean();
-            LockReportDAOInterface lockreportdao = new LockReportDAOImplementation();
-            ArrayList<LockReportBean> lockreportlist = (ArrayList<LockReportBean>) session.getAttribute("lockreportlist");
-            ArrayList<AccountBean> lockedAccounts = (ArrayList<AccountBean>) session.getAttribute("lockedAccounts");
-            int lockreportid = Integer.valueOf(request.getParameter("lockreportid"));
+                LockReportBean lockreport = new LockReportBean();
+                LockReportDAOInterface lockreportdao = new LockReportDAOImplementation();
+                ArrayList<LockReportBean> lockreportlist = (ArrayList<LockReportBean>) session.getAttribute("lockreportlist");
+                ArrayList<AccountBean> lockedAccounts = (ArrayList<AccountBean>) session.getAttribute("lockedAccounts");
+                int lockreportid = Integer.valueOf(request.getParameter("lockreportid"));
 
-            out.println(lockreportid);
-            lockreport = lockreportdao.getLockReportByID(lockreportid);
+                out.println(lockreportid);
+                lockreport = lockreportdao.getLockReportByID(lockreportid);
 
-            lockreport.setDone(1);
-            lockreport.setEmailaddress(lockreport.getEmailaddress());
-            lockreport.setLockreportID(lockreportid);
-            lockreport.setLockreport_accountID(lockreport.getLockreport_accountID());
-            lockreport.setReason(lockreport.getReason());
-            
-            out.println(lockreport.getLockreportID());
+                lockreport.setDone(1);
+                lockreport.setEmailaddress(lockreport.getEmailaddress());
+                lockreport.setLockreportID(lockreportid);
+                lockreport.setLockreport_accountID(lockreport.getLockreport_accountID());
+                lockreport.setReason(lockreport.getReason());
 
-            int unlockcheck = 0;
+                out.println(lockreport.getLockreportID());
 
-            if (admindao.unlockAccount(accountID) && lockreportdao.editLockReport(lockreport)) {
-                out.println("yehey");
-                log.setLog_accountID(homeadmin.getAccountID());
-                log.setTime(time);
-                log.setActivity("Unlock account " + accountID);
+                int unlockcheck = 0;
 
-                if (logdao.addLog(log)) {
-                    lockreportlist = lockreportdao.getAllNotDoneLockReport();
-                    lockedAccounts = accountdao.getAllLockedAccounts();
+                if (admindao.unlockAccount(accountID) && lockreportdao.editLockReport(lockreport)) {
+                    out.println("yehey");
+                    log.setLog_accountID(homeadmin.getAccountID());
+                    log.setTime(time);
+                    log.setActivity("Unlock account " + accountID);
 
-                    session.setAttribute("lockedreportlist", lockreportlist);
-                    session.setAttribute("lockedAccounts", lockedAccounts);
+                    if (logdao.addLog(log)) {
+                        lockreportlist = lockreportdao.getAllNotDoneLockReport();
+                        lockedAccounts = accountdao.getAllLockedAccounts();
+
+                        session.setAttribute("lockedreportlist", lockreportlist);
+                        session.setAttribute("lockedAccounts", lockedAccounts);
+                        response.sendRedirect("unlock_account.jsp");
+                    }
+                } else {
+                    out.println("bye");
                     response.sendRedirect("unlock_account.jsp");
                 }
             } else {
-                out.println("bye");
-                response.sendRedirect("unlock_account.jsp");
+                out.println("ACCESS DENIED");
             }
 
         } catch (Exception e) {

@@ -41,53 +41,58 @@ public class EditCustomerAccountServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
 
-            AccountBean bean = new AccountBean();
+            if (account.getAccesscontrol().isEditcustomer()) {
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            String firstName, lastName, middleInitial, username, emailAdd;
+                AccountBean bean = new AccountBean();
 
-            firstName = request.getParameter("fname");
+                String firstName, lastName, middleInitial, username, emailAdd;
 
-            lastName = request.getParameter("lname");
+                firstName = request.getParameter("fname");
 
-            middleInitial = request.getParameter("mname");
+                lastName = request.getParameter("lname");
 
-            username = request.getParameter("uname");
+                middleInitial = request.getParameter("mname");
 
-            emailAdd = request.getParameter("email");
+                username = request.getParameter("uname");
 
-            boolean locked = false;
-            int id = account.getAccountID();
+                emailAdd = request.getParameter("email");
 
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            log.setTime(time);
-            log.setLog_accountID(account.getAccountID());
-            log.setActivity("Edit Customer Account " + account.getUsername());
+                boolean locked = false;
+                int id = account.getAccountID();
 
-            AccountDAOInterface accountdao = new AccountDAOImplementation();
-            bean.setAccountID(id);
-            bean.setFirstName(firstName);
-            bean.setLastName(lastName);
-            bean.setMiddleInitial(middleInitial);
-            bean.setUsername(username);
-            bean.setEmailAdd(emailAdd);
-            bean.setLocked(locked);
-            bean.setAccountType("Customer");
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setTime(time);
+                log.setLog_accountID(account.getAccountID());
+                log.setActivity("Edit Customer Account " + account.getUsername());
 
-            boolean edit = accountdao.updateAccount(bean);
-            out.println(edit);
+                AccountDAOInterface accountdao = new AccountDAOImplementation();
+                bean.setAccountID(id);
+                bean.setFirstName(firstName);
+                bean.setLastName(lastName);
+                bean.setMiddleInitial(middleInitial);
+                bean.setUsername(username);
+                bean.setEmailAdd(emailAdd);
+                bean.setLocked(locked);
+                bean.setAccountType("Customer");
 
-            if (edit) {
-                if (logdao.addLog(log)) {
+                boolean edit = accountdao.updateAccount(bean);
+                out.println(edit);
+
+                if (edit) {
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("homeuser", bean);
+                        response.sendRedirect("customerHOME.jsp");
+                    }
+                } else {
                     session.setAttribute("homeuser", bean);
-                    response.sendRedirect("customerHOME.jsp");
+                    response.sendRedirect("customerAccount.jsp");
                 }
             } else {
-                session.setAttribute("homeuser", bean);
-                response.sendRedirect("customerAccount.jsp");
+                out.println("ACCESS DENIED");
             }
 
         } catch (Exception e) {

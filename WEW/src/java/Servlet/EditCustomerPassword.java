@@ -35,6 +35,8 @@ public class EditCustomerPassword extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
+            
+            if(account.getAccesscontrol().isEditpassword()){
             AccountBean bean = new AccountBean();
 
             LogBean log = new LogBean();
@@ -76,7 +78,9 @@ public class EditCustomerPassword extends HttpServlet {
                 session.setAttribute("homeuser", bean);
                 response.sendRedirect("changepassword.jsp");
             }
-
+            }else{
+                out.println("ACCESS DENIED");
+            }
         }
     }
 

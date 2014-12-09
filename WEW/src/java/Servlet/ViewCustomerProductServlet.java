@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import Beans.AccountBean;
 import Beans.AudioCDBean;
 import Beans.BookBean;
 import Beans.DVDBean;
@@ -24,10 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Danica
- */
 @WebServlet(name = "ViewCustomerProductServlet", urlPatterns = {"/ViewCustomerProductServlet"})
 public class ViewCustomerProductServlet extends HttpServlet {
 
@@ -46,48 +43,50 @@ public class ViewCustomerProductServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            
-            int productID = Integer.parseInt(request.getParameter("productid"));
-            
-            out.println(request.getParameter("productid"));
-            out.println(productID);
-            out.println("wala");
-            
-            ProductDAOImplementation pdao = new ProductDAOImplementation();
-            AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
-            AudioCDBean audiocdbean = new AudioCDBean();
-            BookManagerDAOImplementation bookdao = new BookManagerDAOImplementation();
-            BookBean bookbean = new BookBean();
-            DVDManagerDAOImplementation dvddao = new DVDManagerDAOImplementation();
-            DVDBean dvdbean = new DVDBean();
-            MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
-            MagazineBean magbean = new MagazineBean();  
-            
-            ProductBean productBean = new ProductBean();
-            productBean = pdao.getProductById(productID);
-            session.setAttribute("viewcustomerproduct", productBean);
-            
-            if(productBean.getType().equals("Audio CD")) {
-                audiocdbean = audiocddao.getAudioCDByProductID(productID);
-                session.setAttribute("viewcustomeraudiocd", audiocdbean);
-                response.sendRedirect("viewcustomerproduct.jsp");
+            AccountBean account = (AccountBean) session.getAttribute("homeuser");
+
+            if (account.getAccesscontrol().isViewproduct()) {
+                int productID = Integer.parseInt(request.getParameter("productid"));
+                out.println(request.getParameter("productid"));
+                out.println(productID);
+                out.println("wala");
+
+                ProductDAOImplementation pdao = new ProductDAOImplementation();
+                AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
+                AudioCDBean audiocdbean = new AudioCDBean();
+                BookManagerDAOImplementation bookdao = new BookManagerDAOImplementation();
+                BookBean bookbean = new BookBean();
+                DVDManagerDAOImplementation dvddao = new DVDManagerDAOImplementation();
+                DVDBean dvdbean = new DVDBean();
+                MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
+                MagazineBean magbean = new MagazineBean();
+
+                ProductBean productBean = new ProductBean();
+                productBean = pdao.getProductById(productID);
+                session.setAttribute("viewcustomerproduct", productBean);
+
+                if (productBean.getType().equals("Audio CD")) {
+                    audiocdbean = audiocddao.getAudioCDByProductID(productID);
+                    session.setAttribute("viewcustomeraudiocd", audiocdbean);
+                    response.sendRedirect("viewcustomerproduct.jsp");
+                } else if (productBean.getType().equals("Book")) {
+                    bookbean = bookdao.getBookByProductID(productID);
+                    session.setAttribute("viewcustomerbook", bookbean);
+                    response.sendRedirect("viewcustomerproduct.jsp");
+                } else if (productBean.getType().equals("DVD")) {
+                    dvdbean = dvddao.getDVDByProductID(productID);
+                    session.setAttribute("viewcustomerdvd", dvdbean);
+                    response.sendRedirect("viewcustomerproduct.jsp");
+                } else if (productBean.getType().equals("Magazine")) {
+                    magbean = magdao.getMagazineByProductID(productID);
+                    session.setAttribute("viewcustomermagazine", magbean);
+                    response.sendRedirect("viewcustomerproduct.jsp");
+                }
+
+            } else {
+                out.println("ACCESS DENIED");
             }
-            else if(productBean.getType().equals("Book")) {
-                bookbean = bookdao.getBookByProductID(productID);
-                session.setAttribute("viewcustomerbook", bookbean);
-                response.sendRedirect("viewcustomerproduct.jsp");
-            }
-            else if(productBean.getType().equals("DVD")) {
-                dvdbean = dvddao.getDVDByProductID(productID);
-                session.setAttribute("viewcustomerdvd", dvdbean);
-                response.sendRedirect("viewcustomerproduct.jsp");
-            }
-            else if(productBean.getType().equals("Magazine")) {
-                magbean = magdao.getMagazineByProductID(productID);
-                session.setAttribute("viewcustomermagazine", magbean);
-                response.sendRedirect("viewcustomerproduct.jsp");
-            }
-            
+
         }
     }
 

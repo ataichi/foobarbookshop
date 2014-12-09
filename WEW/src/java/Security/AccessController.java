@@ -5,46 +5,120 @@
  */
 package Security;
 
-/**
- *
- * @author Giodee
- */
+import Beans.AccountBean;
+import org.owasp.esapi.errors.AccessControlException;
+
 public class AccessController {
 
-    protected static boolean createcustomer;
-    protected static boolean editcustomer;
-    protected static boolean deletecustomer;
+    protected static boolean createcustomer = false;
+    protected static boolean editcustomer = false;
+    protected static boolean deletecustomer = false;
 
-    protected static boolean createproductmanager;
-    protected static boolean editproductmanager;
-    protected static boolean deleteproductmanager;
+    protected static boolean createproductmanager = false;
+    protected static boolean editproductmanager = false;
+    protected static boolean deleteproductmanager = false;
 
-    protected static boolean createaccountingmanager;
-    protected static boolean editaccountingmanager;
-    protected static boolean deleteaccountingmanager;
+    protected static boolean createaccountingmanager = false;
+    protected static boolean editaccountingmanager = false;
+    protected static boolean deleteaccountingmanager = false;
 
-    protected static boolean postmessage;
-    protected static boolean editmessage;
-    protected static boolean viewmessage;
-    protected static boolean deletemessage;
+    protected static boolean postmessage = false;
+    protected static boolean editmessage = false;
+    protected static boolean viewmessage = false;
+    protected static boolean deletemessage = false;
 
-    protected static boolean addproduct;
-    protected static boolean editproduct;
-    protected static boolean deleteproduct;
-    protected static boolean restockproduct;
+    protected static boolean addproduct = false;
+    protected static boolean editproduct = false;
+    protected static boolean deleteproduct = false;
+    protected static boolean restockproduct = false;
 
-    protected static boolean viewsales;
-    protected static boolean unlockuser;
-    protected static boolean viewtransactions;
-    protected static boolean viewactivity;
-    protected static boolean buyproduct;
+    protected static boolean viewsales = false;
+    protected static boolean unlockuser = false;
+    protected static boolean viewtransactions = false;
+    protected static boolean viewactivity = false;
+    protected static boolean buyproduct = false;
+
+    protected static boolean addtoshoppingcart = false;
+    protected static boolean editshoppingcart = false;
+    protected static boolean removeproductfromshoppingcart = false;
+    protected static boolean viewproduct = false;
+
+    protected static boolean editpassword = false;
+
+    protected static boolean editadmin = false;
+    protected static boolean addadmin = false;
+    protected static boolean deleteadmin = false;
+
+    public static boolean isAddadmin() {
+        return addadmin;
+    }
+
+    public static boolean isDeleteadmin() {
+        return deleteadmin;
+    }
+
+    public static boolean isEditadmin() {
+        return editadmin;
+    }
+
+    public static void setAddadmin(boolean addadmin) {
+        AccessController.addadmin = addadmin;
+    }
+
+    public static void setDeleteadmin(boolean deleteadmin) {
+        AccessController.deleteadmin = deleteadmin;
+    }
+
+    public static void setEditadmin(boolean editadmin) {
+        AccessController.editadmin = editadmin;
+    }
+
+    public static boolean isEditpassword() {
+        return editpassword;
+    }
+
+    public static void setEditpassword(boolean editpassword) {
+        AccessController.editpassword = editpassword;
+    }
+
+    public static boolean isViewproduct() {
+        return viewproduct;
+    }
+
+    public static void setViewproduct(boolean viewproduct) {
+        AccessController.viewproduct = viewproduct;
+    }
+
+    public static void setRemoveproductfromshoppingcart(boolean removeproductfromshoppingcart) {
+        AccessController.removeproductfromshoppingcart = removeproductfromshoppingcart;
+    }
+
+    public static void setEditshoppingcart(boolean editshoppingcart) {
+        AccessController.editshoppingcart = editshoppingcart;
+    }
+
+    public static void setAddtoshoppingcart(boolean addtoshoppingcart) {
+        AccessController.addtoshoppingcart = addtoshoppingcart;
+    }
+
+    public static boolean isRemoveproductfromshoppingcart() {
+        return removeproductfromshoppingcart;
+    }
+
+    public static boolean isEditshoppingcart() {
+        return editshoppingcart;
+    }
+
+    public static boolean isAddtoshoppingcart() {
+        return addtoshoppingcart;
+    }
 
     public static boolean isCreatecustomer() {
         return createcustomer;
     }
 
     public static void setCreatecustomer(boolean createcustomer) {
-        AccessControl.createcustomer = createcustomer;
+        AccessController.createcustomer = createcustomer;
     }
 
     public static boolean isEditcustomer() {
@@ -52,7 +126,7 @@ public class AccessController {
     }
 
     public static void setEditcustomer(boolean editcustomer) {
-        AccessControl.editcustomer = editcustomer;
+        AccessController.editcustomer = editcustomer;
     }
 
     public static boolean isDeletecustomer() {
@@ -60,7 +134,7 @@ public class AccessController {
     }
 
     public static void setDeletecustomer(boolean deletecustomer) {
-        AccessControl.deletecustomer = deletecustomer;
+        AccessController.deletecustomer = deletecustomer;
     }
 
     public static boolean isCreateproductmanager() {
@@ -68,7 +142,7 @@ public class AccessController {
     }
 
     public static void setCreateproductmanager(boolean createproductmanager) {
-        AccessControl.createproductmanager = createproductmanager;
+        AccessController.createproductmanager = createproductmanager;
     }
 
     public static boolean isEditproductmanager() {
@@ -76,7 +150,7 @@ public class AccessController {
     }
 
     public static void setEditproductmanager(boolean editproductmanager) {
-        AccessControl.editproductmanager = editproductmanager;
+        AccessController.editproductmanager = editproductmanager;
     }
 
     public static boolean isDeleteproductmanager() {
@@ -84,7 +158,7 @@ public class AccessController {
     }
 
     public static void setDeleteproductmanager(boolean deleteproductmanager) {
-        AccessControl.deleteproductmanager = deleteproductmanager;
+        AccessController.deleteproductmanager = deleteproductmanager;
     }
 
     public static boolean isCreateaccountingmanager() {
@@ -92,7 +166,7 @@ public class AccessController {
     }
 
     public static void setCreateaccountingmanager(boolean createaccountingmanager) {
-        AccessControl.createaccountingmanager = createaccountingmanager;
+        AccessController.createaccountingmanager = createaccountingmanager;
     }
 
     public static boolean isEditaccountingmanager() {
@@ -100,7 +174,7 @@ public class AccessController {
     }
 
     public static void setEditaccountingmanager(boolean editaccountingmanager) {
-        AccessControl.editaccountingmanager = editaccountingmanager;
+        AccessController.editaccountingmanager = editaccountingmanager;
     }
 
     public static boolean isDeleteaccountingmanager() {
@@ -108,7 +182,7 @@ public class AccessController {
     }
 
     public static void setDeleteaccountingmanager(boolean deleteaccountingmanager) {
-        AccessControl.deleteaccountingmanager = deleteaccountingmanager;
+        AccessController.deleteaccountingmanager = deleteaccountingmanager;
     }
 
     public static boolean isPostmessage() {
@@ -116,7 +190,7 @@ public class AccessController {
     }
 
     public static void setPostmessage(boolean postmessage) {
-        AccessControl.postmessage = postmessage;
+        AccessController.postmessage = postmessage;
     }
 
     public static boolean isEditmessage() {
@@ -124,7 +198,7 @@ public class AccessController {
     }
 
     public static void setEditmessage(boolean editmessage) {
-        AccessControl.editmessage = editmessage;
+        AccessController.editmessage = editmessage;
     }
 
     public static boolean isViewmessage() {
@@ -132,7 +206,7 @@ public class AccessController {
     }
 
     public static void setViewmessage(boolean viewmessage) {
-        AccessControl.viewmessage = viewmessage;
+        AccessController.viewmessage = viewmessage;
     }
 
     public static boolean isDeletemessage() {
@@ -140,7 +214,7 @@ public class AccessController {
     }
 
     public static void setDeletemessage(boolean deletemessage) {
-        AccessControl.deletemessage = deletemessage;
+        AccessController.deletemessage = deletemessage;
     }
 
     public static boolean isAddproduct() {
@@ -148,7 +222,7 @@ public class AccessController {
     }
 
     public static void setAddproduct(boolean addproduct) {
-        AccessControl.addproduct = addproduct;
+        AccessController.addproduct = addproduct;
     }
 
     public static boolean isEditproduct() {
@@ -156,7 +230,7 @@ public class AccessController {
     }
 
     public static void setEditproduct(boolean editproduct) {
-        AccessControl.editproduct = editproduct;
+        AccessController.editproduct = editproduct;
     }
 
     public static boolean isDeleteproduct() {
@@ -164,7 +238,7 @@ public class AccessController {
     }
 
     public static void setDeleteproduct(boolean deleteproduct) {
-        AccessControl.deleteproduct = deleteproduct;
+        AccessController.deleteproduct = deleteproduct;
     }
 
     public static boolean isRestockproduct() {
@@ -172,7 +246,7 @@ public class AccessController {
     }
 
     public static void setRestockproduct(boolean restockproduct) {
-        AccessControl.restockproduct = restockproduct;
+        AccessController.restockproduct = restockproduct;
     }
 
     public static boolean isViewsales() {
@@ -180,7 +254,7 @@ public class AccessController {
     }
 
     public static void setViewsales(boolean viewsales) {
-        AccessControl.viewsales = viewsales;
+        AccessController.viewsales = viewsales;
     }
 
     public static boolean isUnlockuser() {
@@ -188,7 +262,7 @@ public class AccessController {
     }
 
     public static void setUnlockuser(boolean unlockuser) {
-        AccessControl.unlockuser = unlockuser;
+        AccessController.unlockuser = unlockuser;
     }
 
     public static boolean isBuyproduct() {
@@ -204,15 +278,15 @@ public class AccessController {
     }
 
     public static void setBuyproduct(boolean buyproduct) {
-        AccessControl.buyproduct = buyproduct;
+        AccessController.buyproduct = buyproduct;
     }
 
     public static void setViewactivity(boolean viewactivity) {
-        AccessControl.viewactivity = viewactivity;
+        AccessController.viewactivity = viewactivity;
     }
 
     public static void setViewtransactions(boolean viewtransactions) {
-        AccessControl.viewtransactions = viewtransactions;
+        AccessController.viewtransactions = viewtransactions;
     }
 
 }

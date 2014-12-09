@@ -42,6 +42,7 @@ public class EditAccountingManagerAccountServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
 
+            if(account.getAccesscontrol().isEditaccountingmanager()){
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -106,6 +107,9 @@ public class EditAccountingManagerAccountServlet extends HttpServlet {
             } else {
                 session.setAttribute("homeaccounting", bean);
                 response.sendRedirect("accountingmanagerAccount.jsp");
+            }
+            }else{
+                out.println("ACCESS DENIED");
             }
 
         }

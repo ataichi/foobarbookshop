@@ -32,49 +32,54 @@ public class AccountingSignupServlet extends HttpServlet {
         try {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            AccountBean account = new AccountBean();
-            AccountDAOInterface userdao = new AccountDAOImplementation();
-            AdminDAOInterface adao = new AdminDAOImplementation();
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
 
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
-            String firstname = request.getParameter("fname");
-            String lastname = request.getParameter("lname");
-            String mInitial = request.getParameter("mname");
-            String email = request.getParameter("email");
-            String username = request.getParameter("uname");
-            String pass1 = request.getParameter("pass1");
-            boolean locked = false;
+            if (homeadmin.getAccesscontrol().isCreateaccountingmanager()) {
+                AccountBean account = new AccountBean();
+                AccountDAOInterface userdao = new AccountDAOImplementation();
+                AdminDAOInterface adao = new AdminDAOImplementation();
 
-            account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
-            account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));
-            account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(mInitial));
-            account.setPassword(pass1);
-            account.setEmailAdd(email);
-            account.setUsername(AccountDAOImplementation.inputSanitizer(username));
-            account.setAccountType("Accounting Manager");
-            account.setLocked(locked);
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
+                String firstname = request.getParameter("fname");
+                String lastname = request.getParameter("lname");
+                String mInitial = request.getParameter("mname");
+                String email = request.getParameter("email");
+                String username = request.getParameter("uname");
+                String pass1 = request.getParameter("pass1");
+                boolean locked = false;
 
-            int accountingmanager_accountID;
+                account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
+                account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));
+                account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(mInitial));
+                account.setPassword(pass1);
+                account.setEmailAdd(email);
+                account.setUsername(AccountDAOImplementation.inputSanitizer(username));
+                account.setAccountType("Accounting Manager");
+                account.setLocked(locked);
 
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
+                int accountingmanager_accountID;
 
-            log.setLog_accountID(homeadmin.getAccountID()); // temporary
-            log.setTime(time);
-            log.setActivity("Add new Accounting Manager " + account.getFirstName());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
 
-            boolean addUser = userdao.addAccount(account);
+                log.setLog_accountID(homeadmin.getAccountID()); // temporary
+                log.setTime(time);
+                log.setActivity("Add new Accounting Manager " + account.getFirstName());
 
-            if (addUser) {
+                boolean addUser = userdao.addAccount(account);
+
+                if (addUser) {
                 //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
-                if (logdao.addLog(log)) {
-                    response.sendRedirect("adminHOME.jsp");
+                    //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
+                    if (logdao.addLog(log)) {
+                        response.sendRedirect("adminHOME.jsp");
+                    }
+                } else {
+                    response.sendRedirect("signup_accountingmanager.jsp");
                 }
             } else {
-                response.sendRedirect("signup_accountingmanager.jsp");
+                out.println("ACCESS DENIED");
             }
             /*
              boolean addAccountingManager = adao.addAccountingManager(accountingManager);

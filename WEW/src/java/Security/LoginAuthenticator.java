@@ -129,6 +129,17 @@ public class LoginAuthenticator {
             accesscontrol.viewactivity = false;
             accesscontrol.buyproduct = true;
 
+            accesscontrol.addtoshoppingcart = true;
+            accesscontrol.editshoppingcart = true;
+            accesscontrol.removeproductfromshoppingcart = true;
+            accesscontrol.viewproduct = true;
+
+            accesscontrol.editpassword = true;
+
+            accesscontrol.addadmin = false;
+            accesscontrol.editadmin = false;
+            accesscontrol.deleteadmin = false;
+
             account.setAccesscontrol(accesscontrol);
 
         } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType()) && !account.getLocked()) {
@@ -160,6 +171,17 @@ public class LoginAuthenticator {
             accesscontrol.viewtransactions = false;
             accesscontrol.viewactivity = true;
             accesscontrol.buyproduct = false;
+
+            accesscontrol.addtoshoppingcart = false;
+            accesscontrol.editshoppingcart = false;
+            accesscontrol.removeproductfromshoppingcart = false;
+            accesscontrol.viewproduct = false;
+
+            accesscontrol.editpassword = true;
+
+            accesscontrol.addadmin = false;
+            accesscontrol.editadmin = false;
+            accesscontrol.deleteadmin = false;
 
             account.setAccesscontrol(accesscontrol);
 
@@ -193,6 +215,17 @@ public class LoginAuthenticator {
             accesscontrol.viewactivity = false;
             accesscontrol.buyproduct = false;
 
+            accesscontrol.addtoshoppingcart = false;
+            accesscontrol.editshoppingcart = false;
+            accesscontrol.removeproductfromshoppingcart = false;
+            accesscontrol.viewproduct = true;
+
+            accesscontrol.editpassword = true;
+
+            accesscontrol.addadmin = false;
+            accesscontrol.editadmin = false;
+            accesscontrol.deleteadmin = false;
+
             account.setAccesscontrol(accesscontrol);
 
         } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType()) && !account.getLocked()) {
@@ -225,6 +258,17 @@ public class LoginAuthenticator {
             accesscontrol.viewactivity = false;
             accesscontrol.buyproduct = false;
 
+            accesscontrol.addtoshoppingcart = false;
+            accesscontrol.editshoppingcart = false;
+            accesscontrol.removeproductfromshoppingcart = false;
+            accesscontrol.viewproduct = true;
+
+            accesscontrol.editpassword = true;
+
+            accesscontrol.addadmin = false;
+            accesscontrol.editadmin = false;
+            accesscontrol.deleteadmin = false;
+
             account.setAccesscontrol(accesscontrol);
         } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType()) && !account.getLocked()) {
             // DVD Manager
@@ -255,6 +299,17 @@ public class LoginAuthenticator {
             accesscontrol.viewtransactions = false;
             accesscontrol.viewactivity = false;
             accesscontrol.buyproduct = false;
+
+            accesscontrol.addtoshoppingcart = false;
+            accesscontrol.editshoppingcart = false;
+            accesscontrol.removeproductfromshoppingcart = false;
+            accesscontrol.viewproduct = true;
+
+            accesscontrol.editpassword = true;
+
+            accesscontrol.addadmin = false;
+            accesscontrol.editadmin = false;
+            accesscontrol.deleteadmin = false;
 
             account.setAccesscontrol(accesscontrol);
 
@@ -288,6 +343,17 @@ public class LoginAuthenticator {
             accesscontrol.viewactivity = false;
             accesscontrol.buyproduct = false;
 
+            accesscontrol.addtoshoppingcart = false;
+            accesscontrol.editshoppingcart = false;
+            accesscontrol.removeproductfromshoppingcart = false;
+            accesscontrol.viewproduct = true;
+
+            accesscontrol.editpassword = true;
+
+            accesscontrol.addadmin = false;
+            accesscontrol.editadmin = false;
+            accesscontrol.deleteadmin = false;
+
             account.setAccesscontrol(accesscontrol);
         } else if (accountdao.doesUserExist(username, password) && "Accounting Manager".equals(account.getAccountType()) && !account.getLocked()) {
             // Accounting Manager
@@ -318,6 +384,17 @@ public class LoginAuthenticator {
             accesscontrol.viewtransactions = false;
             accesscontrol.viewactivity = false;
             accesscontrol.buyproduct = false;
+
+            accesscontrol.addtoshoppingcart = false;
+            accesscontrol.editshoppingcart = false;
+            accesscontrol.removeproductfromshoppingcart = false;
+            accesscontrol.viewproduct = false;
+
+            accesscontrol.editpassword = true;
+
+            accesscontrol.addadmin = false;
+            accesscontrol.editadmin = false;
+            accesscontrol.deleteadmin = false;
 
             account.setAccesscontrol(accesscontrol);
         }
