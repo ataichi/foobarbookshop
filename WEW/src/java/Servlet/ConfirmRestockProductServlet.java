@@ -37,34 +37,40 @@ public class ConfirmRestockProductServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
-            ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
-            ProductManagerDAOInterface productmanagerdao = new ProductManagerDAOImplementation();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
+
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
 
-            int newstocks = Integer.valueOf(request.getParameter("numberstocks"));
+            if (account.getAccesscontrol().isRestockproduct()) {
+                ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+                ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
+                ProductManagerDAOInterface productmanagerdao = new ProductManagerDAOImplementation();
+                ProductDAOInterface productdao = new ProductDAOImplementation();
 
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
+                int newstocks = Integer.valueOf(request.getParameter("numberstocks"));
 
-            log.setLog_accountID(account.getAccountID());
-            log.setTime(time);
-            log.setActivity("Restock Confirm Restock for Product ID " + restockproduct.getProductID());
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
 
-            out.println(newstocks);
-            boolean checkRestock = productmanagerdao.restockProduct(newstocks, restockproduct.getProductID());
+                log.setLog_accountID(account.getAccountID());
+                log.setTime(time);
+                log.setActivity("Restock Confirm Restock for Product ID " + restockproduct.getProductID());
 
-            if (checkRestock) {
-                productlist = productmanagerdao.getProductsByType(restockproduct.getType());
-                if (logdao.addLog(log)) {
-                    session.setAttribute("productlist", productlist);
-                    response.sendRedirect("productmanagerHOME.jsp");
+                out.println(newstocks);
+                boolean checkRestock = productmanagerdao.restockProduct(newstocks, restockproduct.getProductID());
+
+                if (checkRestock) {
+                    productlist = productmanagerdao.getProductsByType(restockproduct.getType());
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("productlist", productlist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
+                } else {
+                    response.sendRedirect("restockproduct.jsp");
                 }
             } else {
-                response.sendRedirect("restockproduct.jsp");
+                out.println("ACCESS DENIED");
             }
         }
     }

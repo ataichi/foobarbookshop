@@ -38,6 +38,7 @@ public class SearchProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            if(homeproduct.getAccesscontrol().isViewproduct()){
             String searchstring = AccountDAOImplementation.inputSanitizer(request.getParameter("srch-term"));
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ArrayList<ProductBean> finalproductlist = new ArrayList<ProductBean>();
@@ -566,6 +567,9 @@ public class SearchProductServlet extends HttpServlet {
                     session.setAttribute("searchproductlist", productlist);
                     response.sendRedirect("productmanagerSearchProduct.jsp");
                 }
+            }else{
+                out.println("ACCESS DENIED");
+            }
 
             }
 
