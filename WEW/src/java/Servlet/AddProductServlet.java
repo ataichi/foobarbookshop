@@ -102,16 +102,19 @@ public class AddProductServlet extends HttpServlet {
                     artist = request.getParameter("cdArtist");
                     recordCompany = request.getParameter("cdRecord");
 
+                    out.println(artist);
+                    out.println(recordCompany);
+
                     boolean addCD = false;
 
                     addProduct = pdao.addProduct(product);
                     product = pdao.getLastProduct();
 
-                    addCD = cdao.addAudioCD(cd);
-
                     cd.setArtist(artist);
                     cd.setRecordCompany(recordCompany);
                     cd.setAudiocd_productID(product.getProductID());
+
+                    addCD = cdao.addAudioCD(cd);
 
                     if (addCD) { // success
                         ArrayList<AudioCDBean> cdlist = cdao.getAllAudioCD();
@@ -121,12 +124,12 @@ public class AddProductServlet extends HttpServlet {
                             session.setAttribute("audiocdlist", cdlist);
                             session.setAttribute("productlist", plist);
 
-                            response.sendRedirect("productmanagerHOME.jsp");
+                                  response.sendRedirect("productmanagerHOME.jsp");
                         } else { //error
                             response.sendRedirect("addproduct.jsp");
                         }
                     } else { // may error
-                        response.sendRedirect("productmanagerHOME.jsp");
+                        //        response.sendRedirect("productmanagerHOME.jsp");
                     }
 
                 } else if (type.equals("Book")) {// add books

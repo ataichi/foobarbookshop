@@ -87,7 +87,7 @@ public class ViewProductServlet extends HttpServlet {
                     audiocdbean = audiocddao.getAudioCDByProductID(productID);
                     session.setAttribute("viewaudiocd", audiocdbean);
                     out.println(audiocdbean.getArtist());
-               //     response.sendRedirect("viewproduct.jsp");
+                    response.sendRedirect("viewproduct.jsp");
                 } else if (productBean.getType().equals("Book")) {
                     bookbean = bookdao.getBookByProductID(productID);
                     session.setAttribute("viewbook", bookbean);

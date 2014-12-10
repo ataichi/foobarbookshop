@@ -158,29 +158,7 @@
                                                         out.println(sales);
                                                     }
                                                     out.println("<h3> Total Sales:</h3>" + finalsales);
-                                                    /*
-                                                     for (int a = 0; a < shoppingcartlist.size(); a++) {
-                                                     for (int b = 0; b < productorderlist.size(); b++) {
-                                                     if (productorderlist.get(b).getProductorder_shoppingcartID() == shoppingcartlist.get(a).getShoppingcartID()) {
-                                                     for (int c = 0; c < booklist.size(); c++) {
-                                                     out.println("<h4>Title: " + booklist.get(c).getTitle() + "</h4>");
-                                                     if (productorderlist.get(b).getProductorder_productID() == booklist.get(c).getProductID()) {
-                                                     sales = sales + (productorderlist.get(b).getPrice() * productorderlist.get(b).getQuantity());
-
-                                                     }
-                                                     out.println("<h4>Total Sales: " + sales + "</h4>");
-                                                     finalsales += sales;
-                                                     sales = 0;
-                                                     }
-
-                                                     }
-                                                     }
-                                                     }
-                                                     
-                                                     
-                                                     */
-
-
+                                  
                                                 %>
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade in well" id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
