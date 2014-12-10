@@ -17,7 +17,7 @@
 <html>
     <head>
         <% response.addHeader("X-FRAME-OPTIONS", "DENY");
-        response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Cache-Control", "no-store");
             response.setHeader("Pragma", "no-cache");
             response.setDateHeader("Expires", 0);
@@ -76,7 +76,7 @@
                                 <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>-->
                             </ul>
                         </li>
-                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style=' border:none'/></form></li>
                     </ul>
 
                 </div>

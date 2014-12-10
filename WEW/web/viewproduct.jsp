@@ -11,79 +11,76 @@
 <%
     AccountBean account = (AccountBean) session.getAttribute("homeproduct");
     if (account == null) {
-        if (account == null) {
-            response.sendRedirect("login.jsp");
+        response.sendRedirect("login.jsp");
 
-        } else {
-            /*
-             ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
-             String prodType = (String) session.getAttribute("prodType");
+    } else {
+        /*
+         ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
+         String prodType = (String) session.getAttribute("prodType");
 
-             ArrayList<AudioCDBean> audiolist = (ArrayList<AudioCDBean>) session.getAttribute("audiolist");
-             ArrayList<BookBean> booklist = (ArrayList<BookBean>) session.getAttribute("booklist");
-             ArrayList<DVDBean> dvdlist = (ArrayList<DVDBean>) session.getAttribute("dvdlist");
-             ArrayList<MagazineBean> magazinelist = (ArrayList<MagazineBean>) session.getAttribute("magazinelist");
+         ArrayList<AudioCDBean> audiolist = (ArrayList<AudioCDBean>) session.getAttribute("audiolist");
+         ArrayList<BookBean> booklist = (ArrayList<BookBean>) session.getAttribute("booklist");
+         ArrayList<DVDBean> dvdlist = (ArrayList<DVDBean>) session.getAttribute("dvdlist");
+         ArrayList<MagazineBean> magazinelist = (ArrayList<MagazineBean>) session.getAttribute("magazinelist");
 
-             ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+         ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
 
-             ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
-             ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+         ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+         ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
 
-             String prodType = (String) session.getAttribute("prodType");
-             out.println(prodType);
+         String prodType = (String) session.getAttribute("prodType");
+         out.println(prodType);
 
-             ProductBean viewproduct = (ProductBean) session.getAttribute("viewproduct");
-             out.println(viewproduct.getTitle());
+         ProductBean viewproduct = (ProductBean) session.getAttribute("viewproduct");
+         out.println(viewproduct.getTitle());
 
-             ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
-             out.println(accountlist.size());
+         ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+         out.println(accountlist.size());
 
-             ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
-             out.println(reviews.size());
+         ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+         out.println(reviews.size());
 
-             ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
-             out.println(customerlist.size());
+         ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+         out.println(customerlist.size());
 
-             AudioCDBean viewaudiocd = (AudioCDBean) session.getAttribute("viewaudiocd");
-             out.println(viewaudiocd.getArtist());
+         AudioCDBean viewaudiocd = (AudioCDBean) session.getAttribute("viewaudiocd");
+         out.println(viewaudiocd.getArtist());
 
-             BookBean viewbook = (BookBean) session.getAttribute("viewbook");
-             out.println(viewbook.getAuthor());
+         BookBean viewbook = (BookBean) session.getAttribute("viewbook");
+         out.println(viewbook.getAuthor());
 
-             DVDBean viewdvd = (DVDBean) session.getAttribute("viewdvd");
-             out.println(viewdvd.getDirector());
+         DVDBean viewdvd = (DVDBean) session.getAttribute("viewdvd");
+         out.println(viewdvd.getDirector());
 
-             MagazineBean viewmagazine = (MagazineBean) session.getAttribute("viewmagazine");
-             out.println(viewmagazine.getPublisher());
-             */
-            String prodType = (String) session.getAttribute("prodType");
-            out.println(prodType);
+         MagazineBean viewmagazine = (MagazineBean) session.getAttribute("viewmagazine");
+         out.println(viewmagazine.getPublisher());
+         */
+        String prodType = (String) session.getAttribute("prodType");
+        out.println(prodType);
 
-            ProductBean viewproduct = (ProductBean) session.getAttribute("viewproduct");
-            out.println(viewproduct.getTitle());
+        ProductBean viewproduct = (ProductBean) session.getAttribute("viewproduct");
+        out.println(viewproduct.getTitle());
 
-            ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
-            out.println(accountlist.size());
+        ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
+        out.println(accountlist.size());
 
-            ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
-            out.println(reviews.size());
+        ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
+        out.println(reviews.size());
 
-            ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
-            out.println(customerlist.size());
+        ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
+        out.println(customerlist.size());
 
-            AudioCDBean viewaudiocd = (AudioCDBean) session.getAttribute("viewaudiocd");
-            out.println(viewaudiocd.getArtist());
+        AudioCDBean viewaudiocd = (AudioCDBean) session.getAttribute("viewaudiocd");
+        out.println(viewaudiocd.getArtist());
 
-            BookBean viewbook = (BookBean) session.getAttribute("viewbook");
-            out.println(viewbook.getAuthor());
+        BookBean viewbook = (BookBean) session.getAttribute("viewbook");
+        out.println(viewbook.getAuthor());
 
-            DVDBean viewdvd = (DVDBean) session.getAttribute("viewdvd");
-            out.println(viewdvd.getDirector());
+        DVDBean viewdvd = (DVDBean) session.getAttribute("viewdvd");
+        out.println(viewdvd.getDirector());
 
-            MagazineBean viewmagazine = (MagazineBean) session.getAttribute("viewmagazine");
-            out.println(viewmagazine.getPublisher());
-
-        
+        MagazineBean viewmagazine = (MagazineBean) session.getAttribute("viewmagazine");
+        out.println(viewmagazine.getPublisher());
 
 
 %>
@@ -142,7 +139,7 @@
                                 <li><a href="#"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                             </ul>
                         </li>
-                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style='border:none'/></form></li>
                     </ul>
                     <form class="navbar-form navbar-right" action='SearchProductServlet' method="post">
                         <div class="input-group input-group-sm" style="max-width:360px;">
