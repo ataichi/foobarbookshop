@@ -2,7 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-    if (homeproduct == nulll) {
+    if (homeproduct == null) {
         response.sendRedirect("login.jsp");
     } else {
 

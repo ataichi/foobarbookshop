@@ -56,31 +56,31 @@
          out.println(viewmagazine.getPublisher());
          */
         String prodType = (String) session.getAttribute("prodType");
-        out.println(prodType);
+//        out.println(prodType);
 
         ProductBean viewproduct = (ProductBean) session.getAttribute("viewproduct");
-        out.println(viewproduct.getTitle());
+//        out.println(viewproduct.getTitle());
 
         ArrayList<AccountBean> accountlist = (ArrayList<AccountBean>) session.getAttribute("accountlist");
-        out.println(accountlist.size());
+//        out.println(accountlist.size());
 
         ArrayList<ReviewBean> reviews = (ArrayList<ReviewBean>) session.getAttribute("reviews");
-        out.println(reviews.size());
+//        out.println(reviews.size());
 
         ArrayList<CustomerBean> customerlist = (ArrayList<CustomerBean>) session.getAttribute("customerlist");
-        out.println(customerlist.size());
+//        out.println(customerlist.size());
 
         AudioCDBean viewaudiocd = (AudioCDBean) session.getAttribute("viewaudiocd");
-        out.println(viewaudiocd.getArtist());
+//        out.println(viewaudiocd.getArtist());
 
         BookBean viewbook = (BookBean) session.getAttribute("viewbook");
-        out.println(viewbook.getAuthor());
+//        out.println(viewbook.getAuthor());
 
         DVDBean viewdvd = (DVDBean) session.getAttribute("viewdvd");
-        out.println(viewdvd.getDirector());
+//        out.println(viewdvd.getDirector());
 
         MagazineBean viewmagazine = (MagazineBean) session.getAttribute("viewmagazine");
-        out.println(viewmagazine.getPublisher());
+//        out.println(viewmagazine.getPublisher());
 
 
 %>

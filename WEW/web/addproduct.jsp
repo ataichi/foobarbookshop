@@ -2,12 +2,13 @@
 <%@page import="DAO.Interface.ProductManagerDAOInterface"%>
 <%@page import="Beans.AccountBean"%>
 <%
+    String accountType = null;
+    String productType = null;
     AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
     if (homeproduct == null) {
         response.sendRedirect("login.jsp");
     } else {
-        String accountType = homeproduct.getAccountType();
-        String productType = null;
+        accountType = homeproduct.getAccountType();
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -101,7 +102,6 @@
                             <h3 class="panel-title">Add <% out.println(productType); %></h3>
                         </div>
                         <div class="panel-body">
-
                             <form class="form-horizontal" role="form" name="productcheck" id="productcheck" action='AddProductServlet' onsubmit="return productcheck(this)"  method="post">
                                 <div>
                                     <div class="form-group">
@@ -140,7 +140,7 @@
                                             <input class='form-control' type='text' id='productStocks' name='productStocks' onblur="productStocksCheck()" onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
-                                    <%                                if (productType.equals("Audio CD")) {
+                                    <% if (productType.equals("Audio CD")) {
 
                                     %>
                                     <div class="form-group">
@@ -155,7 +155,7 @@
                                             <input class='form-control' type='text' id='cdRecord' name='cdRecord' onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
-                                    <%                            } else if (productType.equals("Book")) {
+                                    <%  } else if (productType.equals("Book")) {
                                     %>
                                     <div class="form-group">
                                         <label class="control-label col-lg-4" for="fname">Author</label>
@@ -228,7 +228,7 @@
                                         }
                                     %>
                                     <div class="form-group">
-                                        <button class="btn btn-primary btn-lg center-block">Add Product</button>
+                                        <button type='submit' class="btn btn-primary btn-lg center-block">Add Product</button>
                                     </div>
 
                                 </div>

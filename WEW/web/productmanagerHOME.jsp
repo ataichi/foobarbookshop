@@ -1,8 +1,3 @@
-<%-- 
-    Document   : productmanagerHOME
-    Created on : Nov 28, 2014, 5:29:41 PM
-    Author     : Danica
---%>
 
 <%@page import="Beans.DVDBean"%>
 <%@page import="Beans.MagazineBean"%>
@@ -31,14 +26,23 @@
         ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
         ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
 
-        BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-        AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
-        MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
-        DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-        ArrayList<BookBean> booklist = bookdao.getAllBooks();
-        ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
-        ArrayList<MagazineBean> magazinelist = magazinedao.getAllMagazine();
-        ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
+        /*
+         BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+         AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
+         MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+         DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+         ArrayList<BookBean> booklist = bookdao.getAllBooks();
+         ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
+         ArrayList<MagazineBean> magazinelist = magazinedao.getAllMagazine();
+         ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
+         
+        ArrayList<ProductBean> searchproductlist = (ArrayList<ProductBean>) session.getAttribute("searchproductlist");
+        ArrayList<AudioCDBean> searchaudiocdlist = (ArrayList<AudioCDBean>) session.getAttribute("audiolist");
+        ArrayList<BookBean> searchbooklist = (ArrayList<BookBean>) session.getAttribute("booklist");
+        ArrayList<DVDBean> searchdvdlist = (ArrayList<DVDBean>) session.getAttribute("dvdlist");
+        ArrayList<MagazineBean> searchmagazinelist = (ArrayList<MagazineBean>) session.getAttribute("magazinelist");
+        ProductBean product = new ProductBean();
+                */
 
 %>
 
