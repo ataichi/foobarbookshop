@@ -13,20 +13,20 @@ import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.LogDAOInterface;
 import Process.Hasher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@WebServlet(name = "CustomerChangePasswordServlet", urlPatterns = {"/CustomerChangePasswordServlet"})
-public class CustomerChangePasswordServlet extends HttpServlet {
+@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/ChangePasswordServlet"})
+public class ChangePasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +42,23 @@ public class CustomerChangePasswordServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            String address = request.getRemoteAddr();
-            AccountBean account = (AccountBean) session.getAttribute("homeuser");
 
+            HttpSession session = request.getSession();
+            //String type = (String) session.getAttribute("type");
+            AccountBean account = (AccountBean) session.getAttribute("homeuser");
+            /*
+             if (account.getAccountType().equals("Customer")) {
+             account = (AccountBean) session.getAttribute("homecustomer");
+             } else if (account.getAccountType().equals("Audio CD Manager") || account.getAccountType().equals("Book Manager") || account.getAccountType().equals("DVD Manager") || account.getAccountType().equals("Magazine Manager")) {
+             account = (AccountBean) session.getAttribute("homeproduct");
+             } else if (account.getAccountType().equals("Accounting Manager")) {
+             account = (AccountBean) session.getAttribute("homeaccounting");
+             } else if (account.getAccountType().equals("Admin")) {
+             account = (AccountBean) session.getAttribute("homeadmin");
+             }
+             */
+
+            //if (account.getAccesscontrol().isEditpassword()) {
             AccountDAOInterface accountdao = new AccountDAOImplementation();
 
             LogBean log = new LogBean();
@@ -57,13 +70,10 @@ public class CustomerChangePasswordServlet extends HttpServlet {
             try {
                 checkhash = new Hasher("MD5");
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(CustomerChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             checkhash.updateHash(currpass, "UTF-8");
-         //   currpass = checkhash.getHashBASE64();
-            
-            System.out.println(currpass);
-            System.out.println(account.getPassword());
+            currpass = checkhash.getHashBASE64();
 
             if (account.getPassword().equals(currpass)) {
                 System.out.println("yehey");
@@ -85,7 +95,6 @@ public class CustomerChangePasswordServlet extends HttpServlet {
                 if (changepassword) {
                     java.util.Date date = new java.util.Date();
                     Timestamp time = new Timestamp(date.getTime());
-                    log.setIp_address(address);
                     log.setTime(time);
                     log.setActivity("Change password account ID " + account.getAccountID());
                     log.setLog_accountID(account.getAccountID());
@@ -99,18 +108,38 @@ public class CustomerChangePasswordServlet extends HttpServlet {
                         account.setLocked(false);
                         account.setMiddleInitial(account.getMiddleInitial());
                         // hashed value of password dapat
-                        account.setPassword(pass1);
+                        account.setPassword(pass2);
                         account.setUsername(account.getUsername());
 
-                        session.setAttribute("homeuser", account);
-                        out.println("ewan ko");
-                 //       response.sendRedirect("customerHOME.jsp");
+                        if (account.getAccountType().equals("Customer")) {
+                            session.setAttribute("homecustomer", account);
+                            response.sendRedirect("customerHOME.jsp");
+                        } else if (account.getAccountType().equals("Audio CD Manager") || account.getAccountType().equals("Book Manager") || account.getAccountType().equals("DVD Manager") || account.getAccountType().equals("Magazine Manager")) {
+                            session.setAttribute("homeproduct", account);
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        } else if (account.getAccountType().equals("Accounting Manager")) {
+                            session.setAttribute("homeaccounting", account);
+                            response.sendRedirect("accountingmanagerHOME.jsp");
+                        } else if (account.getAccountType().equals("Admin")) {
+                            session.setAttribute("homeadmin", account);
+                            response.sendRedirect("adminHOME.jsp");
+                        }
+                    } else {
+                        out.println("WALANG LOG EH");
                     }
+                } else {
+                    out.println("SORRY BAWAL");
                 }
             } else {
-                out.println("sorry girl");
-    //            response.sendRedirect("customerChangePassword.jsp");
+                out.println(account.getPassword());
+                out.println("SORRY ATE");
+                //         out.println("not allowed to change!");
             }
+            /*
+             } else {
+             out.println("ACCESS DENIED");
+             }*/
+
         }
     }
 
