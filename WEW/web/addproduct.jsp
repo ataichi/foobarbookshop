@@ -170,7 +170,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Date Published</label>
+                                        <label class="control-label col-lg-4" for="fname">Date Published(yyyy-mm-dd)</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='date' id='bookDatePublished' name='bookDatePublished' onfocus='backWhite(this);'/>
                                         </div>
@@ -219,7 +219,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Date Published</label>
+                                        <label class="control-label col-lg-4" for="fname">Date Published(yyyy-mm-dd)</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='date' id='magazineDate' name='magazineDate' onfocus='backWhite(this);'/>
                                         </div>

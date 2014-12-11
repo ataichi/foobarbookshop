@@ -5,7 +5,7 @@ function productcheck() {
     var genre = genreCheck();
     var year = yearCheck();
     var stocks = stocksChecl();
-    
+
     if (title == false || price == false || summary == false || genre == false || year == false || stocks == false) {
         return false;
     }
@@ -55,7 +55,14 @@ function productGenreCheck() {
 }
 
 function productYearCheck() {
-    return true; //hindi ko pa alam regex pag numbers :(
+    var year = documet.forms["productcheck"]["productYear"].value;
+    if (year == "" || year == null || !(/^d{4}$/.test(year))) {
+        document.forms["productcheck"]["productYear"].style.backgroundColor = "pink";
+        return false;
+    } else {
+        document.forms["productcheck"]["productYear"].style.backgroundColor="white";
+        return true; //hindi ko pa alam regex pag numbers :(
+    }
 }
 
 function productStocksCheck() {
