@@ -39,9 +39,9 @@ function billingCheck() {
     var countryDA = countryDACheck();
     var postalcodeDA = postalcodeDACheck();
 
-    if (apartmentnoBA == false || streetBA == false || subBA == false || cityBA == false || 
-            countryBA == false || postalcodeBA == false || 
-            apartmentnoDA == false || streetDA == false || subDA == false || cityDA == false || 
+    if (apartmentnoBA == false || streetBA == false || subBA == false || cityBA == false ||
+            countryBA == false || postalcodeBA == false ||
+            apartmentnoDA == false || streetDA == false || subDA == false || cityDA == false ||
             countryDA == false || postalcodeDA == false) {
         return false;
     }
@@ -53,7 +53,7 @@ function billingCheck() {
 
 function fnameCheck() {
     var first = document.forms["customercheck"]["fname"].value;
-    if (first == "" || first == null || !(/^[A-z ]+$/.test(first))) {
+    if (first == "" || first == null || !(/^[A-z ]{2,20}$/.test(first))) {
         document.forms["customercheck"]["fname"].style.backgroundColor = "pink";
         return false;
     }
@@ -77,7 +77,7 @@ function mnameCheck() {
 
 function lnameCheck() {
     var last = document.forms["customercheck"]["lname"].value;
-    if (last == "" || last == null || !(/^[A-z ]+$/.test(last))) {
+    if (last == "" || last == null || !(/^[A-z ]{2,20}$/.test(last))) {
         document.forms["customercheck"]["lname"].style.backgroundColor = "pink";
         return false;
     }
@@ -116,10 +116,32 @@ function emailCheck() {
 function passCheck() {
     var pass1 = document.forms["customercheck"]["pass1"].value;
     var pass2 = document.forms["customercheck"]["pass2"].value;
-    if (!(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass1))//!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
-            || pass1 == "" || pass1 == null || pass2 == "" || pass2 == null || pass1 != pass2) {
+    var uname = document.forms["customercheck"]["uname"].value;
+    var fname = document.forms["customercheck"]["fname"].value;
+    var lname = document.forms["customercheck"]["lname"].value;
+    
+
+    if (!(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass1)) ||
+            pass1.indexOf(uname) != -1 || pass1.indexOf(fname) != -1 || pass1.indexOf(lname) != -1 ){//!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
         document.forms["customercheck"]["pass1"].style.backgroundColor = "pink";
-        document.forms["customercheck"]["pass2"].style.backgroundColor = "pink";
+        //document.forms["customercheck"]["pass2"].style.backgroundColor = "pink";
+        return false;
+    }
+    
+    else {
+        document.forms["customercheck"]["pass1"].style.backgroundColor = "white";
+        document.forms["customercheck"]["pass2"].style.backgroundColor = "white";
+        return true;
+    }
+}
+
+function passCheck2(){
+    var pass1 = document.forms["customercheck"]["pass1"].value;
+    var pass2 = document.forms["customercheck"]["pass2"].value;
+ 
+    if (pass1 != pass2) {
+        document.forms["customercheck"]["pass1"].style.backgroundColor = "white";
+        document.forms["customercheck"]["pass2"].style.backgroundColor = "pink";        
         return false;
     }
     else {
@@ -288,6 +310,30 @@ function backWhite(x) {
     x.style.background = "white";
 }
 
+function BACheck() {
+    var BA = document.forms["customercheck"]["BA"].value;
+    if (BA == "" || BA == null || !(/^[0-9a-zA-Z. ',]{10,60}$/.test(BA))) {
+        document.forms["customercheck"]["BA"].style.backgroundColor = "pink";
+        return false;
+    }
+    else {
+        document.forms["customercheck"]["BA"].style.backgroundColor = "white";
+        return true;
+    }
+}
+
+function DACheck() {
+    var DA = document.forms["customercheck"]["DA"].value;
+    if (DA == "" || DA == null || !(/^[0-9a-zA-Z. ',]{10,60}$/.test(DA))) {
+        document.forms["customercheck"]["DA"].style.backgroundColor = "pink";
+        return false;
+    }
+    else {
+        document.forms["customercheck"]["DA"].style.backgroundColor = "white";
+        return true;
+    }
+}
+
 function customerCheck() {
     var first = fnameCheck();
     var middle = mnameCheck();
@@ -295,24 +341,14 @@ function customerCheck() {
     var user = unameCheck();
     var email = emailCheck();
     var pass = passCheck();
-    var aptnoBA = apartmentnoBACheck();
-    var streetBA = streetBACheck();
-    var subdivisionBA = subdivisionBACheck();
-    var cityBA = cityBACheck();
-    var countryBA = countryBACheck();
-    var postalcodeBA = postalcodeBACheck();
-    var aptnoDA = apartmentnoDACheck();
-    var streetDA = streetDACheck();
-    var subdivisionDA = subdivisionDACheck();
-    var cityDA = cityDACheck();
-    var countryDA = countryDACheck();
-    var postalcodeDA = postalcodeDACheck();
-    var billing = billingCheck();
+    var pass2 = passCheck2();
+    var BA = BACheck();
+    var DA = DACheck();
+    
 
-    if (first == false || last == false || middle == false || user == false || email == false || pass == false
-            || aptnoBA == false || streetBA == false || subdivisionBA == false || cityBA == false || countryBA == false || postalcodeBA == false
-            || aptnoDA == false || streetDA == false || subdivisionDA == false || cityDA == false || countryDA == false || postalcodeDA == false
-            || billing == false) {
+    if (first == false || last == false || middle == false ||
+            user == false || email == false || pass == false || pass2 == false ||
+            BA == false || DA == false) {
         return false;
     }
     else {

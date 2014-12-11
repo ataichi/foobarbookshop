@@ -15,7 +15,7 @@
 <html>
     <head>
         <% response.addHeader("X-FRAME-OPTIONS", "DENY");
-        response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Cache-Control", "no-store");
             response.setHeader("Pragma", "no-cache");
             response.setDateHeader("Expires", 0);
@@ -74,33 +74,33 @@
 
         <div class="container"  style="padding-top: 100px;">
             <div class="row">
-                <form class="form-horizontal" role="form" id="customercheck" name="signin" onsubmit="return customerCheck();" method="post" action="SignupServlet">
-                    <div>
+                <form class="form-horizontal" role="form" id="customercheck" name="customercheck" onsubmit="return customerCheck();" method="post" action="SignupServlet">
+                    
                         <div class="form-group">
                             <label class="control-label col-lg-4">Basic Info</label>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="fname">First Name</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" onblur="fnameCheck();" onfocus="backWhite(this);" required>
+                                <input type="text" class="form-control" id="fname" name="fname" placeholder="no special characters" onblur="fnameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="mname">Middle Initial</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="mname" name="mname" placeholder="(Up to 2 letters are allowed)" onblur="mnameCheck();" onfocus="backWhite(this);" required>
+                                <input type="text" class="form-control" id="mname" name="mname" placeholder="up to 2 letters are allowed" onblur="mnameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="lname">Last Name</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" onblur="lnameCheck();" onfocus="backWhite(this);" required>
+                                <input type="text" class="form-control" id="lname" name="lname" placeholder="no special characters" onblur="lnameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="uname">Username</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="uname" name="uname" placeholder="Only letters, numbers, hyphens, underscores" onblur="unameCheck();" onfocus="backWhite(this);" required>
+                                <input type="text" class="form-control" id="uname" name="uname" placeholder="only letters, numbers, - and _" onblur="unameCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -112,103 +112,35 @@
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="pass1">Password</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Should be strong Ex: Sakura7!" onblur="passCheck();" onfocus="backWhite(this);" required>
+                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="should be strong Ex: Sakura7!" onblur="passCheck();" onfocus="backWhite(this);" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-4" for="pass2">Verify Password</label>
                             <div class="col-sm-3">
-                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Should be same as above" onblur="passCheck();" onfocus="backWhite(this);" required>
+                                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="should be same as above" onblur="passCheck2();" onfocus="backWhite(this);" required>
                             </div>
+                        </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-4" for="BA">Billing Address</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="BA" name="BA" placeholder="Billing Address" onblur="BACheck();" onfocus="backWhite(this);" required>
                         </div>
                     </div>
-                    <div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4">Billing Address</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="apartmentnoBA">Apartment No</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="apartmentnoBA" name="apartmentnoBA" placeholder="Apartment No" onblur="apartmentnoBACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="streetBA">Street</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="streetBA" name="streetBA" placeholder="Street" onblur="streetBACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="subdivisionBA">Subdivision</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="subdivisionBA" name="subdivisionBA" placeholder="Subdivision" onblur="subdivisionBACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="cityBA">City</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="cityBA" name="cityBA" placeholder="City" onblur="cityBACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="countryBA">Country</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="countryBA" name="countryBA" placeholder="Country" onblur="countryBACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="postalcodeBA">Postal Code</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="postalcodeBA" name="postalcodeBA" placeholder="Postal Code" onblur="postalcodeBACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4">Delivery Address</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="apartmentnoDA">Apartment No</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="apartmentnoDA" name="apartmentnoDA" placeholder="Apartment No" onblur="apartmentnoDACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="streetDA">Street</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="streetDA" name="streetDA" placeholder="Street" onblur="streetDACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="subdivisionDA">Subdivision</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="subdivisionDA" name="subdivisionDA" placeholder="Subdivision" onblur="subdivisionDACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="cityDA">City</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="cityDA" name="cityDA" placeholder="City" onblur="cityDACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="countryDA">Country</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="countryDA" name="countryDA" placeholder="Country" onblur="countryDACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="postalcodeDA">Postal Code</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="postalcodeDA" name="postalcodeDA" placeholder="Postal Code" onblur="postalcodeDACheck();" onfocus="backWhite(this);" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-lg center-block">Sign Up</button>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4" for="DA">Delivery Address</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="DA" name="DA" placeholder="Delivery Address" onblur="DACheck();" onfocus="backWhite(this);" required>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-lg center-block">Sign Up</button>
+                    </div>
+
                 </form>
             </div>
         </div>
-
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
