@@ -45,7 +45,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (3,'Anton','De Joya','DJ','danini','NeSrwl7G5H1nPTtEeyKTZA==','yie@yahoo.com','Customer',1,0),(4,'Melody','Dominguez','Q','melody','melodymelody','melody@yahoo.com','DVD Manager',0,0),(5,'Danica','Corpuz','D','danica','P0jNhlYWp602tB74dqQ8qw==','dccorpuz1@yahoo.com','Customer',6,1),(6,'Ruth','Corpuz','D','ruth','y1nBTlbeU3PM24xe4m/lGw==','ruth@a.com','Customer',1,0),(7,'Rachel','Corpuz','D','rachel','y1nBTlbeU3PM24xe4m/lGw==','dccorpuz1@yahoo.com','Customer',0,0),(8,'Ako','ako','A','ako','y1nBTlbeU3PM24xe4m/lGw==','ako@yey.com','Admin',0,0),(9,'Jasmin','Magdaong','S','jasmin','matAc3pvH4ge6nwL/S2n1A==','jasmin@y.com','Customer',0,0);
+INSERT INTO `account` VALUES (3,'Anton','De Joya','DJ','danini','NeSrwl7G5H1nPTtEeyKTZA==','yie@yahoo.com','Customer',1,0),(4,'Melody','Dominguez','Q','melody','melodymelody','melody@yahoo.com','DVD Manager',0,0),(5,'Danica','Corpuz','D','danica','P0jNhlYWp602tB74dqQ8qw==','dccorpuz1@yahoo.com','Customer',0,0),(6,'Ruth','Corpuz','D','ruth','y1nBTlbeU3PM24xe4m/lGw==','ruth@a.com','Customer',1,0),(7,'Rachel','Corpuz','D','rachel','y1nBTlbeU3PM24xe4m/lGw==','dccorpuz1@yahoo.com','Customer',0,0),(8,'Ako','ako','A','ako','y1nBTlbeU3PM24xe4m/lGw==','ako@yey.com','Admin',0,0),(9,'Jasmin','Magdaong','S','jasmin','matAc3pvH4ge6nwL/S2n1A==','jasmin@y.com','Customer',0,0);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,12 +237,20 @@ CREATE TABLE `logs` (
   `log_accountID` int(11) NOT NULL,
   `activity` varchar(45) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+<<<<<<< HEAD
   `ip_address` varchar(45) DEFAULT NULL,
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`logsID`),
   KEY `log_accountID_idx` (`log_accountID`),
   CONSTRAINT `log_accountID` FOREIGN KEY (`log_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+=======
+  `ip_address` varchar(45) NOT NULL,
+  `status` varchar(45) NOT NULL,
+  PRIMARY KEY (`logsID`),
+  KEY `log_accountID_idx` (`log_accountID`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+>>>>>>> b756bceb48fe6d5093997133125801cdee55341e
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +259,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES (2,4,'melody Login Attempt:1','2014-12-10 06:31:35',NULL,''),(3,4,'DVD Manager Login','2014-12-10 06:32:22',NULL,''),(4,4,'DVD Manager Login','2014-12-10 06:32:23',NULL,''),(5,4,'DVD Manager Login','2014-12-10 06:41:24',NULL,''),(6,4,'DVD Manager Login','2014-12-10 07:16:57',NULL,''),(7,4,'Restock Product ID 1','2014-12-10 07:18:44',NULL,''),(8,4,'Restock Confirm Restock for Product ID 1','2014-12-10 07:18:48',NULL,''),(9,4,'DVD Manager Login','2014-12-10 07:34:55',NULL,''),(10,4,'DVD Manager Login','2014-12-10 07:37:44',NULL,''),(11,4,'DVD Manager Login','2014-12-10 08:10:26',NULL,''),(12,4,'Edit TFIOS Type: DVD','2014-12-10 08:10:54',NULL,''),(13,5,'danicaCustomer SignUps','2014-12-10 08:39:22',NULL,''),(14,6,'ruthCustomer SignUps','2014-12-10 08:54:22',NULL,''),(15,7,'ruthCustomer SignUps','2014-12-10 08:55:21',NULL,''),(16,8,'Admin Login','2014-12-10 10:36:58',NULL,''),(17,8,'Admin Login','2014-12-10 10:49:09',NULL,''),(18,5,'Customer Login','2014-12-10 10:58:27',NULL,''),(19,8,'Admin Login','2014-12-10 11:04:22',NULL,''),(20,8,'Admin Login','2014-12-10 11:22:24',NULL,''),(21,8,'Admin Login','2014-12-10 12:06:33',NULL,''),(22,5,'Customer Login','2014-12-10 14:26:13',NULL,''),(23,5,'Customer Login','2014-12-10 14:39:12',NULL,''),(24,5,'Customer Login','2014-12-10 14:51:53',NULL,''),(25,5,'Customer Login','2014-12-10 15:07:56',NULL,''),(26,5,'Customer Login','2014-12-10 15:26:06',NULL,''),(27,5,'Customer Login','2014-12-10 15:35:14',NULL,''),(28,5,'Change password account ID 5','2014-12-10 15:35:54',NULL,'');
+INSERT INTO `logs` VALUES (30,0,'login','2014-12-11 08:11:28','192.168.1.0','successful'),(31,0,'login','2014-12-11 08:14:49','0:0:0:0:0:0:0:1','successful');
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-11 13:40:59
+-- Dump completed on 2014-12-11 16:16:07
