@@ -11,10 +11,8 @@ import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.LogDAOInterface;
-import Process.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,21 +45,9 @@ public class CustomerChangePasswordServlet extends HttpServlet {
             HttpSession session = request.getSession();
             //String type = (String) session.getAttribute("type");
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            /*
-             if (account.getAccountType().equals("Customer")) {
-             account = (AccountBean) session.getAttribute("homecustomer");
-             } else if (account.getAccountType().equals("Audio CD Manager") || account.getAccountType().equals("Book Manager") || account.getAccountType().equals("DVD Manager") || account.getAccountType().equals("Magazine Manager")) {
-             account = (AccountBean) session.getAttribute("homeproduct");
-             } else if (account.getAccountType().equals("Accounting Manager")) {
-             account = (AccountBean) session.getAttribute("homeaccounting");
-             } else if (account.getAccountType().equals("Admin")) {
-             account = (AccountBean) session.getAttribute("homeadmin");
-             }
-             */
+
 
             //if (account.getAccesscontrol().isEditpassword()) {
-            AccountDAOInterface accountdao = new AccountDAOImplementation();
-
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -87,11 +73,13 @@ public class CustomerChangePasswordServlet extends HttpServlet {
             } catch (AuthenticationException ex) {
                 log.setStatus("failed");
                 logdao.addLog(log);
-                Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                response.sendRedirect("customerChangePassword.jsp");
+                Logger.getLogger(CustomerChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (EncryptionException ex) {
                 log.setStatus("failed");
                 logdao.addLog(log);
-                Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                response.sendRedirect("customerChangePassword.jsp");
+                Logger.getLogger(CustomerChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
 }

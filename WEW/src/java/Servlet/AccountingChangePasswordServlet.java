@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.owasp.esapi.errors.AuthenticationException;
+import org.owasp.esapi.errors.EncryptionException;
 
 /**
  *
@@ -48,10 +50,8 @@ public class AccountingChangePasswordServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             HttpSession session = request.getSession();
-            String address = request.getRemoteAddr();
 
             AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
-
             AccountDAOInterface accountdao = new AccountDAOImplementation();
 
             LogBean log = new LogBean();
@@ -59,58 +59,34 @@ public class AccountingChangePasswordServlet extends HttpServlet {
 
             // hash current password to match password in db
             String currpass = request.getParameter("currpass");
-            Hasher checkhash = null;
+            String pass1 = request.getParameter("pass1");
+            String pass2 = request.getParameter("pass2");
+            
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+            log.setTime(time);
+            log.setActivity("Change password");
+            log.setLog_accountID(account.getAccountID());
+            log.setIp_address(request.getRemoteAddr());
+
             try {
-                checkhash = new Hasher("MD5");
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(AccountingChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            checkhash.updateHash(currpass, "UTF-8");
-            currpass = checkhash.getHashBASE64();
+                account.changePassword(currpass, pass1, pass2);
+                log.setStatus("successful");
+                logdao.addLog(log);
 
-            if (account.getPassword().equals(currpass)) {
-                System.out.println("yehey");
-                // hash password here
-                String pass1 = request.getParameter("pass1");
-                String pass2 = request.getParameter("pass2");
-                // hash password here
-                Hasher hash = null;
-                try {
-                    hash = new Hasher("MD5");
-                } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                hash.updateHash(pass2, "UTF-8");
-                pass1 = hash.getHashBASE64();
+                session.setAttribute("homeaccounting", account);
+                response.sendRedirect("accountingmanagerHOME.jsp");
 
-                boolean changepassword = accountdao.changePassword(account.getAccountID(), pass1);
-
-                if (changepassword) {
-                    java.util.Date date = new java.util.Date();
-                    Timestamp time = new Timestamp(date.getTime());
-                    log.setIp_address(address);
-                    log.setTime(time);
-                    log.setActivity("Change password account ID " + account.getAccountID());
-                    log.setLog_accountID(account.getAccountID());
-
-                    if (logdao.addLog(log)) {
-                        account.setAccountID(account.getAccountID());
-                        account.setAccountType(account.getAccountType());
-                        account.setEmailAdd(account.getEmailAdd());
-                        account.setFirstName(account.getFirstName());
-                        account.setLastName(account.getLastName());
-                        account.setLocked(false);
-                        account.setMiddleInitial(account.getMiddleInitial());
-                        // hashed value of password dapat
-                        account.setPassword(pass1);
-                        account.setUsername(account.getUsername());
-
-                        session.setAttribute("homeaccounting", account);
-                        response.sendRedirect("accountingmanagerHOME.jsp");
-                    }
-                }
-            } else {
+            } catch (AuthenticationException ex) {
+                log.setStatus("failed");
+                logdao.addLog(log);
                 response.sendRedirect("accountingmanagerChangePassword.jsp");
+                Logger.getLogger(AccountingChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (EncryptionException ex) {
+                log.setStatus("failed");
+                logdao.addLog(log);
+                response.sendRedirect("accountingmanagerChangePassword.jsp");
+                Logger.getLogger(AccountingChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
