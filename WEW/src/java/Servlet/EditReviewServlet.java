@@ -55,7 +55,7 @@ public class EditReviewServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isEditmessage()) {
+            //if (homeuser.getAccesscontrol().isEditmessage()) {
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
                 Timestamp time;
@@ -89,9 +89,9 @@ public class EditReviewServlet extends HttpServlet {
                 } else {
                     out.println("UNABLE TO EDIT");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

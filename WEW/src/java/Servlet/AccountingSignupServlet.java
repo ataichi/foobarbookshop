@@ -3,7 +3,7 @@ package Servlet;
 import Beans.*;
 import DAO.Implementation.*;
 import DAO.Interface.*;
-import DBConnection.Hasher;
+import Process.Hasher;
 import Security.Cookies;
 import java.io.IOException;
 import java.io.PrintWriter;

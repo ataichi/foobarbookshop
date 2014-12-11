@@ -59,7 +59,7 @@ public class ConfirmEditReview extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isEditmessage()) {
+            //if (homeuser.getAccesscontrol().isEditmessage()) {
 
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
@@ -100,9 +100,9 @@ public class ConfirmEditReview extends HttpServlet {
                 } else {
                     //unsuccessful
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

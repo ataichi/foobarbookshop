@@ -63,7 +63,7 @@ public class DeleteReviewServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isDeletemessage()) {
+            //if (homeuser.getAccesscontrol().isDeletemessage()) {
 
                 int reviewID = Integer.valueOf(request.getParameter("reviewid"));
                 ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
@@ -98,9 +98,9 @@ public class DeleteReviewServlet extends HttpServlet {
                 } else {
                     // delete unsucessful
                 }
-            } else {
-                out.println("ACCESS DENIED HEHE");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED HEHE");
+            //}
         }
 
     }

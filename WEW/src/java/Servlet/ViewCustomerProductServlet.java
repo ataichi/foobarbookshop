@@ -52,7 +52,7 @@ public class ViewCustomerProductServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
 
-            if (account.getAccesscontrol().isViewproduct()) {
+            //if (account.getAccesscontrol().isViewproduct()) {
                 ProductDAOImplementation pdao = new ProductDAOImplementation();
                 AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
                 AudioCDBean audiocdbean = new AudioCDBean();
@@ -117,9 +117,9 @@ public class ViewCustomerProductServlet extends HttpServlet {
                 } else {
                     out.println("WALA EH");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
 
         }
     }

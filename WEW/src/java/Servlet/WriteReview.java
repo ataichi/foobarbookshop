@@ -43,7 +43,7 @@ public class WriteReview extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            if (account.getAccesscontrol().isPostmessage()) {
+            //if (account.getAccesscontrol().isPostmessage()) {
                 CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
                 ReviewBean reviewbean = new ReviewBean();
                 CustomerDAOInterface customerdao = new CustomerDAOImplementation();
@@ -78,9 +78,9 @@ public class WriteReview extends HttpServlet {
 
                     out.println("Write review not successful");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

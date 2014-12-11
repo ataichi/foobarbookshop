@@ -47,7 +47,7 @@ public class AddProductServlet extends HttpServlet {
             String address = request.getRemoteAddr();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
 
-            if (homeproduct.getAccesscontrol().isAddproduct()) {
+            //if (homeproduct.getAccesscontrol().isAddproduct()) {
 
                 ProductManagerDAOImplementation pdao = new ProductManagerDAOImplementation();
                 LogBean log = new LogBean();
@@ -280,9 +280,9 @@ public class AddProductServlet extends HttpServlet {
                     }
                 }
 
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

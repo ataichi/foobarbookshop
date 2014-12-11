@@ -5,7 +5,18 @@
  */
 package Security;
 
+import Beans.AccountBean;
+import Beans.LogBean;
+import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
+import Process.Hasher;
+import java.io.UnsupportedEncodingException;
+import static java.lang.System.out;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.owasp.esapi.User;
@@ -13,7 +24,6 @@ import org.owasp.esapi.errors.AuthenticationException;
 import org.owasp.esapi.errors.EncryptionException;
 
 public class Authenticator implements org.owasp.esapi.Authenticator {
-    
 
     @Override
     public void clearCurrent() {
@@ -21,13 +31,75 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
     }
 
     @Override
-    public User login() throws AuthenticationException {
+    public AccountBean login() throws AuthenticationException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public User login(HttpServletRequest hsr, HttpServletResponse hsr1) throws AuthenticationException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AccountBean login(HttpServletRequest hsr, HttpServletResponse hsr1) throws AuthenticationException {
+        try {
+            boolean usercheck = false;
+            String username = null;
+            String password = null;
+            AccountBean bean = null;
+
+            username = hsr.getParameter("loguser");
+            password = hsr.getParameter("logpass");
+
+            AccountDAOImplementation adao = new AccountDAOImplementation();
+            usercheck = adao.authenticateUser(username, password);
+
+            Hasher hash = new Hasher("MD5");
+            try {
+                hash.updateHash(password, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            password = hash.getHashBASE64();
+
+            usercheck = adao.authenticateUser(username, password);
+            
+            //create log for login
+            LogBean log = new LogBean();
+            LogDAOImplementation logdao = new LogDAOImplementation();
+
+            Timestamp time;
+            java.util.Date date = new java.util.Date();
+            time = new Timestamp(date.getTime());
+            log.setTime(time);
+            log.setIp_address(hsr.getRemoteAddr());
+            log.setActivity("login");
+
+            AccountBean account = new AccountBean();
+            if (usercheck) {
+                log.setLog_accountID(account.getAccountID());
+                log.setStatus("successful");
+                account = adao.getUserByUsername(username);
+                account.setLoggedIn(true);
+                account.setFailedLoginCount(0);
+                adao.setFailedLoginCountToZero(account.getAccountID());
+                logdao.addLog(log);
+                return account;
+            } else {
+                log.setStatus("failed");
+                account = adao.getUserByUsername(username);
+                account.setLoggedIn(false);
+                if(account!=null) {
+                    log.setLog_accountID(account.getAccountID());
+                    logdao.addLog(log);
+                    return account;
+                }
+                else {
+                    log.setLog_accountID(0);
+                    logdao.addLog(log);
+                    return null;
+                }
+            }
+
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
@@ -61,12 +133,12 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
     }
 
     @Override
-    public User getUser(long l) {
+    public AccountBean getUser(long l) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public User getUser(String string) {
+    public AccountBean getUser(String string) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -76,7 +148,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
     }
 
     @Override
-    public User getCurrentUser() {
+    public AccountBean getCurrentUser() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -109,5 +181,5 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
     public boolean exists(String string) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

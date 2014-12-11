@@ -9,7 +9,7 @@ import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.CustomerDAOInterface;
 import DAO.Interface.LogDAOInterface;
-import DBConnection.Hasher;
+import Process.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;

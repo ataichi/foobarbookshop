@@ -43,7 +43,7 @@ public class ViewCustomerReview extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
             
-            if(homeuser.getAccesscontrol().isViewproduct()){
+            //if(homeuser.getAccesscontrol().isViewproduct()){
                 ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
                 CustomerDAOInterface customerdao = new CustomerDAOImplementation();
                 CustomerBean customer = new CustomerBean();
@@ -53,9 +53,9 @@ public class ViewCustomerReview extends HttpServlet {
                 session.setAttribute("reviewlist", reviewlist);
                 response.sendRedirect("customerviewreviews.jsp");
                 
-            }else{
-                out.println("ACCESS DENIED");
-            }
+            //}else{
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

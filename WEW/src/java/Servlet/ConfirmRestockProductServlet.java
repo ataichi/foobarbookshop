@@ -40,7 +40,7 @@ public class ConfirmRestockProductServlet extends HttpServlet {
             String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
 
-            if (account.getAccesscontrol().isRestockproduct()) {
+            //if (account.getAccesscontrol().isRestockproduct()) {
                 ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
                 ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
                 ProductManagerDAOInterface productmanagerdao = new ProductManagerDAOImplementation();
@@ -70,9 +70,9 @@ public class ConfirmRestockProductServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("restockproduct.jsp");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

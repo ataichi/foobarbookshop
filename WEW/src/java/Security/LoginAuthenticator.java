@@ -99,7 +99,7 @@ public class LoginAuthenticator {
             accesscontrol.editadmin = false;
             accesscontrol.deleteadmin = false;
 
-            account.setAccesscontrol(accesscontrol);
+            //account.setAccesscontrol(accesscontrol);
 
             return account;
 
@@ -144,7 +144,7 @@ public class LoginAuthenticator {
             accesscontrol.editadmin = false;
             accesscontrol.deleteadmin = false;
 
-            account.setAccesscontrol(accesscontrol);
+            //account.setAccesscontrol(accesscontrol);
 
             return account;
 
@@ -189,7 +189,7 @@ public class LoginAuthenticator {
             accesscontrol.editadmin = false;
             accesscontrol.deleteadmin = false;
 
-            account.setAccesscontrol(accesscontrol);
+            //account.setAccesscontrol(accesscontrol);
 
             return account;
 
@@ -234,7 +234,7 @@ public class LoginAuthenticator {
             accesscontrol.editadmin = false;
             accesscontrol.deleteadmin = false;
 
-            account.setAccesscontrol(accesscontrol);
+            //account.setAccesscontrol(accesscontrol);
 
             return account;
 
@@ -279,7 +279,7 @@ public class LoginAuthenticator {
             accesscontrol.editadmin = false;
             accesscontrol.deleteadmin = false;
 
-            account.setAccesscontrol(accesscontrol);
+            //account.setAccesscontrol(accesscontrol);
 
             return account;
 
@@ -324,7 +324,7 @@ public class LoginAuthenticator {
             accesscontrol.editadmin = false;
             accesscontrol.deleteadmin = false;
 
-            account.setAccesscontrol(accesscontrol);
+            //account.setAccesscontrol(accesscontrol);
 
             return account;
         } else if (accountdao.doesUserExist(username, password) && "Accounting Manager".equals(account.getAccountType()) && !account.getLocked()) {
@@ -368,7 +368,7 @@ public class LoginAuthenticator {
             accesscontrol.editadmin = false;
             accesscontrol.deleteadmin = false;
 
-            account.setAccesscontrol(accesscontrol);
+            //account.setAccesscontrol(accesscontrol);
 
             return account;
         }

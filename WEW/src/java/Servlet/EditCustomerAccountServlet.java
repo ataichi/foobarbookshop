@@ -43,7 +43,7 @@ public class EditCustomerAccountServlet extends HttpServlet {
             String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
 
-            if (account.getAccesscontrol().isEditcustomer()) {
+            //if (account.getAccesscontrol().isEditcustomer()) {
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -93,9 +93,9 @@ public class EditCustomerAccountServlet extends HttpServlet {
                     session.setAttribute("homeuser", bean);
                     response.sendRedirect("customerAccount.jsp");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
 
         } catch (Exception e) {
 

@@ -39,7 +39,7 @@ public class EditProductServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
 
-            if (homeproduct.getAccesscontrol().isEditproduct()) {
+            //if (homeproduct.getAccesscontrol().isEditproduct()) {
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -120,9 +120,9 @@ public class EditProductServlet extends HttpServlet {
                     out.println("hindi tinanggap huhu");
                 }
 
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

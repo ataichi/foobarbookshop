@@ -1,9 +1,17 @@
 package Beans;
 
-import Security.AccessController;
+import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.AdminDAOImplementation;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Set;
+import javax.servlet.http.HttpSession;
+import org.owasp.esapi.errors.AuthenticationException;
+import org.owasp.esapi.errors.AuthenticationHostException;
+import org.owasp.esapi.errors.EncryptionException;
 
-public class AccountBean {
-
+public class AccountBean implements org.owasp.esapi.User {
     protected int accountID;
     protected String accountType;
     protected String firstName;
@@ -12,17 +20,29 @@ public class AccountBean {
     protected String username;
     protected String password;
     protected String emailAdd;
+    protected int failedLoginCount;
     protected boolean locked;
-    protected AccessController accesscontrol;
+    
+    protected boolean loggedIn;
+    
+    protected HttpSession userSession;
+    
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+    
+    public boolean getLoggedIn() {
+        return loggedIn;
+    }
 
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
 
-    public boolean getLocked() {
+    public boolean getLocked(){
         return locked;
     }
-
+    
     public int getAccountID() {
         return accountID;
     }
@@ -86,17 +106,255 @@ public class AccountBean {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
-
-    public AccountBean() {
+    
+    public HttpSession getUserSession() {
+        return userSession;
     }
 
-    // --- Access Control getters and setters
-    public AccessController getAccesscontrol() {
-        return accesscontrol;
+    public void setUserSession(HttpSession userSession) {
+        this.userSession = userSession;
+    }
+    
+    public void setFailedLoginCount(int count) {
+        this.failedLoginCount = count;
     }
 
-    public void setAccesscontrol(AccessController accesscontrol) {
-        this.accesscontrol = accesscontrol;
+    @Override
+    public Locale getLocale() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setLocale(Locale locale) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addRole(String string) throws AuthenticationException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addRoles(Set<String> set) throws AuthenticationException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changePassword(String string, String string1, String string2) throws AuthenticationException, EncryptionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void disable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void enable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public long getAccountId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getAccountName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCSRFToken() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Date getExpirationTime() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getFailedLoginCount() {
+        return failedLoginCount;
+    }
+
+    @Override
+    public String getLastHostAddress() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Date getLastFailedLoginTime() throws AuthenticationException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Date getLastLoginTime() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Date getLastPasswordChangeTime() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Set<String> getRoles() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getScreenName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addSession(HttpSession hs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeSession(HttpSession hs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Set getSessions() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void incrementFailedLoginCount() {
+        AccountDAOImplementation adao = new AccountDAOImplementation();
+        adao.incrementFailedLogin(this);
+    }
+
+    @Override
+    public boolean isAnonymous() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isEnabled() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isExpired() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isInRole(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isLocked() {
+        return this.locked;
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        return this.loggedIn;
+    }
+
+    @Override
+    public boolean isSessionAbsoluteTimeout() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isSessionTimeout() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void lock() {
+        AccountDAOImplementation adao = new AccountDAOImplementation();
+        adao.lockAccount(this);
+    }
+
+    @Override
+    public void loginWithPassword(String string) throws AuthenticationException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void logout() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeRole(String string) throws AuthenticationException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String resetCSRFToken() throws AuthenticationException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setAccountName(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setExpirationTime(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setRoles(Set<String> set) throws AuthenticationException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setScreenName(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void unlock() {
+        AdminDAOImplementation admindao = new AdminDAOImplementation();
+        admindao.unlockAccount(this.accountID);
+    }
+
+    @Override
+    public boolean verifyPassword(String string) throws EncryptionException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setLastFailedLoginTime(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setLastHostAddress(String string) throws AuthenticationHostException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setLastLoginTime(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setLastPasswordChangeTime(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashMap getEventMap() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

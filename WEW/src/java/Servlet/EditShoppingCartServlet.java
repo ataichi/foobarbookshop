@@ -43,7 +43,7 @@ public class EditShoppingCartServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isEditshoppingcart()) {
+            //if (homeuser.getAccesscontrol().isEditshoppingcart()) {
                 ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
                 ProductOrderBean tempproductorder = new ProductOrderBean();
                 ArrayList<ProductBean> tempproduct = (ArrayList<ProductBean>) session.getAttribute("tempproduct");
@@ -91,9 +91,9 @@ public class EditShoppingCartServlet extends HttpServlet {
                     out.println(action);
                 }
                 //           response.sendRedirect("customerEditShoppingCart.jsp");
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

@@ -40,7 +40,7 @@ public class ConfirmCartServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isBuyproduct()) {
+            //if (homeuser.getAccesscontrol().isBuyproduct()) {
                 ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
                 ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
                 ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
@@ -50,9 +50,9 @@ public class ConfirmCartServlet extends HttpServlet {
                 session.setAttribute("homeuser", homeuser);
 
                 response.sendRedirect("customerConfirmCart.jsp");
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 
