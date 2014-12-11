@@ -47,16 +47,13 @@ public class UnlockAccountServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
-            if (homeadmin.getAccesscontrol().isUnlockuser()) {
+            //if (homeadmin.getAccesscontrol().isUnlockuser()) {
                 int accountID = Integer.parseInt(request.getParameter("accountid"));
-                AccountBean account = new AccountBean();
+                
                 AccountDAOInterface accountdao = new AccountDAOImplementation();
-                //        account = accountdao.
-
-                out.println(accountID);
-                out.println("wala eh");
                 AdminDAOImplementation admindao = new AdminDAOImplementation();
 
+                AccountBean account = new AccountBean();
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -102,9 +99,9 @@ public class UnlockAccountServlet extends HttpServlet {
                     out.println("bye");
                     response.sendRedirect("unlock_account.jsp");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
 
         } catch (Exception e) {
 

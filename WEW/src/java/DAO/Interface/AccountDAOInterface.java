@@ -12,8 +12,11 @@ public interface AccountDAOInterface {
     public boolean updateAccountPassword(AccountBean accountBean);
     public boolean isUsernameAvailable(String username);
     
-    public boolean changePassword(int accountID, String password);
+    public boolean incrementFailedLogin(AccountBean account);
+    public boolean setFailedLoginCountToZero(int accountID);
     
+    public boolean changePassword(int accountID, String password);
+    public boolean authenticateUser(String username, String password);
     public AccountBean getUserByAccountID(int accountID);
     public AccountBean getUserByEmailAddress(String email);
     public ArrayList<AccountBean> getAccountByName(String firstname, String lastname);

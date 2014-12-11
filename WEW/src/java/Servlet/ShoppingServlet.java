@@ -50,7 +50,7 @@ public class ShoppingServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isBuyproduct()) {
+            //if (homeuser.getAccesscontrol().isBuyproduct()) {
                 ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
                 ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
                 ArrayList<ProductBean> orderproductlist = new ArrayList<ProductBean>();
@@ -150,9 +150,9 @@ public class ShoppingServlet extends HttpServlet {
                     //response.sendRedirect("");
                     out.println("unable to purchase");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

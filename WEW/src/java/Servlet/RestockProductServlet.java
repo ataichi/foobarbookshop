@@ -43,32 +43,32 @@ public class RestockProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-            
-            if(homeproduct.getAccesscontrol().isRestockproduct()){
-            ProductBean productbean = new ProductBean();
-            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
 
-            int product = Integer.valueOf(request.getParameter("product"));
-            productbean = productdao.getProductById(product);
+            //if (homeproduct.getAccesscontrol().isRestockproduct()) {
+                ProductBean productbean = new ProductBean();
+                ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+                ProductDAOInterface productdao = new ProductDAOImplementation();
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
+                int product = Integer.valueOf(request.getParameter("product"));
+                productbean = productdao.getProductById(product);
 
-            log.setLog_accountID(homeproduct.getAccountID());
-            log.setTime(time);
-            log.setActivity("Restock Product ID " + product);
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
 
-            if (logdao.addLog(log)) {
-                session.setAttribute("restockproduct", productbean);
-                response.sendRedirect("restockproduct.jsp");
-            }
+                log.setLog_accountID(homeproduct.getAccountID());
+                log.setTime(time);
+                log.setActivity("Restock Product ID " + product);
 
-        } else {
-                out.println("ACCESS DENIED");
-            }
+                if (logdao.addLog(log)) {
+                    session.setAttribute("restockproduct", productbean);
+                    response.sendRedirect("restockproduct.jsp");
+                }
+
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

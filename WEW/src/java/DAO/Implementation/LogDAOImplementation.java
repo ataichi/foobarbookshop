@@ -25,11 +25,13 @@ public class LogDAOImplementation implements LogDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "insert into logs (log_accountID, activity, time) values (?, ?, ?)";
+            String query = "insert into logs (log_accountID, activity, time, ip_address, status) values (?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, log.getLog_accountID());
             ps.setString(2, log.getActivity());
             ps.setTimestamp(3, log.getTime());
+            ps.setString(4, log.getIp_address());
+            ps.setString(5, log.getStatus());
 
             ps.executeUpdate();
             connection.close();
@@ -61,6 +63,7 @@ public class LogDAOImplementation implements LogDAOInterface {
             int logID, log_accountID;
             String activity;
             Timestamp time;
+            String ip_address, status;
             while (resultSet.next()) {
 
                 bean = new LogBean();
@@ -69,14 +72,15 @@ public class LogDAOImplementation implements LogDAOInterface {
                 log_accountID = resultSet.getInt("log_accountID");
                 activity = resultSet.getString("activity");
                 time = resultSet.getTimestamp("time");
+                ip_address = resultSet.getString("ip_address");
+                status = resultSet.getString("status");
 
                 bean.setLogID(logID);
                 bean.setLog_accountID(log_accountID);
-
+                bean.setIp_address(ip_address);
+                bean.setStatus(status);
                 bean.setActivity(activity);
-
                 bean.setTime(time);
-
                 list.add(bean);
 
             }
@@ -105,6 +109,8 @@ public class LogDAOImplementation implements LogDAOInterface {
             int logID, log_accountID;
             String activity;
             Timestamp time;
+            String ip_address, status;
+            
             while (resultSet.next()) {
 
                 bean = new LogBean();
@@ -113,12 +119,15 @@ public class LogDAOImplementation implements LogDAOInterface {
                 log_accountID = resultSet.getInt("log_accountID");
                 activity = resultSet.getString("activity");
                 time = resultSet.getTimestamp("time");
+                ip_address = resultSet.getString("ip_address");
+                status = resultSet.getString("status");
 
                 bean.setLogID(logID);
                 bean.setLog_accountID(log_accountID);
 
                 bean.setActivity(activity);
-
+                bean.setIp_address(ip_address);
+                bean.setStatus(status);
                 bean.setTime(time);
 
                 list.add(bean);
@@ -150,6 +159,8 @@ public class LogDAOImplementation implements LogDAOInterface {
             int logID, log_accountID;
             String activity1;
             Timestamp time;
+            String ip_address, status;
+            
             while (resultSet.next()) {
 
                 bean = new LogBean();
@@ -158,10 +169,13 @@ public class LogDAOImplementation implements LogDAOInterface {
                 log_accountID = resultSet.getInt("log_accountID");
                 activity1 = resultSet.getString("activity");
                 time = resultSet.getTimestamp("time");
+                ip_address = resultSet.getString("ip_address");
+                status = resultSet.getString("status");
 
                 bean.setLogID(logID);
                 bean.setLog_accountID(log_accountID);
-
+                bean.setIp_address(ip_address);
+                bean.setStatus(status);
                 bean.setActivity(activity1);
 
                 bean.setTime(time);

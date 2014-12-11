@@ -46,7 +46,7 @@ public class ViewCustomerTransactions extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isViewtransactions()) {
+            //if (homeuser.getAccesscontrol().isViewtransactions()) {
                 CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
                 CustomerDAOInterface customerdao = new CustomerDAOImplementation();
 
@@ -119,9 +119,9 @@ public class ViewCustomerTransactions extends HttpServlet {
                  }
                  */
                 response.sendRedirect("customerTransactions.jsp");
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

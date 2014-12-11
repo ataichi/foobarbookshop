@@ -38,7 +38,7 @@ public class ConfirmCreditCardServlet extends HttpServlet {
             int cardNo = Integer.parseInt(request.getParameter("cardNo"));
             String cardType = request.getParameter("cardType");
             String cardExpDate = request.getParameter("cardExpDate");
-            if (homeuser.getAccesscontrol().isBuyproduct()) {
+            //if (homeuser.getAccesscontrol().isBuyproduct()) {
                 ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
                 ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
                 ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
@@ -49,9 +49,9 @@ public class ConfirmCreditCardServlet extends HttpServlet {
                 // add log
                 
                 response.sendRedirect("customerProceed.jsp");
-            } else {
-                response.sendRedirect("customerPayments.jsp");
-            }
+            //} else {
+            //    response.sendRedirect("customerPayments.jsp");
+            //}
         }
     }
 

@@ -34,9 +34,10 @@ public class EditCustomerPassword extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
             
-            if(account.getAccesscontrol().isEditpassword()){
+            //if(account.getAccesscontrol().isEditpassword()){
             AccountBean bean = new AccountBean();
 
             LogBean log = new LogBean();
@@ -49,6 +50,7 @@ public class EditCustomerPassword extends HttpServlet {
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
 
+            log.setIp_address(address);
             log.setLog_accountID(account.getAccountID());
             log.setTime(time);
             log.setActivity("Change Password for Account ID " + account.getAccountID());
@@ -78,9 +80,9 @@ public class EditCustomerPassword extends HttpServlet {
                 session.setAttribute("homeuser", bean);
                 response.sendRedirect("changepassword.jsp");
             }
-            }else{
-                out.println("ACCESS DENIED");
-            }
+            //}else{
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

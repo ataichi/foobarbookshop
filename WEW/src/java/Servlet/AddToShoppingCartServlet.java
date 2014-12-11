@@ -38,9 +38,10 @@ public class AddToShoppingCartServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isAddtoshoppingcart()) {
+            //if (homeuser.getAccesscontrol().isAddtoshoppingcart()) {
                 ArrayList<ProductOrderBean> order = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
                 ArrayList<ProductOrderBean> neworder = new ArrayList<ProductOrderBean>();
                 ProductOrderBean temporder = new ProductOrderBean();
@@ -136,9 +137,9 @@ public class AddToShoppingCartServlet extends HttpServlet {
                 }
                 out.println("ACCESS GRANTED");
                 response.sendRedirect("customerHOME.jsp");
-            } else {
-                out.println("SORRY PO");
-            }
+            //} else {
+            //    out.println("SORRY PO");
+            //}
         }
     }
 

@@ -15,6 +15,7 @@ public class LogBean {
     private String ip_address;
     private String salt;
     private String token;
+    private String status;
 
     public int getLogID() {
         return logID;
@@ -70,5 +71,13 @@ public class LogBean {
 
     public void setIp_address(String ip_address) {
         this.ip_address = ip_address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

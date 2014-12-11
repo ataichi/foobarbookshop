@@ -40,23 +40,27 @@ public class ConfirmCartServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isBuyproduct()) {
-                ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-                ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
-                ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
+            //       if (homeuser.().isBuyproduct()) {
+            ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+            ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
+            ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
 
-                session.setAttribute("temporder", orderlist);
-                session.setAttribute("shoppingcart", cartbean);
-                session.setAttribute("homeuser", homeuser);
+            session.setAttribute("temporder", orderlist);
+            session.setAttribute("shoppingcart", cartbean);
+            session.setAttribute("homeuser", homeuser);
 
-          //      response.sendRedirect("customerConfirmCart.jsp");
-            } else {
-                out.println("ACCESS DENIED");
-            }
+                //      response.sendRedirect("customerConfirmCart.jsp");
+                /*
+             } else {
+             out.println("ACCESS DENIED");
+             }
+             */
+            response.sendRedirect("customerConfirmCart.jsp");
+
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

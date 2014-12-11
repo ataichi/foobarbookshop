@@ -43,56 +43,67 @@ public class EditShoppingCartServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isEditshoppingcart()) {
-                ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-                ProductOrderBean tempproductorder = new ProductOrderBean();
-                ArrayList<ProductBean> tempproduct = (ArrayList<ProductBean>) session.getAttribute("tempproduct");
-                ProductBean productbean = new ProductBean();
+            //if (homeuser.getAccesscontrol().isEditshoppingcart()) {
+            ArrayList<ProductOrderBean> temporder = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+            ProductOrderBean tempproductorder = new ProductOrderBean();
+            ArrayList<ProductBean> tempproduct = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
+            ProductBean productbean = new ProductBean();
 
-                ProductDAOInterface productdao = new ProductDAOImplementation();
-                CustomerDAOInterface customerdao = new CustomerDAOImplementation();
+            ProductDAOInterface productdao = new ProductDAOImplementation();
+            CustomerDAOInterface customerdao = new CustomerDAOImplementation();
 
-                int productid = Integer.valueOf(request.getParameter("productid"));
+            int productid = Integer.valueOf(request.getParameter("productid"));
 //            int productorderid = Integer.valueOf(request.getParameter("productorderid"));
-                String action = request.getParameter("action");
+            String action = request.getParameter("action");
 
-                out.println(productid);
-                productbean = productdao.getProductById(productid);
-                //   tempproductorder = customerdao.getProductOrderBeanByID(productid);
-                out.println(tempproductorder.getProductorderID());
-                session.setAttribute("tempproductorder", tempproductorder);
-                session.setAttribute("editproduct", productbean);
-                if (action.equals("Remove")) { // remove product
-                    for (int i = 0; i < temporder.size(); i++) {
-                        if (temporder.get(i).getProductorder_productID() == productid) {
-                            temporder.remove(i);
+            out.println(productid);
+            //     productbean = productdao.getProductById(productid);
+            //   tempproductorder = customerdao.getProductOrderBeanByID(productid);
+            //    out.println(tempproductorder.getProductorderID());
+            //     session.setAttribute("tempproductorder", productbean);
+            //   session.setAttribute("editproduct", productbean);
+            out.println(temporder.size());
+            out.println(tempproduct.size());
+            if (action.equals("Remove")) { // remove product
+                for (int i = 0; i < tempproduct.size(); i++) {
+                    if (tempproduct.get(i).getProductID() == productid) {
+                        temporder.remove(i);
 
-                            session.setAttribute("temporder", temporder);
-                            //            response.sendRedirect("customerHOME.jsp");
-                            out.println("yes");
-                            break;
-                        }
+                        session.setAttribute("tempproductlist", tempproduct);
+
                     }
-                } else {
-                    int quantity = Integer.valueOf(request.getParameter("qty"));
-
-                    for (int i = 0; i < temporder.size(); i++) {
-
-                        if (temporder.get(i).getProductorder_productID() == productid) {
-                            temporder.get(i).setQuantity(quantity);
-                            temporder.get(i).setPrice(quantity * productbean.getPrice());
-                            out.println(temporder.get(i).getPrice());
-                            session.setAttribute("temporder", temporder);
-                            //                     response.sendRedirect("customerConfirmCart.jsp");
-
-                        }
-                    }
-                    out.println(action);
                 }
-                //           response.sendRedirect("customerEditShoppingCart.jsp");
+
+                for (int i = 0; i < temporder.size(); i++) {
+                    if (temporder.get(i).getProductorder_productID() == productid) {
+                        temporder.remove(i);
+
+                        session.setAttribute("temporder", temporder);
+                        response.sendRedirect("customerHOME.jsp");
+                        out.println("yes");
+                        break;
+                    }
+                }
             } else {
-                out.println("ACCESS DENIED");
+                int quantity = Integer.valueOf(request.getParameter("qty"));
+
+                for (int i = 0; i < temporder.size(); i++) {
+
+                    if (temporder.get(i).getProductorder_productID() == productid) {
+                        temporder.get(i).setQuantity(quantity);
+                        temporder.get(i).setPrice(quantity * productbean.getPrice());
+                        out.println(temporder.get(i).getPrice());
+                        session.setAttribute("temporder", temporder);
+                        response.sendRedirect("customerConfirmCart.jsp");
+
+                    }
+                }
+                out.println(action);
             }
+            //           response.sendRedirect("customerEditShoppingCart.jsp");
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

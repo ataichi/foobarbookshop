@@ -44,9 +44,10 @@ public class AddProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
 
-            if (homeproduct.getAccesscontrol().isAddproduct()) {
+            //if (homeproduct.getAccesscontrol().isAddproduct()) {
 
                 ProductManagerDAOImplementation pdao = new ProductManagerDAOImplementation();
                 LogBean log = new LogBean();
@@ -84,6 +85,7 @@ public class AddProductServlet extends HttpServlet {
                 product.setType(type);
                 product.setYear(year);
 
+                log.setIp_address(address);
                 boolean addProduct = false;
 
                 java.util.Date date = new java.util.Date();
@@ -278,9 +280,9 @@ public class AddProductServlet extends HttpServlet {
                     }
                 }
 
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

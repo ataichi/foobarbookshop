@@ -38,7 +38,7 @@ public class CustomerSearchProductServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            if (homeuser.getAccesscontrol().isViewproduct()) {
+            //if (homeuser.getAccesscontrol().isViewproduct()) {
 
                 int i, j;
                 String searchstring = AccountDAOImplementation.inputSanitizer(request.getParameter("srch-term"));
@@ -331,9 +331,9 @@ public class CustomerSearchProductServlet extends HttpServlet {
                 session.setAttribute("searchmagazinelist", searchmagazinelist);
                 out.println(searchproductlist.size());
                 response.sendRedirect("customerSearchProduct.jsp");
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

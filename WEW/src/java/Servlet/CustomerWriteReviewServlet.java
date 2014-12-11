@@ -40,7 +40,7 @@ public class CustomerWriteReviewServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            if (account.getAccesscontrol().isPostmessage()) {
+            //if (account.getAccesscontrol().isPostmessage()) {
                 CustomerDAOImplementation cdao = new CustomerDAOImplementation();
                 CustomerBean cbean = (CustomerBean) session.getAttribute("homeuser");
                 LogBean log = new LogBean();
@@ -56,9 +56,9 @@ public class CustomerWriteReviewServlet extends HttpServlet {
                 log.setActivity("Write new Review Product ID " + 0); //na kelangan edit pa to and write codes 
                 
                 
-            }else{
-                out.println("ACCESS DENIED");
-            }
+            //}else{
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

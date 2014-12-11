@@ -11,7 +11,7 @@ import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.LogDAOImplementation;
 import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.LogDAOInterface;
-import DBConnection.Hasher;
+import Process.Hasher;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.io.PrintWriter;

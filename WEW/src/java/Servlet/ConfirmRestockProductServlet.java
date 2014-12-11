@@ -37,10 +37,10 @@ public class ConfirmRestockProductServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-
+            String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
 
-            if (account.getAccesscontrol().isRestockproduct()) {
+            //if (account.getAccesscontrol().isRestockproduct()) {
                 ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
                 ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
                 ProductManagerDAOInterface productmanagerdao = new ProductManagerDAOImplementation();
@@ -53,6 +53,7 @@ public class ConfirmRestockProductServlet extends HttpServlet {
                 java.util.Date date = new java.util.Date();
                 Timestamp time = new Timestamp(date.getTime());
 
+                log.setIp_address(address);
                 log.setLog_accountID(account.getAccountID());
                 log.setTime(time);
                 log.setActivity("Restock Confirm Restock for Product ID " + restockproduct.getProductID());
@@ -69,9 +70,9 @@ public class ConfirmRestockProductServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("restockproduct.jsp");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 

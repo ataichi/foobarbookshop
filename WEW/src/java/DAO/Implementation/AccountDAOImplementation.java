@@ -23,7 +23,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
         try {
             Connector c = new Connector();
             Connection connection = c.getConnection();
-            String query = "insert into account (firstName, lastName, middleInitial, username, password, emailAdd, accounttype, locked) values (?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "insert into account (firstName, lastName, middleInitial, username, password, emailAdd, accounttype, failedLoginCount, locked) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, accountBean.getFirstName());
             ps.setString(2, accountBean.getLastName());
@@ -32,7 +32,8 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             ps.setString(5, accountBean.getPassword());
             ps.setString(6, accountBean.getEmailAdd());
             ps.setString(7, accountBean.getAccountType());
-            ps.setBoolean(8, accountBean.getLocked());
+            ps.setInt(8, accountBean.getFailedLoginCount());
+            ps.setBoolean(9, accountBean.getLocked());
             ps.executeUpdate();
             connection.close();
             return true;
@@ -100,7 +101,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             ResultSet resultSet = ps.executeQuery();
 
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
-            int accountID;
+            int accountID, failedLoginCount;
             boolean locked;
 
             AccountBean bean = new AccountBean();
@@ -115,6 +116,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 type = resultSet.getString("accounttype");
                 accountID = resultSet.getInt("accountID");
                 locked = resultSet.getBoolean("locked");
+                failedLoginCount = resultSet.getInt("failedLoginCount");
 
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
@@ -125,8 +127,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setPassword(password);
                 bean.setUsername(uname);
                 bean.setLocked(locked);
-
-                System.out.println("hssere");
+                bean.setFailedLoginCount(failedLoginCount);
 
             }
             connection.close();
@@ -170,7 +171,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             ps.setString(2, lastname);
 
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
-            int accountID;
+            int accountID, failedLoginCount;
             boolean locked;
 
             AccountBean bean = new AccountBean();
@@ -187,6 +188,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = rs.getString("emailAdd");
                 type = rs.getString("accounttype");
                 locked = rs.getBoolean("locked");
+                failedLoginCount = rs.getInt("failedLoginCount");
 
                 bean = new AccountBean();
 
@@ -199,6 +201,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setMiddleInitial(middleInitial);
                 bean.setPassword(password);
                 bean.setUsername(uname);
+                bean.setFailedLoginCount(failedLoginCount);
 
                 alist.add(bean);
             }
@@ -273,7 +276,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             ps.setString(1, lastname);
 
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
-            int accountID;
+            int accountID, failedLoginCount;
             boolean locked;
 
             AccountBean bean = new AccountBean();
@@ -290,6 +293,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = rs.getString("emailAdd");
                 type = rs.getString("accounttype");
                 locked = rs.getBoolean("locked");
+                failedLoginCount = rs.getInt("failedLoginCount");
 
                 bean = new AccountBean();
 
@@ -302,6 +306,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setMiddleInitial(middleInitial);
                 bean.setPassword(password);
                 bean.setUsername(uname);
+                bean.setFailedLoginCount(failedLoginCount);
 
                 alist.add(bean);
             }
@@ -324,7 +329,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             PreparedStatement ps = connection.prepareStatement(query);
 
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
-            int accountID;
+            int accountID, failedLoginCount;
             boolean locked;
 
             AccountBean bean = new AccountBean();
@@ -341,6 +346,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 emailAdd = rs.getString("emailAdd");
                 type = rs.getString("accounttype");
                 locked = rs.getBoolean("locked");
+                failedLoginCount = rs.getInt("failedLoginCount");
 
                 bean = new AccountBean();
 
@@ -353,6 +359,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setMiddleInitial(middleInitial);
                 bean.setPassword(password);
                 bean.setUsername(uname);
+                bean.setFailedLoginCount(failedLoginCount);
 
                 alist.add(bean);
             }
@@ -549,6 +556,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
 
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
             boolean locked;
+            int failedLoginCount;
 
             AccountBean bean = new AccountBean();
 
@@ -562,6 +570,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 type = resultSet.getString("accounttype");
                 accountID = resultSet.getInt("accountID");
                 locked = resultSet.getBoolean("locked");
+                failedLoginCount = resultSet.getInt("failedLoginCount");
 
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
@@ -572,6 +581,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setPassword(password);
                 bean.setUsername(uname);
                 bean.setLocked(locked);
+                bean.setFailedLoginCount(failedLoginCount);
 
             }
             connection.close();
@@ -595,7 +605,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             ResultSet resultSet = ps.executeQuery();
 
             String firstName, lastName, middleInitial, uname, password, emailAdd, type;
-            int accountID;
+            int accountID, failedLoginCount;
             boolean locked;
 
             AccountBean bean = new AccountBean();
@@ -610,6 +620,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 type = resultSet.getString("accounttype");
                 accountID = resultSet.getInt("accountID");
                 locked = resultSet.getBoolean("locked");
+                failedLoginCount = resultSet.getInt("failedLoginCount");
 
                 bean.setAccountID(accountID);
                 bean.setAccountType(type);
@@ -620,6 +631,7 @@ public class AccountDAOImplementation implements AccountDAOInterface {
                 bean.setPassword(password);
                 bean.setUsername(uname);
                 bean.setLocked(locked);
+                bean.setFailedLoginCount(failedLoginCount);
 
                 System.out.println("hssere");
 
@@ -631,6 +643,65 @@ public class AccountDAOImplementation implements AccountDAOInterface {
             Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public boolean authenticateUser(String username, String password) {
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            String query = "select * from account where username = ? and password = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                connection.close();
+                return true;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean incrementFailedLogin(AccountBean account) {
+        String query = "UPDATE account SET failedLoginCount = ? WHERE accountID=?";
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, account.getFailedLoginCount()+1);
+            ps.setInt(2, account.getAccountID());
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean setFailedLoginCountToZero(int accountID) {
+        String query = "UPDATE account SET failedLoginCount = ? WHERE accountID=?";
+        try {
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, 0);
+            ps.setInt(2, accountID);
+            ps.executeUpdate();
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }

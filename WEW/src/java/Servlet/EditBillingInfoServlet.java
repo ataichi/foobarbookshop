@@ -41,6 +41,7 @@ public class EditBillingInfoServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean oldbean = (AccountBean) session.getAttribute("homeuser");
 
             
@@ -88,6 +89,7 @@ public class EditBillingInfoServlet extends HttpServlet {
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
 
+            log.setIp_address(address);
             log.setLog_accountID(oldbean.getAccountID());
             log.setTime(time);
             log.setActivity("Edit Billing Information of Account ID " + oldbean.getAccountID());

@@ -40,9 +40,10 @@ public class EditAccountingManagerAccountServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
 
-            if(account.getAccesscontrol().isEditaccountingmanager()){
+            //if(account.getAccesscontrol().isEditaccountingmanager()){
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -95,6 +96,7 @@ public class EditAccountingManagerAccountServlet extends HttpServlet {
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
 
+            log.setIp_address(address);
             log.setLog_accountID(account.getAccountID());
             log.setTime(time);
             log.setActivity("Edit Accounting Manager ID " + account.getAccountID());
@@ -108,9 +110,9 @@ public class EditAccountingManagerAccountServlet extends HttpServlet {
                 session.setAttribute("homeaccounting", bean);
                 response.sendRedirect("accountingmanagerAccount.jsp");
             }
-            }else{
-                out.println("ACCESS DENIED");
-            }
+            //}else{
+            //    out.println("ACCESS DENIED");
+            //}
 
         }
     }

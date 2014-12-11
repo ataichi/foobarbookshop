@@ -11,9 +11,7 @@ import java.util.ArrayList;
 public interface ProductDAOInterface {
 
     public ProductBean getProductById(int id);
-
     public ArrayList<ProductBean> getAllProductsByType(String type);
-
     public ArrayList<ProductBean> getProductsByTitle(String title);
 
     public ArrayList<ProductBean> getProductsBySummary(String summary);

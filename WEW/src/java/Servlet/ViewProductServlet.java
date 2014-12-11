@@ -37,8 +37,7 @@ public class ViewProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
-            out.println(account.getAccesscontrol().isViewproduct());
-            if (account.getAccesscontrol().isViewproduct()) {
+            //if (account.getAccesscontrol().isViewproduct()) {
                 ProductDAOImplementation pdao = new ProductDAOImplementation();
                 AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
                 AudioCDBean audiocdbean = new AudioCDBean();
@@ -62,7 +61,7 @@ public class ViewProductServlet extends HttpServlet {
                 int productID = Integer.parseInt(request.getParameter("product"));
                 ArrayList<ReviewBean> reviews = cdao.getReviewsByProductID(productID);
 
-                out.println("\nReviews : " +reviews.size());
+                out.println("\nReviews : " + reviews.size());
                 for (int i = 0; i < reviews.size(); i++) { // get customers
                     out.println(reviews.get(i).getReview_customerID());
                     customer = cdao.getCustomerById(reviews.get(i).getReview_customerID());
@@ -81,8 +80,8 @@ public class ViewProductServlet extends HttpServlet {
 
                 out.println("\nAccount List " + accountlist.size());
                 out.println("\n view product: " + productBean.getTitle());
-                out.println("\nCustomer list"+customerlist.size());
-                
+                out.println("\nCustomer list" + customerlist.size());
+
                 if (productBean.getType().equals("Audio CD")) {
                     audiocdbean = audiocddao.getAudioCDByProductID(productID);
                     session.setAttribute("viewaudiocd", audiocdbean);
@@ -103,9 +102,9 @@ public class ViewProductServlet extends HttpServlet {
                 } else {
                     out.println("WALA EH");
                 }
-            } else {
-                out.println("ACCESS DENIED");
-            }
+            //} else {
+            //    out.println("ACCESS DENIED");
+            //}
         }
     }
 
