@@ -52,13 +52,9 @@ public class EditCustomerAccountServlet extends HttpServlet {
                 String firstName, lastName, middleInitial, username, emailAdd;
 
                 firstName = request.getParameter("fname");
-
                 lastName = request.getParameter("lname");
-
                 middleInitial = request.getParameter("mname");
-
                 username = request.getParameter("uname");
-
                 emailAdd = request.getParameter("email");
 
                 boolean locked = false;
@@ -82,7 +78,6 @@ public class EditCustomerAccountServlet extends HttpServlet {
                 bean.setAccountType("Customer");
 
                 boolean edit = accountdao.updateAccount(bean);
-                out.println(edit);
 
                 if (edit) {
                     if (logdao.addLog(log)) {

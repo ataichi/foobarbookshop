@@ -9,6 +9,7 @@ import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.AdminDAOInterface;
 import DAO.Interface.LogDAOInterface;
 import Process.Hasher;
+import Security.Authenticator;
 import Security.Cookies;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.Hashtable;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.owasp.esapi.errors.EncryptionException;
 
 @WebServlet(name = "ProductManagerSignupServlet", urlPatterns = {"/ProductManagerSignupServlet"})
 public class ProductManagerSignupServlet extends HttpServlet {
@@ -47,82 +50,62 @@ public class ProductManagerSignupServlet extends HttpServlet {
             LogDAOInterface logdao = new LogDAOImplementation();
 
             String pass1 = request.getParameter("pass1");
+            String pass2 = request.getParameter("pass2");
             String password = pass1;
             String username = AccountDAOImplementation.inputSanitizer(request.getParameter("uname"));
             String firstname = AccountDAOImplementation.inputSanitizer(request.getParameter("fname"));
             String lastname = AccountDAOImplementation.inputSanitizer(request.getParameter("lname"));
 
+            Authenticator authenticator = new Authenticator();
+
             if (password.toLowerCase().contains(username.toLowerCase())
                     || password.toLowerCase().contains(firstname.toLowerCase())
                     || password.toLowerCase().contains(lastname.toLowerCase())) {
 
-                response.sendRedirect("productmanagersignupfail.jsp");
+                response.sendRedirect("signup_productmanager.jsp");
             } else {
 
-                Hasher hash = null;
+                try {
+                    pass1 = (String) authenticator.hashPassword(pass1, pass2);
+                } catch (EncryptionException ex) {
+                    Logger.getLogger(ProductManagerSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-                hash.updateHash(pass1, "UTF-8");
-                pass1 = hash.getHashBASE64();
-
-                account.setFirstName(AccountDAOImplementation.inputSanitizer(request.getParameter("fname")));
-                account.setLastName(AccountDAOImplementation.inputSanitizer(request.getParameter("lname")));
+                account.setFirstName(firstname);
+                account.setLastName(lastname);
                 account.setMiddleInitial(request.getParameter("mname"));
                 account.setPassword(pass1);
                 account.setEmailAdd(request.getParameter("email"));
-                account.setUsername(AccountDAOImplementation.inputSanitizer(request.getParameter("uname")));
+                account.setUsername(username);
                 //account.setAccountType("product manager");
                 account.setAccountType(request.getParameter("prodType") + " Manager");
                 account.setLocked(false);
+                account.setFailedLoginCount(0);
 
-                int productmanager_accountID;
                 boolean addUser = userdao.addAccount(account);
+
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+
+                log.setIp_address(address);
+                log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
+                log.setTime(time);
+                log.setActivity("Sign Up");
+
                 if (addUser) {
-                //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
+                    //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
                     //productManager.setProdmanager_accountID(productmanager_accountID);
 
-                    java.util.Date date = new java.util.Date();
-                    Timestamp time = new Timestamp(date.getTime());
-
-                    log.setIp_address(address);
-                    log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
-                    log.setTime(time);
-                    log.setActivity("Product Manager Sign Up");
-                    if (logdao.addLog(log)) {
-                        userCookie = new Cookie("name", request.getParameter("uname"));
-                        userCookie.setMaxAge(86400);
-                        response.addCookie(userCookie);
-                        response.sendRedirect("adminHOME.jsp");
-                    }
-
-                    hash.updateHash(pass1, "UTF-8");
-                    pass1 = hash.getHashBASE64();
-
-                    account.setFirstName(AccountDAOImplementation.inputSanitizer(request.getParameter("fname")));
-                    account.setLastName(AccountDAOImplementation.inputSanitizer(request.getParameter("lname")));
-                    account.setMiddleInitial(request.getParameter("mname"));
-                    account.setPassword(pass1);
-                    account.setEmailAdd(request.getParameter("email"));
-                    account.setUsername(AccountDAOImplementation.inputSanitizer(request.getParameter("uname")));
-                    //account.setAccountType("product manager");
-                    account.setAccountType(request.getParameter("prodType") + " Manager");
-                    account.setLocked(false);
-
-                    if (addUser) {
-                    //productmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                        //productManager.setProdmanager_accountID(productmanager_accountID);
-
-                        log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
-                        log.setTime(time);
-                        log.setActivity("Product Manager Sign Up");
-                        if (logdao.addLog(log)) {
-                            userCookie = new Cookie("name", request.getParameter("uname"));
-                            userCookie.setMaxAge(86400);
-                            response.addCookie(userCookie);
-                            response.sendRedirect("adminHOME.jsp");
-                        }
-                    } else {
-                        response.sendRedirect("signup_productmanager.jsp");
-                    }
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+                    userCookie = new Cookie("name", request.getParameter("uname"));
+                    userCookie.setMaxAge(86400);
+                    response.addCookie(userCookie);
+                    response.sendRedirect("adminHOME.jsp");
+                } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("signup_productmanager.jsp");
                 }
 
                 //productManager.setProdType(request.getParameter("prodType"));
@@ -136,7 +119,7 @@ public class ProductManagerSignupServlet extends HttpServlet {
                  response.sendRedirect("signupfail.jsp");
                  }
                  */
-            // } else {
+                // } else {
                 //     out.println("ACCESS DENIED");
                 // }
             }
