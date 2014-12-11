@@ -1,10 +1,13 @@
 
+import Beans.LogBean;
 import DAO.Implementation.AccountDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import Security.Authenticator;
 import Process.Hasher;
 import Servlet.LoginServlet;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,24 +26,16 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            AccountDAOImplementation adao = new AccountDAOImplementation();
-            String password = "danica!!";
-            Hasher hash = null;
-            try {
-                hash = new Hasher("MD5");
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            hash.updateHash(password, "UTF-8");
-            password = hash.getHashBASE64();
-            System.out.println(password);
-            boolean usercheck;
-            usercheck = adao.authenticateUser("danica", password);
-            System.out.println(usercheck);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        LogBean log = new LogBean();
+        LogDAOImplementation logdao = new LogDAOImplementation();
+        Timestamp time;
+        java.util.Date date = new java.util.Date();
+        time = new Timestamp(date.getTime());
+        log.setTime(time);
+        log.setIp_address("192.168.1.0");
+        log.setActivity("login");
+        log.setStatus("successful");
+        logdao.addLog(log);
     }
 
 }
