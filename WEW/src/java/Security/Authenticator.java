@@ -58,7 +58,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
        //     password = hash.getHashBASE64();
 
             usercheck = adao.authenticateUser(username, password);
-            
+
             //create log for login
             LogBean log = new LogBean();
             LogDAOImplementation logdao = new LogDAOImplementation();
@@ -84,12 +84,12 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                 log.setStatus("failed");
                 account = adao.getUserByUsername(username);
                 account.setLoggedIn(false);
-                if(account!=null) {
+                if (account != null) {
                     log.setLog_accountID(account.getAccountID());
                     logdao.addLog(log);
                     return account;
-                }
-                else {
+                } else {
+                    log.setStatus("failed");
                     log.setLog_accountID(0);
                     logdao.addLog(log);
                     return null;
@@ -159,7 +159,23 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
 
     @Override
     public String hashPassword(String string, String string1) throws EncryptionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String password = null;
+
+        if (string.equals(string1)) {
+            try {
+                Hasher hash = new Hasher("MD5");
+                try {
+                    hash.updateHash(string, "UTF-8");
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                password = hash.getHashBASE64();
+                return password;
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return password;
     }
 
     @Override

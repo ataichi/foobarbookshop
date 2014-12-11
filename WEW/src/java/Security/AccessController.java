@@ -5,9 +5,6 @@
  */
 package Security;
 
-import Beans.AccountBean;
-import org.owasp.esapi.errors.AccessControlException;
-
 public class AccessController {
 
     protected static boolean createcustomer;
@@ -288,5 +285,4 @@ public class AccessController {
     public static void setViewtransactions(boolean viewtransactions) {
         AccessController.viewtransactions = viewtransactions;
     }
-
 }
