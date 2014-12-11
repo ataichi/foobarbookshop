@@ -317,8 +317,14 @@ public class LoginServlet extends HttpServlet {
 
                                 session.setMaxInactiveInterval(600);
                                 out.println("DITO123156SADHASJK PO");
-
-                                response.sendRedirect("accountingmanagerHOME.jsp");
+                                out.println(productaudiolist.size());
+                                out.println(productbooklist.size());
+                                out.println(productdvdlist.size());
+                                out.println(productmagazinelist.size());
+                                out.println(productorderlist.size());
+                                out.println(shoppingcartlist.size());
+                                out.println(account.getAccountType());
+                               response.sendRedirect("accountingmanagerHOME.jsp");
                             }
 
                         }

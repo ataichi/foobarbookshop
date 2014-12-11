@@ -146,6 +146,7 @@ public class AddProductServlet extends HttpServlet {
                     publisher = request.getParameter("bookPublisher");
                     DateFormat formatter;
                     bookDatePublished = request.getParameter("bookDatePublished");
+                    out.println(bookDatePublished);
 
                     formatter = new SimpleDateFormat("yyyy-MM-dd");
                     try {
@@ -159,7 +160,7 @@ public class AddProductServlet extends HttpServlet {
 
                     bean.setAuthor(author);
                     bean.setPublisher(publisher);
-
+                    out.println(bean.getDatePublished());
                     addProduct = pdao.addProduct(product);
                     boolean addBook = false;
                     if (addProduct) {
@@ -175,14 +176,15 @@ public class AddProductServlet extends HttpServlet {
 
                                 session.setAttribute("booklist", booklist);
                                 session.setAttribute("productlist", plist);
-
+                                out.println("SUCCESS :)");
                                 response.sendRedirect("productmanagerHOME.jsp");
                             }
                         } else {
-                            response.sendRedirect("addproduct.jsp");
+                            //         response.sendRedirect("addproduct.jsp");
                         }
                     } else {
-                        out.println("productmanagerHOME.jsp");
+                        out.println("WAIT MAY TINETEST PA KO");
+                        //         out.println("productmanagerHOME.jsp");
                     }
 
                 } else if (type.equals("DVD")) {// add dvd

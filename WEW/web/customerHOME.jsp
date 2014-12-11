@@ -116,16 +116,27 @@
                                                     + "<center>"
                                                     + "<div><strong>" + productbooklist.get(a).getTitle() + "</strong></div>"
                                                     + "<div>" + productbooklist.get(a).getSummary() + "</div>"
+                                                    + "<div>Price " + productbooklist.get(a).getPrice() + "</div>"
                                                     + "<form action='ViewCustomerProductServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
                                                     + "<input type='hidden' id='product' name='product' value='" + productbooklist.get(a).getProductID() + "'/>"
                                                     + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>"
-                                                    + "<form action='AddToShoppingCartServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
-                                                    + " <input type='number' name='qty' id='qty' min='1' max='" + productbooklist.get(a).getNumberStocks() + "' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='product' value='" + productbooklist.get(a).getProductID() + "'/>"
-                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</center>"
-                                                    + "</div>");
+                                                    + "</form>");
+                                            if (productbooklist.get(a).getNumberStocks() > 0) {
+                                                out.println("<form action='AddToShoppingCartServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
+                                                        + " <input type='number' name='qty' id='qty' min='1' max='" + productbooklist.get(a).getNumberStocks() + "' value='1'/>"
+                                                        + "<input type='hidden' id='productid' name='product' value='" + productbooklist.get(a).getProductID() + "'/>"
+                                                        + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                        + "</center>"
+                                                        + "</div>"
+                                                );
+                                            } else {
+                                                out.println("<tr>"
+                                                        + "<td>"
+                                                        + "This product is unavailable."
+                                                        + "</td>"
+                                                        + "</tr>"
+                                                        + "</div>");
+                                            }
 
                                         }
                                     %>
@@ -137,17 +148,27 @@
                                                     + "<center>"
                                                     + "<div><strong>" + productmagazinelist.get(b).getTitle() + "</strong></div>"
                                                     + "<div>" + productmagazinelist.get(b).getSummary() + "</div>"
-                                                    + "<div>" + productmagazinelist.get(b).getPrice() + "</div>"
+                                                    + "<div>Price " + productmagazinelist.get(b).getPrice() + "</div>"
                                                     + "<form action='ViewCustomerProductServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
                                                     + "<input type='hidden' id='product' name='product' value='" + productmagazinelist.get(b).getProductID() + "'/>"
-                                                    + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>"
-                                                    + "<form action='AddToShoppingCartServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
-                                                    + "<input type='number' name='qty' id='qty' min='1' max='" + productmagazinelist.get(b).getNumberStocks() + "' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='product' value='" + productmagazinelist.get(b).getProductID() + "'/> "
-                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form></center>"
-                                                    + "</div>");
+                                                    + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                    + "</form>");
+                                            if (productmagazinelist.get(b).getNumberStocks() > 0) {
+                                                out.println("<form action='AddToShoppingCartServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
+                                                        + " <input type='number' name='qty' id='qty' min='1' max='" + productmagazinelist.get(b).getNumberStocks() + "' value='1'/>"
+                                                        + "<input type='hidden' id='productid' name='product' value='" + productmagazinelist.get(b).getProductID() + "'/>"
+                                                        + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                        + "</center>"
+                                                        + "</div>"
+                                                );
+                                            } else {
+                                                out.println("<tr>"
+                                                        + "<td>"
+                                                        + "This product is unavailable."
+                                                        + "</td>"
+                                                        + "</tr>"
+                                                        + "</div>");
+                                            }
 
                                         }
                                     %>
@@ -160,17 +181,27 @@
                                                     + "<center>"
                                                     + "<div><strong>" + productaudiolist.get(c).getTitle() + "</strong></div>"
                                                     + "<div>" + productaudiolist.get(c).getSummary() + "</div>"
-                                                    + "<div>" + productaudiolist.get(c).getPrice() + "</div>"
+                                                    + "<div>Price " + productaudiolist.get(c).getPrice() + "</div>"
                                                     + "<form action='ViewCustomerProductServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
                                                     + "<input type='hidden' id='product' name='product' value='" + productaudiolist.get(c).getProductID() + "'/>"
-                                                    + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>"
-                                                    + "<form action='AddToShoppingCartServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
-                                                    + "<input type='number' name='qty' id='qty' min='1' max='" + productaudiolist.get(c).getNumberStocks() + "' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='product' value='" + productaudiolist.get(c).getPrice() + "'/> "
-                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form></center>"
-                                                    + "</div>");
+                                                    + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                    + "</form>");
+                                            if (productaudiolist.get(c).getNumberStocks() > 0) {
+                                                out.println("<form action='AddToShoppingCartServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
+                                                        + " <input type='number' name='qty' id='qty' min='1' max='" + productaudiolist.get(c).getNumberStocks() + "' value='1'/>"
+                                                        + "<input type='hidden' id='productid' name='product' value='" + productaudiolist.get(c).getProductID() + "'/>"
+                                                        + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                        + "</center>"
+                                                        + "</div>"
+                                                );
+                                            } else {
+                                                out.println("<tr>"
+                                                        + "<td>"
+                                                        + "This product is unavailable."
+                                                        + "</td>"
+                                                        + "</tr>"
+                                                        + "</div>");
+                                            }
 
                                         }
                                     %>
@@ -183,18 +214,27 @@
                                                     + "<center>"
                                                     + "<div><strong>" + productdvdlist.get(d).getTitle() + "</strong></div>"
                                                     + "<div>" + productdvdlist.get(d).getSummary() + "</div>"
-                                                    + "<div>" + productdvdlist.get(d).getPrice() + "</div>"
-                                                    + "</form action='ViewCustomerProductServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='product' name='product' value='" + productdvdlist.get(d).getProductID() + "'/>"
-                                                    + "<input type='submit' id='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>"
-                                                    + "<form action='AddToShoppingCartServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
-                                                    + "<input type='number' name='qty' id='qty' min='1' max='" + productdvdlist.get(d).getNumberStocks() + "' value='1'/>"
-                                                    + "<input type='hidden' id='productid' name='product' value='" + productdvdlist.get(d).getProductID() + "'>"
-                                                    + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>"
-                                                    + "</center>"
-                                                    + "</div>");
+                                                    + "<div>Price " + productdvdlist.get(d).getPrice() + "</div>"
+                                                    + "<form action='ViewCustomerProductServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
+                                                    + "<input type='hidden' id='product' name='product' value='" + productdvdlist.get(c).getProductID() + "'/>"
+                                                    + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                    + "</form>");
+                                            if (productdvdlist.get(d).getNumberStocks() > 0) {
+                                                out.println("<form action='AddToShoppingCartServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
+                                                        + " <input type='number' name='qty' id='qty' min='1' max='" + productdvdlist.get(d).getNumberStocks() + "' value='1'/>"
+                                                        + "<input type='hidden' id='productid' name='product' value='" + productdvdlist.get(d).getProductID() + "'/>"
+                                                        + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
+                                                        + "</center>"
+                                                        + "</div>"
+                                                );
+                                            } else {
+                                                out.println("<tr>"
+                                                        + "<td>"
+                                                        + "This product is unavailable."
+                                                        + "</td>"
+                                                        + "</tr>"
+                                                        + "</div>");
+                                            }
 
                                         }
                                     %>
@@ -228,8 +268,9 @@
                                                     out.println("<table>"
                                                             + "<form action='EditShoppingCartServlet'>"
                                                             + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
-                                                            + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>"
-                                                            + "<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='10' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/ readonly></td></tr>"
+                                                            + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>");
+
+                                                    out.println("<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='" + tempproductlist.get(j).getNumberStocks() + "' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/ readonly></td></tr>"
                                                             + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
                                                             // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
                                                             + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
@@ -238,7 +279,7 @@
                                                             + "</table>"
                                                             + "</form>"
                                                             + "<br/><br/>");
-                                                    break;
+                                                    //             break;
                                                 }
                                             }
 
