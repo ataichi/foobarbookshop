@@ -237,20 +237,11 @@ CREATE TABLE `logs` (
   `log_accountID` int(11) NOT NULL,
   `activity` varchar(45) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-<<<<<<< HEAD
-  `ip_address` varchar(45) DEFAULT NULL,
-  `status` varchar(45) NOT NULL,
-  PRIMARY KEY (`logsID`),
-  KEY `log_accountID_idx` (`log_accountID`),
-  CONSTRAINT `log_accountID` FOREIGN KEY (`log_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
-=======
   `ip_address` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`logsID`),
   KEY `log_accountID_idx` (`log_accountID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
->>>>>>> b756bceb48fe6d5093997133125801cdee55341e
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
