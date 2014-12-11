@@ -86,19 +86,6 @@
         </nav>
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">
-                <div class="col-md-1">
-                    <div class="affix">
-                        <div class="well"> 
-                            <ul class="nav">
-                                <li class="active"><a href="#viewbook" id="viewbook"><img src="./images/book-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#viewmag" id="viewmag"><img src="./images/magazine-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#viewcd" id="viewcd"><img src="./images/cd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#viewdvd" id="viewdvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                            </ul>
-                        </div>
-
-                    </div> 
-                </div>
 
                 <div class="col-md-4 well" style="padding-left: 20px;">
                     <div class="pull-right affix">

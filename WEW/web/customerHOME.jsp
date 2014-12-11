@@ -112,6 +112,7 @@
                                 <div role="tabpanel" class="tab-pane fade in well active" id="viewbook" aria-labelledBy="book-tab" style='height: 500px;'>
                                     <% int a;
                                         for (a = 0; a < productbooklist.size(); a++) {
+
                                             out.println("<div class='col-md-3'>"
                                                     + "<center>"
                                                     + "<div><strong>" + productbooklist.get(a).getTitle() + "</strong></div>"
@@ -254,8 +255,7 @@
                             <div class="panel-body"> 
                                 <%
                                     // insert shopping cart here!
-                                    if (temporder.size()
-                                            == 0) {
+                                    if (temporder.size()== 0) {
                                         out.println("<p> Shopping cart empty.</p>");
                                     } else {
                                         out.println("<form action='ConfirmCartServlet'>"

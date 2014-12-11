@@ -49,7 +49,7 @@ public class ConfirmCartServlet extends HttpServlet {
                 session.setAttribute("shoppingcart", cartbean);
                 session.setAttribute("homeuser", homeuser);
 
-                response.sendRedirect("customerConfirmCart.jsp");
+          //      response.sendRedirect("customerConfirmCart.jsp");
             } else {
                 out.println("ACCESS DENIED");
             }
