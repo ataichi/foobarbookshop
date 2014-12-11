@@ -45,93 +45,100 @@ public class ChangePasswordServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             //String type = (String) session.getAttribute("type");
-            AccountBean account = new AccountBean();
-            if (account.getAccountType().equals("Customer")) {
-                account = (AccountBean) session.getAttribute("homecustomer");
-            } else if (account.getAccountType().equals("Audio CD Manager")|| account.getAccountType().equals("Book Manager")|| account.getAccountType().equals("DVD Manager")|| account.getAccountType().equals("Magazine Manager")) {
-                account = (AccountBean) session.getAttribute("homeproduct");
-            } else if (account.getAccountType().equals("Accounting Manager")) {
-                account = (AccountBean) session.getAttribute("homeaccounting");
-            } else if (account.getAccountType().equals("Admin")) {
-                account = (AccountBean) session.getAttribute("homeadmin");
-            }
+            AccountBean account = (AccountBean) session.getAttribute("homeuser");
+            /*
+             if (account.getAccountType().equals("Customer")) {
+             account = (AccountBean) session.getAttribute("homecustomer");
+             } else if (account.getAccountType().equals("Audio CD Manager") || account.getAccountType().equals("Book Manager") || account.getAccountType().equals("DVD Manager") || account.getAccountType().equals("Magazine Manager")) {
+             account = (AccountBean) session.getAttribute("homeproduct");
+             } else if (account.getAccountType().equals("Accounting Manager")) {
+             account = (AccountBean) session.getAttribute("homeaccounting");
+             } else if (account.getAccountType().equals("Admin")) {
+             account = (AccountBean) session.getAttribute("homeadmin");
+             }
+             */
 
             //if (account.getAccesscontrol().isEditpassword()) {
-                AccountDAOInterface accountdao = new AccountDAOImplementation();
+            AccountDAOInterface accountdao = new AccountDAOImplementation();
 
-                LogBean log = new LogBean();
-                LogDAOInterface logdao = new LogDAOImplementation();
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
-                // hash current password to match password in db
-                String currpass = request.getParameter("currpass");
-                Hasher checkhash = null;
+            // hash current password to match password in db
+            String currpass = request.getParameter("currpass");
+            Hasher checkhash = null;
+            try {
+                checkhash = new Hasher("MD5");
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            checkhash.updateHash(currpass, "UTF-8");
+            currpass = checkhash.getHashBASE64();
+
+            if (account.getPassword().equals(currpass)) {
+                System.out.println("yehey");
+                // hash password here
+                String pass1 = request.getParameter("pass1");
+                String pass2 = request.getParameter("pass2");
+                // hash password here
+                Hasher hash = null;
                 try {
-                    checkhash = new Hasher("MD5");
+                    hash = new Hasher("MD5");
                 } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                checkhash.updateHash(currpass, "UTF-8");
-                currpass = checkhash.getHashBASE64();
+                hash.updateHash(pass2, "UTF-8");
+                pass1 = hash.getHashBASE64();
 
-                if (account.getPassword() == currpass) {
-                    System.out.println("yehey");
-                    // hash password here
-                    String pass1 = request.getParameter("pass1");
-                    String pass2 = request.getParameter("pass2");
-                    // hash password here
-                    Hasher hash = null;
-                    try {
-                        hash = new Hasher("MD5");
-                    } catch (NoSuchAlgorithmException ex) {
-                        Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    hash.updateHash(pass2, "UTF-8");
-                    pass1 = hash.getHashBASE64();
+                boolean changepassword = accountdao.changePassword(account.getAccountID(), pass1);
 
-                    boolean changepassword = accountdao.changePassword(account.getAccountID(), pass1);
+                if (changepassword) {
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
+                    log.setActivity("Change password account ID " + account.getAccountID());
+                    log.setLog_accountID(account.getAccountID());
 
-                    if (changepassword) {
-                        java.util.Date date = new java.util.Date();
-                        Timestamp time = new Timestamp(date.getTime());
-                        log.setTime(time);
-                        log.setActivity("Change password account ID " + account.getAccountID());
-                        log.setLog_accountID(account.getAccountID());
+                    if (logdao.addLog(log)) {
+                        account.setAccountID(account.getAccountID());
+                        account.setAccountType(account.getAccountType());
+                        account.setEmailAdd(account.getEmailAdd());
+                        account.setFirstName(account.getFirstName());
+                        account.setLastName(account.getLastName());
+                        account.setLocked(false);
+                        account.setMiddleInitial(account.getMiddleInitial());
+                        // hashed value of password dapat
+                        account.setPassword(pass2);
+                        account.setUsername(account.getUsername());
 
-                        if (logdao.addLog(log)) {
-                            account.setAccountID(account.getAccountID());
-                            account.setAccountType(account.getAccountType());
-                            account.setEmailAdd(account.getEmailAdd());
-                            account.setFirstName(account.getFirstName());
-                            account.setLastName(account.getLastName());
-                            account.setLocked(false);
-                            account.setMiddleInitial(account.getMiddleInitial());
-                            // hashed value of password dapat
-                            account.setPassword(pass2);
-                            account.setUsername(account.getUsername());
-
-                            if (account.getAccountType().equals("Customer")) {
-                                session.setAttribute("homecustomer", account);
-                                response.sendRedirect("customerHOME.jsp");
-                            } else if (account.getAccountType().equals("Audio CD Manager")|| account.getAccountType().equals("Book Manager")|| account.getAccountType().equals("DVD Manager")|| account.getAccountType().equals("Magazine Manager")) {
-                                session.setAttribute("homeproduct", account);
-                                response.sendRedirect("productmanagerHOME.jsp");
-                            } else if (account.getAccountType().equals("Accounting Manager")) {
-                                session.setAttribute("homeaccounting", account);
-                                response.sendRedirect("accountingmanagerHOME.jsp");
-                            } else if (account.getAccountType().equals("Admin")) {
-                                session.setAttribute("homeadmin", account);
-                                response.sendRedirect("adminHOME.jsp");
-                            }
+                        if (account.getAccountType().equals("Customer")) {
+                            session.setAttribute("homecustomer", account);
+                            response.sendRedirect("customerHOME.jsp");
+                        } else if (account.getAccountType().equals("Audio CD Manager") || account.getAccountType().equals("Book Manager") || account.getAccountType().equals("DVD Manager") || account.getAccountType().equals("Magazine Manager")) {
+                            session.setAttribute("homeproduct", account);
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        } else if (account.getAccountType().equals("Accounting Manager")) {
+                            session.setAttribute("homeaccounting", account);
+                            response.sendRedirect("accountingmanagerHOME.jsp");
+                        } else if (account.getAccountType().equals("Admin")) {
+                            session.setAttribute("homeadmin", account);
+                            response.sendRedirect("adminHOME.jsp");
                         }
+                    } else {
+                        out.println("WALANG LOG EH");
                     }
+                } else {
+                    out.println("SORRY BAWAL");
                 }
-                else {
-                    out.println("not allowed to change!");
-                }
-            /*
             } else {
-                out.println("ACCESS DENIED");
-            }*/
+                out.println(account.getPassword());
+                out.println("SORRY ATE");
+                //         out.println("not allowed to change!");
+            }
+            /*
+             } else {
+             out.println("ACCESS DENIED");
+             }*/
 
         }
     }

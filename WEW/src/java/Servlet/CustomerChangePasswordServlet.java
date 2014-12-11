@@ -25,10 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Danica
- */
 @WebServlet(name = "CustomerChangePasswordServlet", urlPatterns = {"/CustomerChangePasswordServlet"})
 public class CustomerChangePasswordServlet extends HttpServlet {
 
@@ -64,7 +60,7 @@ public class CustomerChangePasswordServlet extends HttpServlet {
                 Logger.getLogger(CustomerChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             checkhash.updateHash(currpass, "UTF-8");
-            currpass = checkhash.getHashBASE64();
+         //   currpass = checkhash.getHashBASE64();
             
             System.out.println(currpass);
             System.out.println(account.getPassword());
@@ -106,11 +102,13 @@ public class CustomerChangePasswordServlet extends HttpServlet {
                         account.setUsername(account.getUsername());
 
                         session.setAttribute("homeuser", account);
-                        response.sendRedirect("customerHOME.jsp");
+                        out.println("ewan ko");
+                 //       response.sendRedirect("customerHOME.jsp");
                     }
                 }
             } else {
-                response.sendRedirect("customerChangePassword.jsp");
+                out.println("sorry girl");
+    //            response.sendRedirect("customerChangePassword.jsp");
             }
         }
     }
