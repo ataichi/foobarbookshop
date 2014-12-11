@@ -85,8 +85,8 @@ public class SignupServlet extends HttpServlet {
                     
                     int customer_accountID = userdao.getUserByUsername(username).getAccountID();
 
-                    customer.setApartmentNoBA(AccountDAOImplementation.inputSanitizer(BA));
-                    customer.setApartmentNoDA(AccountDAOImplementation.inputSanitizer(DA));
+                    customer.setBA(AccountDAOImplementation.inputSanitizer(BA));
+                    customer.setDA(AccountDAOImplementation.inputSanitizer(DA));
                 
                     customer.setCustomer_accountID(customer_accountID);
 

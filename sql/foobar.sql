@@ -114,18 +114,9 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `customerID` int(11) NOT NULL AUTO_INCREMENT,
   `customer_accountID` int(11) NOT NULL,
-  `apartmentnoBA` varchar(45) NOT NULL,
-  `streetBA` varchar(45) NOT NULL,
-  `subdivisionBA` varchar(45) NOT NULL,
-  `cityBA` varchar(45) NOT NULL,
-  `postalcodeBA` int(11) NOT NULL,
-  `countryBA` varchar(45) NOT NULL,
-  `apartmentnoDA` varchar(45) NOT NULL,
-  `streetDA` varchar(45) NOT NULL,
-  `subdivisionDA` varchar(45) NOT NULL,
-  `cityDA` varchar(45) NOT NULL,
-  `postalcodeDA` int(11) NOT NULL,
-  `countryDA` varchar(45) NOT NULL,
+  `BA` varchar(45) NOT NULL,
+  `DA` varchar(45) NOT NULL,
+ 
   PRIMARY KEY (`customerID`),
   KEY `customer_accountID_idx` (`customer_accountID`),
   CONSTRAINT `customer_accountID` FOREIGN KEY (`customer_accountID`) REFERENCES `account` (`accountID`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -138,7 +129,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (3,0,'Yen','Villa Carolina 1','Laguna','2098',0,'B6 L21','Yen','Villa Carolina 1','Laguna','2098',0,'3'),(4,5,'407','Bacood','Sta. Mesa','Manila',1016,'Philippines','407','Bacood','Sta. Mesa','Manila',1016,'Philippines'),(5,6,'407','Bacood','Sta. Mesa','Manila',1016,'Philippines','407','Bacood','Sta. Mesa','Manila',1016,'Philippines');
+INSERT INTO `customer` VALUES (3,3,'Yen Villa Carolina 1 Laguna 2098', 'B6 L21 Yen St. Villa Carolina 1'),(4,5,'407 Bacood Sta. Mesa Manila', '407 Bacood Sta. Mesa Manila'),(5,6,'40 Bacood Sta. Mesa Manila','407 Bacood Sta. Mesa Manila');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 

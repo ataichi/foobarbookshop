@@ -27,8 +27,8 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             String query = "insert into customer (BA, DA, customer_accountID) "
                     + "values(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, customerBean.getApartmentNoBA());
-            ps.setString(2, customerBean.getApartmentNoDA());
+            ps.setString(1, customerBean.getBA());
+            ps.setString(2, customerBean.getDA());
             ps.setInt(3, customerBean.getCustomer_accountID());
             ps.executeUpdate();
             connection.close();
@@ -58,17 +58,17 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             while (rs.next()) {
                 BA = rs.getString("BA");
                 DA = rs.getString("DA");
-                
+
                 customer_accountID = rs.getInt("customer_accountID");
                 customerID1 = rs.getInt("customerID");
 
                 bean = new CustomerBean();
 
                 System.out.println("A");
-                bean.setApartmentNoBA(BA);
+                bean.setBA(BA);
 
                 System.out.println("B");
-                bean.setApartmentNoBA(DA);
+                bean.setDA(DA);
 
                 bean.setCustomer_accountID(customer_accountID);
                 System.out.println("A123ADSA");
@@ -104,15 +104,15 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             while (rs.next()) {
                 BA = rs.getString("BA");
                 DA = rs.getString("DA");
-                
+
                 customer_accountID = rs.getInt("customer_accountID");
                 customerID = rs.getInt("customerID");
 
                 bean = new CustomerBean();
 
-                bean.setApartmentNoBA(BA);
-                bean.setApartmentNoDA(DA);
-               
+                bean.setBA(BA);
+                bean.setDA(DA);
+
                 bean.setCustomer_accountID(customer_accountID);
                 bean.setCustomerID(customerID);
 
@@ -141,10 +141,10 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             ps.setDouble(2, shopbean.getTotal());
             ps.setTimestamp(3, shopbean.getOrderDate());
 
-            System.out.println("CUSTOMER ID"+shopbean.getShoppingcart_customerID());
+            System.out.println("CUSTOMER ID" + shopbean.getShoppingcart_customerID());
 
-             ps.executeUpdate();
-              return true;
+            ps.executeUpdate();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,15 +179,15 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             while (rs.next()) {
                 BA = rs.getString("BA");
                 DA = rs.getString("DA");
-               
+
                 customer_accountID = rs.getInt("customer_accountID");
                 customerID1 = rs.getInt("customerID");
 
                 bean = new CustomerBean();
 
-                bean.setApartmentNoBA(BA);
-                bean.setApartmentNoDA(DA);
-               
+                bean.setBA(BA);
+                bean.setDA(DA);
+
                 bean.setCustomer_accountID(customer_accountID);
                 bean.setCustomerID(customerID1);
 
@@ -209,8 +209,8 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             Connector c = new Connector();
             Connection connection = c.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, bean.getApartmentNoBA());
-            ps.setString(2, bean.getApartmentNoDA());
+            ps.setString(1, bean.getBA());
+            ps.setString(2, bean.getDA());
             ps.setInt(3, bean.getCustomerID());
             ps.executeUpdate();
             connection.close();

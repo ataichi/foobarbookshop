@@ -44,45 +44,18 @@ public class EditBillingInfoServlet extends HttpServlet {
             String address = request.getRemoteAddr();
             AccountBean oldbean = (AccountBean) session.getAttribute("homeuser");
 
-            
             CustomerDAOImplementation cdao = new CustomerDAOImplementation();
             CustomerBean cbean = (CustomerBean) session.getAttribute("tempcustomer");
 
             cbean = cdao.getCustomerByAccountID(oldbean.getAccountID());
 
-            String apartmentnoBA, streetBA, subBA, cityBA, countryBA;
-            int postalcodeBA;
-            String apartmentnoDA, streetDA, subDA, cityDA, countryDA;
-            int postalcodeDA;
-
-            apartmentnoBA = request.getParameter("apartmentnoBA");
-            streetBA = request.getParameter("streetBA");
-            subBA = request.getParameter("subdivisionBA");
-            cityBA = request.getParameter("cityBA");
-            countryBA = request.getParameter("countryBA");
-            postalcodeBA = Integer.parseInt(request.getParameter("postalcodeBA"));
-
-            apartmentnoDA = request.getParameter("apartmentnoDA");
-            streetDA = request.getParameter("streetDA");
-            subDA = request.getParameter("subdivisionDA");
-            cityDA = request.getParameter("cityDA");
-            countryDA = request.getParameter("countryDA");
-            postalcodeDA = Integer.parseInt(request.getParameter("postalcodeDA"));
+            String BA = request.getParameter("BA");
+            String DA = request.getParameter("DA");
 
             cbean.setCustomer_accountID(oldbean.getAccountID());
 
-            cbean.setApartmentNoBA(apartmentnoBA);
-            cbean.setApartmentNoDA(apartmentnoDA);
-            cbean.setCityBA(cityBA);
-            cbean.setCityDA(cityDA);
-            cbean.setCountryBA(countryBA);
-            cbean.setCountryDA(countryDA);
-            cbean.setPostalCodeBA(postalcodeBA);
-            cbean.setPostalCodeDA(postalcodeDA);
-            cbean.setStreetBA(streetBA);
-            cbean.setStreetDA(streetDA);
-            cbean.setSubdivisionBA(subBA);
-            cbean.setSubdivisionDA(subDA);
+            cbean.setBA(BA);
+            cbean.setDA(DA);
 
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
@@ -111,10 +84,10 @@ public class EditBillingInfoServlet extends HttpServlet {
             } else {
                 check = cdao.editAddress(cbean);
                 if (check) {
-                    if(logdao.addLog(log)){
-                    session.setAttribute("tempcustomer", cbean);
-                    response.sendRedirect("customerHOME.jsp");
-                    out.println("yehey");
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("tempcustomer", cbean);
+                        response.sendRedirect("customerHOME.jsp");
+                        out.println("yehey");
                     }
                 } else {
                     session.setAttribute("tempcustomer", cbean);
