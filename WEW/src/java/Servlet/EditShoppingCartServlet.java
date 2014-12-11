@@ -65,25 +65,19 @@ public class EditShoppingCartServlet extends HttpServlet {
             out.println(temporder.size());
             out.println(tempproduct.size());
             if (action.equals("Remove")) { // remove product
+                out.println("REMOVE");
                 for (int i = 0; i < tempproduct.size(); i++) {
                     if (tempproduct.get(i).getProductID() == productid) {
                         temporder.remove(i);
+                        tempproduct.remove(i);
 
                         session.setAttribute("tempproductlist", tempproduct);
-
-                    }
-                }
-
-                for (int i = 0; i < temporder.size(); i++) {
-                    if (temporder.get(i).getProductorder_productID() == productid) {
-                        temporder.remove(i);
-
                         session.setAttribute("temporder", temporder);
                         response.sendRedirect("customerHOME.jsp");
-                        out.println("yes");
-                        break;
+
                     }
                 }
+
             } else {
                 int quantity = Integer.valueOf(request.getParameter("qty"));
 
