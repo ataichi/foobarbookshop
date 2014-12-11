@@ -152,17 +152,29 @@ public class AccountBean implements org.owasp.esapi.User {
         try {
             AccountDAOImplementation adao = new AccountDAOImplementation();
 
-            Hasher hash = new Hasher("MD5");
+            Hasher oldhash = new Hasher("MD5");
             try {
-                hash.updateHash(old, "UTF-8");
-                hash.updateHash(new1, "UTF-8");
-                hash.updateHash(new2, "UTF-8");
+                oldhash.updateHash(old, "UTF-8");
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
             }
-            old = hash.getHashBASE64();
-            new1 = hash.getHashBASE64();
-            new2 = hash.getHashBASE64();
+            old = oldhash.getHashBASE64();
+            
+            Hasher new1hash = new Hasher("MD5");
+            try {
+                new1hash.updateHash(new1, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            new1 = new1hash.getHashBASE64();
+            
+            Hasher new2hash = new Hasher("MD5");
+            try {
+                new2hash.updateHash(new2, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            new2 = new2hash.getHashBASE64();
             
             if(old.equals(this.password) && new1.equals(new2)) {
                 adao.changePassword(this.accountID, new1);

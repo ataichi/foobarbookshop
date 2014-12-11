@@ -26,16 +26,41 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LogBean log = new LogBean();
-        LogDAOImplementation logdao = new LogDAOImplementation();
-        Timestamp time;
-        java.util.Date date = new java.util.Date();
-        time = new Timestamp(date.getTime());
-        log.setTime(time);
-        log.setIp_address("192.168.1.0");
-        log.setActivity("login");
-        log.setStatus("successful");
-        logdao.addLog(log);
+        try {
+            String old = "danica!!";
+            String new1 = "danica!!!";
+            String new2 = "danica!!!";
+            
+            Hasher oldhash = new Hasher("MD5");
+            try {
+                oldhash.updateHash(old, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            old = oldhash.getHashBASE64();
+            
+            Hasher new1hash = new Hasher("MD5");
+            try {
+                new1hash.updateHash(new1, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            new1 = new1hash.getHashBASE64();
+            
+            Hasher new2hash = new Hasher("MD5");
+            try {
+                new2hash.updateHash(new2, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            new2 = new2hash.getHashBASE64();
+            
+            System.out.println(old);
+            System.out.println(new1);
+            System.out.println(new2);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
