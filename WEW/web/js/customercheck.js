@@ -1,33 +1,3 @@
-function customerCheck() {
-    var first = fnameCheck();
-    var middle = mnameCheck();
-    var last = lnameCheck();
-    var user = unameCheck();
-    var email = emailCheck();
-    var pass = passCheck();
-    var aptnoBA = apartmenttnoBACheck();
-    var streetBA = streetBACheck();
-    var subdivisionBA = subdivisiomBACheck();
-    var cityBA = cityBACheck();
-    var countryBA = countryBACheck();
-    var postalcodeBA = postalcodeBACheck();
-    var aptnoDA = apartmentnoDACheck();
-    var streetDA = streetDACheck();
-    var subdivisionDA = subdivisionDACheck();
-    var cityDA = cityDACheck();
-    var countryDA = countryDACheck();
-    var postalcodeDA = postalcodeDACheck();
-
-    if (first == false || last == false || middle == false || user == false || email == false || pass == false
-            || aptnoBA == false || streetBA == false || subdivisionBA == false || cityBA == false || countryBA == false || postalcodeBA == false
-            || aptnoDA == false || streetDA == false || subdivisionDA == false || cityDA == false || countryDA == false || postalcodeDA == false) {
-        return false;
-    }
-    else {
-        return true;
-    }
-}
-
 function editCustomerCheck() {
     var first = fnameCheck();
     var middle = mnameCheck();
@@ -69,7 +39,10 @@ function billingCheck() {
     var countryDA = countryDACheck();
     var postalcodeDA = postalcodeDACheck();
 
-    if (apartmentnoBA == false || streetBA == false || subBA == false || cityBA == false || cityBA == false || cityBA == false || countryBA == false || postalcodeBA == false || apartmentnoDA == false || streetDA == false || subDA == false || cityDA == false || countryDA == false || postalcodeDA == false) {
+    if (apartmentnoBA == false || streetBA == false || subBA == false || cityBA == false || 
+            countryBA == false || postalcodeBA == false || 
+            apartmentnoDA == false || streetDA == false || subDA == false || cityDA == false || 
+            countryDA == false || postalcodeDA == false) {
         return false;
     }
     else {
@@ -170,7 +143,7 @@ function checkcurrentpass() {
 
 function apartmentnoBACheck() {
     var aptnoBA = document.forms["customercheck"]["apartmentnoBA"].value;
-    if (aptnoBA == "" || aptnoBA == null) { //|| !(/^[A-z ]+$/.test(aptnoBA))
+    if (aptnoBA == "" || aptnoBA == null || !(/^[0-9a-zA-Z]+$/.test(aptnoBA))) { //|| !(/^[A-z ]+$/.test(aptnoBA))
         document.forms["customercheck"]["apartmentnoBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -194,17 +167,19 @@ function streetBACheck() {
 
 function subdivisionBACheck() {
     var subBA = document.forms["customercheck"]["subdivisionBA"].value;
-    if (subBA == "" || subBA == null) {// !(/^[A-z ]+$/.test(subBA))
+    if (subBA == "" || subBA == null || !(/^[0-9a-zA-Z]+$/.test(subBA))) {// !(/^[A-z ]+$/.test(subBA))
         document.forms["customercheck"]["subdivisionBA"].style.backgroundColor = "pink";
+        return false;
     }
     else {
         document.forms["customercheck"]["subdivisionBA"].style.backgroundColor = "white";
+        return true;
     }
 }
 
 function cityBACheck() {
     var cityBA = document.forms["customercheck"]["cityBA"].value;
-    if (cityBA == "" || cityBA == null || !(/^[A-Za-z0-9 ]{3,20}$/.test(cityBA))) {
+    if (cityBA == "" || cityBA == null || !(/^[A-Za-z ]{3,20}$/.test(cityBA))) {
         document.forms["customercheck"]["cityBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -216,7 +191,7 @@ function cityBACheck() {
 
 function countryBACheck() {
     var countryBA = document.forms["customercheck"]["countryBA"].value;
-    if (countryBA == "" || countryBA == null || !(/^[A-Za-z0-9 ]{3,20}$/.test(countryBA))) {
+    if (countryBA == "" || countryBA == null || !(/^[A-Za-z ]{3,20}$/.test(countryBA))) {
         document.forms["customercheck"]["countryBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -228,7 +203,7 @@ function countryBACheck() {
 
 function postalcodeBACheck() {
     var postalcodeBA = document.forms["customercheck"]["postalcodeBA"].value;
-    if (postalcodeBA == "" || postalcodeBA == null || !(/^(?:[0-9]\d{3})$/.test(postalcodeBA))) { //kulang pa ng pag check kung digit
+    if (postalcodeBA == "" || postalcodeBA == null || !(/^[0-9]{2,20}$/.test(postalcodeBA))) { //kulang pa ng pag check kung digit
         document.forms["customercheck"]["postalcodeBA"].style.backgroundColor = "pink";
         return false;
     }
@@ -240,7 +215,7 @@ function postalcodeBACheck() {
 
 function apartmentnoDACheck() {
     var aptnoDA = document.forms["customercheck"]["apartmentnoDA"].value;
-    if (aptnoDA == "" || aptnoDA == null) { //!(/^[A-z ]+$/.test(aptnoDA))
+    if (aptnoDA == "" || aptnoDA == null || !(/^[0-9a-zA-Z]+$/.test(aptnoBA))) { //!(/^[A-z ]+$/.test(aptnoDA))
         document.forms["customercheck"]["apartmentnoDA"].style.backgroundColor = "pink";
         return false;
     }
@@ -264,17 +239,19 @@ function streetDACheck() {
 
 function subdivisionDACheck() {
     var subDA = document.forms["customercheck"]["subdivisionDA"].value;
-    if (subDA == "" || subDA == null) { //!(/^[A-z ]+$/.test(subDA))
+    if (subDA == "" || subDA == null || !(/^[0-9a-zA-Z]+$/.test(subDA))) { //!(/^[A-z ]+$/.test(subDA))
         document.forms["customercheck"]["subdivisionDA"].style.backgroundColor = "pink";
+        return false;
     }
     else {
         document.forms["customercheck"]["subdivisionDA"].style.backgroundColor = "white";
+        return true;
     }
 }
 
 function cityDACheck() {
     var cityDA = document.forms["customercheck"]["cityDA"].value;
-    if (cityDA == "" || cityDA == null || !(/^[A-Za-z0-9 ]{3,20}$/.test(cityDA))) {
+    if (cityDA == "" || cityDA == null || !(/^[A-Za-z ]{3,20}$/.test(cityDA))) {
         document.forms["customercheck"]["cityDA"].style.backgroundColor = "pink";
         return false;
     }
@@ -286,7 +263,7 @@ function cityDACheck() {
 
 function countryDACheck() {
     var countryDA = document.forms["customercheck"]["countryDA"].value;
-    if (countryDA == "" || countryDA == null || !(/^[A-Za-z0-9 ]{3,20}$/.test(countryDA))) {
+    if (countryDA == "" || countryDA == null || !(/^[A-Za-z ]{3,20}$/.test(countryDA))) {
         document.forms["customercheck"]["countryDA"].style.backgroundColor = "pink";
         return false;
     }
@@ -298,7 +275,7 @@ function countryDACheck() {
 
 function postalcodeDACheck() {
     var postalcodeDA = document.forms["customercheck"]["postalcodeDA"].value;
-    if (postalcodeDA == "" || postalcodeDA == null || !(/^(?:[0-9]\d{3})$/.test(postalcodeDA))) { //kulang pa ng pag check kung digit
+    if (postalcodeDA == "" || postalcodeDA == null || !(/^[0-9]{2,20}$/.test(postalcodeDA))) { //kulang pa ng pag check kung digit
         document.forms["customercheck"]["postalcodeDA"].style.backgroundColor = "pink";
         return false;
     }
@@ -310,3 +287,36 @@ function postalcodeDACheck() {
 function backWhite(x) {
     x.style.background = "white";
 }
+
+function customerCheck() {
+    var first = fnameCheck();
+    var middle = mnameCheck();
+    var last = lnameCheck();
+    var user = unameCheck();
+    var email = emailCheck();
+    var pass = passCheck();
+    var aptnoBA = apartmentnoBACheck();
+    var streetBA = streetBACheck();
+    var subdivisionBA = subdivisionBACheck();
+    var cityBA = cityBACheck();
+    var countryBA = countryBACheck();
+    var postalcodeBA = postalcodeBACheck();
+    var aptnoDA = apartmentnoDACheck();
+    var streetDA = streetDACheck();
+    var subdivisionDA = subdivisionDACheck();
+    var cityDA = cityDACheck();
+    var countryDA = countryDACheck();
+    var postalcodeDA = postalcodeDACheck();
+    var billing = billingCheck();
+
+    if (first == false || last == false || middle == false || user == false || email == false || pass == false
+            || aptnoBA == false || streetBA == false || subdivisionBA == false || cityBA == false || countryBA == false || postalcodeBA == false
+            || aptnoDA == false || streetDA == false || subdivisionDA == false || cityDA == false || countryDA == false || postalcodeDA == false
+            || billing == false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+

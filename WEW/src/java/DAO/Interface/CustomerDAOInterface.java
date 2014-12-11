@@ -19,38 +19,27 @@ public interface CustomerDAOInterface {
 
     //public boolean removeCustomer(int customerID);
     public CustomerBean getCustomerById(int customerID);
-
     public CustomerBean getCustomerByAccountID(int id);
 
     public ArrayList<CustomerBean> getAllCustomers();
-
     public boolean editAddress(CustomerBean bean);
 
     //public boolean addToCart(ProductBean product);
     //public boolean removeFromCart(ProductBean product);
     //public ArrayList<ProductBean> viewCart();
     public boolean purchase(ShoppingCartBean shopbean);
-
     public boolean addProductsToCart(ProductOrderBean orderbean, int shoppingcardID);
-
     public int getShoppingCartID();
-
     public boolean writeReview(ReviewBean review);
-
     public boolean editReview(ReviewBean review);
-
     public ReviewBean getCustomerReviewForProduct(int productid, int customerID);
-
+    
     public ArrayList<ReviewBean> getReviewsByProductID(int productid);
-
+    public ArrayList<ReviewBean> getReviewsByCustomer(int customerID);
     public ProductOrderBean getProductOrderBeanByID(int id);
-
     public ProductBean viewProduct(int ProductID);
-
     public ProductBean searchProduct(int ProductID);
-
     public ArrayList<ShoppingCartBean> getShoppingCartByCustomerID(int customerID);
-
     public ArrayList<ProductOrderBean> getProductOrderByShoppingCartID(int shoppingcartID);
 
 }

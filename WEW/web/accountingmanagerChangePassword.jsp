@@ -63,12 +63,12 @@
                                 <li><a href="accountingmanagerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                             </ul>
                         </li>
-                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style='border:none'/></form></li>
                     </ul>
                 </div>
             </div>
         </nav>
-                            
+
         <div class="container"  style="padding-top: 100px;">
             <div class="row">
                 <div class="panel panel-default">
@@ -113,7 +113,7 @@
 
             </div>
         </div>
-                            
+
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>

@@ -3,7 +3,7 @@
 <html>
     <head>
         <% response.addHeader("X-FRAME-OPTIONS", "DENY");
-            response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Cache-Control", "no-store");
             response.setHeader("Pragma", "no-cache");
             response.setDateHeader("Expires", 0);
@@ -19,10 +19,10 @@
         </script>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Logout Successful</title>
+        <title>Failure to sign up.</title>
     </head>
     <body>
-        <%@include file="login.jsp" %>
-        <h4 style="position: absolute; color: red; top:500px; left:480px;">You have succesfully logged out from foobar!<br></h4>
+        <%@include file="signup_productmanager.jsp" %>
+        <h4 style="position: absolute; color: red; top:500px; left:480px;">Something went wrong. Please try again!<br></h4>
     </body>
 </html>

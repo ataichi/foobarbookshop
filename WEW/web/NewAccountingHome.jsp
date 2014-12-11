@@ -60,7 +60,7 @@
                                 <li><a href="productManagerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                             </ul>
                         </li>
-                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style=' border:none'/></form></li>
                     </ul>
                 </div>
             </div>
@@ -152,7 +152,7 @@
                               </thead>
                               <tbody>
                                   //<%
-                                    //  int i;
+                                      //  int i;
                                       //for (i = 0; i < productlist.size(); i++) {
                                       //  out.println("<tr>"
                                       //          + "<td>"
@@ -176,7 +176,7 @@
                                   </div>-->
 
                         <script>
-                            var randomScalingFactor = function () {
+                            var randomScalingFactor = function() {
                                 return Math.round(Math.random() * 100)
                             };
 
@@ -193,7 +193,7 @@
                                 ]
 
                             }
-                            window.onload = function () {
+                            window.onload = function() {
                                 var ctx = document.getElementById("canvas").getContext("2d");
                                 window.myBar = new Chart(ctx).Bar(barChartData, {
                                     responsive: true

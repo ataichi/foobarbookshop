@@ -1,8 +1,3 @@
-<%-- 
-    Document   : productmanagerHOME
-    Created on : Nov 28, 2014, 5:29:41 PM
-    Author     : Danica
---%>
 
 <%@page import="Beans.DVDBean"%>
 <%@page import="Beans.MagazineBean"%>
@@ -30,7 +25,6 @@
     } else {
         ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
         ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
-
 %>
 
 
@@ -38,7 +32,7 @@
 <html>
     <head>
         <% response.addHeader("X-FRAME-OPTIONS", "DENY");
-        response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Cache-Control", "no-store");
             response.setHeader("Pragma", "no-cache");
             response.setDateHeader("Expires", 0);
@@ -91,7 +85,7 @@
                                 <li><a href="productmanagerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                             </ul>
                         </li>
-                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style=' border:none'/></form></li>
                     </ul>
                     <form class="navbar-form navbar-right" action='SearchProductServlet' method="post">
                         <div class="input-group input-group-sm" style="max-width:360px;">

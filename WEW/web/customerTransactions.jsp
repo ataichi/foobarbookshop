@@ -14,7 +14,7 @@
         ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
         ArrayList<ProductOrderBean> finalproductorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("finalproductorderlist");
         ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
-        ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
+        //      ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
 
 %>
 <!DOCTYPE html>
@@ -73,11 +73,12 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
+                                <li><span class="glyphicon glyphicon-edit"></span><form action='ViewCustomerReview'><input type='submit' value='View Review' style='background-color: transparent; border:none'/></form></li>
                                 <li><a href="customerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-edit"></span> View Transactions</a></li>
                             </ul>
                         </li>
-                        <li><a href="homepage.jsp"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style=' border:none'/></form></li>
                     </ul>
                     <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
                         <div class="input-group input-group-sm" style="max-width:360px;">
@@ -111,14 +112,14 @@
                                                         + "\n Price: " + productlist.get(k).getPrice()
                                                         + "\n Review: "
                                                 );
-                                                for (int a = 0; a < reviewlist.size(); i++) {
-                                                    if (reviewlist.get(a).getReview_productID() == productlist.get(k).getProductID()) {
-                                                        out.println(reviewlist.get(a).getReview());
-                                                        break;
-                                                    } else {
-                                                        out.println("No review yet.");
-                                                    }
-                                                }
+                                                /*
+                                                 for (int a = 0; a < reviewlist.size(); i++) {
+                                                 if (reviewlist.get(a).getReview_productID() == productlist.get(k).getProductID()) {
+                                                 out.println(reviewlist.get(a).getReview());
+                                                 break;
+                                                 }
+                                                 }
+                                                 */
                                                 break;
                                             }
 

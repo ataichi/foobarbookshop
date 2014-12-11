@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlet;
 
 import Beans.AccountBean;
-import Beans.CustomerBean;
-import Beans.LogBean;
-import DAO.Implementation.CustomerDAOImplementation;
-import DAO.Implementation.LogDAOImplementation;
-import DAO.Interface.LogDAOInterface;
+import Beans.ProductOrderBean;
+import Beans.ShoppingCartBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "CustomerWriteReviewServlet", urlPatterns = {"/CustomerWriteReviewServlet"})
-public class CustomerWriteReviewServlet extends HttpServlet {
+@WebServlet(name = "ConfirmCreditCardServlet", urlPatterns = {"/ConfirmCreditCardServlet"})
+public class ConfirmCreditCardServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,26 +30,27 @@ public class CustomerWriteReviewServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            
             HttpSession session = request.getSession();
-            AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            if (account.getAccesscontrol().isPostmessage()) {
-                CustomerDAOImplementation cdao = new CustomerDAOImplementation();
-                CustomerBean cbean = (CustomerBean) session.getAttribute("homeuser");
-                LogBean log = new LogBean();
-                LogDAOInterface logdao = new LogDAOImplementation();
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-                String review = request.getParameter("review");
+            String cardName = request.getParameter("cardName");
+            int cardNo = Integer.parseInt(request.getParameter("cardNo"));
+            String cardType = request.getParameter("cardType");
+            String cardExpDate = request.getParameter("cardExpDate");
+            if (homeuser.getAccesscontrol().isBuyproduct()) {
+                ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+                ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
+                ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
 
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-
-                log.setLog_accountID(account.getAccountID());
-                log.setTime(time);
-                log.setActivity("Write new Review Product ID " + 0); //na kelangan edit pa to and write codes 
+                session.setAttribute("temporder", orderlist);
+                session.setAttribute("shoppingcart", cartbean);
+                session.setAttribute("homeuser", homeuser);
+                // add log
                 
-                
-            }else{
-                out.println("ACCESS DENIED");
+                response.sendRedirect("customerProceed.jsp");
+            } else {
+                response.sendRedirect("customerPayments.jsp");
             }
         }
     }

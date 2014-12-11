@@ -10,6 +10,7 @@ import DAO.Implementation.*;
 import DAO.Interface.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,78 +38,89 @@ public class EditProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-            
-          if(homeproduct.getAccesscontrol().isEditproduct()){
-            
-            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-            
-            String prodType = null;
-            if(homeproduct.getAccountType().equals("Audio CD Manager")) {
-                prodType = "Audio CD";
-            }
-            else if(homeproduct.getAccountType().equals("Book Manager")) {
-                prodType = "Book";
-            }
-            else if(homeproduct.getAccountType().equals("DVD Manager")) {
-                prodType = "DVD";
-            }
-            else if(homeproduct.getAccountType().equals("Magazine Manager")) {
-                prodType = "Magazine";
-            }
-            
 
-            int productID = Integer.parseInt(request.getParameter("product"));
-            ProductBean editproduct = new ProductBean();
-            editproduct = pdao.getProductById(productID);
+            if (homeproduct.getAccesscontrol().isEditproduct()) {
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            
-            if (editproduct.getType().equals("Audio CD")) {
-                AudioCDBean audiocd = new AudioCDBean();
-                AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
-                audiocd = audiodao.getAudioCDByProductID(productID);
+                Timestamp time;
+                java.util.Date date = new java.util.Date();
+                time = new Timestamp(date.getTime());
 
-                session.setAttribute("editaudio", audiocd);
+                // not sure if customerID or accountID dapat :)
+                ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
-                session.setAttribute("editbook", null);
-                session.setAttribute("editdvd", null);
-                session.setAttribute("editmagazine", null);
-            } else if (editproduct.getType().equals("Book")) {
-                BookBean book = new BookBean();
-                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-                book = bookdao.getBookByProductID(productID);
+                String prodType = null;
+                if (homeproduct.getAccountType().equals("Audio CD Manager")) {
+                    prodType = "Audio CD";
+                } else if (homeproduct.getAccountType().equals("Book Manager")) {
+                    prodType = "Book";
+                } else if (homeproduct.getAccountType().equals("DVD Manager")) {
+                    prodType = "DVD";
+                } else if (homeproduct.getAccountType().equals("Magazine Manager")) {
+                    prodType = "Magazine";
+                }
 
-                session.setAttribute("editbook", book);
+                int productID = Integer.parseInt(request.getParameter("product"));
+                ProductBean editproduct = new ProductBean();
+                editproduct = pdao.getProductById(productID);
 
-                session.setAttribute("editaudio", null);
-                session.setAttribute("editdvd", null);
-                session.setAttribute("editmagazine", null);
-            } else if (editproduct.getType().equals("DVD")) {
-                DVDBean dvd = new DVDBean();
-                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-                dvd = dvddao.getDVDByProductID(productID);
+                String activity = "Edit " + editproduct.getType() + " " + "product ID " + productID;
+                if (editproduct.getType().equals("Audio CD")) {
+                    AudioCDBean audiocd = new AudioCDBean();
+                    AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
+                    audiocd = audiodao.getAudioCDByProductID(productID);
 
-                session.setAttribute("editdvd", dvd);
+                    session.setAttribute("editaudio", audiocd);
 
-                session.setAttribute("editaudio", null);
-                session.setAttribute("editbook", null);
-                session.setAttribute("editmagazine", null);
-            } else if (editproduct.getType().equals("Magazine")) {
-                MagazineBean magazine = new MagazineBean();
-                MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
-                magazine = magazinedao.getMagazineByProductID(productID);
-                out.println(productID);
-                out.println(magazine.getDatePublished());
-                session.setAttribute("editmagazine", magazine);
-                
-                session.setAttribute("editaudio", null);
-                session.setAttribute("editbook", null);
-                session.setAttribute("editdvd", null);
-            }
-            
-            session.setAttribute("editproduct", editproduct);
-           response.sendRedirect("editproduct.jsp");
+                    session.setAttribute("editbook", null);
+                    session.setAttribute("editdvd", null);
+                    session.setAttribute("editmagazine", null);
+                } else if (editproduct.getType().equals("Book")) {
+                    BookBean book = new BookBean();
+                    BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+                    book = bookdao.getBookByProductID(productID);
 
-        }else {
+                    session.setAttribute("editbook", book);
+
+                    session.setAttribute("editaudio", null);
+                    session.setAttribute("editdvd", null);
+                    session.setAttribute("editmagazine", null);
+                } else if (editproduct.getType().equals("DVD")) {
+                    DVDBean dvd = new DVDBean();
+                    DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+                    dvd = dvddao.getDVDByProductID(productID);
+
+                    session.setAttribute("editdvd", dvd);
+
+                    session.setAttribute("editaudio", null);
+                    session.setAttribute("editbook", null);
+                    session.setAttribute("editmagazine", null);
+                } else if (editproduct.getType().equals("Magazine")) {
+                    MagazineBean magazine = new MagazineBean();
+                    MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+                    magazine = magazinedao.getMagazineByProductID(productID);
+                    out.println(productID);
+                    out.println(magazine.getDatePublished());
+                    session.setAttribute("editmagazine", magazine);
+
+                    session.setAttribute("editaudio", null);
+                    session.setAttribute("editbook", null);
+                    session.setAttribute("editdvd", null);
+                }
+
+                log.setActivity(activity);
+                log.setLog_accountID(homeproduct.getAccountID());
+                log.setTime(time);
+
+                if (logdao.addLog(log)) {
+                    session.setAttribute("editproduct", editproduct);
+                    response.sendRedirect("editproduct.jsp");
+                } else {
+                    out.println("hindi tinanggap huhu");
+                }
+
+            } else {
                 out.println("ACCESS DENIED");
             }
         }

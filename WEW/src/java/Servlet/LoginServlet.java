@@ -127,18 +127,19 @@ public class LoginServlet extends HttpServlet {
                             CustomerDAOImplementation customerdao = new CustomerDAOImplementation();
                             CustomerBean tempcustomer = customerdao.getCustomerByAccountID(account.getAccountID());
 
-                            productaudiolist = productdao.getAllAvailableProductsByType("Audio CD");
-                            productbooklist = productdao.getAllAvailableProductsByType("Book");
-                            productdvdlist = productdao.getAllAvailableProductsByType("DVD");
-                            productmagazinelist = productdao.getAllAvailableProductsByType("Magazine");
+                            productaudiolist = productdao.getAllProductsByType("Audio CD");
+                            productbooklist = productdao.getAllProductsByType("Book");
+                            productdvdlist = productdao.getAllProductsByType("DVD");
+                            productmagazinelist = productdao.getAllProductsByType("Magazine");
 
 //                    System.out.println(tempcustomer.getCustomerID());
                             type = "Customer";
                             log.setActivity("Customer Login");
                             log.setLog_accountID(account.getAccountID());
 
+                            Timestamp time;
                             java.util.Date date = new java.util.Date();
-                            Timestamp time = new Timestamp(date.getTime());
+                            time = new Timestamp(date.getTime());
                             log.setTime(time);
                             log.setIp_address(address);
                             log.setSalt(salt);
@@ -175,6 +176,7 @@ public class LoginServlet extends HttpServlet {
                             Timestamp time = new Timestamp(date.getTime());
                             log.setTime(time);
                             if (logdao.addLog(log)) {
+                                session.setAttribute("homeadmin", account);
                                 session.setAttribute("type", type);
                                 session.setAttribute("loglist", loglist);
                                 session.setAttribute("homeadmin", account);
@@ -326,7 +328,39 @@ public class LoginServlet extends HttpServlet {
                     if (account.getLocked()) {
                         response.sendRedirect("contactAdmin.jsp");
                     } else {
-                        out.println("hindi ko rin gets bakit e");
+                        ctr_try++;
+                        if (ctr_try <= 5) {
+
+                            session.setAttribute("ctr_try", ctr_try);
+                            session.setAttribute("username", username);
+                            response.sendRedirect("loginfail.jsp");
+                        } else {
+                            // lock account
+                            account = accountdao.getUserByUsername(username);
+                            if (account.getAccountID() != 0) { // user exists -> lock account
+                                boolean lock = accountdao.lockAccount(account);
+                                if (lock) {
+                                    ctr_try = 0; // reset counter
+                                    log.setActivity("Lock Account " + username);
+                                    log.setLog_accountID(account.getAccountID());
+
+                                    java.util.Date date = new java.util.Date();
+                                    Timestamp time = new Timestamp(date.getTime());
+                                    log.setTime(time);
+                                    if (logdao.addLog(log)) {
+                                        response.sendRedirect("contactAdmin.jsp");
+                                    }
+
+                                } else {
+                                    System.out.println("DI KO NA-LOCK");
+                                }
+                            } else { // user does not exist at all
+
+                                System.out.println("WALA KA NAMAN E");
+                            }
+
+                            response.sendRedirect("contactAdmin.jsp");
+                        }
                     }
                 } else {
                     ctr_try++;

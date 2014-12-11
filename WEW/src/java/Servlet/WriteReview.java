@@ -59,8 +59,9 @@ public class WriteReview extends HttpServlet {
                 reviewbean.setReview_productID(productid);
 
                 int accountid = tempcustomer.getCustomer_accountID();
+                Timestamp time;
                 java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
+                time = new Timestamp(date.getTime());
                 String activity = "Customer ID" + tempcustomer.getCustomerID() + " wrote review for product id " + productid;
                 // not sure if customerID or accountID dapat :)
 
