@@ -27,7 +27,7 @@ public class NewMain {
      */
     public static void main(String[] args) {
         try {
-            String old = "danica!!";
+            String old = "ruth!!";
             String new1 = "danica!!!";
             String new2 = "danica!!!";
             

@@ -65,15 +65,14 @@
         </div>
         <div class="panel-body"  style="padding-left: 600px">
             <div class="row" style="padding-top: 100px;">
-                <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="SendReport">
+                <form class="col-md-4" id="login" name="login" onsubmit="return logcheck();" method="post" action="SendReport">
                     <div class="form-group">
                         E-mail Address:
                         <input id="email" name='email' onblur="emailCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="yourname@foobar.com">
                     </div>
-                    <div class="panel-body">
+                    <div class="form-group">
                         Enter Reason:
                         <input id="reason" name='reason' onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Your reason here." required>
-
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-lg btn-block">Send Report</button>
