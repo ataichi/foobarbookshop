@@ -2,7 +2,14 @@ package Beans;
 
 import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AdminDAOImplementation;
+import Process.Hasher;
+import Security.Authenticator;
+import java.io.UnsupportedEncodingException;
+import Servlet.ChangePasswordServlet;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
@@ -12,6 +19,7 @@ import org.owasp.esapi.errors.AuthenticationHostException;
 import org.owasp.esapi.errors.EncryptionException;
 
 public class AccountBean implements org.owasp.esapi.User {
+
     protected int accountID;
     protected String accountType;
     protected String firstName;
@@ -22,15 +30,15 @@ public class AccountBean implements org.owasp.esapi.User {
     protected String emailAdd;
     protected int failedLoginCount;
     protected boolean locked;
-    
+
     protected boolean loggedIn;
-    
+
     protected HttpSession userSession;
-    
+
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
-    
+
     public boolean getLoggedIn() {
         return loggedIn;
     }
@@ -39,10 +47,10 @@ public class AccountBean implements org.owasp.esapi.User {
         this.locked = locked;
     }
 
-    public boolean getLocked(){
+    public boolean getLocked() {
         return locked;
     }
-    
+
     public int getAccountID() {
         return accountID;
     }
@@ -106,7 +114,7 @@ public class AccountBean implements org.owasp.esapi.User {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
-    
+
     public HttpSession getUserSession() {
         return userSession;
     }
@@ -114,7 +122,7 @@ public class AccountBean implements org.owasp.esapi.User {
     public void setUserSession(HttpSession userSession) {
         this.userSession = userSession;
     }
-    
+
     public void setFailedLoginCount(int count) {
         this.failedLoginCount = count;
     }
@@ -140,8 +148,29 @@ public class AccountBean implements org.owasp.esapi.User {
     }
 
     @Override
-    public void changePassword(String string, String string1, String string2) throws AuthenticationException, EncryptionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void changePassword(String old, String new1, String new2) throws AuthenticationException, EncryptionException {
+        try {
+            AccountDAOImplementation adao = new AccountDAOImplementation();
+
+            Hasher hash = new Hasher("MD5");
+            try {
+                hash.updateHash(old, "UTF-8");
+                hash.updateHash(new1, "UTF-8");
+                hash.updateHash(new2, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            old = hash.getHashBASE64();
+            new1 = hash.getHashBASE64();
+            new2 = hash.getHashBASE64();
+            
+            if(old.equals(this.password) && new1.equals(new2)) {
+                adao.changePassword(this.accountID, new1);
+            }
+            
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

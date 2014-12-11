@@ -88,7 +88,7 @@
                         <h3 class="panel-title">Account Information</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="customercheck" name="editaccount" onsubmit="return editCustomerCheck();" action="EditCustomerAccountServlet" method="post">
+                        <form class="form-horizontal" role="form" id="customercheck" name="customercheck" onsubmit="return editCustomerCheck();" action="EditCustomerAccountServlet" method="post">
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
                                     <label class="control-label col-lg-4">Basic Info</label>
