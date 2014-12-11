@@ -50,7 +50,8 @@ public class SignupServlet extends HttpServlet {
                     || password.toLowerCase().contains(firstname.toLowerCase())
                     || password.toLowerCase().contains(lastname.toLowerCase())) {
                 out.println("huy bawal yan");
-               // response.sendRedirect("signupfail.jsp");
+                response.sendRedirect("signupfail.jsp");
+            
             } else {
 
                 Hasher hash = null;
@@ -67,7 +68,7 @@ public class SignupServlet extends HttpServlet {
                 boolean check = userdao.isUsernameAvailable(username);
                 if (check) { // meron nang username
                     out.println("MERON NA");
-                    //         response.sendRedirect("signupfail.jsp");
+                    response.sendRedirect("signupfail.jsp");
                 } else {
                     account.setFirstName(firstname);
                     account.setLastName(lastname);
@@ -79,39 +80,18 @@ public class SignupServlet extends HttpServlet {
                     account.setLocked(false);
 
                     checkAccount = userdao.addAccount(account);
-                    String apartmentnoBA = request.getParameter("apartmentnoBA");
-                    String streetBA = request.getParameter("streetBA");
-                    String subdivisionBA = request.getParameter("subdivisionBA");
-                    String cityBA = request.getParameter("cityBA");
-                    int postalcodeBA = Integer.valueOf(request.getParameter("postalcodeBA"));
-                    String countryBA = request.getParameter("countryBA");
-
-                    String apartmentnoDA = request.getParameter("apartmentnoDA");
-                    String streetDA = request.getParameter("streetDA");
-                    String subdivisionDA = request.getParameter("subdivisionDA");
-                    String cityDA = request.getParameter("cityDA");
-                    int postalcodeDA = Integer.valueOf(request.getParameter("postalcodeDA"));
-                    String countryDA = request.getParameter("countryDA");
-
+                    String BA = request.getParameter("BA");
+                    String DA = request.getParameter("DA");
+                    
                     int customer_accountID = userdao.getUserByUsername(username).getAccountID();
 
-                    customer.setApartmentNoBA(AccountDAOImplementation.inputSanitizer(apartmentnoBA));
-                    customer.setApartmentNoDA(AccountDAOImplementation.inputSanitizer(apartmentnoDA));
-                    customer.setCityBA(AccountDAOImplementation.inputSanitizer(cityBA));
-                    customer.setCityDA(AccountDAOImplementation.inputSanitizer(cityDA));
-                    customer.setCountryBA(AccountDAOImplementation.inputSanitizer(countryBA));
-                    customer.setCountryDA(AccountDAOImplementation.inputSanitizer(countryDA));
-
+                    customer.setApartmentNoBA(AccountDAOImplementation.inputSanitizer(BA));
+                    customer.setApartmentNoDA(AccountDAOImplementation.inputSanitizer(DA));
+                
                     customer.setCustomer_accountID(customer_accountID);
 
-                    customer.setPostalCodeBA(postalcodeBA);
-                    customer.setPostalCodeDA(postalcodeDA);
-                    customer.setStreetBA(AccountDAOImplementation.inputSanitizer(streetBA));
-                    customer.setStreetDA(AccountDAOImplementation.inputSanitizer(streetDA));
-                    customer.setSubdivisionBA(AccountDAOImplementation.inputSanitizer(subdivisionBA));
-                    customer.setSubdivisionDA(AccountDAOImplementation.inputSanitizer(subdivisionDA));
-
-                    // checkCustomer = customerdao.addCustomer(customer);
+                   
+                    checkCustomer = customerdao.addCustomer(customer);
                     LogBean log = new LogBean();
                     LogDAOInterface logdao = new LogDAOImplementation();
                     
@@ -130,7 +110,6 @@ public class SignupServlet extends HttpServlet {
                             session.setAttribute("username", username);
                         }
 
-                    // AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
                              response.sendRedirect("login.jsp");
                     } else {
                         AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);

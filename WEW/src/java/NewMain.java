@@ -1,15 +1,12 @@
 
-import Beans.LogBean;
-import DAO.Implementation.AccountDAOImplementation;
-import DAO.Implementation.LogDAOImplementation;
-import Security.Authenticator;
 import Process.Hasher;
-import Servlet.LoginServlet;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Security.Authenticator;
+import java.io.UnsupportedEncodingException;
+import static java.lang.System.out;
+import org.owasp.esapi.errors.EncryptionException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,9 +24,18 @@ public class NewMain {
      */
     public static void main(String[] args) {
         try {
-            String old = "melodymelody";
-            String new1 = "danica!!!";
-            String new2 = "danica!!!";
+            Authenticator authenticator = new Authenticator();
+            String pass1 = "melodymelody";
+            String pass2 = "melodymelody";
+            try {
+                pass1 = (String) authenticator.hashPassword(pass1, pass2);
+            } catch (EncryptionException ex) {
+                Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            out.println(pass1);
+            
+            String old="danica!!";
             
             Hasher oldhash = new Hasher("MD5");
             try {
@@ -39,25 +45,7 @@ public class NewMain {
             }
             old = oldhash.getHashBASE64();
             
-            Hasher new1hash = new Hasher("MD5");
-            try {
-                new1hash.updateHash(new1, "UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            new1 = new1hash.getHashBASE64();
-            
-            Hasher new2hash = new Hasher("MD5");
-            try {
-                new2hash.updateHash(new2, "UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            new2 = new2hash.getHashBASE64();
-            
-            System.out.println(old);
-            System.out.println(new1);
-            System.out.println(new2);
+            out.println(old);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
         }
