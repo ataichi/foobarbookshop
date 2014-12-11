@@ -51,13 +51,13 @@ public class SignupServlet extends HttpServlet {
                     || password.toLowerCase().contains(lastname.toLowerCase())) {
                 out.println("huy bawal yan");
                 response.sendRedirect("signupfail.jsp");
-
+            
             } else {
 
                 Hasher hash = null;
 
                 try {
-                hash = new Hasher("MD5");
+                    hash = new Hasher("MD5");
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -68,7 +68,7 @@ public class SignupServlet extends HttpServlet {
                 boolean check = userdao.isUsernameAvailable(username);
                 if (check) { // meron nang username
                     out.println("MERON NA");
-                    //         response.sendRedirect("signupfail.jsp");
+                    response.sendRedirect("signupfail.jsp");
                 } else {
                     account.setFirstName(firstname);
                     account.setLastName(lastname);
@@ -82,15 +82,16 @@ public class SignupServlet extends HttpServlet {
                     checkAccount = userdao.addAccount(account);
                     String BA = request.getParameter("BA");
                     String DA = request.getParameter("DA");
-
+                    
                     int customer_accountID = userdao.getUserByUsername(username).getAccountID();
 
                     customer.setApartmentNoBA(AccountDAOImplementation.inputSanitizer(BA));
                     customer.setApartmentNoDA(AccountDAOImplementation.inputSanitizer(DA));
-
+                
                     customer.setCustomer_accountID(customer_accountID);
 
-                    // checkCustomer = customerdao.addCustomer(customer);
+                   
+                    checkCustomer = customerdao.addCustomer(customer);
                     LogBean log = new LogBean();
                     LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -106,10 +107,10 @@ public class SignupServlet extends HttpServlet {
                             session.setAttribute("username", username);
                         }
 
-                        response.sendRedirect("login.jsp");
+                             response.sendRedirect("login.jsp");
                     } else {
                         AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
-                        //
+                        //       
                     }
                 }
             }
