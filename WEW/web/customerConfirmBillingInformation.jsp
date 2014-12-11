@@ -103,23 +103,21 @@
     <div class="col-md-7" style="padding-left: 200px; padding-top: 100px">
         <div class="well" id="shoplist">
             <dl class="dl-horizontal">
-                <%
-                    // insert shopping cart here!
-                    out.println("<form action='ConfirmCreditCardServlet' method='post'>"
-                            + "Credit Card Name"
-                            + "<input type='text' name'cardName'/>"
-                            + "<br/>"
-                            + "Credit Card ID"
-                            + "<input type='text' name='cardNo'/>"
-                            + "<br/>Expiration Date:"
-                            + "<input type='date' name='cardExpDate'/>"
-                            + "<br/>"
-                            + "Card Type"
-                            + "<input type='text' name='cardType'/>"
-                            + "<br/>"
-                            + "<input type='submit' value='Submit' name='action'/>"
-                            + "</form>");
-                %>
+                <form action="ConfirmCreditCardServlet" onsubmit='return creditCardCheck();' id='creditcardcheck' name='creditcardcheck' method='post'>
+                    Credit Card Name: <input type='text' name='cardName' required />
+                    <br/>
+                    Card Type:
+                    <br/>
+                    <input type='radio' id='cardType' name='cardType' value='AmericanExpress'>American Express<br/>
+                    <input type='radio' id='cardType' name='cardType' value='Visa'>Visa<br/>
+                    <input type='radio' id='cardType' name='cardType' value='MasterCard'>Master Card<br/>
+
+                    Credit Card No: <input type='text' id='cardNo' name='cardNo' onblur='creditCardNoCheck();' onfocus="backWhite(this);"/>
+                    <br/>
+                    Expiration Date: (yyyy-mm-dd) <input type='date' id='cardExpDate' name='cardExpDate' required/>
+                    <br/>
+                    <input type='submit' value='Buy'/>
+                </form>
 
             </dl>
         </div>

@@ -8,7 +8,7 @@
     if (homeuser == null) {
         response.sendRedirect("login.jsp");
     } else {
-        ArrayList<ProductBean> orderproductlist = (ArrayList<ProductBean>) session.getAttribute("orderproductlist");
+        ArrayList<ProductBean> orderproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
 %>
 <!DOCTYPE html>
 <html>
@@ -107,23 +107,32 @@
                     if (orderproductlist.size() == 0) {
                         out.println("<p> Shopping cart empty.</p>");
                     } else {
-                        for (int i = 0; i < orderproductlist.size(); i++) { //gets total order
+                        for (int i = 0; i < orderproductlist.size(); i++) { //all orders
+                %>
 
-                            out.println("<form action='WriteReview'>"
-                                    + "<dt> Title</dt>"
-                                    + "<dd>"
-                                    + orderproductlist.get(i).getTitle()
-                                    + "</dd>"
-                                    + "<dt> Review: </dt>"
-                                    + "<dd><input type='text' name='review'/>"
-                                    + "<input type='hidden' name='productid' value='" + orderproductlist.get(i).getProductID() + "'/>"
-                                    + "</dd>"
-                                    + "<dt>"
-                                    + "<input type='submit' value='Submit Review'/>"
-                                    + "</dt>"
-                                    + "</form>"
-                                    + "<a href='customerHOME.jsp'><button>Back</button></a>");
+                <form action='WriteReview'>
+                    <dt>
+                    Title
+                    </dt>
+                    <dd>
+                        <%out.println(orderproductlist.get(i).getTitle());%>
+                    </dd>
+                    <dt>
+                    Review
+                    </dt>
+                    <dd>
+                        <input type='text' name='review'/>
+                    </dd>
+                    <dd>
+                        <input type='hidden' name='id' value='<%out.println(orderproductlist.get(i).getProductID());%>'>
+                    </dd>
+                    <dt>
+                    <input type='submit' value='Submit Review'/>
+                    </dt>
+                </form>
+                <a href='customerHOME.jsp'><button>Back</button></a>
 
+                <%
                         }
                     }
                 %>

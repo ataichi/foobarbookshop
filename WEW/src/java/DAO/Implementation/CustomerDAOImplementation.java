@@ -223,8 +223,11 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
             ps.setInt(1, shopbean.getShoppingcart_customerID());
             ps.setDouble(2, shopbean.getTotal());
             ps.setTimestamp(3, shopbean.getOrderDate());
-            ps.executeUpdate();
-            return true;
+
+            System.out.println("CUSTOMER ID"+shopbean.getShoppingcart_customerID());
+
+             ps.executeUpdate();
+              return true;
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }

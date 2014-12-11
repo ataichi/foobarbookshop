@@ -103,13 +103,13 @@
     <div class="col-md-7" style="padding-left: 200px; padding-top: 100px">
         <div class="well" id="shoplist">
             <dl class="dl-horizontal">
-                <%
-                    // insert shopping cart here!
-                    out.println("<form action='ShoppingServlet' method='post'>"
-                            + "<input type='submit' value='Yes' name='action'/>"
-                            + "</form>"
-                            + "<a href='customerHOME.jsp'><button>No</button></a>");
-                %>
+                <form action='ShoppingServlet' method='post'>
+                    <strong>Do you wish to proceed? </strong>
+                    <input type='submit' value='Yes' name='action'/>
+                    <input type='submit' value='No' name='action'/>
+                </form>
+
+
 
             </dl>
         </div>

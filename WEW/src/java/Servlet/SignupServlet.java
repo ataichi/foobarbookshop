@@ -114,6 +114,8 @@ public class SignupServlet extends HttpServlet {
                     // checkCustomer = customerdao.addCustomer(customer);
                     LogBean log = new LogBean();
                     LogDAOInterface logdao = new LogDAOImplementation();
+                    
+                    checkCustomer = customerdao.addCustomer(customer);
 
                     if (checkAccount && checkCustomer && !userdao.isUsernameAvailable(username)) {
                         log.setActivity(username + " Customer SignUps");
@@ -123,12 +125,13 @@ public class SignupServlet extends HttpServlet {
                         Timestamp time = new Timestamp(date.getTime());
                         log.setTime(time);
 
+                        
                         if (logdao.addLog(log)) {
                             session.setAttribute("username", username);
                         }
 
                     // AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration successful.", true);
-                        //     response.sendRedirect("login.jsp");
+                             response.sendRedirect("login.jsp");
                     } else {
                         AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
                         //       

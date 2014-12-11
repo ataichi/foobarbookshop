@@ -74,7 +74,7 @@ public class AddToShoppingCartServlet extends HttpServlet {
             boolean check = false;
             for (int i = 0; i < order.size(); i++) {
                 if (order.get(i).getProductorder_productID() == temporder.getProductorder_productID()) {
-                    sum = order.get(i).getQuantity() + temporder.getQuantity();
+                    sum = quantity;
                     total = sum * temporder.getPrice();
 
                     order.get(i).setPrice(total);
@@ -100,43 +100,9 @@ public class AddToShoppingCartServlet extends HttpServlet {
                 out.println("DITO KASI");
                 response.sendRedirect("customerHOME.jsp");
             } else { // buy
-                ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
-                CustomerDAOInterface cdao = new CustomerDAOImplementation();
-                boolean shopcartcheck = false;
-                int i = 0, shoppingcartID;
-
-                out.println(homeuser.getAccountID());
-
-                cartbean.setShoppingcart_customerID(homeuser.getAccountID());
-
-                for (i = 0; i < order.size(); i++) { // update total
-                    total += order.get(i).getPrice() * order.get(i).getQuantity();
-                }
-                cartbean.setTotal(total);
-                Timestamp orderTime;
-                java.util.Date date = new java.util.Date();
-                orderTime = new Timestamp(date.getTime());
-                cartbean.setOrderDate(orderTime);
-
-                shopcartcheck = cdao.purchase(cartbean);
-
-                if (shopcartcheck) {
-                    shoppingcartID = cdao.getShoppingCartID();
-
-                    cartbean.setShoppingcart_customerID(homeuser.getAccountID());
-                    for (i = 0; i < order.size(); i++) {
-                        cdao.addProductsToCart(order.get(i), shoppingcartID);
-                    }
-                    out.println("yehey");
-                    //response.sendRedirect("");
-                } else {
-                    //response.sendRedirect("");
-                    out.println("unable to purchase");
-                }
-                session.setAttribute("temporder", neworder); // new orderbean; reset
-
+                response.sendRedirect("customerConfirmBillingInformation.jsp");
             }
-            out.println("ACCESS GRANTED");
+            // out.println("ACCESS GRANTED");
             // response.sendRedirect("customerHOME.jsp");
             //} else {
             //    out.println("SORRY PO");

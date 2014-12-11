@@ -30,25 +30,26 @@ public class ConfirmCreditCardServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            String cardName = request.getParameter("cardName");
-            int cardNo = Integer.parseInt(request.getParameter("cardNo"));
-            String cardType = request.getParameter("cardType");
-            String cardExpDate = request.getParameter("cardExpDate");
+            /*
+             String cardName = request.getParameter("cardName");
+             String cardNo =request.getParameter("cardNo");
+             String cardType = request.getParameter("cardType");
+             String cardExpDate = request.getParameter("cardExpDate");
+             */
             //if (homeuser.getAccesscontrol().isBuyproduct()) {
-                ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-                ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
-                ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
+            //     ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+            //     ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
+            //  ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
+          //  session.setAttribute("temporder", orderlist);
+            //   session.setAttribute("shoppingcart", cartbean);
+            session.setAttribute("homeuser", homeuser);
+            // add log
 
-                session.setAttribute("temporder", orderlist);
-                session.setAttribute("shoppingcart", cartbean);
-                session.setAttribute("homeuser", homeuser);
-                // add log
-                
-                response.sendRedirect("customerProceed.jsp");
+            response.sendRedirect("customerProceed.jsp");
             //} else {
             //    response.sendRedirect("customerPayments.jsp");
             //}
