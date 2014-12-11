@@ -37,6 +37,7 @@ public class EditAdminAccountServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeadmin");
 
             if (account.getAccesscontrol().isEditadmin()) {
@@ -93,6 +94,7 @@ public class EditAdminAccountServlet extends HttpServlet {
                 java.util.Date date = new java.util.Date();
                 Timestamp time = new Timestamp(date.getTime());
 
+                log.setIp_address(address);
                 log.setLog_accountID(account.getAccountID());
                 log.setTime(time);
                 log.setActivity("Edit Admin Account ID " + account.getAccountID());

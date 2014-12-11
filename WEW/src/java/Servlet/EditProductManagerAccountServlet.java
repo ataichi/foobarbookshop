@@ -35,6 +35,7 @@ public class EditProductManagerAccountServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
             
             if(account.getAccesscontrol().isEditproductmanager()){
@@ -45,6 +46,7 @@ public class EditProductManagerAccountServlet extends HttpServlet {
 
             AccountBean bean = new AccountBean();
 
+            log.setIp_address(address);
             log.setActivity("Edit Product Manager Account ID: " + account.getAccountID());
             log.setLog_accountID(account.getAccountID());
             java.util.Date date = new java.util.Date();

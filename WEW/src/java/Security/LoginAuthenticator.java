@@ -57,7 +57,7 @@ public class LoginAuthenticator {
         }
 
         account = accountdao.getUserByUsername(username);
-        password = hsr.getParameter("logpass");
+        //password = hsr.getParameter("logpass");
         if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType()) && !account.getLocked()) {
             // Customer
             accesscontrol.createcustomer = false;

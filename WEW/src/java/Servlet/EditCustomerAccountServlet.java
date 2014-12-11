@@ -40,6 +40,7 @@ public class EditCustomerAccountServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
 
             if (account.getAccesscontrol().isEditcustomer()) {
@@ -65,6 +66,7 @@ public class EditCustomerAccountServlet extends HttpServlet {
 
                 java.util.Date date = new java.util.Date();
                 Timestamp time = new Timestamp(date.getTime());
+                log.setIp_address(address);
                 log.setTime(time);
                 log.setLog_accountID(account.getAccountID());
                 log.setActivity("Edit Customer Account " + account.getUsername());

@@ -92,19 +92,19 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="fname">Current Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="currpass" name="currpass" placeholder="Enter Password" onblur="currPassCheck();"  onfocus="backWhite(this);" required>
+                                        <input type="password" class="form-control" id="currpass" name="currpass" placeholder="Enter Password" onblur="currPassCheck();"  onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">New Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="pass1" name="pass1" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
+                                        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="mname">Confirm Password:</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="pass2" name="pass2" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
+                                        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter Password"  onblur="passCheck();" onfocus="backWhite(this);" required>
                                     </div>
                                 </div>
 

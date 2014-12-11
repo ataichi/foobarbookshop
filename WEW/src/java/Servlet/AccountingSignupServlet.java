@@ -42,6 +42,7 @@ public class AccountingSignupServlet extends HttpServlet {
             Hashtable cookies = new Cookies().cookieTable(request.getCookies());
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean homeadmin = (AccountBean) session.getAttribute("homeadmin");
 
             //if (homeadmin.getAccesscontrol().isCreateaccountingmanager()) {
@@ -83,7 +84,8 @@ public class AccountingSignupServlet extends HttpServlet {
 
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
-
+            
+            log.setIp_address(address);
             log.setLog_accountID(homeadmin.getAccountID()); // temporary
             log.setTime(time);
             log.setActivity("Add new Accounting Manager " + account.getFirstName());

@@ -38,6 +38,7 @@ public class AddToShoppingCartServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             if (homeuser.getAccesscontrol().isAddtoshoppingcart()) {

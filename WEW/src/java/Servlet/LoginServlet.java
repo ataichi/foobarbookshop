@@ -88,6 +88,7 @@ public class LoginServlet extends HttpServlet {
 
             hash.updateHash(password, "UTF-8");
             password = hash.getHashBASE64();
+            
 
             String salt = null;
             String token = null;

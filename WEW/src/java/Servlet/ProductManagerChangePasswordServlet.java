@@ -47,7 +47,7 @@ public class ProductManagerChangePasswordServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-
+            String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
 
             AccountDAOInterface accountdao = new AccountDAOImplementation();
@@ -89,6 +89,7 @@ public class ProductManagerChangePasswordServlet extends HttpServlet {
                     log.setTime(time);
                     log.setActivity("Change password account ID " + account.getAccountID());
                     log.setLog_accountID(account.getAccountID());
+                    log.setIp_address(address);
 
                     if (logdao.addLog(log)) {
                         account.setAccountID(account.getAccountID());

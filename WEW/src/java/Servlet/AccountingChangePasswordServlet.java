@@ -48,6 +48,7 @@ public class AccountingChangePasswordServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
 
             AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
 
@@ -87,6 +88,7 @@ public class AccountingChangePasswordServlet extends HttpServlet {
                 if (changepassword) {
                     java.util.Date date = new java.util.Date();
                     Timestamp time = new Timestamp(date.getTime());
+                    log.setIp_address(address);
                     log.setTime(time);
                     log.setActivity("Change password account ID " + account.getAccountID());
                     log.setLog_accountID(account.getAccountID());

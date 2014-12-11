@@ -31,15 +31,6 @@
         ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
         ArrayList<ProductBean> productlist = (ArrayList<ProductBean>) session.getAttribute("productlist");
 
-        BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-        AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
-        MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
-        DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-        ArrayList<BookBean> booklist = bookdao.getAllBooks();
-        ArrayList<AudioCDBean> audiocdlist = audiodao.getAllAudioCD();
-        ArrayList<MagazineBean> magazinelist = magazinedao.getAllMagazine();
-        ArrayList<DVDBean> dvdlist = dvddao.viewAllDVD();
-
 %>
 
 

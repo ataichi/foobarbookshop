@@ -43,6 +43,7 @@ public class FinalEditProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
             
              if(homeproduct.getAccesscontrol().isEditproduct()){
@@ -82,6 +83,7 @@ public class FinalEditProductServlet extends HttpServlet {
             java.util.Date date1 = new java.util.Date();
             Timestamp time = new Timestamp(date1.getTime());
             log.setTime(time);
+            log.setIp_address(address);
 
             log.setActivity("Edit " + editproduct.getTitle() + " Type: " + editproduct.getType());
             if (type.equals("Audio CD")) {

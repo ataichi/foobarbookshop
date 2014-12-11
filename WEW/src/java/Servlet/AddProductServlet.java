@@ -44,6 +44,7 @@ public class AddProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
+            String address = request.getRemoteAddr();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
             
             if(homeproduct.getAccesscontrol().isAddproduct()){
@@ -91,6 +92,7 @@ public class AddProductServlet extends HttpServlet {
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
 
+            log.setIp_address(address);
             log.setLog_accountID(homeproduct.getAccountID());
             log.setTime(time);
             log.setActivity("Add Product " + title);
