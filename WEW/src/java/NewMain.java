@@ -1,7 +1,7 @@
 
 import DAO.Implementation.AccountDAOImplementation;
 import Security.Authenticator;
-import Security.Hasher;
+import Process.Hasher;
 import Servlet.LoginServlet;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -26,11 +26,11 @@ public class NewMain {
         try {
             AccountDAOImplementation adao = new AccountDAOImplementation();
             String password = "danica!!";
-            DBConnection.Hasher hash = null;
+            Hasher hash = null;
             try {
-                hash = new DBConnection.Hasher("MD5");
+                hash = new Hasher("MD5");
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NewMain.class.getName()).log(Level.SEVERE, null, ex);
             }
             hash.updateHash(password, "UTF-8");
             password = hash.getHashBASE64();
