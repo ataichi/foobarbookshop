@@ -1,4 +1,3 @@
-<%@page import="DAO.Implementation.ReviewDAOImplementation"%>
 <%@page import="Beans.ProductBean"%>
 <%@page import="Beans.ProductOrderBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,6 +10,7 @@
         response.sendRedirect("login.jsp");
     } else {
 
+        ArrayList<ProductBean> productsbought = (ArrayList<ProductBean>) session.getAttribute("productsbought");
         ArrayList<ReviewBean> reviewlist = (ArrayList<ReviewBean>) session.getAttribute("reviewlist");
 
 %>
@@ -95,28 +95,57 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>Product</th>
                                     <th>Review</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <%
                                     int i;
-                                    for (i = 0; i < reviewlist.size(); i++) {
-                                        out.println("<tr>"
-                                                + "<td>"
-                                                + reviewlist.get(i).getReview()
-                                                + "</td><td>"
-                                                + "<form id='" + reviewlist.get(i).getReviewID() + "' method='post' action='DeleteReviewServlet'>"
-                                                + "<input type='submit' id='submit' value='Delete' name='action' style='border-color: transparent; background-color: transparent'/>"
-                                                + "<input type='hidden' name='reviewid' value='" + reviewlist.get(i).getReviewID() + "'/>"
-                                                + "</form>"
-                                                + "<form action='EditReviewServlet'>"
-                                                + "<input type='submit' id='submit' value='Edit' name='action' style='border-color: transparent; background-color: transparent'/>"
-                                                + "<input type='hidden' name='reviewid' value='" + reviewlist.get(i).getReviewID() + "'/>"
-                                                + "</form>"
-                                                + "</td></tr>");
+                                    for (i = 0; i < productsbought.size(); i++) {
+                                        for (int j = 0; j < reviewlist.size(); j++) {
+                                            if (reviewlist.get(j).getReview_productID() == productsbought.get(i).getProductID()) {
+                                %>
+                                <tr>
+                                    <td>
+                                        <%out.println(productsbought.get(i).getTitle());%>
+                                    </td>
+                                    <td>
+                                        <%out.println(reviewlist.get(j).getReview());%>
+                                    </td>
+                                    <td>
+
+                                        <form method='post'  action='DeleteReviewServlet'>
+                                            <input type='submit' id='submit' value='Delete' name='action' style='border-color: transparent; background-color: transparent'/>
+                                            <input type='hidden' name='reviewid' value=<%out.println(reviewlist.get(j).getReviewID());%>>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action='EditReviewServlet'>
+                                            <input type='submit' id='submit' value='Edit' name='action' style='border-color: transparent; background-color: transparent'/>
+                                            <input type='hidden' name='reviewid' value=<%out.println(reviewlist.get(j).getReviewID());%>>
+                                        </form>
+                                    </td>
+                                </tr>
+
+
+
+                                <%
+                                } else { // wala [a review for this product
+                                %>
+                                <tr>
+                                    <td>
+                                        <strong>No review for this product yet.</strong>
+                                        <form action='WriteReviewServlet'>
+                                            <input type='text' name='review'/>
+                                            <input type='hidden' name='id' value='<%out.println(productsbought.get(i).getProductID());%>'/>
+                                            <input type='submit' value='Write Review'/>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%
+                                            }
+                                        }
                                     }
                                 %>
                             </tbody>

@@ -50,6 +50,7 @@ public class ShoppingServlet extends HttpServlet {
 
             //if (homeuser.getAccesscontrol().isBuyproduct()) {
             ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+            ArrayList<ProductBean> productsbought = (ArrayList<ProductBean>) session.getAttribute("productsbought");
 
             ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
             ArrayList<ProductBean> productaudiolist = (ArrayList<ProductBean>) session.getAttribute("productaudiolist");
@@ -107,6 +108,7 @@ public class ShoppingServlet extends HttpServlet {
                         productdao.updateStocks(productbean.getProductID(), productbean.getNumberStocks() - orderlist.get(i).getQuantity());
                         out.println("yehey");
                         productlist.add(productbean);
+                        productsbought.add(productbean);
                     }
 
                     //        response.sendRedirect("customerConfirmBillingInformation.jsp");
@@ -115,8 +117,9 @@ public class ShoppingServlet extends HttpServlet {
                     out.println("unable to purchase");
                 }
                 session.setAttribute("temporder", neworderlist);
-                session.setAttribute("productlist", orderlist); 
-              
+                session.setAttribute("productlist", orderlist);
+
+                session.setAttribute("productsbought", productsbought); // updated list of products bought
                 session.setAttribute("shoppingcart", newshoppingcart); // reset
 
                 /**
@@ -130,7 +133,7 @@ public class ShoppingServlet extends HttpServlet {
                 session.setAttribute("temporder", neworderlist);
                 session.setAttribute("productlist", newproductlist);
                 session.setAttribute("shoppingcart", newshoppingcart);
-                
+
                 response.sendRedirect("customerHOME.jsp");
 
             }

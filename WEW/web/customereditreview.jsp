@@ -89,26 +89,17 @@
                 <div class="col-sm-9 col-sm-offset-2 col-md-10 col-md-offset-1 main">
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Review</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
 
-                                    out.println("<form method='post' action='ConfirmEditReview' >"
-                                            + "Product:" + productbean.getTitle()
-                                            + "<br>"
-                                            + "Review:"
-                                            + "<input type='text' value='" + reviewbean.getReview() + "' name='review'/>"
-                                            + "<input type='hidden' value='" + reviewbean.getReview_productID() + "' name='productid'>"
-                                            + "<input type='hidden' value='" + reviewbean.getReviewID() + "'name='reviewid'>"
-                                            + "<input typpe='submit' value='Save' name='action' style='border-color: transparent; background-color: transparent'/>"
-                                            + "</form>");
-                                %>
+                            <tbody>
+                            <form method="post" action='ConfirmEditReview'>
+                                Product: <%out.println(productbean.getTitle());%>
+                                <br/>
+                                Review :
+                                <input type='text' value="<%out.println(reviewbean.getReview());%>" name='review'/>
+                                <input type='hidden' value=<%out.println(reviewbean.getReview_productID());%> name='productid'/>
+                                <input type='hidden' value=<%out.println(reviewbean.getReviewID());%> name='reviewid'/>
+                                <input type='submit' value='Save' name='action' style='border-color: transparent; background-color: transparent'/>
+                            </form>
                             </tbody>
                         </table>
                     </div>

@@ -56,39 +56,42 @@ public class EditReviewServlet extends HttpServlet {
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             //if (homeuser.getAccesscontrol().isEditmessage()) {
-                LogBean log = new LogBean();
-                LogDAOInterface logdao = new LogDAOImplementation();
-                Timestamp time;
-                java.util.Date date = new java.util.Date();
-                time = new Timestamp(date.getTime());
-                // not sure if customerID or accountID dapat :)
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+            Timestamp time;
+            java.util.Date date = new java.util.Date();
+            time = new Timestamp(date.getTime());
+            // not sure if customerID or accountID dapat :)
 
-                log.setLog_accountID(homeuser.getAccountID());
-                log.setTime(time);
+            log.setLog_accountID(homeuser.getAccountID());
+            log.setTime(time);
 
-                int reviewID = Integer.valueOf(request.getParameter("reviewid"));
-                String activity = "Edit review ID " + reviewID;
-                log.setActivity(activity);
+            int reviewID = Integer.valueOf(request.getParameter("reviewid"));
+            String activity = "Edit review ID " + reviewID;
+            log.setActivity(activity);
+            log.setIp_address(request.getRemoteAddr());
+            log.setStatus("successful");
 
-                ReviewBean reviewbean = new ReviewBean();
-                ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
-                ProductDAOInterface productdao = new ProductDAOImplementation();
-                ProductBean productbean = new ProductBean();
+            ReviewBean reviewbean = new ReviewBean();
+            ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
+            ProductDAOInterface productdao = new ProductDAOImplementation();
+            ProductBean productbean = new ProductBean();
 
-                reviewbean = reviewdao.getReviewByReviewID(reviewID);
-                productbean = productdao.getProductById(reviewbean.getReview_productID());
+            reviewbean = reviewdao.getReviewByReviewID(reviewID);
+            productbean = productdao.getProductById(reviewbean.getReview_productID());
 
-                if (logdao.addLog(log)) {
-                    session.setAttribute("reviewbean", reviewbean);
+            if (logdao.addLog(log)) {
 
-                    session.setAttribute("productbean", productbean);
-                    out.println(reviewbean.getReview_productID());
-                    out.println(productbean.getTitle());
-                    //     response.sendRedirect("customereditreview.jsp");
-                    out.println("YEHEY PWEDE");
-                } else {
-                    out.println("UNABLE TO EDIT");
-                }
+                session.setAttribute("reviewbean", reviewbean);
+
+                session.setAttribute("productbean", productbean);
+           //     out.println(reviewbean.getReview_productID());
+                //     out.println(productbean.getTitle());
+                response.sendRedirect("customereditreview.jsp");
+                out.println("YEHEY PWEDE");
+            } else {
+                out.println("UNABLE TO EDIT");
+            }
             //} else {
             //    out.println("ACCESS DENIED");
             //}

@@ -64,40 +64,45 @@ public class DeleteReviewServlet extends HttpServlet {
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             //if (homeuser.getAccesscontrol().isDeletemessage()) {
+            out.println(request.getParameter("reviewid"));
+            String str_reviewid = request.getParameter("reviewid");
+            int reviewID = Integer.valueOf(str_reviewid);
+            ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
+            ReviewBean reviewbean = new ReviewBean();
 
-                int reviewID = Integer.valueOf(request.getParameter("reviewid"));
-                ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
-                ReviewBean reviewbean = new ReviewBean();
+            CustomerBean customer = new CustomerBean();
+            CustomerDAOInterface customerdao = new CustomerDAOImplementation();
+            customer = customerdao.getCustomerByAccountID(homeuser.getAccountID());
+            ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
 
-                CustomerBean customer = new CustomerBean();
-                CustomerDAOInterface customerdao = new CustomerDAOImplementation();
-                customer = customerdao.getCustomerByAccountID(homeuser.getAccountID());
-                ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
+            boolean checkdelete = false;
+            checkdelete = reviewdao.deleteReview(reviewID);
 
-                boolean checkdelete = false;
-                checkdelete = reviewdao.deleteReview(reviewID);
-                if (checkdelete) {
-                    // delete successful
+            out.println(reviewID);
+            if (checkdelete) {
+                // delete successful
 
-                    LogBean log = new LogBean();
-                    LogDAOInterface logdao = new LogDAOImplementation();
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-                    log.setActivity("Remove review " + reviewID);
+                log.setActivity("Remove review " + reviewID);
 
-                    log.setLog_accountID(homeuser.getAccountID());
-                    java.util.Date date = new java.util.Date();
-                    Timestamp time = new Timestamp(date.getTime());
-                    log.setTime(time);
+                log.setLog_accountID(homeuser.getAccountID());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setTime(time);
+                log.setIp_address(request.getRemoteAddr());
+                log.setStatus("successful");
 
-                    reviewlist = customerdao.getReviewsByCustomer(customer.getCustomerID());
+                reviewlist = customerdao.getReviewsByCustomer(customer.getCustomerID());
 
-                    if (logdao.addLog(log)) {
-                        session.setAttribute("reviewlist", reviewlist);
-                        response.sendRedirect("customerviewreviews.jsp");
-                    }
-                } else {
-                    // delete unsucessful
+                if (logdao.addLog(log)) {
+                    session.setAttribute("reviewlist", reviewlist);
+                    response.sendRedirect("customerviewreviews.jsp");
                 }
+            } else {
+                // delete unsucessful
+            }
             //} else {
             //    out.println("ACCESS DENIED HEHE");
             //}

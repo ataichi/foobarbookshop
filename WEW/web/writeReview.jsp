@@ -124,7 +124,7 @@
                         <input type='text' name='review'/>
                     </dd>
                     <dd>
-                        <input type='text' value='<%out.println(orderproductlist.get(i).getProductID());%>'  name='id' />
+                        <input type='hidden' value=<%out.println(orderproductlist.get(i).getProductID());%>  name='id' />
                     </dd>
                     <dt>
                     <input type='submit' value='Submit Review'/>

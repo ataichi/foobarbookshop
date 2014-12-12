@@ -41,5 +41,7 @@ public interface CustomerDAOInterface {
     public ProductBean searchProduct(int ProductID);
     public ArrayList<ShoppingCartBean> getShoppingCartByCustomerID(int customerID);
     public ArrayList<ProductOrderBean> getProductOrderByShoppingCartID(int shoppingcartID);
+    
+    public ArrayList<ProductBean> getProductsBoughtByCustomer(int customerID);
 
 }

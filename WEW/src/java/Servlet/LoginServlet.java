@@ -140,6 +140,12 @@ public class LoginServlet extends HttpServlet {
                         ShoppingCartBean shoppingcart = new ShoppingCartBean();
                         ArrayList<ProductOrderBean> temporder = new ArrayList<ProductOrderBean>();
 
+                        ArrayList<ProductBean> productsbought = new ArrayList<ProductBean>();
+                        productsbought = customerdao.getProductsBoughtByCustomer(tempcustomer.getCustomerID()); // get array list of products bought by customer4
+                        
+                        ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
+                        reviewlist = customerdao.getReviewsByCustomer(tempcustomer.getCustomerID());
+
                         session.setAttribute("type", "Customer");
                         session.setAttribute("tempcustomer", tempcustomer);
                         session.setAttribute("shoppingcart", shoppingcart);
@@ -152,8 +158,10 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("productdvdlist", productdvdlist);
                         session.setAttribute("productmagazinelist", productmagazinelist);
 
+                        session.setAttribute("productsbought", productsbought);
+                        session.setAttribute("reviewlist", reviewlist);
                         session.setMaxInactiveInterval(-1);
-                        response.sendRedirect("customerHOME.jsp");
+                       response.sendRedirect("customerHOME.jsp");
                     } else if (account.getAccountType().equals("Audio CD Manager")) {
                         audiocdlist = cddao.getAllAudioCD();
                         productlist = pdao.getProductsByType("Audio CD");

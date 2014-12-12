@@ -580,4 +580,65 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
         return null;
     }
 
+    @Override
+    public ArrayList<ProductBean> getProductsBoughtByCustomer(int customerID) {
+        try {
+            String query = "select productID, type, title, price, summary, genre, year, stocks "
+                    + " from product, customer, shoppingcart"
+                    + " where customerID = ? "
+                    + " AND customerID = shoppingcart_customerID " 
+                    + " group by productID";
+            Connector c = new Connector();
+            Connection connection = c.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, customerID);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ProductBean> list = new ArrayList<ProductBean>();
+            ProductBean bean = new ProductBean();
+
+            int productID, stocks, year;
+            String type, title, summary, genre;
+            double price;
+
+            while (rs.next()) {
+
+                bean = new ProductBean();
+
+                productID = rs.getInt("productID");
+                stocks = rs.getInt("stocks");
+                year = rs.getInt("year");
+
+                type = rs.getString("type");
+                title = rs.getString("title");
+                summary = rs.getString("summary");
+                genre = rs.getString("genre");
+
+                price = rs.getDouble("price");
+
+                bean.setProductID(productID);
+                bean.setNumberStocks(stocks);
+                bean.setYear(year);
+
+                bean.setType(type);
+                bean.setTitle(title);
+                bean.setSummary(summary);
+                bean.setGenre(genre);
+
+                bean.setPrice(price);
+
+                list.add(bean);
+
+            }
+
+            connection.close();
+            return list;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

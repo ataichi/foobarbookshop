@@ -8,6 +8,7 @@ package Servlet;
 import Beans.AccountBean;
 import Beans.CustomerBean;
 import Beans.LogBean;
+import Beans.ProductBean;
 import Beans.ReviewBean;
 import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Implementation.LogDAOImplementation;
@@ -18,6 +19,7 @@ import DAO.Interface.ReviewDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,46 +62,53 @@ public class ConfirmEditReview extends HttpServlet {
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             //if (homeuser.getAccesscontrol().isEditmessage()) {
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
+            Timestamp time;
+            java.util.Date date = new java.util.Date();
+            time = new Timestamp(date.getTime());
+            log.setTime(time);
 
-                LogBean log = new LogBean();
-                LogDAOInterface logdao = new LogDAOImplementation();
-                Timestamp time;
-                java.util.Date date = new java.util.Date();
-                time = new Timestamp(date.getTime());
-                log.setTime(time);
+            String review = request.getParameter("review");
+            int review_productID = Integer.valueOf(request.getParameter("productid"));
+            int reviewID = Integer.valueOf(request.getParameter("reviewid"));
 
-                String review = request.getParameter("review");
-                int review_productID = Integer.valueOf(request.getParameter("productid"));
-                int reviewID = Integer.valueOf(request.getParameter("reviewID"));
+            String activity = "Edit Review for product " + review_productID;
+            log.setActivity(activity);
+            log.setLog_accountID(homeuser.getAccountID());
+            log.setIp_address(request.getRemoteAddr());
+            log.setStatus("Successful");
 
-                String activity = "Edit Review for product " + review_productID;
-                log.setActivity(activity);
-                log.setLog_accountID(homeuser.getAccountID());
+            CustomerBean customer = new CustomerBean();
+            CustomerDAOInterface customerdao = new CustomerDAOImplementation();
 
-                CustomerBean customer = new CustomerBean();
-                CustomerDAOInterface customerdao = new CustomerDAOImplementation();
+            ReviewBean reviewbean = new ReviewBean();
+            ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
 
-                ReviewBean reviewbean = new ReviewBean();
-                ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
+            customer = customerdao.getCustomerByAccountID(homeuser.getAccountID());
 
-                customer = customerdao.getCustomerByAccountID(homeuser.getAccountID());
+            reviewbean.setReview(review);
+            reviewbean.setReviewID(reviewID);
+            reviewbean.setReview_customerID(customer.getCustomerID());
+            reviewbean.setReview_productID(review_productID);
 
-                reviewbean.setReview(review);
-                reviewbean.setReviewID(reviewID);
-                reviewbean.setReview_customerID(customer.getCustomerID());
-                reviewbean.setReview_productID(review_productID);
+            boolean editreview = false;
 
-                boolean editreview = false;
+            editreview = customerdao.editReview(reviewbean);
 
-                editreview = customerdao.editReview(reviewbean);
+            ArrayList<ProductBean> productsbought = new ArrayList<ProductBean>();
+            productsbought = customerdao.getProductsBoughtByCustomer(customer.getCustomerID()); // get array list of products bought by customer4
+            ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
+            reviewlist = customerdao.getReviewsByCustomer(customer.getCustomerID());
 
-                if (editreview && logdao.addLog(log)) {
-                    // successful mag-edit
-
-                    response.sendRedirect("customerviewreviews.jsp");
-                } else {
-                    //unsuccessful
-                }
+            if (editreview && logdao.addLog(log)) {
+                // successful mag-edit
+                session.setAttribute("productsbought", productsbought);
+                session.setAttribute("reviewlist", reviewlist);
+                response.sendRedirect("customerviewreviews.jsp");
+            } else {
+                //unsuccessful
+            }
             //} else {
             //    out.println("ACCESS DENIED");
             //}
