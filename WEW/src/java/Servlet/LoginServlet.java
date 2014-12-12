@@ -187,7 +187,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("productlist", productlist);
                         session.setAttribute("homeproduct", account);
                         session.setMaxInactiveInterval(600);
-                        
+
                         response.sendRedirect("productmanagerHOME.jsp");
                     } else if (account.getAccountType().equals("Magazine Manager")) {
                         magazinelist = magazinedao.getAllMagazine();

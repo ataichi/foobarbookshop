@@ -110,7 +110,7 @@
                         for (int i = 0; i < orderproductlist.size(); i++) { //all orders
                 %>
 
-                <form action='WriteReview'>
+                <form action='WriteReviewServlet' method='post'>
                     <dt>
                     Title
                     </dt>
@@ -124,7 +124,7 @@
                         <input type='text' name='review'/>
                     </dd>
                     <dd>
-                        <input type='hidden' value='<%out.println(orderproductlist.get(i).getProductID());%>'  name='id' >
+                        <input type='text' value='<%out.println(orderproductlist.get(i).getProductID());%>'  name='id' />
                     </dd>
                     <dt>
                     <input type='submit' value='Submit Review'/>

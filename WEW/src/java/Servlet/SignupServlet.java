@@ -49,7 +49,7 @@ public class SignupServlet extends HttpServlet {
             if (password.toLowerCase().contains(username.toLowerCase())
                     || password.toLowerCase().contains(firstname.toLowerCase())
                     || password.toLowerCase().contains(lastname.toLowerCase())) {
-                out.println("huy bawal yan");
+          //      out.println("huy bawal yan");
                 response.sendRedirect("signupfail.jsp");
             
             } else {
@@ -67,7 +67,7 @@ public class SignupServlet extends HttpServlet {
 
                 boolean check = userdao.isUsernameAvailable(username);
                 if (check) { // meron nang username
-                    out.println("MERON NA");
+            //        out.println("MERON NA");
                     response.sendRedirect("signupfail.jsp");
                 } else {
                     account.setFirstName(firstname);
@@ -95,8 +95,7 @@ public class SignupServlet extends HttpServlet {
                     LogBean log = new LogBean();
                     LogDAOInterface logdao = new LogDAOImplementation();
                     
-                    checkCustomer = customerdao.addCustomer(customer);
-
+         
                     if (checkAccount && checkCustomer && !userdao.isUsernameAvailable(username)) {
                         log.setActivity(username + " Customer SignUps");
                         log.setLog_accountID(customer_accountID);

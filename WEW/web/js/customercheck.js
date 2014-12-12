@@ -207,7 +207,7 @@ function customerCheck() {
 function creditCardNoCheck() {
     var cardType = document.forms["creditcardcheck"]["cardType"].value;
     var cardNo = document.forms["creditcardcheck"]["cardNo"].value;
-    if (cardType === "Visa") { // american express
+    if (cardType === "Visa") { // Visa
         if (/^4[0-9]{12}(?:[0-9]{3})?$/.test(cardNo)) {
             document.forms["creditcardcheck"]["cardNo"].style.backgroundColor = "white";
             return true;

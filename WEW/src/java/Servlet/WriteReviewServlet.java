@@ -11,8 +11,10 @@ import Beans.LogBean;
 import Beans.ReviewBean;
 import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Implementation.LogDAOImplementation;
+import DAO.Implementation.ReviewDAOImplementation;
 import DAO.Interface.CustomerDAOInterface;
 import DAO.Interface.LogDAOInterface;
+import DAO.Interface.ReviewDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
@@ -23,8 +25,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "WriteReview", urlPatterns = {"/WriteReview"})
-public class WriteReview extends HttpServlet {
+/**
+ *
+ * @author Giodee
+ */
+@WebServlet(name = "WriteReviewServlet", urlPatterns = {"/WriteReviewServlet"})
+public class WriteReviewServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,50 +46,58 @@ public class WriteReview extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet WriteReviewServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet WriteReviewServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
 
             HttpSession session = request.getSession();
-            AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            //if (account.getAccesscontrol().isPostmessage()) {
-            CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
-            ReviewBean reviewbean = new ReviewBean();
+
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
+
+            CustomerBean customer = (CustomerBean) session.getAttribute("tempcustomer");
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
+
+            ReviewBean reviewbean = new ReviewBean();
+            ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
+
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
-
             String review = request.getParameter("review");
-            out.println(request.getParameter("id"));
-            String str_productid = request.getParameter("id");
-            int productid = Integer.parseInt(str_productid);
-            out.println(productid);
-            int review_customerID = tempcustomer.getCustomerID();
+            int id = Integer.valueOf(request.getParameter("id"));
+            int review_customerID = customer.getCustomerID();
+            out.println(id);
 
             reviewbean.setReview(review);
             reviewbean.setReview_customerID(review_customerID);
-            reviewbean.setReview_productID(productid);
-
-            int accountid = tempcustomer.getCustomer_accountID();
-            Timestamp time;
-            java.util.Date date = new java.util.Date();
-            time = new Timestamp(date.getTime());
-            String activity = "Customer ID" + tempcustomer.getCustomerID() + " wrote review for product id " + productid;
-            // not sure if customerID or accountID dapat :)
-
-            log.setActivity(activity);
-            log.setLog_accountID(accountid);
-            log.setTime(time);
+            reviewbean.setReview_productID(id);
 
             if (customerdao.writeReview(reviewbean)) {
+                int accountid = customer.getCustomer_accountID();
+                Timestamp time;
+                java.util.Date date = new java.util.Date();
+                time = new Timestamp(date.getTime());
+                String activity = "Customer ID" + customer.getCustomerID() + " wrote review for product id " + id;
+                // not sure if customerID or accountID dapat :)
 
-                if (logdao.addLog(log)) {
+                log.setActivity(activity);
+                log.setLog_accountID(accountid);
+                log.setTime(time);
+                log.setIp_address(request.getRemoteAddr());
+                log.setStatus("Successful");
+                
+                if(logdao.addLog(log)){
                     response.sendRedirect("customerHOME.jsp");
                 }
-            } else {
 
-                out.println("Write review not successful");
+            } else {
+       //         out.println("Review not added");
             }
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
         }
     }
 

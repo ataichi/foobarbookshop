@@ -78,10 +78,10 @@
             <div class="row" style="padding-top: 200px;">
                 <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">
                     <div class="form-group">
-                        <input id="loguser" name='loguser' onblur="usernameCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Username">
+                        <input id="loguser" name='loguser' onblur="usernameCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Username" required>
                     </div>
                     <div class="form-group">
-                        <input id="logpass" name='logpass' onblur="passwordCheck();" onfocus="backWhite(this);" type="password" class="form-control input-lg" placeholder="Password">
+                        <input id="logpass" name='logpass' onblur="passwordCheck();" onfocus="backWhite(this);" type="password" class="form-control input-lg" placeholder="Password" required>
                         <input type='hidden' value='0' name='ctr_try'/>
                     </div>
                     <div class="form-group">
