@@ -101,6 +101,7 @@ public class AdminLoginServlet extends HttpServlet {
                 java.util.Date date = new java.util.Date();
                 Timestamp time = new Timestamp(date.getTime());
                 log.setTime(time);
+                log.setStatus("successful");
                 if (logdao.addLog(log)) {
                     session.setAttribute("homeadmin", account);
                     session.setAttribute("type", type);

@@ -41,74 +41,74 @@ public class EditAdminAccountServlet extends HttpServlet {
             AccountBean account = (AccountBean) session.getAttribute("homeadmin");
 
             //if (account.getAccesscontrol().isEditadmin()) {
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
-                LogBean log = new LogBean();
-                LogDAOInterface logdao = new LogDAOImplementation();
+            AccountBean bean = new AccountBean();
+            String firstName, lastName, middleInitial, username, emailAdd;
 
-                AccountBean bean = new AccountBean();
-                String firstName, lastName, middleInitial, username, emailAdd;
+            if (request.getParameter("editfirst").isEmpty()) {
+                firstName = account.getFirstName();
+            } else {
+                firstName = request.getParameter("editfirst");
+            }
 
-                if (request.getParameter("editfirst").isEmpty()) {
-                    firstName = account.getFirstName();
-                } else {
-                    firstName = request.getParameter("editfirst");
-                }
+            if (request.getParameter("editlast").isEmpty()) {
+                lastName = account.getLastName();
+            } else {
+                lastName = request.getParameter("editlast");
+            }
 
-                if (request.getParameter("editlast").isEmpty()) {
-                    lastName = account.getLastName();
-                } else {
-                    lastName = request.getParameter("editlast");
-                }
+            if (request.getParameter("editmiddle").isEmpty()) {
+                middleInitial = account.getMiddleInitial();
+            } else {
+                middleInitial = request.getParameter("editmiddle");
+            }
 
-                if (request.getParameter("editmiddle").isEmpty()) {
-                    middleInitial = account.getMiddleInitial();
-                } else {
-                    middleInitial = request.getParameter("editmiddle");
-                }
+            if (request.getParameter("edituser").isEmpty()) {
+                username = account.getUsername();
+            } else {
+                username = request.getParameter("edituser");
+            }
 
-                if (request.getParameter("edituser").isEmpty()) {
-                    username = account.getUsername();
-                } else {
-                    username = request.getParameter("edituser");
-                }
+            if (request.getParameter("editemail").isEmpty()) {
+                emailAdd = account.getEmailAdd();
+            } else {
+                emailAdd = request.getParameter("editemail");
+            }
+            boolean locked = false;
+            String password = account.getPassword();
+            int id = account.getAccountID();
+            AccountDAOInterface accountdao = new AccountDAOImplementation();
+            bean.setAccountID(id);
+            bean.setFirstName(firstName);
+            bean.setLastName(lastName);
+            bean.setMiddleInitial(middleInitial);
+            bean.setUsername(username);
+            bean.setEmailAdd(emailAdd);
+            bean.setLocked(locked);
+            bean.setPassword(password);
+            bean.setAccountType("Admin");
 
-                if (request.getParameter("editemail").isEmpty()) {
-                    emailAdd = account.getEmailAdd();
-                } else {
-                    emailAdd = request.getParameter("editemail");
-                }
-                boolean locked = false;
-                String password = account.getPassword();
-                int id = account.getAccountID();
-                AccountDAOInterface accountdao = new AccountDAOImplementation();
-                bean.setAccountID(id);
-                bean.setFirstName(firstName);
-                bean.setLastName(lastName);
-                bean.setMiddleInitial(middleInitial);
-                bean.setUsername(username);
-                bean.setEmailAdd(emailAdd);
-                bean.setLocked(locked);
-                bean.setPassword(password);
-                bean.setAccountType("Admin");
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
 
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
+            log.setIp_address(address);
+            log.setLog_accountID(account.getAccountID());
+            log.setTime(time);
+            log.setActivity("Edit Admin Account ID " + account.getAccountID());
 
-                log.setIp_address(address);
-                log.setLog_accountID(account.getAccountID());
-                log.setTime(time);
-                log.setActivity("Edit Admin Account ID " + account.getAccountID());
-
-                boolean edit = accountdao.updateAccount(bean);
-                if (edit) {
-                    if (logdao.addLog(log)) {
-                        session.setAttribute("homeadmin", bean);
-                        response.sendRedirect("adminHOME.jsp");
-                    }
-                } else {
+            boolean edit = accountdao.updateAccount(bean);
+            if (edit) {
+                log.setStatus("successful");
+                if (logdao.addLog(log)) {
                     session.setAttribute("homeadmin", bean);
-                    response.sendRedirect("adminAccount.jsp");
+                    response.sendRedirect("adminHOME.jsp");
                 }
+            } else {
+                session.setAttribute("homeadmin", bean);
+                response.sendRedirect("adminAccount.jsp");
+            }
             //} else {
             //    out.println("ACCESS DENIED");
             //}

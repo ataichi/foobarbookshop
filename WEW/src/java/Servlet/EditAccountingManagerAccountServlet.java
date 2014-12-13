@@ -102,6 +102,7 @@ public class EditAccountingManagerAccountServlet extends HttpServlet {
             log.setActivity("Edit Accounting Manager ID " + account.getAccountID());
             boolean edit = accountdao.updateAccount(bean);
             if (edit) {
+                log.setStatus("successful");
                 if (logdao.addLog(log)) {
                     session.setAttribute("homeaccounting", bean);
                     response.sendRedirect("accountingmanagerHOME.jsp");

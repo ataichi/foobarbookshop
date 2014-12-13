@@ -71,6 +71,7 @@ public class EditBillingInfoServlet extends HttpServlet {
             if (cbean.getCustomerID() == 0) {
                 check = cdao.addCustomer(cbean);
                 if (check) {
+                    log.setStatus("successful");
                     if (logdao.addLog(log)) {
                         session.setAttribute("tempcustomer", cbean);
                         response.sendRedirect("customerHOME.jsp");

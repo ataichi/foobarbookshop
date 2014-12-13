@@ -63,11 +63,10 @@ public class EditReviewServlet extends HttpServlet {
             time = new Timestamp(date.getTime());
             // not sure if customerID or accountID dapat :)
 
-            log.setLog_accountID(homeuser.getAccountID());
-            log.setTime(time);
-
             int reviewID = Integer.valueOf(request.getParameter("reviewid"));
             String activity = "Edit review ID " + reviewID;
+            log.setLog_accountID(homeuser.getAccountID());
+            log.setTime(time);
             log.setActivity(activity);
             log.setIp_address(request.getRemoteAddr());
             log.setStatus("successful");
@@ -85,7 +84,7 @@ public class EditReviewServlet extends HttpServlet {
                 session.setAttribute("reviewbean", reviewbean);
 
                 session.setAttribute("productbean", productbean);
-           //     out.println(reviewbean.getReview_productID());
+                //     out.println(reviewbean.getReview_productID());
                 //     out.println(productbean.getTitle());
                 response.sendRedirect("customereditreview.jsp");
                 out.println("YEHEY PWEDE");

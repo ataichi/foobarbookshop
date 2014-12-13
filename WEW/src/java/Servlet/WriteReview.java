@@ -68,9 +68,11 @@ public class WriteReview extends HttpServlet {
             String activity = "Customer ID" + tempcustomer.getCustomerID() + " wrote review for product id " + productid;
             // not sure if customerID or accountID dapat :)
 
-            log.setActivity(activity);
-            log.setLog_accountID(accountid);
-            log.setTime(time);
+                log.setActivity(activity);
+                log.setLog_accountID(accountid);
+                log.setTime(time);
+                log.setIp_address(request.getRemoteAddr());
+                log.setStatus("Successful");
 
             if (customerdao.writeReview(reviewbean)) {
 

@@ -100,13 +100,10 @@ public class AccountingSignupServlet extends HttpServlet {
                 boolean addUser = userdao.addAccount(account);
 
                 if (addUser) {
-                    //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
-                    //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
-                        userCookie = new Cookie("password", pass1);
-                        userCookie.setMaxAge(86400);
+                        //userCookie.setMaxAge(86400);
                         log.setStatus("successful");
                         logdao.addLog(log);
-                        response.addCookie(userCookie);
+                        //response.addCookie(userCookie);
                         response.sendRedirect("adminHOME.jsp");
                 } else {
                     log.setStatus("failed");

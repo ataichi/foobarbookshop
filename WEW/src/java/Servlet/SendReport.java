@@ -66,7 +66,7 @@ public class SendReport extends HttpServlet {
 
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
-                
+
                 Timestamp time;
                 java.util.Date date = new java.util.Date();
                 time = new Timestamp(date.getTime());
@@ -76,6 +76,8 @@ public class SendReport extends HttpServlet {
                 log.setActivity(activity);
                 log.setLog_accountID(account.getAccountID());
                 log.setTime(time);
+                log.setIp_address(request.getRemoteAddr());
+                log.setStatus("Successful");
 
                 if (lockreportdao.addLockReport(lockreport) && logdao.addLog(log)) {
                     out.println("successful");

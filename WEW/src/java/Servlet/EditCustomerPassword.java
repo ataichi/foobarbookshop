@@ -1,4 +1,3 @@
-
 package Servlet;
 
 import Beans.AccountBean;
@@ -36,7 +35,7 @@ public class EditCustomerPassword extends HttpServlet {
             HttpSession session = request.getSession();
             String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            
+
             //if(account.getAccesscontrol().isEditpassword()){
             AccountBean bean = new AccountBean();
 
@@ -72,6 +71,7 @@ public class EditCustomerPassword extends HttpServlet {
             out.println(edit);
 
             if (edit) {
+                log.setStatus("successful");
                 if (logdao.addLog(log)) {
                     session.setAttribute("homeuser", bean);
                     response.sendRedirect("customerHOME.jsp");
