@@ -84,7 +84,7 @@
                         <h3 class="panel-title">Account Information</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="changepassword" name="changepassword" action="ProductManagerChangePasswordServlet" method="post">
+                        <form class="form-horizontal" role="form" id="changepassword" name="changepassword" action="ChangePassword" method="post">
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
                                     <label class="control-label col-lg-4">Change Password</label>

@@ -70,7 +70,7 @@
                         <h3 class="panel-title">Change Password</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return managerEditPassword();" action="AccountingChangePasswordServlet" method="post">
+                        <form class="form-horizontal" role="form" id="managercheck" name="managercheck" onsubmit="return managerEditPassword();" action="ChangePassword" method="post">
                             <div>
                                 <div class="form-group" style="font-size: 20px;">
                                     <label class="control-label col-lg-4">Password</label>
