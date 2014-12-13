@@ -49,8 +49,8 @@ public class SignupServlet extends HttpServlet {
             if (password.toLowerCase().contains(username.toLowerCase())
                     || password.toLowerCase().contains(firstname.toLowerCase())
                     || password.toLowerCase().contains(lastname.toLowerCase())) {
-                //      out.println("huy bawal yan");
-                response.sendRedirect("signupfail.jsp");
+                out.println("huy bawal yan");
+                response.sendRedirect("signup.jsp");
 
             } else {
 
@@ -68,7 +68,7 @@ public class SignupServlet extends HttpServlet {
                 boolean check = userdao.isUsernameAvailable(username);
                 if (check) { // meron nang username
                     //        out.println("MERON NA");
-                    response.sendRedirect("signupfail.jsp");
+                    response.sendRedirect("signup.jsp");
                 } else {
                     account.setFirstName(firstname);
                     account.setLastName(lastname);
@@ -78,7 +78,7 @@ public class SignupServlet extends HttpServlet {
                     account.setUsername(username);
                     account.setAccountType("Customer");
                     account.setLocked(false);
-
+                    account.setFailedLoginCount(0);
                     checkAccount = userdao.addAccount(account);
                     String BA = request.getParameter("BA");
                     String DA = request.getParameter("DA");
@@ -94,25 +94,24 @@ public class SignupServlet extends HttpServlet {
                     LogBean log = new LogBean();
                     LogDAOInterface logdao = new LogDAOImplementation();
 
-                    if (checkAccount && checkCustomer && !userdao.isUsernameAvailable(username)) {
-                        log.setActivity(username + " Customer SignUps");
+                    java.util.Date date = new java.util.Date();
+                    Timestamp time = new Timestamp(date.getTime());
+                    log.setTime(time);
+                    log.setIp_address(request.getRemoteAddr());
+                    log.setActivity(username + " Customer SignUps");
+                    if (checkAccount && checkCustomer && (!userdao.isUsernameAvailable(username) == false)) {
                         log.setLog_accountID(customer_accountID);
-
-                        java.util.Date date = new java.util.Date();
-                        Timestamp time = new Timestamp(date.getTime());
-                        log.setTime(time);
-                        log.setTime(time);
-                        log.setIp_address(request.getRemoteAddr());
                         log.setStatus("Successful");
-
-                        if (logdao.addLog(log)) {
-                            session.setAttribute("username", username);
-                        }
-
+                        session.setAttribute("username", username);
+                        logdao.addLog(log);
                         response.sendRedirect("login.jsp");
                     } else {
+                        log.setStatus("failed");
+                        log.setLog_accountID(0);
+                        logdao.addLog(log);
                         AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
-                        //       
+                        response.sendRedirect("signup.jsp");
+                    //       SET COOKIES
                     }
                 }
             }

@@ -26,19 +26,17 @@ function editPassword() {
 
 function fnameCheck() {
     var first = document.forms["customercheck"]["fname"].value;
-    if (first === "" || first === null || !(/^[A-z ]+$/.test(first))) {
-        document.forms["customercheck"]["fname"].style.backgroundColor = "pink";
-        var first = document.forms["customercheck"]["fname"].value;
-        if (first === "" || first === null || !(/^[A-z ]{2,20}$/.test(first))) {
-            document.forms["customercheck"]["fname"].style.backgroundColor = "pink";
 
-            return false;
-        }
-        else {
-            document.forms["customercheck"]["fname"].style.backgroundColor = "white";
-            return true;
-        }
+    if (first === "" || first === null || !(/^[A-z ]{2,20}$/.test(first))) {
+        document.forms["customercheck"]["fname"].style.backgroundColor = "pink";
+
+        return false;
     }
+    else {
+        document.forms["customercheck"]["fname"].style.backgroundColor = "white";
+        return true;
+    }
+
 }
 
 function mnameCheck() {
@@ -56,19 +54,15 @@ function mnameCheck() {
 function lnameCheck() {
 
     var last = document.forms["customercheck"]["lname"].value;
-    if (last === "" || last === null || !(/^[A-z ]+$/.test(last))) {
+
+    if (last === "" || last === null || !(/^[A-z ]{2,20}$/.test(last))) {
         document.forms["customercheck"]["lname"].style.backgroundColor = "pink";
 
-        var last = document.forms["customercheck"]["lname"].value;
-        if (last === "" || last === null || !(/^[A-z ]{2,20}$/.test(last))) {
-            document.forms["customercheck"]["lname"].style.backgroundColor = "pink";
-
-            return false;
-        }
-        else {
-            document.forms["customercheck"]["lname"].style.backgroundColor = "white";
-            return true;
-        }
+        return false;
+    }
+    else {
+        document.forms["customercheck"]["lname"].style.backgroundColor = "white";
+        return true;
     }
 }
 
@@ -102,10 +96,7 @@ function passCheck() {
 
     var pass1 = document.forms["customercheck"]["pass1"].value;
     var pass2 = document.forms["customercheck"]["pass2"].value;
-    if (!(/^[A-Za-z0-9!@#$%^&*()_]{8,20}$/.test(pass1))//!pass1.match(/(.[!,@,#,$,%,\^,&,*,?,_,~])/) 
-            || pass1 === "" || pass1 === null || pass2 === "" || pass2 === null || pass1 !== pass2) {
-        document.forms["customercheck"]["pass1"].style.backgroundColor = "pink";
-        document.forms["customercheck"]["pass2"].style.backgroundColor = "pink";
+ 
 
         var pass1 = document.forms["customercheck"]["pass1"].value;
         var pass2 = document.forms["customercheck"]["pass2"].value;
@@ -127,7 +118,7 @@ function passCheck() {
             document.forms["customercheck"]["pass2"].style.backgroundColor = "white";
             return true;
         }
-    }
+    
 }
 
 
