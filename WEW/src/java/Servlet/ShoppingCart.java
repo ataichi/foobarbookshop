@@ -45,6 +45,7 @@ public class ShoppingCart extends HttpServlet {
             String qty = request.getParameter("qty");
             String product = request.getParameter("product");
 
+            int int_qty = Integer.valueOf(qty);
             out.println(action);
             out.println(qty);
 
@@ -55,6 +56,13 @@ public class ShoppingCart extends HttpServlet {
                 Cookie cookie1 = cookies[i];
                 if (cookie1.getName().equals(homeuser.getUsername() + "-productid-" + product)) {
                     out.println("QTY = " + cookie1.getValue());
+                    int temp = Integer.valueOf(cookie1.getValue());
+
+                    cookie1.setValue(String.valueOf(temp + int_qty));
+                    out.println(cookie1.getValue());
+                    cookies[i] = cookie1;
+                    out.println(cookies[i].getValue());
+
                     foundCookie = true;
                 }
             }
@@ -63,13 +71,12 @@ public class ShoppingCart extends HttpServlet {
                 Cookie cookie1 = new Cookie(homeuser.getUsername() + "-productid-" + product, qty);
                 cookie1.setMaxAge(24 * 60 * 60);
                 response.addCookie(cookie1);
-
                 out.println("ADD COOKIE");
-                 response.sendRedirect("customerHOME.jsp");
-                
+
             }
 
-           
+            response.sendRedirect("customerHOME.jsp");
+
         }
     }
 
