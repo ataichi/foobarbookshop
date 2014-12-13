@@ -371,8 +371,8 @@
     <script src="dist/js/query.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
     <script>
-            $(document).ready(function() {
-                $("#qty").click(function() {
+            $(document).ready(function () {
+                $("#qty").click(function () {
                     var $n = $("#final");
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });

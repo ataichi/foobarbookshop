@@ -10,7 +10,7 @@ import DAO.Interface.AccountDAOInterface;
 import DAO.Interface.LockReportDAOInterface;
 import DAO.Interface.LogDAOInterface;
 import Process.Hasher;
-import Security.LoginAuthenticator;
+import Security.Authenticator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -86,33 +86,37 @@ public class AdminLoginServlet extends HttpServlet {
                 Logger.getLogger(AdminLoginServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            LoginAuthenticator loginauthenticator = new LoginAuthenticator();
+            Authenticator loginauthenticator = new Authenticator();
 
             account = loginauthenticator.login(request, response);
-            if (account != null && (true=="Admin".equals(account.getAccountType()))) {
+
+            log.setActivity("Admin " + username + " Login");
+            log.setLog_accountID(account.getAccountID());
+            log.setIp_address(address);
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+            log.setTime(time);
+
+            if (account != null && "Admin".equals(account.getAccountType())) {
                 loglist = logdao.getAllLogs();
                 lockreportlist = lockreportdao.getAllNotDoneLockReport();
                 lockedAccounts = accountdao.getAllLockedAccounts();
 
-                type = "Admin";
-                log.setActivity("Admin "+ username+" Login");
-                log.setLog_accountID(account.getAccountID());
-                log.setIp_address(address);
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
+
                 log.setStatus("successful");
-                if (logdao.addLog(log)) {
-                    session.setAttribute("homeadmin", account);
-                    session.setAttribute("type", type);
-                    session.setAttribute("loglist", loglist);
-                    session.setAttribute("homeadmin", account);
-                    session.setAttribute("lockedAccounts", lockedAccounts);
-                    session.setAttribute("lockreportlist", lockreportlist);
-                    session.setMaxInactiveInterval(600);
-                    response.sendRedirect("adminHOME.jsp");
-                }
+                logdao.addLog(log);
+                
+                session.setAttribute("homeadmin", account);
+                session.setAttribute("type", "Admin");
+                session.setAttribute("loglist", loglist);
+                session.setAttribute("homeadmin", account);
+                session.setAttribute("lockedAccounts", lockedAccounts);
+                session.setAttribute("lockreportlist", lockreportlist);
+                session.setMaxInactiveInterval(600);
+                response.sendRedirect("adminHOME.jsp");
             } else {
+                log.setStatus("failed");
+                logdao.addLog(log);
                 response.sendRedirect("adminLogin.jsp");
             }
 
