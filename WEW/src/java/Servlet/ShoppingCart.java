@@ -68,7 +68,7 @@ public class ShoppingCart extends HttpServlet {
             }
 
             if (!foundCookie) {
-                Cookie cookie1 = new Cookie(homeuser.getUsername() + "-productid-" + product, qty);
+                Cookie cookie1 = new Cookie(homeuser.getUsername() + "-productid-" + product, product);
                 cookie1.setMaxAge(24 * 60 * 60);
                 response.addCookie(cookie1);
                 out.println("ADD COOKIE");
