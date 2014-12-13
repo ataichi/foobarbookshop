@@ -80,8 +80,8 @@ public class FinalEditProductServlet extends HttpServlet {
             Timestamp time = new Timestamp(date1.getTime());
             log.setTime(time);
             log.setIp_address(address);
-
             log.setActivity("Edit " + editproduct.getTitle() + " Type: " + editproduct.getType());
+
             if (type.equals("Audio CD")) {
 
                 AudioCDBean audiocd = new AudioCDBean();
@@ -98,19 +98,17 @@ public class FinalEditProductServlet extends HttpServlet {
                 boolean editProduct = productdao.editProduct(editproduct);
                 boolean editCD = audiomanagerdao.editAudioCD(audiocd);
 
-                out.println(editProduct);
-                out.println(editCD);
-
                 if (editProduct && editCD) {
                     productlist = productdao.getProductsByType(type);
                     log.setStatus("Successful");
+                    logdao.addLog(log);
 
-                    if (logdao.addLog(log)) {
-                        session.setAttribute("productlist", productlist);
-                        response.sendRedirect("productmanagerHOME.jsp");
-                    }
+                    session.setAttribute("productlist", productlist);
+                    response.sendRedirect("productmanagerHOME.jsp");
                 } else {
-                    out.println("fail");
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("editproduct.jsp");
                 }
             } else if (type.equals("Book")) {
                 BookBean book = new BookBean();
@@ -149,17 +147,16 @@ public class FinalEditProductServlet extends HttpServlet {
                 boolean editProduct = productdao.editProduct(editproduct);
                 boolean editBook = bookmanagerdao.editBook(book);
 
-                out.println(editProduct);
-                out.println(editBook);
-
                 if (editProduct && editBook) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
                     productlist = productdao.getProductsByType(type);
-                    if (logdao.addLog(log)) {
-                        session.setAttribute("productlist", productlist);
-                        response.sendRedirect("productmanagerHOME.jsp");
-                    }
+                    session.setAttribute("productlist", productlist);
+                    response.sendRedirect("productmanagerHOME.jsp");
                 } else {
-                    out.println("fail");
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("editproduct.jsp");
                 }
 
             } else if (type.equals("DVD")) {
@@ -184,17 +181,16 @@ public class FinalEditProductServlet extends HttpServlet {
                 boolean editProduct = productdao.editProduct(editproduct);
                 boolean editDVD = dvdmanagerdao.editDVD(dvd);
 
-                out.println(editProduct);
-                out.println(editDVD);
-
                 if (editProduct && editDVD) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
                     productlist = productdao.getProductsByType(type);
-                    if (logdao.addLog(log)) {
-                        session.setAttribute("productlist", productlist);
-                        response.sendRedirect("productmanagerHOME.jsp");
-                    }
+                    session.setAttribute("productlist", productlist);
+                    response.sendRedirect("productmanagerHOME.jsp");
                 } else {
-                    out.println("fail");
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("editproduct.jsp");
                 }
 
             } else if (type.equals("Magazine")) {
@@ -234,19 +230,17 @@ public class FinalEditProductServlet extends HttpServlet {
                 boolean editProduct = productdao.editProduct(editproduct);
                 boolean editMagazine = magazinemanagerdao.editMagazine(magazine);
 
-                out.println(editProduct);
-                out.println(editMagazine);
-
                 if (editProduct && editMagazine) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
                     productlist = productdao.getProductsByType(type);
 
-                    if (logdao.addLog(log)) {
-                        session.setAttribute("productlist", productlist);
-                        response.sendRedirect("productmanagerHOME.jsp");
-                    }
+                    session.setAttribute("productlist", productlist);
+                    response.sendRedirect("productmanagerHOME.jsp");
                 } else {
-                    AccountDAOImplementation.insertLog(request.getRemoteAddr(), type + " Manager failed to edit a product.", false);
-                    out.println("fail");
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("editproduct.jsp");
                 }
 
             }
