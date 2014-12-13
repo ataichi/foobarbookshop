@@ -59,7 +59,7 @@
 
         <title>Customer Home Page</title>
     </head>
-    <body onload="checkCookie()">
+    <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -112,98 +112,144 @@
                                 <div role="tabpanel" class="tab-pane fade in well active" id="viewbook" aria-labelledBy="book-tab" style='height: 500px;'>
                                     <% int a;
                                         for (a = 0; a < productbooklist.size(); a++) {
-
-                                            out.println("<div class='col-md-3'>"
-                                                    + "<center>"
-                                                    + "<div><strong>" + productbooklist.get(a).getTitle() + "</strong></div>"
-                                                    + "<div>" + productbooklist.get(a).getSummary() + "</div>"
-                                                    + "<div>Price " + productbooklist.get(a).getPrice() + "</div>"
-                                                    + "<form action='ViewCustomerProductServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='product' name='product' value='" + productbooklist.get(a).getProductID() + "'/>"
-                                                    + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>");
-                                            if (productbooklist.get(a).getNumberStocks() > 0) {
-                                                out.println("<form action='AddToShoppingCartServlet' id='" + productbooklist.get(a).getProductID() + "' method='post'>"
-                                                        + " <input type='number' name='qty' id='qty' min='1' max='" + productbooklist.get(a).getNumberStocks() + "' value='1'/>"
-                                                        + "<input type='hidden' id='productid' name='product' value='" + productbooklist.get(a).getProductID() + "'/>"
-                                                        + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                        + "</center>"
-                                                        + "</div>"
-                                                );
-                                            } else {
-                                                out.println("<tr>"
-                                                        + "<td>"
-                                                        + "This product is unavailable."
-                                                        + "</td>"
-                                                        + "</tr>"
-                                                        + "</div>");
-                                            }
-
-                                        }
                                     %>
+                                    <div class="col-md-3">
+                                        <center>
+                                            <div>
+                                                <strong> 
+                                                    Title: <%out.println(productbooklist.get(a).getTitle());%>
+                                                </strong>
+                                            </div>
+                                            <div>
+                                                Summary: <%out.println(productbooklist.get(a).getSummary());%>
+                                            </div>
+                                            <div>
+                                                Price: <%out.println(productbooklist.get(a).getPrice()); %>
+                                            </div>
+                                            <form action="ViewCustomerProductServlet" id="<%out.println(productbooklist.get(a).getProductID());%>" method="post">
+                                                <input type="hidden" id="product" name="product" value=<%out.println(productbooklist.get(a).getProductID());%>/>
+                                                <input type="submit" value="View Details" name="action" style="border-color: transparent; background-color:transparent"/>
+                                            </form>
+
+
+                                            <%
+                                                if (productbooklist.get(a).getNumberStocks() > 0) {
+                                            %>
+                                            <form action="ShoppingCart" id="<%out.println(productbooklist.get(a).getProductID());%>" method="post">
+                                                <input type="number" name="qty" id="qty" min=1 max=<%out.println(productbooklist.get(a).getNumberStocks());%> value=1/>
+                                                <input type="hidden" id="productid" name="product" value=<%out.println(productbooklist.get(a).getProductID());%> />
+                                                <input type="submit" value="Add to Cart" nam="action" style="border-color: transparent; background-color:transparent"/>
+                                            </form>
+                                        </center>
+                                    </div>
+                                    <%
+                                    } else {
+                                    %>
+
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                This product is unavailable.
+                                            </strong>
+                                        </td>
+                                    </tr>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade in well " id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
-                                    <% int b;
-                                        for (b = 0; b < productmagazinelist.size(); b++) {
-                                            out.println("<div class='col-md-3'>"
-                                                    + "<center>"
-                                                    + "<div><strong>" + productmagazinelist.get(b).getTitle() + "</strong></div>"
-                                                    + "<div>" + productmagazinelist.get(b).getSummary() + "</div>"
-                                                    + "<div>Price " + productmagazinelist.get(b).getPrice() + "</div>"
-                                                    + "<form action='ViewCustomerProductServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='product' name='product' value='" + productmagazinelist.get(b).getProductID() + "'/>"
-                                                    + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>");
-                                            if (productmagazinelist.get(b).getNumberStocks() > 0) {
-                                                out.println("<form action='AddToShoppingCartServlet' id='" + productmagazinelist.get(b).getProductID() + "' method='post'>"
-                                                        + " <input type='number' name='qty' id='qty' min='1' max='" + productmagazinelist.get(b).getNumberStocks() + "' value='1'/>"
-                                                        + "<input type='hidden' id='productid' name='product' value='" + productmagazinelist.get(b).getProductID() + "'/>"
-                                                        + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                        + "</center>"
-                                                        + "</div>"
-                                                );
-                                            } else {
-                                                out.println("<tr>"
-                                                        + "<td>"
-                                                        + "This product is unavailable."
-                                                        + "</td>"
-                                                        + "</tr>"
-                                                        + "</div>");
-                                            }
-
+                                <%
                                         }
-                                    %>
+                                    }
+                                %>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade in well " id="viewmag" aria-labelledBy="mag-tab" style='height: 500px;'>
+                                <% int b;
+                                    for (b = 0; b < productmagazinelist.size(); b++) {
+                                %>
+                                <div class="col-md-3">
+                                    <center>
+                                        <div>
+                                            <strong>
+                                                Title: <%out.println(productmagazinelist.get(b).getTitle());%>
+                                            </strong>
+                                        </div>
+                                        <div>
+                                            Summary: <%out.println(productmagazinelist.get(b).getSummary());%>
+                                        </div>
+                                        <div>
+                                            Price: <%out.println(productmagazinelist.get(b).getPrice());%>
+                                        </div>
+                                        <form action="ViewCustomerProductServlet" id="<%out.println(productmagazinelist.get(b).getProductID());%>" method="post"
+                                              <input type="hidden" id="product" name="product" value=<%out.println(productmagazinelist.get(b).getProductID());%>/>
+                                            <input type="submit" value="View Details" name="action" style="border-color: transparent; background-color: transparent" />
+                                        </form>
+                                        <%
+                                            if (productmagazinelist.get(b).getNumberStocks() > 0) {
+                                        %>
+                                        <form action="ShoppingCart" id="<%out.println(productmagazinelist.get(b).getProductID());%>" method="post">
+                                            <input type="number" name="qty" id="qty" min=1 max=<%out.println(productmagazinelist.get(b).getNumberStocks());%> value=1/>
+                                            <input type="hidden" id="productid" name="product" value=<%out.println(productmagazinelist.get(b).getProductID());%> />
+                                            <input type="submit" value="Add to Cart" name="action" style="border-color: transparent; background-color:transparent"/
+                                                   </center>
+                                            </div>
+                                        </form>
+                                        <%
+                                        } else {
+                                        %>
+                                        <tr>
+                                            <td>
+                                                <strong>
+                                                    This product is unavailable.
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <%
+                                                }
+                                            }
+                                        %>
 
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade in well " id="viewcd" aria-labelledBy="cd-tab" style='height: 500px;'>
                                     <% int c;
                                         for (c = 0; c < productaudiolist.size(); c++) {
-                                            out.println("<div class='col-md-3'>"
-                                                    + "<center>"
-                                                    + "<div><strong>" + productaudiolist.get(c).getTitle() + "</strong></div>"
-                                                    + "<div>" + productaudiolist.get(c).getSummary() + "</div>"
-                                                    + "<div>Price " + productaudiolist.get(c).getPrice() + "</div>"
-                                                    + "<form action='ViewCustomerProductServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='product' name='product' value='" + productaudiolist.get(c).getProductID() + "'/>"
-                                                    + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>");
-                                            if (productaudiolist.get(c).getNumberStocks() > 0) {
-                                                out.println("<form action='AddToShoppingCartServlet' id='" + productaudiolist.get(c).getProductID() + "' method='post'>"
-                                                        + " <input type='number' name='qty' id='qty' min='1' max='" + productaudiolist.get(c).getNumberStocks() + "' value='1'/>"
-                                                        + "<input type='hidden' id='productid' name='product' value='" + productaudiolist.get(c).getProductID() + "'/>"
-                                                        + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                        + "</center>"
-                                                        + "</div>"
-                                                );
-                                            } else {
-                                                out.println("<tr>"
-                                                        + "<td>"
-                                                        + "This product is unavailable."
-                                                        + "</td>"
-                                                        + "</tr>"
-                                                        + "</div>");
-                                            }
+                                    %>
+                                    <div class='col-md-3'>
+                                        <center>
+                                            <div>
+                                                <strong>
+                                                    Title: <%out.println(productaudiolist.get(c).getTitle());%>
+                                                </strong>
+                                            </div>
+                                            <div>
+                                                <%out.println(productaudiolist.get(c).getSummary());%>
+                                            </div>
+                                            <div>
+                                                Price: <%out.println(productaudiolist.get(c).getPrice());%> 
+                                            </div>
+                                            <form action="ViewCustomerProductServlet" id="<%out.println(productaudiolist.get(c).getProductID());%>" method="post">
+                                                <input type="hidden" id="product" name="product" value=<%out.println(productaudiolist.get(c).getProductID());%>/>
+                                                <input type="submit" value="View Details" name="action" style="border-color: transparent; background-color: transparent" />
+                                            </form>
 
+                                            <%
+                                                if (productaudiolist.get(c).getNumberStocks() > 0) {
+                                            %>
+                                            <form action="ShoppingCart" id="<%out.println(productaudiolist.get(c).getProductID());%>" method="post">
+                                                <input type="number" name="qty" id="qty" min=1 max=<%out.println(productaudiolist.get(c).getNumberStocks());%> value=1/>
+                                                <input type="hidden" id="product" name="product" value=<%out.println(productaudiolist.get(c).getProductID());%>/>
+                                                <input type="submit" value="Add to Cart" name="action" style="border-color: transparent; background-color: transparent"/>
+                                            </form>
+                                        </center>
+                                    </div>
+                                    <%
+                                    } else {
+                                    %>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                This product is unavailable.
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <%
+                                            }
                                         }
                                     %>
 
@@ -211,104 +257,140 @@
                                 <div role="tabpanel" class="tab-pane fade in well " id="viewdvd" aria-labelledBy="dvd-tab" style='height: 500px;'>
                                     <% int d;
                                         for (d = 0; d < productdvdlist.size(); d++) {
-                                            out.println("<div class='col-md-3'>"
-                                                    + "<center>"
-                                                    + "<div><strong>" + productdvdlist.get(d).getTitle() + "</strong></div>"
-                                                    + "<div>" + productdvdlist.get(d).getSummary() + "</div>"
-                                                    + "<div>Price " + productdvdlist.get(d).getPrice() + "</div>"
-                                                    + "<form action='ViewCustomerProductServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
-                                                    + "<input type='hidden' id='product' name='product' value='" + productdvdlist.get(c).getProductID() + "'/>"
-                                                    + "<input type='submit' value='View Details' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                    + "</form>");
-                                            if (productdvdlist.get(d).getNumberStocks() > 0) {
-                                                out.println("<form action='AddToShoppingCartServlet' id='" + productdvdlist.get(d).getProductID() + "' method='post'>"
-                                                        + " <input type='number' name='qty' id='qty' min='1' max='" + productdvdlist.get(d).getNumberStocks() + "' value='1'/>"
-                                                        + "<input type='hidden' id='productid' name='product' value='" + productdvdlist.get(d).getProductID() + "'/>"
-                                                        + "<input type='submit' value='Add to Cart' name='action' style='border-color: transparent; background-color:transparent'/>"
-                                                        + "</center>"
-                                                        + "</div>"
-                                                );
-                                            } else {
-                                                out.println("<tr>"
-                                                        + "<td>"
-                                                        + "This product is unavailable."
-                                                        + "</td>"
-                                                        + "</tr>"
-                                                        + "</div>");
-                                            }
-
-                                        }
                                     %>
-                                </div>
-                            </div>
-                        </div><!-- /example -->
-                    </div>
-                </div>              
-
-
-                <div class="col-md-4" style="padding-left: 20px; padding-top: 20px;">
-                    <div class="pull-right affix">
-                        <div class="panel panel-default" style='height: 550px; width: 500px; max-height: 10;overflow-y: scroll;'>
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Shopping Cart</h3>
-                            </div>
-                            <div class="panel-body"> 
-                                <%
-                                    // insert shopping cart here!
-                                    if (temporder.size() == 0) {
-                                        out.println("<p> Shopping cart empty.</p>");
+                                    <div class="col-md-3">
+                                        <center>
+                                            <div>
+                                                <strong>
+                                                    Title: <%out.println(productdvdlist.get(d).getTitle());%>
+                                                </strong>
+                                            </div>
+                                            <div>
+                                                Summary: <% out.println(productdvdlist.get(d).getSummary()); %>
+                                            </div>
+                                            <div>
+                                                Price: <%out.println(productdvdlist.get(d).getPrice());%>
+                                            </div>
+                                            <form action="ViewCustomerProductServlet" id="<%out.println(productdvdlist.get(d).getProductID());%>" method="post">
+                                                <input type="hidden" id="product" name="product" value=<%out.println(productdvdlist.get(d).getProductID());%> />
+                                                <input type="submit" value="View Details" name="acion" style="border-color: transparent; background-color: transparent" />
+                                            </form>
+                                            <%
+                                                if (productdvdlist.get(d).getNumberStocks() > 0) {
+                                            %>
+                                            <form action="ShoppingCart" id="<%out.println(productdvdlist.get(d).getProductID());%>" method="post">
+                                                <input type="number" name="qty" id="qty" min=1 max=<%out.println(productdvdlist.get(d).getNumberStocks());%> value=1 />
+                                                <input type="hidden" id="productid" name="product" value=<%out.println(productdvdlist.get(d).getProductID());%>/>
+                                                <input type="submit" value="Add to Cart" name="action" style="border-color: transparent; background-color: transparent"/>
+                                            </form>
+                                        </center>
+                                    </div>
+                                    <%
                                     } else {
-                                        out.println("<form action='ConfirmCartServlet'>"
-                                                + "<input type='submit' value='Buy' name='action'/>"
-                                                + "</form>");
-                                        for (int i = 0; i < temporder.size(); i++) { //gets total order
-                                            for (int j = 0; j < tempproductlist.size(); j++) {
-                                                if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
-
-                                                    out.println("<table>"
-                                                            + "<form action='EditShoppingCartServlet'>"
-                                                            + "<tr><td>Title: " + tempproductlist.get(j).getTitle() + "</td></tr>"
-                                                            + "<tr><td>Price: " + tempproductlist.get(j).getPrice() + "</td></tr>");
-
-                                                    out.println("<tr><td>Qty: <input type='number' name='qty' id='qty' min='1' max='" + tempproductlist.get(j).getNumberStocks() + "' value='" + temporder.get(i).getQuantity() + "' onClick='updateTotal()'/ readonly></td></tr>"
-                                                            + "<tr><td>Total: " + temporder.get(i).getPrice() + "</td></tr>"
-                                                            // pakiayos nalang yung edit hehe thanks di ko alam pano sya dynamically magcchange pag nagclick e
-                                                            + "<tr><input type='hidden' value='" + tempproductlist.get(j).getProductID() + "' name='productid'/></tr>"
-                                                            + "<tr><input type='submit' value='Save' name='action'/></tr>"
-                                                            + "<tr><input type='submit' value='Remove' name='action'/></tr>"
-                                                            + "</table>"
-                                                            + "</form>"
-                                                            + "<br/><br/>");
-                                                    //             break;
-                                                }
-                                            }
-
+                                    %>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                This product is unavailable.
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </div><%
                                         }
-
                                     }
                                 %>
-
                             </div>
+                        </div>
+                    </div><!-- /example -->
+                </div>
+            </div>              
+
+
+            <div class="col-md-4" style="padding-left: 20px; padding-top: 20px;">
+                <div class="pull-right affix">
+                    <div class="panel panel-default" style='height: 550px; width: 500px; max-height: 10;overflow-y: scroll;'>
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Shopping Cart</h3>
+                        </div>
+                        <div class="panel-body"> 
+                            <%
+                                // insert shopping cart here!
+                                if (temporder.size() == 0) {
+                            %>
+                            <p> Shopping cart empty.</p>
+                            <%
+                            } else {
+                            %>
+                            <form action="ConfirmCartServlet" method="post">
+                                <input type="submit" value="Buy" name="action"/>
+                            </form>
+                            <%
+                                for (int i = 0; i < temporder.size(); i++) { //gets total order
+                                    for (int j = 0; j < tempproductlist.size(); j++) {
+                                        if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
+                            %>
+                            <form action="EditShoppingCartServlet">
+                                <table>
+
+                                    <tr>
+                                        <td>
+                                            Title: <%out.println(tempproductlist.get(j).getTitle());%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Price: <%out.println(tempproductlist.get(j).getPrice());%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Qty: <input type="number" name="qty" id="qty" min=1 max=<%out.println(tempproductlist.get(j).getNumberStocks());%> value=<%out.println(temporder.get(i).getQuantity());%>/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Total: <%out.println(temporder.get(i).getPrice());%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <input type="hidden" value=<%out.println(tempproductlist.get(j).getProductID());%> name="productid"/>
+                                    </tr>
+                                    <tr>
+                                    <input type="submit" value="Save" name="action"/>
+                                    </tr>
+                                    <tr>
+                                    <input type="submit" value="Remove" name="action" />
+                                    </tr>
+                                </table>
+                            </form>
+                            <%
+                                            }
+                                        }
+                                    }
+                                }
+                            %>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="dist/js/jquery-2.1.0.min.js"></script>
-        <script src="dist/js/query.js"></script>
-        <script src="dist/js/bootstrap.min.js"></script>
-        <script>
+    <script src="dist/js/jquery-2.1.0.min.js"></script>
+    <script src="dist/js/query.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script>
             $(document).ready(function() {
                 $("#qty").click(function() {
                     var $n = $("#final");
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });
             });
-            
-            
-        </script>
-    </body>
+
+
+    </script>
+</body>
 
 </html>
 <%}%>

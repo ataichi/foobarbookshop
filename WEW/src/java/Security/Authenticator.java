@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.owasp.esapi.User;
@@ -55,7 +56,18 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
             }
-           // password = hash.getHashBASE64();
+            // password = hash.getHashBASE64();
+
+            Cookie[] cookies = hsr.getCookies();
+            boolean foundCookie = false;
+
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie cookie1 = cookies[i];
+                if (cookie1.getName().equals(username)) {
+                    out.println(cookie1.getName() + " " + cookie1.getValue());
+                    foundCookie = true;
+                }
+            }
 
             usercheck = adao.authenticateUser(username, password);
 
@@ -79,6 +91,14 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                 account.setFailedLoginCount(0);
                 adao.setFailedLoginCountToZero(account.getAccountID());
                 logdao.addLog(log);
+
+                if (!foundCookie) {
+                    Cookie cookie1 = new Cookie(username, account.getAccountType());
+                    cookie1.setMaxAge(24 * 60 * 60);
+                    hsr1.addCookie(cookie1);
+                    out.println("NO COOKIES FOUND");
+                }
+
                 return account;
             } else {
                 log.setStatus("failed");
@@ -87,6 +107,13 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                 if (account != null) {
                     log.setLog_accountID(account.getAccountID());
                     logdao.addLog(log);
+
+                    if (!foundCookie) {
+                        Cookie cookie1 = new Cookie(username, account.getAccountType());
+                        cookie1.setMaxAge(24 * 60 * 60);
+                        hsr1.addCookie(cookie1);
+                        out.println("NO COOKIES FOUND");
+                    }
                     return account;
                 } else {
                     log.setStatus("failed");

@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
 import org.owasp.esapi.errors.AuthenticationException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
@@ -52,6 +53,8 @@ public class LoginServlet extends HttpServlet {
             String token = null;
 
             Authenticator authenticator = new Authenticator();
+
+            String loguser = request.getParameter("loguser");
 
             try {
                 account = (AccountBean) authenticator.login(request, response);
@@ -142,7 +145,7 @@ public class LoginServlet extends HttpServlet {
 
                         ArrayList<ProductBean> productsbought = new ArrayList<ProductBean>();
                         productsbought = customerdao.getProductsBoughtByCustomer(tempcustomer.getCustomerID()); // get array list of products bought by customer4
-                        
+
                         ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
                         reviewlist = customerdao.getReviewsByCustomer(tempcustomer.getCustomerID());
 
@@ -161,7 +164,8 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("productsbought", productsbought);
                         session.setAttribute("reviewlist", reviewlist);
                         session.setMaxInactiveInterval(-1);
-                       response.sendRedirect("customerHOME.jsp");
+
+                        response.sendRedirect("customerHOME.jsp");
                     } else if (account.getAccountType().equals("Audio CD Manager")) {
                         audiocdlist = cddao.getAllAudioCD();
                         productlist = pdao.getProductsByType("Audio CD");

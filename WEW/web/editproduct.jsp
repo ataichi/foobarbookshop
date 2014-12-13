@@ -188,7 +188,7 @@
 
 
                                 <%                                    } else if (prodType.equals("DVD")) {
-                                      */%>
+                                %>
                                 <div class='form-group'>
                                     <label class='control-label col-lg-4'for='dvdDirector'>Director</label>
                                     <div class='col-sm-3'>
