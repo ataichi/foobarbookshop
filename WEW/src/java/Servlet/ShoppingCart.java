@@ -97,17 +97,20 @@ public class ShoppingCart extends HttpServlet {
                 boolean check = false;
 
                 for (int i = 0; i < order.size(); i++) {
-                    if (order.get(i).getProductorder_productID() == temporderbean.getProductorderID()) {
-                        sum = int_qty;
-                        total = sum * temporderbean.getPrice();
+                    for (int j = 0; j < tempproductlist.size(); j++) {
+                        if (order.get(i).getProductorder_productID() == temporderbean.getProductorder_productID()
+                                && tempproductlist.get(j).getProductID() == temporderbean.getProductorder_productID()) {
+                            sum = int_qty;
+                            total = sum * temporderbean.getPrice();
 
-                        order.get(i).setPrice(total);
-                        order.get(i).setProductorderID(order.get(i).getProductorderID());
-                        order.get(i).setProductorder_productID(temporderbean.getProductorder_productID());
-                        order.get(i).setQuantity(sum);
+                            order.get(i).setPrice(total);
+                            order.get(i).setProductorderID(order.get(i).getProductorderID());
+                            order.get(i).setProductorder_productID(temporderbean.getProductorder_productID());
+                            order.get(i).setQuantity(sum);
 
-                        check = true;
-                        break;
+                            check = true;
+                            break;
+                        }
                     }
                 }
 
