@@ -313,13 +313,13 @@
                             <form action="ShoppingCart" method="post">
 
                                 <input type="submit" value="Buy" name="action">
-                            </form>
-                            <%
-                                for (int i = 0; i < temporder.size(); i++) { //gets total order
-                                    for (int j = 0; j < tempproductlist.size(); j++) {
-                                        if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
-                            %>
-                            <form action="ShoppingCart">
+
+                                <%
+                                    for (int i = 0; i < temporder.size(); i++) { //gets total order
+                                        for (int j = 0; j < tempproductlist.size(); j++) {
+                                            if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
+                                %>
+
                                 <table>
 
                                     <tr>

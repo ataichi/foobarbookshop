@@ -56,8 +56,6 @@ public class SendReport extends HttpServlet {
             if (account.getAccountID() == 0) {
                 out.println("User does not exist");
             } else {
-                out.println(account.getAccountID());
-                out.println("HERE!! :)");
 
                 lockreport.setDone(0);
                 lockreport.setEmailaddress(email);
@@ -77,13 +75,15 @@ public class SendReport extends HttpServlet {
                 log.setLog_accountID(account.getAccountID());
                 log.setTime(time);
                 log.setIp_address(request.getRemoteAddr());
-                log.setStatus("Successful");
 
-                if (lockreportdao.addLockReport(lockreport) && logdao.addLog(log)) {
-                    out.println("successful");
+                if (lockreportdao.addLockReport(lockreport)) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
                     response.sendRedirect("homepage.jsp");
                 } else {
-                    out.println("wag ka iiyak");
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("homepage.jsp");
                 }
 
             }

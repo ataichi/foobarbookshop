@@ -31,7 +31,6 @@ function fnameCheck() {
         document.forms["customercheck"]["fname"].style.backgroundColor = "pink";
 
         return false;
-
     }
     else {
         document.forms["customercheck"]["fname"].style.backgroundColor = "white";

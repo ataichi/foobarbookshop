@@ -79,26 +79,23 @@ public class UnlockAccountServlet extends HttpServlet {
 
             out.println(lockreport.getLockreportID());
 
-            int unlockcheck = 0;
+            log.setLog_accountID(homeadmin.getAccountID());
+            log.setTime(time);
+            log.setActivity("Unlock account " + accountID);
+            log.setIp_address(request.getRemoteAddr());
 
             if (admindao.unlockAccount(accountID) && lockreportdao.editLockReport(lockreport)) {
-                out.println("yehey");
-                log.setLog_accountID(homeadmin.getAccountID());
-                log.setTime(time);
-                log.setActivity("Unlock account " + accountID);
-                log.setIp_address(request.getRemoteAddr());
                 log.setStatus("Successful");
+                logdao.addLog(log);
+                lockreportlist = lockreportdao.getAllNotDoneLockReport();
+                lockedAccounts = accountdao.getAllLockedAccounts();
 
-                if (logdao.addLog(log)) {
-                    lockreportlist = lockreportdao.getAllNotDoneLockReport();
-                    lockedAccounts = accountdao.getAllLockedAccounts();
-
-                    session.setAttribute("lockedreportlist", lockreportlist);
-                    session.setAttribute("lockedAccounts", lockedAccounts);
-                    response.sendRedirect("unlock_account.jsp");
-                }
+                session.setAttribute("lockedreportlist", lockreportlist);
+                session.setAttribute("lockedAccounts", lockedAccounts);
+                response.sendRedirect("unlock_account.jsp");
             } else {
-                out.println("bye");
+                log.setStatus("failed");
+                logdao.addLog(log);
                 response.sendRedirect("unlock_account.jsp");
             }
             //} else {

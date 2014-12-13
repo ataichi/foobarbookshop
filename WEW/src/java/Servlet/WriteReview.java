@@ -68,20 +68,20 @@ public class WriteReview extends HttpServlet {
             String activity = "Customer ID" + tempcustomer.getCustomerID() + " wrote review for product id " + productid;
             // not sure if customerID or accountID dapat :)
 
-                log.setActivity(activity);
-                log.setLog_accountID(accountid);
-                log.setTime(time);
-                log.setIp_address(request.getRemoteAddr());
-                log.setStatus("Successful");
+            log.setActivity(activity);
+            log.setLog_accountID(accountid);
+            log.setTime(time);
+            log.setIp_address(request.getRemoteAddr());
+            
 
             if (customerdao.writeReview(reviewbean)) {
-
-                if (logdao.addLog(log)) {
+                log.setStatus("Successful");
+                logdao.addLog(log);
                     response.sendRedirect("customerHOME.jsp");
-                }
             } else {
-
-                out.println("Write review not successful");
+                log.setStatus("failed");
+                logdao.addLog(log);
+                response.sendRedirect("writeReview.jsp");
             }
             //} else {
             //    out.println("ACCESS DENIED");
