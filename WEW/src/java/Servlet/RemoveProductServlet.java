@@ -62,7 +62,7 @@ public class RemoveProductServlet extends HttpServlet {
             Timestamp time = new Timestamp(date.getTime());
             log.setTime(time);
             log.setIp_address(request.getRemoteAddr());
-            log.setStatus("Successful");
+
             if (type.equals("Audio CD")) {
                 AudioCDBean removeaudio = new AudioCDBean();
                 AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
@@ -70,24 +70,21 @@ public class RemoveProductServlet extends HttpServlet {
                 ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
 
                 check_removespecificproduct = audiodao.deleteAudioCD(removeaudio.getAudiocdID());
-                if (check_removespecificproduct) {
-                    check_removeproduct = pdao.removeProduct(productID);
+                check_removeproduct = pdao.removeProduct(productID);
+                if (check_removespecificproduct && check_removeproduct) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+                    plist = pdao.getProductsByType(type);
+                    cdlist = audiodao.getAllAudioCD();
 
-                    if (check_removeproduct) {
-                        out.println("delete cd");
-                        plist = pdao.getProductsByType(type);
-                        cdlist = audiodao.getAllAudioCD();
-
-                        if (logdao.addLog(log)) {
-                            session.setAttribute("audiocdlist", cdlist);
-                            session.setAttribute("productlist", plist);
-                            response.sendRedirect("productmanagerHOME.jsp");
-                        }
-                    } else {
-                        out.println(productID);
-                        out.println("failed to remove cd");
-                        //response.sendRedirect("productmanagerHOME.jsp");
-                    }
+                    session.setAttribute("audiocdlist", cdlist);
+                    session.setAttribute("productlist", plist);
+                    response.sendRedirect("productmanagerHOME.jsp");
+                } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    //set cookies
+                    response.sendRedirect("productmanagerHOME.jsp");
                 }
 
             } else if (type.equals("Book")) {
@@ -98,24 +95,21 @@ public class RemoveProductServlet extends HttpServlet {
                 ArrayList<BookBean> booklist = new ArrayList<BookBean>();
 
                 check_removespecificproduct = bookmanagerdao.deleteBook(removebook.getBookID());
-                if (check_removespecificproduct) {
-                    check_removeproduct = pdao.removeProduct(productID);
+                check_removeproduct = pdao.removeProduct(productID);
 
-                    if (check_removeproduct) {
-                        booklist = bookmanagerdao.getAllBooks();
-                        plist = pdao.getProductsByType(type);
-
-                        if (logdao.addLog(log)) {
-                            session.setAttribute("booklist", booklist);
-                            session.setAttribute("productlist", plist);
-
-                            out.println("delete book");
-                            response.sendRedirect("productmanagerHOME.jsp");
-                        }
-                    } else {
-                        out.println("failed to remove book");
-                        //response.sendRedirect("productmanagerHOME.jsp");
-                    }
+                if (check_removespecificproduct && check_removeproduct) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+                    booklist = bookmanagerdao.getAllBooks();
+                    plist = pdao.getProductsByType(type);
+                    session.setAttribute("booklist", booklist);
+                    session.setAttribute("productlist", plist);
+                    response.sendRedirect("productmanagerHOME.jsp");
+                } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    //set cookies
+                    response.sendRedirect("productmanagerHOME.jsp");
                 }
             } else if (type.equals("DVD")) {
                 DVDBean removedvd = new DVDBean();
@@ -125,25 +119,20 @@ public class RemoveProductServlet extends HttpServlet {
                 ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
 
                 check_removespecificproduct = dvdmanagerdao.deleteDVD(removedvd.getDvdID());
-                if (check_removespecificproduct) {
-                    check_removeproduct = pdao.removeProduct(productID);
+                check_removeproduct = pdao.removeProduct(productID);
 
-                    if (check_removeproduct) {
-                        //dvdlist = dvddao.deleteDVD();
-                        plist = pdao.getProductsByType(type);
-
-                        if (logdao.addLog(log)) {
-                            session.setAttribute("dvdlist", dvdlist);
-                            session.setAttribute("productlist", plist);
-                            out.println("delete dvd");
-                            response.sendRedirect("productmanagerHOME.jsp");
-                        }
-                    } else {
-                        out.println("failed to remove dvd");
-                        //response.sendRedirect("productmanagerHOME.jsp");
-                    }
+                if (check_removespecificproduct && check_removeproduct) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+                    plist = pdao.getProductsByType(type);
+                    session.setAttribute("dvdlist", dvdlist);
+                    session.setAttribute("productlist", plist);
+                    response.sendRedirect("productmanagerHOME.jsp");
+                } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("productmanagerHOME.jsp");
                 }
-
             } else if (type.equals("Magazine")) {
                 MagazineBean removemagazine = new MagazineBean();
                 MagazineManagerDAOInterface magazinemanagerdao = new MagazineManagerDAOImplementation();
@@ -151,25 +140,22 @@ public class RemoveProductServlet extends HttpServlet {
                 removemagazine = magazinedao.getMagazineByProductID(productID);
 
                 check_removespecificproduct = magazinemanagerdao.deleteMagazine(removemagazine.getMagazineID());
+                check_removeproduct = pdao.removeProduct(productID);
+
                 if (check_removespecificproduct) {
-                    check_removeproduct = pdao.removeProduct(productID);
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+                    ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                    magazinelist = magazinemanagerdao.getAllMagazine();
+                    plist = pdao.getProductsByType(type);
+                    session.setAttribute("productlist", plist);
+                    session.setAttribute("magazinelist", magazinelist);
 
-                    if (check_removeproduct) {
-                        out.println("delete magazine");
-                        ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
-                        magazinelist = magazinemanagerdao.getAllMagazine();
-                        plist = pdao.getProductsByType(type);
-
-                        if (logdao.addLog(log)) {
-                            session.setAttribute("productlist", plist);
-                            session.setAttribute("magazinelist", magazinelist);
-
-                            response.sendRedirect("productmanagerHOME.jsp");
-                        }
-                    } else {
-                        out.println("failed to remove magazine");
-                        //response.sendRedirect("productmanagerHOME.jsp");
-                    }
+                    response.sendRedirect("productmanagerHOME.jsp");
+                } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("productmanagerHOME.jsp");
                 }
             }
             //} else {
@@ -178,7 +164,7 @@ public class RemoveProductServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -64,11 +64,13 @@ public class ConfirmRestockProductServlet extends HttpServlet {
             if (checkRestock) {
                 productlist = productmanagerdao.getProductsByType(restockproduct.getType());
                 log.setStatus("successful");
-                if (logdao.addLog(log)) {
-                    session.setAttribute("productlist", productlist);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                }
+                logdao.addLog(log);
+                session.setAttribute("productlist", productlist);
+                response.sendRedirect("productmanagerHOME.jsp");
             } else {
+                //set cookies unable to restock
+                log.setStatus("failed");
+                logdao.addLog(log);
                 response.sendRedirect("restockproduct.jsp");
             }
             //} else {
