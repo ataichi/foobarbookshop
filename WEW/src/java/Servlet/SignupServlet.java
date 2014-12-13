@@ -101,7 +101,6 @@ public class SignupServlet extends HttpServlet {
                     log.setIp_address(request.getRemoteAddr());
                     log.setActivity(username + " Customer SignUps");
                     if (checkAccount && checkCustomer && (!userdao.isUsernameAvailable(username) == false)) {
-
                         // SET COOKIES
                         
                         Cookie[] cookies = request.getCookies();
@@ -120,7 +119,7 @@ public class SignupServlet extends HttpServlet {
                             cookie1.setMaxAge(24 * 60 * 60);
                             response.addCookie(cookie1);
                         }
-                        
+
                         log.setLog_accountID(customer_accountID);
                         log.setStatus("Successful");
                         session.setAttribute("username", username);
@@ -132,8 +131,6 @@ public class SignupServlet extends HttpServlet {
                         logdao.addLog(log);
                         AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
                         response.sendRedirect("signup.jsp");
-
-                        //       SET COOKIES
                     }
                 }
             }

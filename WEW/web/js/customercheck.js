@@ -31,11 +31,19 @@ function fnameCheck() {
         document.forms["customercheck"]["fname"].style.backgroundColor = "pink";
 
         return false;
+<<<<<<< HEAD
     }
     else {
         document.forms["customercheck"]["fname"].style.backgroundColor = "white";
         return true;
     }
+=======
+    }
+    else {
+        document.forms["customercheck"]["fname"].style.backgroundColor = "white";
+        return true;
+    }
+>>>>>>> 4cbf369a9e59923607b2ea4d7ff68621e50ef834
 
 }
 

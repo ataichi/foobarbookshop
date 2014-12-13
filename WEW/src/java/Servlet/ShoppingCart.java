@@ -65,8 +65,11 @@ public class ShoppingCart extends HttpServlet {
                 response.addCookie(cookie1);
 
                 out.println("ADD COOKIE");
+                 response.sendRedirect("customerHOME.jsp");
+                
             }
 
+           
         }
     }
 
