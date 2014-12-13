@@ -40,14 +40,6 @@ public class EditProductServlet extends HttpServlet {
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
 
             //if (homeproduct.getAccesscontrol().isEditproduct()) {
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
-
-            Timestamp time;
-            java.util.Date date = new java.util.Date();
-            time = new Timestamp(date.getTime());
-
-            // not sure if customerID or accountID dapat :)
             ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
 
             String prodType = null;
@@ -65,13 +57,7 @@ public class EditProductServlet extends HttpServlet {
             ProductBean editproduct = new ProductBean();
             editproduct = pdao.getProductById(productID);
 
-            String activity = "Edit " + editproduct.getType() + " " + "product ID " + productID;
-            log.setActivity(activity);
-            log.setLog_accountID(homeproduct.getAccountID());
-            log.setTime(time);
-            log.setIp_address(request.getRemoteAddr());
             if (editproduct.getType().equals("Audio CD")) {
-                log.setStatus("successful");
                 AudioCDBean audiocd = new AudioCDBean();
                 AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
                 audiocd = audiodao.getAudioCDByProductID(productID);
@@ -84,7 +70,6 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editproduct", editproduct);
                 response.sendRedirect("editproduct.jsp");
             } else if (editproduct.getType().equals("Book")) {
-                log.setStatus("successful");
                 BookBean book = new BookBean();
                 BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
                 book = bookdao.getBookByProductID(productID);
@@ -97,7 +82,6 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editproduct", editproduct);
                 response.sendRedirect("editproduct.jsp");
             } else if (editproduct.getType().equals("DVD")) {
-                log.setStatus("successful");
                 DVDBean dvd = new DVDBean();
                 DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
                 dvd = dvddao.getDVDByProductID(productID);
@@ -110,7 +94,6 @@ public class EditProductServlet extends HttpServlet {
                 session.setAttribute("editproduct", editproduct);
                 response.sendRedirect("editproduct.jsp");
             } else if (editproduct.getType().equals("Magazine")) {
-                log.setStatus("successful");
                 MagazineBean magazine = new MagazineBean();
                 MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
                 magazine = magazinedao.getMagazineByProductID(productID);
@@ -125,7 +108,6 @@ public class EditProductServlet extends HttpServlet {
                 response.sendRedirect("editproduct.jsp");
             } else {
                 //set cookies
-                log.setStatus("failed");
                 response.sendRedirect("productmanagerHOME.jsp");
             }
 
