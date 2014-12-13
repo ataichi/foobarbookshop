@@ -322,9 +322,7 @@
                             <%
                             } else {
                             %>
-                            <form action="ConfirmCartServlet" method="post">
-                                <input type="submit" value="Buy" name="action"/>
-                            </form>
+                            <a href="customerConfirmCart.jsp">Buy</a>
                             <%
                                 for (int i = 0; i < temporder.size(); i++) { //gets total order
                                     for (int j = 0; j < tempproductlist.size(); j++) {
