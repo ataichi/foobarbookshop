@@ -236,29 +236,6 @@ public class LoginServlet extends HttpServlet {
 
                         session.setMaxInactiveInterval(600);
                         response.sendRedirect("accountingmanagerHOME.jsp");
-                    } else if (account.getAccountType().equals("Admin")) {
-                        AccountDAOImplementation accountdao = new AccountDAOImplementation();
-                        ArrayList<LogBean> loglist = new ArrayList<LogBean>();
-                        LogBean log = new LogBean();
-                        LogDAOInterface logdao = new LogDAOImplementation();
-                        loglist = logdao.getAllLogs();
-
-                        ArrayList<LockReportBean> lockreportlist = new ArrayList<LockReportBean>();
-                        ArrayList<AccountBean> lockedAccounts = new ArrayList<AccountBean>();
-                        LockReportDAOInterface lockreportdao = new LockReportDAOImplementation();
-
-                        lockreportlist = lockreportdao.getAllNotDoneLockReport();
-                        lockedAccounts = accountdao.getAllLockedAccounts();
-
-                        session.setAttribute("homeadmin", account);
-                        session.setAttribute("type", "Admin");
-                        session.setAttribute("loglist", loglist);
-                        session.setAttribute("homeadmin", account);
-                        session.setAttribute("lockedAccounts", lockedAccounts);
-                        session.setAttribute("lockreportlist", lockreportlist);
-
-                        session.setMaxInactiveInterval(600);
-                        response.sendRedirect("adminHOME.jsp");
                     }
                 }
 

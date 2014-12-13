@@ -89,15 +89,15 @@ public class AdminLoginServlet extends HttpServlet {
             LoginAuthenticator loginauthenticator = new LoginAuthenticator();
 
             account = loginauthenticator.login(request, response);
-            if (account != null) {
+            if (account != null && (true=="Admin".equals(account.getAccountType()))) {
                 loglist = logdao.getAllLogs();
                 lockreportlist = lockreportdao.getAllNotDoneLockReport();
                 lockedAccounts = accountdao.getAllLockedAccounts();
 
                 type = "Admin";
-                log.setActivity("Admin Login");
+                log.setActivity("Admin "+ username+" Login");
                 log.setLog_accountID(account.getAccountID());
-
+                log.setIp_address(address);
                 java.util.Date date = new java.util.Date();
                 Timestamp time = new Timestamp(date.getTime());
                 log.setTime(time);
