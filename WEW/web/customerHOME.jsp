@@ -87,16 +87,16 @@
                         <li><span class="glyphicon glyphicon-log-out"></span><form class="navbar-form navbar-right" action="LogoutServlet"><input type="submit" value="Log out" style='background-color: transparent; border:none'/></form></li>
                     </ul>
                 </div>
-                    <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
-                        <div class="input-group input-group-sm" style="max-width:360px;">
-                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                            </div>
+                <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
+                    <div class="input-group input-group-sm" style="max-width:360px;">
+                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                         </div>
-                    </form>
-                </div>
-            
+                    </div>
+                </form>
+            </div>
+
         </nav>
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">
@@ -127,18 +127,13 @@
                                             <div>
                                                 Price: <%out.println(productbooklist.get(a).getPrice()); %>
                                             </div>
-                                            <form action="ViewCustomerProductServlet" id="<%out.println(productbooklist.get(a).getProductID());%>" method="post">
-                                                <input type="hidden" id="product" name="product" value=<%out.println(productbooklist.get(a).getProductID());%>/>
-                                                <input type="submit" value="View Details" name="action" style="border-color: transparent; background-color:transparent"/>
-                                            </form>
-
-
-                                            <%
-                                                if (productbooklist.get(a).getNumberStocks() > 0) {
-                                            %>
                                             <form action="ShoppingCart" id="<%out.println(productbooklist.get(a).getProductID());%>" method="post">
+                                                <input type="hidden" id="product" name="product" value=<%out.println(productbooklist.get(a).getProductID());%>/>
+                                                <input type="submit" value="View Details" name="action" style="border-color: transparent; background-color:transparent"/>                                          
+                                                <%
+                                                    if (productbooklist.get(a).getNumberStocks() > 0) {
+                                                %>
                                                 <input type="number" name="qty" id="qty" min=1 max=<%out.println(productbooklist.get(a).getNumberStocks());%> value=1/>
-                                                <input type="hidden" id="productid" name="product" value=<%out.println(productbooklist.get(a).getProductID());%> />
                                                 <input type="submit" value="Add to Cart" nam="action" style="border-color: transparent; background-color:transparent"/>
                                             </form>
                                         </center>
@@ -177,16 +172,13 @@
                                         <div>
                                             Price: <%out.println(productmagazinelist.get(b).getPrice());%>
                                         </div>
-                                        <form action="ViewCustomerProductServlet" id="<%out.println(productmagazinelist.get(b).getProductID());%>" method="post"
+                                        <form action="ShoppingCart" id="<%out.println(productmagazinelist.get(b).getProductID());%>" method="post"
                                               <input type="hidden" id="product" name="product" value=<%out.println(productmagazinelist.get(b).getProductID());%>/>
                                             <input type="submit" value="View Details" name="action" style="border-color: transparent; background-color: transparent" />
-                                        </form>
-                                        <%
-                                            if (productmagazinelist.get(b).getNumberStocks() > 0) {
-                                        %>
-                                        <form action="ShoppingCart" id="<%out.println(productmagazinelist.get(b).getProductID());%>" method="post">
+                                            <%
+                                                if (productmagazinelist.get(b).getNumberStocks() > 0) {
+                                            %>
                                             <input type="number" name="qty" id="qty" min=1 max=<%out.println(productmagazinelist.get(b).getNumberStocks());%> value=1/>
-                                            <input type="hidden" id="productid" name="product" value=<%out.println(productmagazinelist.get(b).getProductID());%> />
                                             <input type="submit" value="Add to Cart" name="action" style="border-color: transparent; background-color:transparent"/
                                                    </center>
                                             </div>
@@ -224,17 +216,15 @@
                                             <div>
                                                 Price: <%out.println(productaudiolist.get(c).getPrice());%> 
                                             </div>
-                                            <form action="ViewCustomerProductServlet" id="<%out.println(productaudiolist.get(c).getProductID());%>" method="post">
+                                            <form action="ShoppingCart" id="<%out.println(productaudiolist.get(c).getProductID());%>" method="post">
                                                 <input type="hidden" id="product" name="product" value=<%out.println(productaudiolist.get(c).getProductID());%>/>
                                                 <input type="submit" value="View Details" name="action" style="border-color: transparent; background-color: transparent" />
-                                            </form>
 
-                                            <%
-                                                if (productaudiolist.get(c).getNumberStocks() > 0) {
-                                            %>
-                                            <form action="ShoppingCart" id="<%out.println(productaudiolist.get(c).getProductID());%>" method="post">
+
+                                                <%
+                                                    if (productaudiolist.get(c).getNumberStocks() > 0) {
+                                                %>
                                                 <input type="number" name="qty" id="qty" min=1 max=<%out.println(productaudiolist.get(c).getNumberStocks());%> value=1/>
-                                                <input type="hidden" id="product" name="product" value=<%out.println(productaudiolist.get(c).getProductID());%>/>
                                                 <input type="submit" value="Add to Cart" name="action" style="border-color: transparent; background-color: transparent"/>
                                             </form>
                                         </center>
@@ -272,16 +262,14 @@
                                             <div>
                                                 Price: <%out.println(productdvdlist.get(d).getPrice());%>
                                             </div>
-                                            <form action="ViewCustomerProductServlet" id="<%out.println(productdvdlist.get(d).getProductID());%>" method="post">
-                                                <input type="hidden" id="product" name="product" value=<%out.println(productdvdlist.get(d).getProductID());%> />
-                                                <input type="submit" value="View Details" name="acion" style="border-color: transparent; background-color: transparent" />
-                                            </form>
-                                            <%
-                                                if (productdvdlist.get(d).getNumberStocks() > 0) {
-                                            %>
                                             <form action="ShoppingCart" id="<%out.println(productdvdlist.get(d).getProductID());%>" method="post">
+                                                <input type="hidden" id="product" name="product" value=<%out.println(productdvdlist.get(d).getProductID());%> />
+                                                <input type="submit" value="View Details" name="action" style="border-color: transparent; background-color: transparent" />
+
+                                                <%
+                                                    if (productdvdlist.get(d).getNumberStocks() > 0) {
+                                                %>
                                                 <input type="number" name="qty" id="qty" min=1 max=<%out.println(productdvdlist.get(d).getNumberStocks());%> value=1 />
-                                                <input type="hidden" id="productid" name="product" value=<%out.println(productdvdlist.get(d).getProductID());%>/>
                                                 <input type="submit" value="Add to Cart" name="action" style="border-color: transparent; background-color: transparent"/>
                                             </form>
                                         </center>
@@ -322,15 +310,16 @@
                             <%
                             } else {
                             %>
-                            <form action="ConfirmCartServlet" method="post">
-                                <input type="submit" value="Buy" name="action"/>
+                            <form action="ShoppingCart" method="post">
+
+                                <input type="submit" value="Buy" name="action">
                             </form>
                             <%
                                 for (int i = 0; i < temporder.size(); i++) { //gets total order
                                     for (int j = 0; j < tempproductlist.size(); j++) {
                                         if (temporder.get(i).getProductorder_productID() == tempproductlist.get(j).getProductID()) {
                             %>
-                            <form action="EditShoppingCartServlet">
+                            <form action="ShoppingCart">
                                 <table>
 
                                     <tr>
@@ -354,7 +343,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                    <input type="hidden" value=<%out.println(tempproductlist.get(j).getProductID());%> name="productid"/>
+                                    <input type="hidden" value=<%out.println(tempproductlist.get(j).getProductID());%> name="product"/>
                                     </tr>
                                     <tr>
                                     <input type="submit" value="Save" name="action"/>
