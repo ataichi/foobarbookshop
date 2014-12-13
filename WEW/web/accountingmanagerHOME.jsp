@@ -350,7 +350,7 @@
                                                     finalsales = 0;
                                                 %>
                                                 <h3>Total Sales (All in All): <%out.println(total);%></h3>
-                                                %>
+
 
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade in well" id="viewspecific" aria-labelledBy="specific-tab" style='height: 500px'>
@@ -360,7 +360,7 @@
 
 
                                                 <h3> <% out.println(year + 1900); %> </h3>
-                                                
+
                                                 <%    sales = 0;
                                                     total = 0;
 
@@ -374,7 +374,7 @@
                                                                     break;
                                                                 }
                                                             }
-                                                        }
+                                                        }   
                                                         total += sales;
                                                         sales = 0;
                                                     }
