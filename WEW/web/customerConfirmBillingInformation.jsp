@@ -66,7 +66,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
-                                <li><span class="glyphicon glyphicon-edit"></span><form action='ViewCustomerReview'><input type='submit' value='View Review' style='background-color: transparent; border:none'/></form></li>
+                                <li><a href='customerviewreviews.jsp'><span class="glyphicon glyphicon-edit"></span>View Reviews</a></li>
                                 <li><a href="customerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
                             </ul>
@@ -75,54 +75,63 @@
                     </ul>
                     <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
                         <div class="input-group input-group-sm" style="max-width:360px;">
-                            <input type="text" class="form-control" placeholder="Sea="input-group-btn">
-                                   <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <div class="container-fluid" style="padding-top: 100px; padding-left: 30px;">
-        <div class="row">
-            <div class="col-md-1">
-                <div class="affix">
-                    <div class="well"> 
-                        <ul class="nav">
-                            <li class="active"><a href="#viewbook" id="viewbook"><img src="./images/book-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                            <li><a href="#viewmag" id="viewmag"><img src="./images/magazine-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                            <li><a href="#viewcd" id="viewcd"><img src="./images/cd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                            <li><a href="#viewdvd" id="viewdvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                        </ul>
+        <div class="container-fluid" style="padding-top: 100px; padding-left: 30px;">
+            <div class="row">
+                <div class="col-sm-9 col-md-offset-2 main">
+                    <div class="panel panel-default" id="shoplist">
+                        <div class="panel-heading">
+                            <div class="panel-title">Add Credit Card Information</div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form" action="ConfirmCreditCardServlet" onsubmit='return creditCardCheck();' id='creditcardcheck' name='creditcardcheck' method='post'>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" for="cardName">Credit Card Name</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type='text' name='cardName' required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4"  for="cardType">Card Type</label>
+                                    <div class="col-sm-3">
+                                        <input type='radio' id='cardType' name='cardType' value='AmericanExpress'>American Express
+                                        <input type='radio' id='cardType' name='cardType' value='Visa'>Visa
+                                        <input type='radio' id='cardType' name='cardType' value='MasterCard'>MasterCard
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Credit Card No</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type='text' id='cardNo' name='cardNo' onblur='creditCardNoCheck();' onfocus="backWhite(this);"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Expiration Date</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" type='date' id='cardExpDate' name='cardExpDate' required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type='submit' class="btn btn-primary btn-lg center-block">Buy</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-7" style="padding-left: 200px; padding-top: 100px">
-        <div class="well" id="shoplist">
-            <dl class="dl-horizontal">
-                <form action="ConfirmCreditCardServlet" onsubmit='return creditCardCheck();' id='creditcardcheck' name='creditcardcheck' method='post'>
-                    Credit Card Name: <input type='text' name='cardName' required />
-                    <br/>
-                    Card Type:
-                    <br/>
-                    <input type='radio' id='cardType' name='cardType' value='AmericanExpress'>American Express<br/>
-                    <input type='radio' id='cardType' name='cardType' value='Visa'>Visa<br/>
-                    <input type='radio' id='cardType' name='cardType' value='MasterCard'>Master Card<br/>
-
-                    Credit Card No: <input type='text' id='cardNo' name='cardNo' onblur='creditCardNoCheck();' onfocus="backWhite(this);"/>
-                    <br/>
-                    Expiration Date: (yyyy-mm-dd) <input type='date' id='cardExpDate' name='cardExpDate' required/>
-                    <br/>
-                    <input type='submit' value='Buy'/>
-                </form>
-
-            </dl>
-        </div>
-    </div>
-
-</body>
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
+    </body>
 </html>
 <%}%>

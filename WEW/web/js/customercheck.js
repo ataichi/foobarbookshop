@@ -220,7 +220,7 @@ function creditCardNoCheck() {
             document.forms["creditcardcheck"]["cardNo"].style.backgroundColor = "white";
             return true;
         } else {
-            document.forms["creditcardcheck"]["cardNo"].style.backgroundColor = "green";
+            document.forms["creditcardcheck"]["cardNo"].style.backgroundColor = "pink";
             return false;
         }
     } else if (cardType === "MasterCard") {
@@ -229,7 +229,7 @@ function creditCardNoCheck() {
             return true;
 
         } else {
-            document.forms["creditcardcheck"]["cardNo"].style.backgroundColor = "yellow";
+            document.forms["creditcardcheck"]["cardNo"].style.backgroundColor = "pink";
             return false;
         }
     }

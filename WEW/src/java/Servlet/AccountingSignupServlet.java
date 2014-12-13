@@ -4,6 +4,7 @@ import Beans.*;
 import DAO.Implementation.*;
 import DAO.Interface.*;
 import Process.Hasher;
+import Security.Authenticator;
 import Security.Cookies;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.owasp.esapi.errors.EncryptionException;
 
 @WebServlet(name = "AccountingSignupServlet", urlPatterns = {"/AccountingSignupServlet"})
 public class AccountingSignupServlet extends HttpServlet {
@@ -58,58 +60,60 @@ public class AccountingSignupServlet extends HttpServlet {
             String email = request.getParameter("email");
             String username = request.getParameter("uname");
             String pass1 = request.getParameter("pass1");
+            String pass2 = request.getParameter("pass2");
             String password = pass1;
+
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+
+            log.setIp_address(address);
+            log.setLog_accountID(homeadmin.getAccountID()); // temporary
+            log.setTime(time);
+            log.setActivity("Accounting Manager Sign Up");
+
             if (password.toLowerCase().contains(username.toLowerCase()) || password.toLowerCase().contains(firstname.toLowerCase())
                     || password.toLowerCase().contains(lastname.toLowerCase())) {
-                response.sendRedirect("accountingmanagersignupfail.jsp");
-            } else {
-                boolean locked = false;
 
-                Hasher hash = null;
+                //set cookies
+                log.setStatus("failed");
+                logdao.addLog(log);
+                response.sendRedirect("signup_accountingmanager.jsp");
+            } else {
+
+                Authenticator authenticator = new Authenticator();
 
                 try {
-                    hash = new Hasher("MD5");
-                } catch (NoSuchAlgorithmException ex) {
+                    pass1 = (String) authenticator.hashPassword(pass1, pass2);
+                } catch (EncryptionException ex) {
                     Logger.getLogger(AccountingSignupServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                hash.updateHash(pass1, "UTF-8");
-                pass1 = hash.getHashBASE64();
 
                 account.setFirstName(AccountDAOImplementation.inputSanitizer(firstname));
                 account.setLastName(AccountDAOImplementation.inputSanitizer(lastname));
                 account.setMiddleInitial(AccountDAOImplementation.inputSanitizer(mInitial));
                 account.setPassword(pass1);
                 account.setEmailAdd(email);
-                account.setUsername(AccountDAOImplementation.inputSanitizer(username));
+                account.setUsername(username);
                 account.setAccountType("Accounting Manager");
-                account.setLocked(locked);
-
-                int accountingmanager_accountID;
-
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            
-            log.setIp_address(address);
-            log.setLog_accountID(homeadmin.getAccountID()); // temporary
-            log.setTime(time);
-            log.setActivity("Add new Accounting Manager " + account.getFirstName());
+                account.setLocked(false);
 
                 boolean addUser = userdao.addAccount(account);
 
                 if (addUser) {
-                //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
+                    //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
                     //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
-                    if (logdao.addLog(log)) {
                         userCookie = new Cookie("password", pass1);
                         userCookie.setMaxAge(86400);
+                        log.setStatus("successful");
+                        logdao.addLog(log);
                         response.addCookie(userCookie);
                         response.sendRedirect("adminHOME.jsp");
-                    }
                 } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
                     response.sendRedirect("signup_accountingmanager.jsp");
                 }
-            //   } else {
+                //   } else {
                 //      out.println("ACCESS DENIED");
                 //  }
             /*
