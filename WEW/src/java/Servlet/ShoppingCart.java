@@ -6,26 +6,22 @@
 package Servlet;
 
 import Beans.AccountBean;
-import Beans.LogBean;
-import Beans.ProductBean;
-import DAO.Implementation.LogDAOImplementation;
-import DAO.Implementation.ProductDAOImplementation;
-import DAO.Implementation.ProductManagerDAOImplementation;
-import DAO.Interface.LogDAOInterface;
-import DAO.Interface.ProductDAOInterface;
-import DAO.Interface.ProductManagerDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "RestockProductServlet", urlPatterns = {"/RestockProductServlet"})
-public class RestockProductServlet extends HttpServlet {
+/**
+ *
+ * @author Giodee
+ */
+@WebServlet(name = "ShoppingCart", urlPatterns = {"/ShoppingCart"})
+public class ShoppingCart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,26 +37,43 @@ public class RestockProductServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+
             HttpSession session = request.getSession();
-            AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
+            AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            //if (homeproduct.getAccesscontrol().isRestockproduct()) {
-            ProductBean productbean = new ProductBean();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
+            String action = request.getParameter("action");
+            String qty = request.getParameter("qty");
+            String product = request.getParameter("product");
 
-            int product = Integer.valueOf(request.getParameter("product"));
-            productbean = productdao.getProductById(product);
+            out.println(action);
+            out.println(qty);
 
-            session.setAttribute("restockproduct", productbean);
-            response.sendRedirect("restockproduct.jsp");
+            Cookie[] cookies = request.getCookies();
+            boolean foundCookie = false;
 
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie cookie1 = cookies[i];
+                if (cookie1.getName().equals(homeuser.getUsername() + "-productid-" + product)) {
+                    out.println("QTY = " + cookie1.getValue());
+                    foundCookie = true;
+                }
+            }
+
+            if (!foundCookie) {
+                Cookie cookie1 = new Cookie(homeuser.getUsername() + "-productid-" + product, qty);
+                cookie1.setMaxAge(24 * 60 * 60);
+                response.addCookie(cookie1);
+
+                out.println("ADD COOKIE");
+                 response.sendRedirect("customerHOME.jsp");
+                
+            }
+
+           
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

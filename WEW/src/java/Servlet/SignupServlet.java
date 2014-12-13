@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -100,6 +101,25 @@ public class SignupServlet extends HttpServlet {
                     log.setIp_address(request.getRemoteAddr());
                     log.setActivity(username + " Customer SignUps");
                     if (checkAccount && checkCustomer && (!userdao.isUsernameAvailable(username) == false)) {
+                        // SET COOKIES
+                        
+                        Cookie[] cookies = request.getCookies();
+                        boolean foundCookie = false;
+
+                        for (int i = 0; i < cookies.length; i++) {
+                            Cookie cookie1 = cookies[i];
+                            if (cookie1.getName().equals(username)) {
+                                out.println(cookie1.getValue());
+                                foundCookie = true;
+                            }
+                        }
+
+                        if (!foundCookie) {
+                            Cookie cookie1 = new Cookie("customer", username);
+                            cookie1.setMaxAge(24 * 60 * 60);
+                            response.addCookie(cookie1);
+                        }
+
                         log.setLog_accountID(customer_accountID);
                         log.setStatus("Successful");
                         session.setAttribute("username", username);
@@ -111,7 +131,6 @@ public class SignupServlet extends HttpServlet {
                         logdao.addLog(log);
                         AccountDAOImplementation.insertLog(request.getRemoteAddr(), "Customer " + username + " registration failed.", false);
                         response.sendRedirect("signup.jsp");
-                    //       SET COOKIES
                     }
                 }
             }
