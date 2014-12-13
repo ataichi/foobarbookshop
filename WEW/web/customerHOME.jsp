@@ -59,7 +59,7 @@
 
         <title>Customer Home Page</title>
     </head>
-    <body>
+    <body onload="checkCookie()">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -305,6 +305,8 @@
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });
             });
+            
+            
         </script>
     </body>
 

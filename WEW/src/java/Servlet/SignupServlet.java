@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,6 +46,8 @@ public class SignupServlet extends HttpServlet {
             String username = request.getParameter("uname");
             String pass1 = request.getParameter("pass1");
             String password = pass1;
+            
+            Cookie signupcookie = request.getCookie();
 
             if (password.toLowerCase().contains(username.toLowerCase())
                     || password.toLowerCase().contains(firstname.toLowerCase())
