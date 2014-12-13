@@ -177,7 +177,6 @@ public class ShoppingCart extends HttpServlet {
                             session.setAttribute("tempproductlist", tempproductlist);
                             session.setAttribute("temporder", order);
                             response.sendRedirect("customerHOME.jsp");
-
                         }
 
                     }
