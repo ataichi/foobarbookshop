@@ -105,37 +105,37 @@
                             <form class="form-horizontal" role="form" name="productcheck" id="productcheck" action='AddProductServlet' onsubmit="return productcheck(this)"  method="post">
                                 <div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Title</label>
+                                        <label class="control-label col-lg-4" for="productTitle">Title</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='productTitle' name='productTitle' onblur="productTitleCheck()" onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Price</label>
+                                        <label class="control-label col-lg-4" for="productPrice">Price</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='productPrice' name='productPrice' onblur="productPriceCheck()" onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Summary</label>
+                                        <label class="control-label col-lg-4" for="productSummary">Summary</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='productSummary' name='productSummary' onblur="productSummaryCheck()" onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Genre</label>
+                                        <label class="control-label col-lg-4" for="productGenre">Genre</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='productGenre' name='productGenre' onblur="productGenreCheck()" onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Year</label>
+                                        <label class="control-label col-lg-4" for="productYear">Year</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='productYear' name='productYear' onblur="productYearCheck()" onfocus='backWhite(this);'/>       
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Stocks</label>
+                                        <label class="control-label col-lg-4" for="productStocks">Stocks</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='productStocks' name='productStocks' onblur="productStocksCheck()" onfocus='backWhite(this);'/>
                                         </div>
@@ -144,13 +144,13 @@
 
                                     %>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Artist</label>
+                                        <label class="control-label col-lg-4" for="cdArtist">Artist</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type ='text' id ='cdArtist' name ='cdArtist' onfocus ='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Record Company</label>
+                                        <label class="control-label col-lg-4" for="cdRecord">Record Company</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='cdRecord' name='cdRecord' onfocus='backWhite(this);'/>
                                         </div>
@@ -158,19 +158,19 @@
                                     <%  } else if (productType.equals("Book")) {
                                     %>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Author</label>
+                                        <label class="control-label col-lg-4" for="bookAuthor">Author</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='bookAuthor' name='bookAuthor' onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Publisher</label>
+                                        <label class="control-label col-lg-4" for="bookPublisher">Publisher</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='bookPublisher' name='bookPublisher' onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Date Published(yyyy-mm-dd)</label>
+                                        <label class="control-label col-lg-4" for="bookDatePublished">Date Published(yyyy-mm-dd)</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='date' id='bookDatePublished' name='bookDatePublished' onfocus='backWhite(this);'/>
                                         </div>
@@ -179,19 +179,19 @@
                                     } else if (productType.equals("DVD")) {
                                     %>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Director</label>
+                                        <label class="control-label col-lg-4" for="dvdDirector">Director</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='dvdDirector' name='dvdDirector' onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Actor</label>
+                                        <label class="control-label col-lg-4" for="dvdActor">Actor</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='dvdActor' name='dvdActor' onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Producer</label>
+                                        <label class="control-label col-lg-4" for="dvdProducer">Producer</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='dvdProducer' name='dvdProducer' onfocus='backWhite(this);'/>
                                         </div>
@@ -201,25 +201,25 @@
                                     } else if (productType.equals("Magazine")) {
                                     %>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Volume No</label>
+                                        <label class="control-label col-lg-4" for="magazineVolume">Volume No</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Issue No</label>
+                                        <label class="control-label col-lg-4" for="magazineIssue">Issue No</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='magazineIssue' name='magazineIssue' onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Publisher</label>
+                                        <label class="control-label col-lg-4" for="magazinePublisher">Publisher</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='text' id='magazinePublisher' name='magazinePublisher' onfocus='backWhite(this);'/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-lg-4" for="fname">Date Published(yyyy-mm-dd)</label>
+                                        <label class="control-label col-lg-4" for="magazineDate">Date Published(yyyy-mm-dd)</label>
                                         <div class="col-sm-3">
                                             <input class='form-control' type='date' id='magazineDate' name='magazineDate' onfocus='backWhite(this);'/>
                                         </div>
@@ -230,7 +230,6 @@
                                     <div class="form-group">
                                         <button type='submit' class="btn btn-primary btn-lg center-block">Add Product</button>
                                     </div>
-
                                 </div>
                             </form>
                             <div class="form-group">

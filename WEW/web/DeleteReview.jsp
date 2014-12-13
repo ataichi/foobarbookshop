@@ -95,7 +95,6 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>Review</th>
                                     <th>Delete</th>
                                 </tr>
