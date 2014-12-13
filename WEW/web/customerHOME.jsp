@@ -87,16 +87,16 @@
                         <li><span class="glyphicon glyphicon-log-out"></span><form class="navbar-form navbar-right" action="LogoutServlet"><input type="submit" value="Log out" style='background-color: transparent; border:none'/></form></li>
                     </ul>
                 </div>
-                    <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
-                        <div class="input-group input-group-sm" style="max-width:360px;">
-                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                            </div>
+                <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
+                    <div class="input-group input-group-sm" style="max-width:360px;">
+                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                         </div>
-                    </form>
-                </div>
-            
+                    </div>
+                </form>
+            </div>
+
         </nav>
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">
@@ -380,8 +380,8 @@
     <script src="dist/js/query.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
     <script>
-            $(document).ready(function() {
-                $("#qty").click(function() {
+            $(document).ready(function () {
+                $("#qty").click(function () {
                     var $n = $("#final");
                     $n.val(Number($n.val()) + 1); // Have to type the .val() response to a number instead of a string.
                 });
