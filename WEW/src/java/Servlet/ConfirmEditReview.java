@@ -48,15 +48,6 @@ public class ConfirmEditReview extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ConfirmEditReview</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ConfirmEditReview at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
 
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
@@ -77,13 +68,11 @@ public class ConfirmEditReview extends HttpServlet {
             log.setActivity(activity);
             log.setLog_accountID(homeuser.getAccountID());
             log.setIp_address(request.getRemoteAddr());
-            log.setStatus("Successful");
 
             CustomerBean customer = new CustomerBean();
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
 
             ReviewBean reviewbean = new ReviewBean();
-            ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
 
             customer = customerdao.getCustomerByAccountID(homeuser.getAccountID());
 
@@ -101,13 +90,17 @@ public class ConfirmEditReview extends HttpServlet {
             ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
             reviewlist = customerdao.getReviewsByCustomer(customer.getCustomerID());
 
-            if (editreview && logdao.addLog(log)) {
+            if (editreview) {
                 // successful mag-edit
+                log.setStatus("successful");
+                logdao.addLog(log);
                 session.setAttribute("productsbought", productsbought);
                 session.setAttribute("reviewlist", reviewlist);
                 response.sendRedirect("customerviewreviews.jsp");
             } else {
-                //unsuccessful
+                log.setStatus("failed");
+                logdao.addLog(log);
+                response.sendRedirect("customereditreview");
             }
             //} else {
             //    out.println("ACCESS DENIED");

@@ -38,18 +38,14 @@ public class AddToShoppingCartServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             HttpSession session = request.getSession();
-            String address = request.getRemoteAddr();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             //if (homeuser.getAccesscontrol().isAddtoshoppingcart()) {
             ArrayList<ProductOrderBean> order = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-            ArrayList<ProductOrderBean> neworder = new ArrayList<ProductOrderBean>();
             ProductOrderBean temporder = new ProductOrderBean();
             ProductBean productbean = new ProductBean();
             ArrayList<ProductBean> tempproductlist = (ArrayList<ProductBean>) session.getAttribute("tempproductlist");
             ProductDAOInterface productdao = new ProductDAOImplementation();
-
-            ArrayList<ProductBean> productlist;
 
             out.println(request.getParameter("product"));
             int product = Integer.valueOf(request.getParameter("product"));
@@ -59,8 +55,6 @@ public class AddToShoppingCartServlet extends HttpServlet {
             String action = request.getParameter("action");
 
             int quantity = Integer.valueOf(request.getParameter("qty"));
-            out.println(product + "\n");
-            out.println(quantity);
 
             temporder.setProductorder_productID(product);
             temporder.setQuantity(quantity);

@@ -77,9 +77,7 @@ public class SearchProductServlet extends HttpServlet {
                         ArrayList<BookBean> booklist = new ArrayList<BookBean>();
                         BookBean bookbean = new BookBean();
                         ArrayList<BookBean> finalbooklist = new ArrayList<BookBean>();
-
-                        out.println("Produhjhjct:");
-                        out.println("title:");
+                        
                         productlist = productdao.getProductsByTitle(searchstring);
                         for (int i = 0; i < productlist.size(); i++) {
                             if (productlist.get(i).getType().equals("Book")) {

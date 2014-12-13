@@ -6,7 +6,6 @@
 package Servlet;
 
 import Beans.AccountBean;
-import Beans.CustomerBean;
 import Beans.ProductOrderBean;
 import Beans.ShoppingCartBean;
 import java.io.IOException;
@@ -42,7 +41,6 @@ public class ConfirmCartServlet extends HttpServlet {
 
             //       if (homeuser.().isBuyproduct()) {
             ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-            ArrayList<ProductOrderBean> order = new ArrayList<ProductOrderBean>();
             ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
 
             session.setAttribute("temporder", orderlist);

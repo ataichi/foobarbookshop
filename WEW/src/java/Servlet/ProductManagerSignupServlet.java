@@ -43,7 +43,6 @@ public class ProductManagerSignupServlet extends HttpServlet {
             //if (homeadmin.getAccesscontrol().isCreateproductmanager()) {
             AccountBean account = new AccountBean();
             AccountDAOInterface userdao = new AccountDAOImplementation();
-            AdminDAOInterface admindao = new AdminDAOImplementation();
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
 
