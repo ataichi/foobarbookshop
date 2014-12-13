@@ -84,8 +84,9 @@
                                 <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
                             </ul>
                         </li>
-                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style=' border:none'/></form></li>
+                        <li><span class="glyphicon glyphicon-log-out"></span><form class="navbar-form navbar-right" action="LogoutServlet"><input type="submit" value="Log out" style='background-color: transparent; border:none'/></form></li>
                     </ul>
+                </div>
                     <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
                         <div class="input-group input-group-sm" style="max-width:360px;">
                             <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
@@ -95,7 +96,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            
         </nav>
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">
