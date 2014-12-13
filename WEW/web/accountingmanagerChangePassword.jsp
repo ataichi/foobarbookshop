@@ -100,7 +100,7 @@
                             </div>
                         </form>
                         <div class="form-group">
-                            <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
+                            <a href='accountingmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
                         </div>
                     </div>
                 </div>

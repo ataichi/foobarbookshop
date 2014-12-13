@@ -96,20 +96,17 @@
                         <form class="form-horizontal" role="form" id="customercheck" name="editbilling" onsubmit="return billingCheck();" method="post" action="EditBillingInfoServlet">
                             <div class="form-group" style="font-size: 20px;">
                                 <label class="control-label col-lg-4" for='BA'>Billing Address</label>
+                                <div class='col-sm-3'>
+                                    <input type="text" class="form-control" id="BA" name="BA" placeholder="Billing Address" onblur="BACheck();" onfocus="backWhite(this);" required/>
+                                </div>
                             </div>
-                            <div class='col-sm-3'>
-                                <input type="text" class="form-control" id="BA" name="BA" placeholder="Billing Address" onblur="BACheck();" onfocus="backWhite(this);" required/>
-                            </div>
-
 
                             <div class="form-group" style="font-size: 20px;">
                                 <label class="control-label col-lg-4" for='DA'>Delivery Address</label>
+                                <div class='col-sm-3'>
+                                    <input type="text" class="form-control" id="DA" name="DA" placeholder="Deliver Address" onblur="DACheck();" onfocus="backWhite(this);" required/>
+                                </div>
                             </div>
-                            <div class='col-sm-3'>
-                                <input type="text" class="form-control" id="DA" name="DA" placeholder="Deliver Address" onblur="DACheck();" onfocus="backWhite(this);" required/>
-                            </div>
-
-
                             <div class="form-group">
                                 <button class="btn btn-primary btn-lg center-block">Edit Billing Account</button>
                             </div>
