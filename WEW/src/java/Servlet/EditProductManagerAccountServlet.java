@@ -39,74 +39,74 @@ public class EditProductManagerAccountServlet extends HttpServlet {
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
 
             //if (account.getAccesscontrol().isEditproductmanager()) {
+            LogBean log = new LogBean();
+            LogDAOInterface logdao = new LogDAOImplementation();
 
-                LogBean log = new LogBean();
-                LogDAOInterface logdao = new LogDAOImplementation();
+            AccountBean bean = new AccountBean();
 
-                AccountBean bean = new AccountBean();
+            log.setIp_address(address);
+            log.setActivity("Edit Product Manager Account ID: " + account.getAccountID());
+            log.setLog_accountID(account.getAccountID());
+            java.util.Date date = new java.util.Date();
+            Timestamp time = new Timestamp(date.getTime());
+            log.setTime(time);
 
-                log.setIp_address(address);
-                log.setActivity("Edit Product Manager Account ID: " + account.getAccountID());
-                log.setLog_accountID(account.getAccountID());
-                java.util.Date date = new java.util.Date();
-                Timestamp time = new Timestamp(date.getTime());
-                log.setTime(time);
+            String firstName, lastName, middleInitial, username, emailAdd;
 
-                String firstName, lastName, middleInitial, username, emailAdd;
+            if (request.getParameter("fname").isEmpty()) {
+                firstName = account.getFirstName();
+            } else {
+                firstName = request.getParameter("fname");
+            }
 
-                if (request.getParameter("fname").isEmpty()) {
-                    firstName = account.getFirstName();
-                } else {
-                    firstName = request.getParameter("fname");
-                }
+            if (request.getParameter("lname").isEmpty()) {
+                lastName = account.getLastName();
+            } else {
+                lastName = request.getParameter("lname");
+            }
 
-                if (request.getParameter("lname").isEmpty()) {
-                    lastName = account.getLastName();
-                } else {
-                    lastName = request.getParameter("lname");
-                }
+            if (request.getParameter("mname").isEmpty()) {
+                middleInitial = account.getMiddleInitial();
+            } else {
+                middleInitial = request.getParameter("mname");
+            }
 
-                if (request.getParameter("mname").isEmpty()) {
-                    middleInitial = account.getMiddleInitial();
-                } else {
-                    middleInitial = request.getParameter("mname");
-                }
+            if (request.getParameter("uname").isEmpty()) {
+                username = account.getUsername();
+            } else {
+                username = request.getParameter("uname");
+            }
 
-                if (request.getParameter("uname").isEmpty()) {
-                    username = account.getUsername();
-                } else {
-                    username = request.getParameter("uname");
-                }
+            if (request.getParameter("email").isEmpty()) {
+                emailAdd = account.getEmailAdd();
+            } else {
+                emailAdd = request.getParameter("email");
+            }
+            boolean locked = false;
+            String password = account.getPassword();
+            int id = account.getAccountID();
+            AccountDAOInterface accountdao = new AccountDAOImplementation();
+            bean.setAccountID(id);
+            bean.setFirstName(AccountDAOImplementation.inputSanitizer(firstName));
+            bean.setLastName(AccountDAOImplementation.inputSanitizer(lastName));
+            bean.setMiddleInitial(middleInitial);
+            bean.setUsername(AccountDAOImplementation.inputSanitizer(username));
+            bean.setEmailAdd(emailAdd);
+            bean.setLocked(locked);
+            bean.setPassword(password);
+            bean.setAccountType(account.getAccountType());
 
-                if (request.getParameter("email").isEmpty()) {
-                    emailAdd = account.getEmailAdd();
-                } else {
-                    emailAdd = request.getParameter("email");
-                }
-                boolean locked = false;
-                String password = account.getPassword();
-                int id = account.getAccountID();
-                AccountDAOInterface accountdao = new AccountDAOImplementation();
-                bean.setAccountID(id);
-                bean.setFirstName(AccountDAOImplementation.inputSanitizer(firstName));
-                bean.setLastName(AccountDAOImplementation.inputSanitizer(lastName));
-                bean.setMiddleInitial(middleInitial);
-                bean.setUsername(AccountDAOImplementation.inputSanitizer(username));
-                bean.setEmailAdd(emailAdd);
-                bean.setLocked(locked);
-                bean.setPassword(password);
-                bean.setAccountType(account.getAccountType());
-
-                boolean edit = accountdao.updateAccount(bean);
-                if (edit) {
-                    if (logdao.addLog(log)) { // edit account successfully -> log
-                        session.setAttribute("homeproduct", bean);
-                        response.sendRedirect("productmanagerHOME.jsp");
-                    }
-                } else {
+            boolean edit = accountdao.updateAccount(bean);
+            if (edit) {
+                log.setStatus("Successful");
+                if (logdao.addLog(log)) { // edit account successfully -> log
                     session.setAttribute("homeproduct", bean);
-                    response.sendRedirect("productmanagerAccount.jsp");
+                    response.sendRedirect("productmanagerHOME.jsp");
                 }
+            } else {
+                session.setAttribute("homeproduct", bean);
+                response.sendRedirect("productmanagerAccount.jsp");
+            }
 
             //} else {
             //    out.println("ACCESS DENIED");

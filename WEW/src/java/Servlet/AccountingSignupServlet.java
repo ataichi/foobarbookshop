@@ -87,19 +87,20 @@ public class AccountingSignupServlet extends HttpServlet {
 
                 int accountingmanager_accountID;
 
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            
-            log.setIp_address(address);
-            log.setLog_accountID(homeadmin.getAccountID()); // temporary
-            log.setTime(time);
-            log.setActivity("Add new Accounting Manager " + account.getFirstName());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+
+                log.setIp_address(address);
+                log.setLog_accountID(homeadmin.getAccountID()); // temporary
+                log.setTime(time);
+                log.setActivity("Add new Accounting Manager " + account.getFirstName());
 
                 boolean addUser = userdao.addAccount(account);
 
                 if (addUser) {
-                //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
+                    //accountingmanager_accountID = userdao.getUserByUsername(request.getParameter("uname")).getAccountID();
                     //accountingManager.setAccountingManager_accountID(accountingmanager_accountID);
+                    log.setStatus("successful");
                     if (logdao.addLog(log)) {
                         userCookie = new Cookie("password", pass1);
                         userCookie.setMaxAge(86400);
@@ -109,7 +110,7 @@ public class AccountingSignupServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("signup_accountingmanager.jsp");
                 }
-            //   } else {
+                //   } else {
                 //      out.println("ACCESS DENIED");
                 //  }
             /*

@@ -91,6 +91,7 @@ public class ProductManagerSignupServlet extends HttpServlet {
                 log.setLog_accountID(homeadmin.getAccountID()); // temporary lang hehe
                 log.setTime(time);
                 log.setActivity("Product Manager Sign Up");
+                log.setIp_address(request.getRemoteAddr());
 
                 out.println(addUser);
                 if (addUser) {
