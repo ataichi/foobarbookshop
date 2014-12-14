@@ -60,7 +60,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Edit Account</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="adminChangePassword.jsp"><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
                             </ul>
                         </li>

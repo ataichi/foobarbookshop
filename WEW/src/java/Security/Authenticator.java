@@ -101,7 +101,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     out.println("NO COOKIES FOUND");
                 }
 
-                if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType()) && !account.getLocked()) {
+                if ("Customer".equals(account.getAccountType())) {
                     // Customer
                     accesscontrol.createcustomer = false;
                     accesscontrol.editcustomer = true;
@@ -143,8 +143,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     accesscontrol.deleteadmin = false;
 
                     account.setAccesscontrol(accesscontrol);
-
-                } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType()) && !account.getLocked()) {
+                    return account;
+                } else if ("Admin".equals(account.getAccountType())) {
                     // Admin
                     accesscontrol.createcustomer = false;
                     accesscontrol.editcustomer = false;
@@ -186,8 +186,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     accesscontrol.deleteadmin = false;
 
                     account.setAccesscontrol(accesscontrol);
-
-                } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    return account;
+                } else if ("Book Manager".equals(account.getAccountType())) {
                     // Book Manager
                     accesscontrol.createcustomer = false;
                     accesscontrol.editcustomer = false;
@@ -229,8 +229,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     accesscontrol.deleteadmin = false;
 
                     account.setAccesscontrol(accesscontrol);
-
-                } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    return account;
+                } else if ("Audio CD Manager".equals(account.getAccountType())) {
                     // Audio CD Manager
                     accesscontrol.createcustomer = false;
                     accesscontrol.editcustomer = false;
@@ -272,7 +272,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     accesscontrol.deleteadmin = false;
 
                     account.setAccesscontrol(accesscontrol);
-                } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    return account;
+                } else if ("DVD Manager".equals(account.getAccountType())) {
                     // DVD Manager
                     accesscontrol.createcustomer = false;
                     accesscontrol.editcustomer = false;
@@ -314,8 +315,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     accesscontrol.deleteadmin = false;
 
                     account.setAccesscontrol(accesscontrol);
-
-                } else if (accountdao.doesUserExist(username, password) && "Magazine Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    return account;
+                } else if ("Magazine Manager".equals(account.getAccountType())) {
                     // Magazine Manager
                     accesscontrol.createcustomer = false;
                     accesscontrol.editcustomer = false;
@@ -357,7 +358,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     accesscontrol.deleteadmin = false;
 
                     account.setAccesscontrol(accesscontrol);
-                } else if (accountdao.doesUserExist(username, password) && "Accounting Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    return account;
+                } else if ("Accounting Manager".equals(account.getAccountType())) {
                     // Accounting Manager
                     accesscontrol.createcustomer = false;
                     accesscontrol.editcustomer = false;
@@ -399,29 +401,29 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     accesscontrol.deleteadmin = false;
 
                     account.setAccesscontrol(accesscontrol);
+                    return account;
+                }
 
+            } else {
+                log.setStatus("failed");
+                account = adao.getUserByUsername(username);
+                account.setLoggedIn(false);
+                if (account != null) {
+                    log.setLog_accountID(account.getAccountID());
+                    logdao.addLog(log);
+
+                    if (!foundCookie) {
+                        Cookie cookie1 = new Cookie(username, account.getAccountType());
+                        cookie1.setMaxAge(24 * 60 * 60);
+                        hsr1.addCookie(cookie1);
+                        out.println("NO COOKIES FOUND");
+                    }
                     return account;
                 } else {
                     log.setStatus("failed");
-                    account = adao.getUserByUsername(username);
-                    account.setLoggedIn(false);
-                    if (account != null) {
-                        log.setLog_accountID(account.getAccountID());
-                        logdao.addLog(log);
-
-                        if (!foundCookie) {
-                            Cookie cookie1 = new Cookie(username, account.getAccountType());
-                            cookie1.setMaxAge(24 * 60 * 60);
-                            hsr1.addCookie(cookie1);
-                            out.println("NO COOKIES FOUND");
-                        }
-                        return account;
-                    } else {
-                        log.setStatus("failed");
-                        log.setLog_accountID(0);
-                        logdao.addLog(log);
-                        return null;
-                    }
+                    log.setLog_accountID(0);
+                    logdao.addLog(log);
+                    return null;
                 }
             }
 

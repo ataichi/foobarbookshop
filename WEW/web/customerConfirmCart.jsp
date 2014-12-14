@@ -86,7 +86,6 @@
         </nav>
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">
-
                 <div class="col-md-4 well" style="padding-left: 20px;">
                     <div class="pull-right affix">
                         <div class="panel-body"> 

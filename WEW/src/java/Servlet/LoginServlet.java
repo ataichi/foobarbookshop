@@ -49,7 +49,6 @@ public class LoginServlet extends HttpServlet {
             Authenticator authenticator = new Authenticator();
 
             session.setAttribute("errorMessage", "");
-            String loguser = request.getParameter("loguser");
 
             try {
                 account = (AccountBean) authenticator.login(request, response);
