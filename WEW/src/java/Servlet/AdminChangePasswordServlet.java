@@ -27,10 +27,6 @@ import javax.servlet.http.HttpSession;
 import org.owasp.esapi.errors.AuthenticationException;
 import org.owasp.esapi.errors.EncryptionException;
 
-/**
- *
- * @author Danica
- */
 @WebServlet(name = "AdminChangePasswordServlet", urlPatterns = {"/AdminChangePasswordServlet"})
 public class AdminChangePasswordServlet extends HttpServlet {
 

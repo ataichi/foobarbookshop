@@ -23,10 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "WriteReviewServlet", urlPatterns = {"/WriteReviewServlet"})
 public class WriteReviewServlet extends HttpServlet {
 

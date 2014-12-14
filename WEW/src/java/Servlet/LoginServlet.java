@@ -6,6 +6,7 @@ import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
 import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
@@ -13,6 +14,7 @@ import DAO.Interface.AccountingManagerDAOInterface;
 import DAO.Interface.AudioCDManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
+import DAO.Interface.LogDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
 import Process.Hasher;
 import java.io.IOException;
@@ -26,6 +28,7 @@ import javax.servlet.http.HttpSession;
 import Security.Authenticator;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -161,7 +164,22 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("reviewlist", reviewlist);
                         session.setMaxInactiveInterval(-1);
 
-                        response.sendRedirect("customerHOME.jsp");
+                        LogBean log = new LogBean();
+                        LogDAOInterface logdao = new LogDAOImplementation();
+
+                        Timestamp time;
+                        java.util.Date date = new java.util.Date();
+                        time = new Timestamp(date.getTime());
+                        String activity = "Customer Login";
+
+                        log.setActivity(activity);
+                        log.setLog_accountID(account.getAccountID());
+                        log.setTime(time);
+                        log.setIp_address(request.getRemoteAddr());
+
+                        if (logdao.addLog(log)) {
+                            response.sendRedirect("customerHOME.jsp");
+                        }
                     } else if (account.getAccountType().equals("Audio CD Manager")) {
                         audiocdlist = cddao.getAllAudioCD();
                         productlist = pdao.getProductsByType("Audio CD");
@@ -172,7 +190,22 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("homeproduct", account);
                         session.setMaxInactiveInterval(600);
 
-                        response.sendRedirect("productmanagerHOME.jsp");
+                        LogBean log = new LogBean();
+                        LogDAOInterface logdao = new LogDAOImplementation();
+
+                        Timestamp time;
+                        java.util.Date date = new java.util.Date();
+                        time = new Timestamp(date.getTime());
+                        String activity = "Audio CD Manager Login";
+
+                        log.setActivity(activity);
+                        log.setLog_accountID(account.getAccountID());
+                        log.setTime(time);
+                        log.setIp_address(request.getRemoteAddr());
+
+                        if (logdao.addLog(log)) {
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
 
                     } else if (account.getAccountType().equals("Book Manager")) {
                         booklist = bookdao.getAllBooks();
@@ -184,7 +217,22 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("homeproduct", account);
                         session.setMaxInactiveInterval(600);
 
-                        response.sendRedirect("productmanagerHOME.jsp");
+                        LogBean log = new LogBean();
+                        LogDAOInterface logdao = new LogDAOImplementation();
+
+                        Timestamp time;
+                        java.util.Date date = new java.util.Date();
+                        time = new Timestamp(date.getTime());
+                        String activity = "Book Manager Login";
+
+                        log.setActivity(activity);
+                        log.setLog_accountID(account.getAccountID());
+                        log.setTime(time);
+                        log.setIp_address(request.getRemoteAddr());
+
+                        if (logdao.addLog(log)) {
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
 
                     } else if (account.getAccountType().equals("DVD Manager")) {
                         dvdlist = dvddao.viewAllDVD();
@@ -196,7 +244,22 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("homeproduct", account);
                         session.setMaxInactiveInterval(600);
 
-                        response.sendRedirect("productmanagerHOME.jsp");
+                        LogBean log = new LogBean();
+                        LogDAOInterface logdao = new LogDAOImplementation();
+
+                        Timestamp time;
+                        java.util.Date date = new java.util.Date();
+                        time = new Timestamp(date.getTime());
+                        String activity = "DVD Manager Login";
+
+                        log.setActivity(activity);
+                        log.setLog_accountID(account.getAccountID());
+                        log.setTime(time);
+                        log.setIp_address(request.getRemoteAddr());
+
+                        if (logdao.addLog(log)) {
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
                     } else if (account.getAccountType().equals("Magazine Manager")) {
                         magazinelist = magazinedao.getAllMagazine();
                         productlist = pdao.getProductsByType("Magazine");
@@ -207,8 +270,22 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("productlist", productlist);
                         session.setAttribute("homeproduct", account);
                         session.setMaxInactiveInterval(600);
+                        LogBean log = new LogBean();
+                        LogDAOInterface logdao = new LogDAOImplementation();
 
-                        response.sendRedirect("productmanagerHOME.jsp");
+                        Timestamp time;
+                        java.util.Date date = new java.util.Date();
+                        time = new Timestamp(date.getTime());
+                        String activity = "Magazine Manager Login";
+
+                        log.setActivity(activity);
+                        log.setLog_accountID(account.getAccountID());
+                        log.setTime(time);
+                        log.setIp_address(request.getRemoteAddr());
+
+                        if (logdao.addLog(log)) {
+                            response.sendRedirect("productmanagerHOME.jsp");
+                        }
 
                     } else if (account.getAccountType().equals("Accounting Manager")) {
                         productorderlist = accountingmanagerdao.getAllProductOrders();
@@ -231,7 +308,23 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("homeaccounting", account);
 
                         session.setMaxInactiveInterval(600);
-                        response.sendRedirect("accountingmanagerHOME.jsp");
+
+                        LogBean log = new LogBean();
+                        LogDAOInterface logdao = new LogDAOImplementation();
+
+                        Timestamp time;
+                        java.util.Date date = new java.util.Date();
+                        time = new Timestamp(date.getTime());
+                        String activity = "Accounting Manager Login";
+
+                        log.setActivity(activity);
+                        log.setLog_accountID(account.getAccountID());
+                        log.setTime(time);
+                        log.setIp_address(request.getRemoteAddr());
+
+                        if (logdao.addLog(log)) {
+                            response.sendRedirect("accountingmanagerHOME.jsp");
+                        }
                     }
                 }
 

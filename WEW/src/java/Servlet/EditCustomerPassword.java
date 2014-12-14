@@ -62,7 +62,7 @@ public class EditCustomerPassword extends HttpServlet {
 
             boolean edit = accountdao.updateAccountPassword((bean));
 
-            if (currpass == request.getParameter("currpass")) {
+            if (currpass.equals(request.getParameter("currpass"))) {
                 edit = true;
             } else {
                 edit = false;

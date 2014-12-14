@@ -94,7 +94,8 @@ public class UnlockAccountServlet extends HttpServlet {
                     response.sendRedirect("unlock_account.jsp");
                 }
             } else {
-                out.println("ACCESS DENIED");
+          //      out.println("ACCESS DENIED");
+                out.println(homeadmin.getAccesscontrol().isUnlockuser());
             }
 
         } catch (Exception e) {

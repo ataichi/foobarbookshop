@@ -104,6 +104,8 @@ public class EditProductManagerAccountServlet extends HttpServlet {
                         response.sendRedirect("productmanagerHOME.jsp");
                     }
                 } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
                     session.setAttribute("homeproduct", bean);
                     response.sendRedirect("productmanagerAccount.jsp");
                 }

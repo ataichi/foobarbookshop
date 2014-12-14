@@ -90,18 +90,37 @@ public class AdminLoginServlet extends HttpServlet {
 
             account = loginauthenticator.login(request, response);
 
-            if (account != null && "Admin".equals(account.getAccountType())) {
+            if (account != null && "Admin".equals(account.getAccountType()) && account.isLoggedIn()) {
                 loglist = logdao.getAllLogs();
                 lockreportlist = lockreportdao.getAllNotDoneLockReport();
                 lockedAccounts = accountdao.getAllLockedAccounts();
-                
+
                 session.setAttribute("homeadmin", account);
                 session.setAttribute("type", "Admin");
                 session.setAttribute("loglist", loglist);
                 session.setAttribute("homeadmin", account);
-                session.setAttribute("lockedAccounts", lockedAccounts);
-                session.setAttribute("lockreportlist", lockreportlist);
+                if (lockedAccounts.isEmpty()) {
+                    out.println("Here");
+                    session.setAttribute("lockedAccounts", new ArrayList<AccountBean>());
+                } else {
+                    out.println("dito");
+                    session.setAttribute("lockedAccounts", lockedAccounts);
+                }
+
+                if (lockreportlist.isEmpty()) {
+                    out.println("Here");
+                    session.setAttribute("lockreportlist", new ArrayList<LockReportBean>());
+                } else {
+                    out.println("dito");
+                    session.setAttribute("lockreportlist", lockreportlist);
+                }
+
                 session.setMaxInactiveInterval(600);
+
+                log.setActivity("Admin login");
+                
+                
+                
                 response.sendRedirect("adminHOME.jsp");
             } else {
                 response.sendRedirect("adminLogin.jsp");

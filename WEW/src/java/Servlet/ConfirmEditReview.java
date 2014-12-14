@@ -27,10 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "ConfirmEditReview", urlPatterns = {"/ConfirmEditReview"})
 public class ConfirmEditReview extends HttpServlet {
 

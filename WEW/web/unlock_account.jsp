@@ -110,19 +110,22 @@
                             </thead>
                             <tbody>
                                 <% int i;
-
                                     for (i = 0; i < lockedAccounts.size(); i++) {
-                                        out.println("<tr><td>" + lockedAccounts.get(i).getFirstName() + "</td>"
-                                                + "<td>" + lockedAccounts.get(i).getLastName() + "</td>"
-                                                + "<td>" + lockedAccounts.get(i).getUsername() + "</td>"
-                                                + "<td>" + lockreportlist.get(i).getEmailaddress() + "</td>"
-                                                + "<td>" + lockedAccounts.get(i).getAccountType() + "</td>"
-                                                + "<td>" + lockreportlist.get(i).getReason() + "</td>"
-                                                + "<td><form action='UnlockAccountServlet'>"
-                                                + "<input type='hidden' name='lockreportid' value='" + lockreportlist.get(i).getLockreportID() + "'/>"
-                                                + "<input type='hidden' name='accountid' value='" + lockedAccounts.get(i).getAccountID() + "'/>"
-                                                + "<input type='submit' value='unlock' style='border-color: transparent; background-color: transparent'/>"
-                                                + "</td></form></tr>");
+                                        for (int j = 0; j < lockreportlist.size(); j++) {
+                                            if (lockreportlist.get(j).getLockreport_accountID() == lockedAccounts.get(i).getAccountID()) {
+                                                out.println("<tr><td>" + lockedAccounts.get(i).getFirstName() + "</td>"
+                                                        + "<td>" + lockedAccounts.get(i).getLastName() + "</td>"
+                                                        + "<td>" + lockedAccounts.get(i).getUsername() + "</td>"
+                                                        + "<td>" + lockreportlist.get(j).getEmailaddress() + "</td>"
+                                                        + "<td>" + lockedAccounts.get(i).getAccountType() + "</td>"
+                                                        + "<td>" + lockreportlist.get(j).getReason() + "</td>"
+                                                        + "<td><form action='UnlockAccountServlet'>"
+                                                        + "<input type='hidden' name='lockreportid' value='" + lockreportlist.get(j).getLockreportID() + "'/>"
+                                                        + "<input type='hidden' name='accountid' value='" + lockedAccounts.get(i).getAccountID() + "'/>"
+                                                        + "<input type='submit' value='unlock' style='border-color: transparent; background-color: transparent'/>"
+                                                        + "</td></form></tr>");
+                                            }
+                                        }
                                     }
                                 %>
 

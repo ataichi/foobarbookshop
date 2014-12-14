@@ -124,29 +124,7 @@ public class ShoppingCart extends HttpServlet {
                 session.setAttribute("tempproductlist", tempproductlist);
 
                 response.sendRedirect("customerHOME.jsp");
-                /*
-                 for (int i = 0; i < cookies.length; i++) {
-                 Cookie cookie1 = cookies[i];
-                 if (cookie1.getName().equals(homeuser.getUsername() + "-productid-" + product)) {
-                 out.println("QTY = " + cookie1.getValue());
-                 int temp = Integer.valueOf(cookie1.getValue());
 
-                 cookie1.setValue(String.valueOf(temp + int_qty));
-                 out.println(cookie1.getValue());
-                 cookies[i] = cookie1;
-                 out.println(cookies[i].getValue());
-
-                 foundCookie = true;
-                 }
-                 }
-
-                 if (!foundCookie) {
-                 Cookie cookie1 = new Cookie(homeuser.getUsername() + "-productid-" + product, product);
-                 cookie1.setMaxAge(24 * 60 * 60);
-                 response.addCookie(cookie1);
-                 out.println("ADD COOKIE");
-                 }
-                 */
             } else if (action.equals("Buy")) {
                 response.sendRedirect("customerConfirmBillingInformation.jsp");
             } else if (action.equals("Save")) {

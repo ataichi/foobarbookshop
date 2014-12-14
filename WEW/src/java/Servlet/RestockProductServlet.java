@@ -6,11 +6,15 @@
 package Servlet;
 
 import Beans.AccountBean;
+import Beans.LogBean;
 import Beans.ProductBean;
+import DAO.Implementation.LogDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
+import DAO.Interface.LogDAOInterface;
 import DAO.Interface.ProductDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
