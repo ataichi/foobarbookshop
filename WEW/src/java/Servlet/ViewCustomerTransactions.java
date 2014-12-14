@@ -58,7 +58,6 @@ public class ViewCustomerTransactions extends HttpServlet {
             ArrayList<ShoppingCartBean> shoppingcartlist = new ArrayList<ShoppingCartBean>();
             ProductDAOInterface productdao = new ProductDAOImplementation();
         //    ReviewBean review = new ReviewBean();
-            ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
             shoppingcartlist = customerdao.getShoppingCartByCustomerID(tempcustomer.getCustomerID());
 
             for (int i = 0; i < shoppingcartlist.size(); i++) {

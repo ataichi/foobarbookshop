@@ -47,9 +47,6 @@ public class ViewProductServlet extends HttpServlet {
                 DVDBean dvdbean = new DVDBean();
                 MagazineManagerDAOImplementation magdao = new MagazineManagerDAOImplementation();
                 MagazineBean magbean = new MagazineBean();
-                ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
-                ReviewBean review = new ReviewBean();
-                AccountBean accountbean = new AccountBean();
 
                 AccountDAOInterface adao = new AccountDAOImplementation();
                 CustomerDAOInterface cdao = new CustomerDAOImplementation();
@@ -100,7 +97,7 @@ public class ViewProductServlet extends HttpServlet {
                     session.setAttribute("viewmagazine", magbean);
                     response.sendRedirect("viewproduct.jsp");
                 } else {
-                    out.println("WALA EH");
+                    response.sendRedirect("productmanagerHOME.jsp");
                 }
             //} else {
             //    out.println("ACCESS DENIED");

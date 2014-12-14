@@ -60,15 +60,12 @@ public class UnlockAccountServlet extends HttpServlet {
             java.util.Date date = new java.util.Date();
             Timestamp time = new Timestamp(date.getTime());
 
-            out.println(time);
-
             LockReportBean lockreport = new LockReportBean();
             LockReportDAOInterface lockreportdao = new LockReportDAOImplementation();
             ArrayList<LockReportBean> lockreportlist = (ArrayList<LockReportBean>) session.getAttribute("lockreportlist");
             ArrayList<AccountBean> lockedAccounts = (ArrayList<AccountBean>) session.getAttribute("lockedAccounts");
             int lockreportid = Integer.valueOf(request.getParameter("lockreportid"));
 
-            out.println(lockreportid);
             lockreport = lockreportdao.getLockReportByID(lockreportid);
 
             lockreport.setDone(1);
@@ -77,7 +74,6 @@ public class UnlockAccountServlet extends HttpServlet {
             lockreport.setLockreport_accountID(lockreport.getLockreport_accountID());
             lockreport.setReason(lockreport.getReason());
 
-            out.println(lockreport.getLockreportID());
 
             log.setLog_accountID(homeadmin.getAccountID());
             log.setTime(time);

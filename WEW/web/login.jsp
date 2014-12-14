@@ -11,8 +11,6 @@
     } else if (session.getAttribute("homeaccounting") != null) {
         response.sendRedirect("accountingmanagerHOME.jsp");
     }
-
-    String error = (String) session.getAttribute("errorMessage");
 %>
 <html>
     <head>
@@ -76,35 +74,21 @@
             </div>
         </nav>
 
-        <div class="container" style="padding-top:150px;">
-            <div class="row">
-                <div class="panel-body" style="padding-left: 600px;">
-                    <%
-                        if (error != null) {
-                    %>
-                    <div class="alert alert-danger col-md-8" role="alert">
-                        <strong><% out.println(error); %></strong>
+        <div class="panel-body"  style="padding-left: 600px">
+            <div class="row" style="padding-top: 200px;">
+                <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">
+                    <div class="form-group">
+                        <input id="loguser" name='loguser' onblur="usernameCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Username" required>
                     </div>
-                </div>
-
-                <% }%>
-            </div>
-            <div class="row">
-                <div class="panel-body"  style="padding-left: 600px">
-                    <form class="col-md-4" id="logform" name="login" onsubmit="return logcheck();" method="post" action="LoginServlet">
-                        <div class="form-group">
-                            <input id="loguser" name='loguser' onblur="usernameCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Username" required>
-                        </div>
-                        <div class="form-group">
-                            <input id="logpass" name='logpass' onblur="passwordCheck();" onfocus="backWhite(this);" type="password" class="form-control input-lg" placeholder="Password" required>
-                            <input type='hidden' value='0' name='ctr_try'/>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-lg btn-block">Sign In</button>
-                            <span class="pull-right"><a href="signup.jsp">New Registration</a></span>
-                        </div>
-                    </form>
-                </div>
+                    <div class="form-group">
+                        <input id="logpass" name='logpass' onblur="passwordCheck();" onfocus="backWhite(this);" type="password" class="form-control input-lg" placeholder="Password" required>
+                        <input type='hidden' value='0' name='ctr_try'/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+                        <span class="pull-right"><a href="signup.jsp">New Registration</a></span>
+                    </div>
+                </form>
             </div>
         </div>
         <script src="dist/js/jquery-2.1.0.min.js"></script>
