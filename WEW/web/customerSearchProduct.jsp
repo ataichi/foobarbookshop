@@ -67,12 +67,12 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                            <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
+                                <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
                                 <li><a href='customerviewreviews.jsp'><span class="glyphicon glyphicon-edit"></span>View Reviews</a></li>
                                 <li><a href="customerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value='View Transactions' style='background-color: transparent; border: none'/></form></li>
-                              </ul>
+                            </ul>
                         </li>
                         <li><a><span class="glyphicon glyphicon-log-out"></span><form action="LogoutServlet"><input type="submit" value="Logout" style='background-color: transparent; border: none'/></form></a></li>
                     </ul>
@@ -89,32 +89,19 @@
         </nav>
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">
-                <div class="col-md-1">
-                    <div class="affix">
-                        <div class="well"> 
-                            <ul class="nav">
-                                <li class="active"><a href="#viewbook" id="viewbook"><img src="./images/book-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#viewmag" id="viewmag"><img src="./images/magazine-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#viewcd" id="viewcd"><img src="./images/cd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                                <li><a href="#viewdvd" id="viewdvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                            </ul>
-                        </div>
-
-                    </div> 
-                </div>
                 <div class="col-md-7" style="padding-left: 20px;">
                     <div class="well" id="shoplist">
                         <%
                             if (searchproductlist.size() > 0) { //not empty
                                 for (int i = 0; i < searchproductlist.size(); i++) {
                                     out.println("Title:" + searchproductlist.get(i).getTitle()
-                                            + "<br/>Price:" + searchproductlist.get(i).getPrice()
-                                            + "<br/>Product Type:" + searchproductlist.get(i).getType()
+                                            + "<br/>Price: " + searchproductlist.get(i).getPrice()
+                                            + "<br/>Product Type: " + searchproductlist.get(i).getType()
                                             + "<br/>Summary: " + searchproductlist.get(i).getSummary()
-                                            + "<form action='ViewCustomerProductServlet' method='post'>"
+                                            + "<form action='ShoppingCart' method='post'>"
                                             + "<input type='hidden' name='product' value='" + searchproductlist.get(i).getProductID() + "'/>"
-                                            + "<input type='submit' value='View' name='viewProduct'/></form>"
-                                            + "<form action='AddToShoppingCartServlet' method='post'>"
+                                            + "<input type='submit' value='View Details' name='viewProduct'/></form>"
+                                            + "<form action='ShoppingCart' method='post'>"
                                             + "<input type='hidden' name='productid' value='" + searchproductlist.get(i).getProductID() + "'/>"
                                             + "<input type='number' name='qty' min='0' max='10' value='0'/>"
                                             + "<input type='submit' name='action' value='Add to Cart'/>"
