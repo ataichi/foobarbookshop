@@ -90,21 +90,10 @@ public class AdminLoginServlet extends HttpServlet {
 
             account = loginauthenticator.login(request, response);
 
-            log.setActivity("Admin " + username + " Login");
-            log.setLog_accountID(account.getAccountID());
-            log.setIp_address(address);
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            log.setTime(time);
-
             if (account != null && "Admin".equals(account.getAccountType())) {
                 loglist = logdao.getAllLogs();
                 lockreportlist = lockreportdao.getAllNotDoneLockReport();
                 lockedAccounts = accountdao.getAllLockedAccounts();
-
-
-                log.setStatus("successful");
-                logdao.addLog(log);
                 
                 session.setAttribute("homeadmin", account);
                 session.setAttribute("type", "Admin");
@@ -115,8 +104,6 @@ public class AdminLoginServlet extends HttpServlet {
                 session.setMaxInactiveInterval(600);
                 response.sendRedirect("adminHOME.jsp");
             } else {
-                log.setStatus("failed");
-                logdao.addLog(log);
                 response.sendRedirect("adminLogin.jsp");
             }
 

@@ -50,7 +50,7 @@ public class SignupServlet extends HttpServlet {
             if (password.toLowerCase().contains(username.toLowerCase())
                     || password.toLowerCase().contains(firstname.toLowerCase())
                     || password.toLowerCase().contains(lastname.toLowerCase())) {
-                out.println("huy bawal yan");
+                //out.println("huy bawal yan");
                 response.sendRedirect("signup.jsp");
 
             } else {
