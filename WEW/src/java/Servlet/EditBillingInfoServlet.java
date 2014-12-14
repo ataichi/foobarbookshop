@@ -47,12 +47,8 @@ public class EditBillingInfoServlet extends HttpServlet {
             CustomerDAOImplementation cdao = new CustomerDAOImplementation();
             CustomerBean cbean = (CustomerBean) session.getAttribute("tempcustomer");
 
-            cbean = cdao.getCustomerByAccountID(oldbean.getAccountID());
-
             String BA = request.getParameter("BA");
             String DA = request.getParameter("DA");
-
-            cbean.setCustomer_accountID(oldbean.getAccountID());
 
             cbean.setBA(BA);
             cbean.setDA(DA);
@@ -65,36 +61,19 @@ public class EditBillingInfoServlet extends HttpServlet {
             log.setIp_address(address);
             log.setLog_accountID(oldbean.getAccountID());
             log.setTime(time);
-            log.setActivity("Edit Billing Information of Account ID " + oldbean.getAccountID());
-            out.println(cbean.getCustomerID());
+            log.setActivity("Edit Billing Information");
+
             boolean check;
-            if (cbean.getCustomerID() == 0) {
-                check = cdao.addCustomer(cbean);
-                if (check) {
-                    log.setStatus("successful");
-                    if (logdao.addLog(log)) {
-                        session.setAttribute("tempcustomer", cbean);
-                        response.sendRedirect("customerHOME.jsp");
-                        out.println("yes");
-                    }
-                } else {
-                    session.setAttribute("tempcustomer", cbean);
-                    response.sendRedirect("customerAccount.jsp");
-                    out.println("np");
-                }
+            check = cdao.editAddress(cbean);
+            if (check) {
+                log.setStatus("successful");
+                logdao.addLog(log);
+                session.setAttribute("tempcustomer", cbean);
+                response.sendRedirect("customerHOME.jsp");
             } else {
-                check = cdao.editAddress(cbean);
-                if (check) {
-                    if (logdao.addLog(log)) {
-                        session.setAttribute("tempcustomer", cbean);
-                        response.sendRedirect("customerHOME.jsp");
-                        out.println("yehey");
-                    }
-                } else {
-                    session.setAttribute("tempcustomer", cbean);
-                    response.sendRedirect("customerAccount.jsp");
-                    out.println("bye");
-                }
+                log.setStatus("failed");
+                logdao.addLog(log);
+                response.sendRedirect("customerAccount.jsp");
             }
 
         } catch (Exception e) {
