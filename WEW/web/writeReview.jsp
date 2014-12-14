@@ -45,8 +45,6 @@
         <title> Write Review</title>
     </head>
     <body>
-
-
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -81,68 +79,57 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </nav>
-    <div class="container-fluid" style="padding-top: 100px; padding-left: 30px;">
-        <div class="row">
-            <div class="col-md-1">
-                <div class="affix">
-                    <div class="well"> 
-                        <ul class="nav">
-                            <li class="active"><a href="#viewbook" id="viewbook"><img src="./images/book-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                            <li><a href="#viewmag" id="viewmag"><img src="./images/magazine-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                            <li><a href="#viewcd" id="viewcd"><img src="./images/cd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                            <li><a href="#viewdvd" id="viewdvd"><img src="./images/dvd-small-icon.png" style="width: 50px; length:50px;" class="img-responsive"/></a></li>
-                        </ul>
+        </nav>
+        <div class="container-fluid" style="padding-top: 100px; padding-left: 30px;">
+            <div class="row">
+                <div class="col-md-7" style="padding-left: 200px; padding-top: 100px">
+                    <div class="well" id="shoplist">
+                        <dl class="dl-horizontal">
+                            <%
+                                // insert shopping cart here!
+                                if (orderproductlist.size() == 0) {
+                                    out.println("<p> Shopping cart empty.</p>");
+                                } else {
+                                    for (int i = 0; i < orderproductlist.size(); i++) { //all orders
+                            %>
+
+                            <form action='WriteReviewServlet' method='post'>
+                                <dt>
+                                Title
+                                </dt>
+                                <dd>
+                                    <%out.println(orderproductlist.get(i).getTitle());%>
+                                </dd>
+                                <dt>
+                                Review
+                                </dt>
+                                <dd>
+                                    <input type='text' name='review'/>
+                                </dd>
+                                <dd>
+                                    <input type='hidden' value=<%out.println(orderproductlist.get(i).getProductID());%>  name='id' />
+                                </dd>
+                                <dt>
+                                <input type='submit' value='Submit Review'/>
+                                </dt>
+                            </form>
+                            <a href='customerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Back</button></a>
+
+                            <%
+                                    }
+                                }
+                            %>
+
+                        </dl>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-7" style="padding-left: 200px; padding-top: 100px">
-        <div class="well" id="shoplist">
-            <dl class="dl-horizontal">
-                <%
-                    // insert shopping cart here!
-                    if (orderproductlist.size() == 0) {
-                        out.println("<p> Shopping cart empty.</p>");
-                    } else {
-                        for (int i = 0; i < orderproductlist.size(); i++) { //all orders
-                %>
+                            
+        <script src="dist/js/jquery-2.1.0.min.js"></script>
+        <script src="dist/js/query.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
 
-                <form action='WriteReviewServlet' method='post'>
-                    <dt>
-                    Title
-                    </dt>
-                    <dd>
-                        <%out.println(orderproductlist.get(i).getTitle());%>
-                    </dd>
-                    <dt>
-                    Review
-                    </dt>
-                    <dd>
-                        <input type='text' name='review'/>
-                    </dd>
-                    <dd>
-                        <input type='hidden' value=<%out.println(orderproductlist.get(i).getProductID());%>  name='id' />
-                    </dd>
-                    <dt>
-                    <input type='submit' value='Submit Review'/>
-                    </dt>
-                </form>
-                <a href='customerHOME.jsp'><button>Back</button></a>
-
-                <%
-                        }
-                    }
-                %>
-
-            </dl>
-        </div>
-    </div>
-
-
-
-</body>
+    </body>
 </html>
 <%}%>

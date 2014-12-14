@@ -1,14 +1,11 @@
 package Servlet;
 
 import Beans.*;
-import DAO.Implementation.AccountDAOImplementation;
 import DAO.Implementation.AccountingManagerDAOImplementation;
 import DAO.Implementation.AudioCDManagerDAOImplementation;
 import DAO.Implementation.BookManagerDAOImplementation;
 import DAO.Implementation.CustomerDAOImplementation;
 import DAO.Implementation.DVDManagerDAOImplementation;
-import DAO.Implementation.LockReportDAOImplementation;
-import DAO.Implementation.LogDAOImplementation;
 import DAO.Implementation.MagazineManagerDAOImplementation;
 import DAO.Implementation.ProductDAOImplementation;
 import DAO.Implementation.ProductManagerDAOImplementation;
@@ -16,8 +13,6 @@ import DAO.Interface.AccountingManagerDAOInterface;
 import DAO.Interface.AudioCDManagerDAOInterface;
 import DAO.Interface.BookManagerDAOInterface;
 import DAO.Interface.DVDManagerDAOInterface;
-import DAO.Interface.LockReportDAOInterface;
-import DAO.Interface.LogDAOInterface;
 import DAO.Interface.MagazineManagerDAOInterface;
 import Process.Hasher;
 import java.io.IOException;
@@ -35,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.Cookie;
 import org.owasp.esapi.errors.AuthenticationException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
@@ -46,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            HttpSession session = null;
+            HttpSession session = request.getSession();
             AccountBean account = null;
             String address = null;
             String salt = null;
@@ -54,6 +48,7 @@ public class LoginServlet extends HttpServlet {
 
             Authenticator authenticator = new Authenticator();
 
+            session.setAttribute("errorMessage", "");
             String loguser = request.getParameter("loguser");
 
             try {
@@ -71,6 +66,7 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     account.lock();
                     //set cookies: Your account has been locked
+                    session.setAttribute("errorMessage", "Your account has been locked.");
                     response.sendRedirect("contactAdmin.jsp");
                 }
 
@@ -129,6 +125,7 @@ public class LoginServlet extends HttpServlet {
 
                 if (account.isLocked()) {
                     //out.println("locked");
+                    session.setAttribute("errorMessage", "Your account has been locked.");
                     response.sendRedirect("contactAdmin.jsp");
                 } else {
                     if (account.getAccountType().equals("Customer")) {
@@ -241,6 +238,7 @@ public class LoginServlet extends HttpServlet {
 
             } else { //didn't match records
                 //set cookies: The username and password you entered did not match our records.
+                session.setAttribute("errorMessage", "The username and password you entered did not match our records.");
                 response.sendRedirect("login.jsp");
             }
         } finally {

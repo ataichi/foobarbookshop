@@ -148,8 +148,7 @@ public class ShoppingCart extends HttpServlet {
                  }
                  */
             } else if (action.equals("Buy")) {
-                out.println("DITO");
-                //        response.sendRedirect("customerConfirmBillingInformation.jsp");
+                response.sendRedirect("customerConfirmBillingInformation.jsp");
             } else if (action.equals("Save")) {
                 out.println(action);
 

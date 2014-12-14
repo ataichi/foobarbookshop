@@ -93,7 +93,7 @@
                             <div class="panel-title">Add Credit Card Information</div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" role="form" action="ConfirmCreditCardServlet" onsubmit='return creditCardCheck();' id='creditcardcheck' name='creditcardcheck' method='post'>
+                            <form class="form-horizontal" role="form" action="ShoppingServlet" onsubmit='return creditCardCheck();' id='creditcardcheck' name='creditcardcheck' method='post'>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="cardName">Credit Card Name</label>
                                     <div class="col-sm-3">

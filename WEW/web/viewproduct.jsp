@@ -422,7 +422,7 @@
                             %>
 
                         </dl>
-                        <a href="customerHOME.jsp"><button>Back</button></a>
+                        <a href="customerHOME.jsp"><button class="btn btn-primary btn-lg center-block">Back</button></a>
                     </div>
                 </div>
             </div>
