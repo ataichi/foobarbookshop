@@ -42,34 +42,12 @@ public class EditReviewServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditReviewServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditReviewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
 
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
             //if (homeuser.getAccesscontrol().isEditmessage()) {
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
-            Timestamp time;
-            java.util.Date date = new java.util.Date();
-            time = new Timestamp(date.getTime());
-            // not sure if customerID or accountID dapat :)
-
             int reviewID = Integer.valueOf(request.getParameter("reviewid"));
-            String activity = "Edit review ID " + reviewID;
-            log.setLog_accountID(homeuser.getAccountID());
-            log.setTime(time);
-            log.setActivity(activity);
-            log.setIp_address(request.getRemoteAddr());
-            log.setStatus("successful");
 
             ReviewBean reviewbean = new ReviewBean();
             ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
@@ -79,18 +57,9 @@ public class EditReviewServlet extends HttpServlet {
             reviewbean = reviewdao.getReviewByReviewID(reviewID);
             productbean = productdao.getProductById(reviewbean.getReview_productID());
 
-            if (logdao.addLog(log)) {
-
-                session.setAttribute("reviewbean", reviewbean);
-
-                session.setAttribute("productbean", productbean);
-                //     out.println(reviewbean.getReview_productID());
-                //     out.println(productbean.getTitle());
-                response.sendRedirect("customereditreview.jsp");
-                out.println("YEHEY PWEDE");
-            } else {
-                out.println("UNABLE TO EDIT");
-            }
+            session.setAttribute("reviewbean", reviewbean);
+            session.setAttribute("productbean", productbean);
+            response.sendRedirect("customereditreview.jsp");
             //} else {
             //    out.println("ACCESS DENIED");
             //}

@@ -68,6 +68,7 @@ public class ConfirmEditReview extends HttpServlet {
             log.setActivity(activity);
             log.setLog_accountID(homeuser.getAccountID());
             log.setIp_address(request.getRemoteAddr());
+            
 
             CustomerBean customer = new CustomerBean();
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
