@@ -53,7 +53,6 @@ public class UnlockAccountServlet extends HttpServlet {
                 AccountDAOInterface accountdao = new AccountDAOImplementation();
                 AdminDAOImplementation admindao = new AdminDAOImplementation();
 
-                AccountBean account = new AccountBean();
                 LogBean log = new LogBean();
                 LogDAOInterface logdao = new LogDAOImplementation();
 
@@ -84,6 +83,7 @@ public class UnlockAccountServlet extends HttpServlet {
                     logdao.addLog(log);
                     lockreportlist = lockreportdao.getAllNotDoneLockReport();
                     lockedAccounts = accountdao.getAllLockedAccounts();
+                    accountdao.setFailedLoginCountToZero(accountID);
 
                     session.setAttribute("lockedreportlist", lockreportlist);
                     session.setAttribute("lockedAccounts", lockedAccounts);
