@@ -61,23 +61,23 @@
                 <div class="alert alert-danger col-md-8" role="alert">
                     <strong>Unfortunately, you're account got locked. Contact the Administrator to unlock.</strong>
                 </div>
-
-                <div class="panel-body"  style="padding-left: 600px">
-                    <form class="col-md-4" id="login" name="login" onsubmit="return logcheck();" method="post" action="SendReport">
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="email">Email Address</label>
-                            <input id="email" name='email' onblur="emailCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="yourname@foobar.com">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-4" for="email">Reason</label>
-                            <input id="reason" name='reason' onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Enter reason" required>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-lg btn-block">Send Report</button>
-                        </div>
-                    </form>
-                </div>
             </div>
+            <div class="panel-body"  style="padding-left: 600px">
+                <form class="col-md-4" id="login" name="login" onsubmit="return logcheck();" method="post" action="SendReport">
+                    <div class="form-group">
+                        <label class="control-label col-lg-4" for="email">Email Address</label>
+                        <input id="email" name='email' onblur="emailCheck();" onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="yourname@foobar.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-4" for="email">Reason</label>
+                        <input id="reason" name='reason' onfocus="backWhite(this);" type="text" class="form-control input-lg" placeholder="Enter reason" required>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-lg btn-block">Send Report</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
         <script src="dist/js/jquery-2.1.0.min.js"></script>
         <script src="dist/js/query.js"></script>
