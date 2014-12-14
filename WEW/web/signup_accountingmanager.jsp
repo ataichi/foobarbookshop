@@ -67,9 +67,8 @@
                                 <li><a href="unlock_account.html"><span class="glyphicon glyphicon-edit"></span> Unlock Account</a></li>-->
                             </ul>
                         </li>
-                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style='border:none'/></form></li>
+                        <li><a><span class="glyphicon glyphicon-log-out"></span><form action="LogoutServlet"><input type="submit" value="Logout" style='background-color: transparent; border: none'/></form></a></li>
                     </ul>
-
                 </div>
             </div>
         </nav>

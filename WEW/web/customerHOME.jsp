@@ -73,7 +73,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="customerHOME.jsp"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li><a href="customerHOME.jsp"><span class="glyphicon glyphicon-home active"></span> Home</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -81,22 +81,22 @@
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
                                 <li><a href='customerviewreviews.jsp'><span class="glyphicon glyphicon-edit"></span> Reviews</a></li>
                                 <li><a href="customerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
-                                <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value=' Transactions' style='background-color: transparent; border: none'/></form></li>
+                                <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value=' Transactions'/></form></li>
                             </ul>
                         </li>
-                        <li><span class="glyphicon glyphicon-log-out"></span><form class="navbar-form navbar-right" action="LogoutServlet"><input type="submit" value="Log out" style='background-color: transparent; border:none'/></form></li>
+                        <!--<li><span class="glyphicon glyphicon-log-out"></span><form action="LogoutServlet"><input type="submit" value="Log out" style='border: none'/></form></li>-->
+                        <li><a><span class="glyphicon glyphicon-log-out"></span><form action="LogoutServlet"><input type="submit" value="Logout" style='background-color: transparent; border: none'/></form></a></li>
                     </ul>
-                </div>
-                <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
-                    <div class="input-group input-group-sm" style="max-width:360px;">
-                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
+                        <div class="input-group input-group-sm" style="max-width:360px;">
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-
         </nav>
         <div class="container-fluid" style="padding-top: 80px; padding-left: 30px;">
             <div class="row">

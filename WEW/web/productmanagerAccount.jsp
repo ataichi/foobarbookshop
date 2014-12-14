@@ -65,7 +65,7 @@
                                 <li><a href="productmanagerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                             </ul>
                         </li>
-                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style='border:none'/></form></li>
+                        <li><a><span class="glyphicon glyphicon-log-out"></span><form action="LogoutServlet"><input type="submit" value="Logout" style='background-color: transparent; border: none'/></form></a></li>
                     </ul>
                     <form class="navbar-form navbar-right" action='SearchProductServlet' method="post">
                         <div class="input-group input-group-sm" style="max-width:360px;">
