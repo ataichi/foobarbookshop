@@ -45,17 +45,6 @@ public class WriteReviewServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet WriteReviewServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet WriteReviewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-
             HttpSession session = request.getSession();
 
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
@@ -64,39 +53,35 @@ public class WriteReviewServlet extends HttpServlet {
             CustomerDAOInterface customerdao = new CustomerDAOImplementation();
 
             ReviewBean reviewbean = new ReviewBean();
-            ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
 
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
             String review = request.getParameter("review");
             int id = Integer.valueOf(request.getParameter("id"));
             int review_customerID = customer.getCustomerID();
-            out.println(id);
 
             reviewbean.setReview(review);
             reviewbean.setReview_customerID(review_customerID);
             reviewbean.setReview_productID(id);
 
+            Timestamp time;
+            java.util.Date date = new java.util.Date();
+            time = new Timestamp(date.getTime());
+            String activity = "Customer ID" + customer.getCustomerID() + " wrote review for product id " + id;
+
+            log.setActivity(activity);
+            log.setLog_accountID(customer.getCustomer_accountID());
+            log.setTime(time);
+            log.setIp_address(request.getRemoteAddr());
+
             if (customerdao.writeReview(reviewbean)) {
-                int accountid = customer.getCustomer_accountID();
-                Timestamp time;
-                java.util.Date date = new java.util.Date();
-                time = new Timestamp(date.getTime());
-                String activity = "Customer ID" + customer.getCustomerID() + " wrote review for product id " + id;
-                // not sure if customerID or accountID dapat :)
-
-                log.setActivity(activity);
-                log.setLog_accountID(accountid);
-                log.setTime(time);
-                log.setIp_address(request.getRemoteAddr());
                 log.setStatus("Successful");
-                
-                if(logdao.addLog(log)){
-                    response.sendRedirect("customerHOME.jsp");
-                }
-
+                logdao.addLog(log);
+                response.sendRedirect("customerHOME.jsp");
             } else {
-       //         out.println("Review not added");
+                log.setStatus("failed");
+                logdao.addLog(log);
+                response.sendRedirect("writeReview.jsp");
             }
         }
     }
