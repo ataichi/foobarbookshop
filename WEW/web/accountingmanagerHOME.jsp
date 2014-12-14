@@ -6,31 +6,21 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    out.println("HERE");
     AccountBean account = (AccountBean) session.getAttribute("homeaccounting");
-    out.println("HERE");
     if (account == null) {
         response.sendRedirect("login.jsp");
     } else {
         ArrayList<ProductOrderBean> productorderlist = (ArrayList<ProductOrderBean>) session.getAttribute("productorderlist");
 
-        out.println(productorderlist.size());
         ArrayList<ShoppingCartBean> shoppingcartlist = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingcartlist");
-
-        out.println(shoppingcartlist.size());
 
         ArrayList<ProductBean> audiolist = (ArrayList<ProductBean>) session.getAttribute("audiolist");
 
-        out.println(audiolist.size());
         ArrayList<ProductBean> booklist = (ArrayList<ProductBean>) session.getAttribute("booklist");
 
-        out.println(booklist.size());
         ArrayList<ProductBean> dvdlist = (ArrayList<ProductBean>) session.getAttribute("dvdlist");
 
-        out.println(dvdlist.size());
         ArrayList<ProductBean> magazinelist = (ArrayList<ProductBean>) session.getAttribute("magazinelist");
-
-        out.println(magazinelist.size());
 
         double finalsales = 0;
         double sales = 0;
@@ -88,6 +78,7 @@
 
     </head>
     <body>
+                            
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -97,18 +88,19 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand">  Foobar</a>
+                    <a class="navbar-brand" href="#">Foobar</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li><a href="accountingmanagerHOME.jsp"><span class="glyphicon glyphicon-home active"></span> Home</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(account.getUsername()); %><span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(account.getUsername()); %> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="accountingmanagerAccount.jsp"><span class="glyphicon glyphicon-edit"></span>Account</a></li>
                                 <li><a href="accountingmanagerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
                             </ul>
                         </li>
+                        <!--<li><span class="glyphicon glyphicon-log-out"></span><form action="LogoutServlet"><input type="submit" value="Log out" style='border: none'/></form></li>-->
                         <li><a><span class="glyphicon glyphicon-log-out"></span><form action="LogoutServlet"><input type="submit" value="Logout" style='background-color: transparent; border: none'/></form></a></li>
                     </ul>
                 </div>
