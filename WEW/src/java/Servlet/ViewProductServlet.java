@@ -37,7 +37,7 @@ public class ViewProductServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
-            //if (account.getAccesscontrol().isViewproduct()) {
+            if (account.getAccesscontrol().isViewproduct()) {
                 ProductDAOImplementation pdao = new ProductDAOImplementation();
                 AudioCDManagerDAOImplementation audiocddao = new AudioCDManagerDAOImplementation();
                 AudioCDBean audiocdbean = new AudioCDBean();
@@ -99,9 +99,9 @@ public class ViewProductServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("productmanagerHOME.jsp");
                 }
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
+            } else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 

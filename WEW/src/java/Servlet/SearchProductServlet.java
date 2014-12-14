@@ -38,7 +38,7 @@ public class SearchProductServlet extends HttpServlet {
 
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
-            //if (homeproduct.getAccesscontrol().isViewproduct()) {
+            if (homeproduct.getAccesscontrol().isViewproduct()) {
                 String searchstring = AccountDAOImplementation.inputSanitizer(request.getParameter("srch-term"));
                 ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
                 ArrayList<ProductBean> finalproductlist = new ArrayList<ProductBean>();
@@ -77,7 +77,7 @@ public class SearchProductServlet extends HttpServlet {
                         ArrayList<BookBean> booklist = new ArrayList<BookBean>();
                         BookBean bookbean = new BookBean();
                         ArrayList<BookBean> finalbooklist = new ArrayList<BookBean>();
-                        
+
                         productlist = productdao.getProductsByTitle(searchstring);
                         for (int i = 0; i < productlist.size(); i++) {
                             if (productlist.get(i).getType().equals("Book")) {
@@ -565,9 +565,9 @@ public class SearchProductServlet extends HttpServlet {
                         session.setAttribute("searchproductlist", productlist);
                         response.sendRedirect("productmanagerSearchProduct.jsp");
                     }
-                //} else {
-                //    out.println("ACCESS DENIED");
-                //}
+                } else {
+                    out.println("ACCESS DENIED");
+                }
 
             }
 

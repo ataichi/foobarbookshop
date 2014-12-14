@@ -83,6 +83,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
             log.setActivity("login");
 
             AccountBean account = new AccountBean();
+            AccountDAOImplementation accountdao = new AccountDAOImplementation();
+            AccessController accesscontrol = new AccessController();
             if (usercheck) {
                 log.setLog_accountID(account.getAccountID());
                 log.setStatus("successful");
@@ -99,38 +101,340 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                     out.println("NO COOKIES FOUND");
                 }
 
-                return account;
-            } else {
-                log.setStatus("failed");
-                account = adao.getUserByUsername(username);
-                account.setLoggedIn(false);
-                if (account != null) {
-                    log.setLog_accountID(account.getAccountID());
-                    logdao.addLog(log);
+                if (accountdao.doesUserExist(username, password) && "Customer".equals(account.getAccountType()) && !account.getLocked()) {
+                    // Customer
+                    accesscontrol.createcustomer = false;
+                    accesscontrol.editcustomer = true;
+                    accesscontrol.deletecustomer = true;
 
-                    if (!foundCookie) {
-                        Cookie cookie1 = new Cookie(username, account.getAccountType());
-                        cookie1.setMaxAge(24 * 60 * 60);
-                        hsr1.addCookie(cookie1);
-                        out.println("NO COOKIES FOUND");
-                    }
+                    accesscontrol.createproductmanager = false;
+                    accesscontrol.editproductmanager = false;
+                    accesscontrol.deleteproductmanager = false;
+
+                    accesscontrol.createaccountingmanager = false;
+                    accesscontrol.editaccountingmanager = false;
+                    accesscontrol.deleteaccountingmanager = false;
+
+                    accesscontrol.postmessage = true;
+                    accesscontrol.editmessage = true;
+                    accesscontrol.viewmessage = true;
+                    accesscontrol.deletemessage = true;
+
+                    accesscontrol.addproduct = false;
+                    accesscontrol.editproduct = false;
+                    accesscontrol.deleteproduct = false;
+                    accesscontrol.restockproduct = false;
+
+                    accesscontrol.viewsales = false;
+                    accesscontrol.unlockuser = false;
+                    accesscontrol.viewtransactions = true;
+                    accesscontrol.viewactivity = false;
+                    accesscontrol.buyproduct = true;
+
+                    accesscontrol.addtoshoppingcart = true;
+                    accesscontrol.editshoppingcart = true;
+                    accesscontrol.removeproductfromshoppingcart = true;
+                    accesscontrol.viewproduct = true;
+
+                    accesscontrol.editpassword = true;
+
+                    accesscontrol.addadmin = false;
+                    accesscontrol.editadmin = false;
+                    accesscontrol.deleteadmin = false;
+
+                    account.setAccesscontrol(accesscontrol);
+
+                } else if (accountdao.doesUserExist(username, password) && "Admin".equals(account.getAccountType()) && !account.getLocked()) {
+                    // Admin
+                    accesscontrol.createcustomer = false;
+                    accesscontrol.editcustomer = false;
+                    accesscontrol.deletecustomer = false;
+
+                    accesscontrol.createproductmanager = true;
+                    accesscontrol.editproductmanager = true;
+                    accesscontrol.deleteproductmanager = true;
+
+                    accesscontrol.createaccountingmanager = true;
+                    accesscontrol.editaccountingmanager = true;
+                    accesscontrol.deleteaccountingmanager = true;
+
+                    accesscontrol.postmessage = false;
+                    accesscontrol.editmessage = false;
+                    accesscontrol.viewmessage = false;
+                    accesscontrol.deletemessage = false;
+
+                    accesscontrol.addproduct = false;
+                    accesscontrol.editproduct = false;
+                    accesscontrol.deleteproduct = false;
+                    accesscontrol.restockproduct = false;
+
+                    accesscontrol.viewsales = false;
+                    accesscontrol.unlockuser = true;
+                    accesscontrol.viewtransactions = false;
+                    accesscontrol.viewactivity = true;
+                    accesscontrol.buyproduct = false;
+
+                    accesscontrol.addtoshoppingcart = false;
+                    accesscontrol.editshoppingcart = false;
+                    accesscontrol.removeproductfromshoppingcart = false;
+                    accesscontrol.viewproduct = false;
+
+                    accesscontrol.editpassword = true;
+
+                    accesscontrol.addadmin = false;
+                    accesscontrol.editadmin = true;
+                    accesscontrol.deleteadmin = false;
+
+                    account.setAccesscontrol(accesscontrol);
+
+                } else if (accountdao.doesUserExist(username, password) && "Book Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    // Book Manager
+                    accesscontrol.createcustomer = false;
+                    accesscontrol.editcustomer = false;
+                    accesscontrol.deletecustomer = false;
+
+                    accesscontrol.createproductmanager = false;
+                    accesscontrol.editproductmanager = true;
+                    accesscontrol.deleteproductmanager = true;
+
+                    accesscontrol.createaccountingmanager = false;
+                    accesscontrol.editaccountingmanager = false;
+                    accesscontrol.deleteaccountingmanager = false;
+
+                    accesscontrol.postmessage = false;
+                    accesscontrol.editmessage = false;
+                    accesscontrol.viewmessage = true;
+                    accesscontrol.deletemessage = false;
+
+                    accesscontrol.addproduct = true;
+                    accesscontrol.editproduct = true;
+                    accesscontrol.deleteproduct = true;
+                    accesscontrol.restockproduct = true;
+
+                    accesscontrol.viewsales = false;
+                    accesscontrol.unlockuser = false;
+                    accesscontrol.viewtransactions = false;
+                    accesscontrol.viewactivity = false;
+                    accesscontrol.buyproduct = false;
+
+                    accesscontrol.addtoshoppingcart = false;
+                    accesscontrol.editshoppingcart = false;
+                    accesscontrol.removeproductfromshoppingcart = false;
+                    accesscontrol.viewproduct = true;
+
+                    accesscontrol.editpassword = true;
+
+                    accesscontrol.addadmin = false;
+                    accesscontrol.editadmin = false;
+                    accesscontrol.deleteadmin = false;
+
+                    account.setAccesscontrol(accesscontrol);
+
+                } else if (accountdao.doesUserExist(username, password) && "Audio CD Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    // Audio CD Manager
+                    accesscontrol.createcustomer = false;
+                    accesscontrol.editcustomer = false;
+                    accesscontrol.deletecustomer = false;
+
+                    accesscontrol.createproductmanager = false;
+                    accesscontrol.editproductmanager = true;
+                    accesscontrol.deleteproductmanager = true;
+
+                    accesscontrol.createaccountingmanager = false;
+                    accesscontrol.editaccountingmanager = false;
+                    accesscontrol.deleteaccountingmanager = false;
+
+                    accesscontrol.postmessage = false;
+                    accesscontrol.editmessage = false;
+                    accesscontrol.viewmessage = true;
+                    accesscontrol.deletemessage = false;
+
+                    accesscontrol.addproduct = true;
+                    accesscontrol.editproduct = true;
+                    accesscontrol.deleteproduct = true;
+                    accesscontrol.restockproduct = true;
+
+                    accesscontrol.viewsales = false;
+                    accesscontrol.unlockuser = false;
+                    accesscontrol.viewtransactions = false;
+                    accesscontrol.viewactivity = false;
+                    accesscontrol.buyproduct = false;
+
+                    accesscontrol.addtoshoppingcart = false;
+                    accesscontrol.editshoppingcart = false;
+                    accesscontrol.removeproductfromshoppingcart = false;
+                    accesscontrol.viewproduct = true;
+
+                    accesscontrol.editpassword = true;
+
+                    accesscontrol.addadmin = false;
+                    accesscontrol.editadmin = false;
+                    accesscontrol.deleteadmin = false;
+
+                    account.setAccesscontrol(accesscontrol);
+                } else if (accountdao.doesUserExist(username, password) && "DVD Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    // DVD Manager
+                    accesscontrol.createcustomer = false;
+                    accesscontrol.editcustomer = false;
+                    accesscontrol.deletecustomer = false;
+
+                    accesscontrol.createproductmanager = false;
+                    accesscontrol.editproductmanager = true;
+                    accesscontrol.deleteproductmanager = true;
+
+                    accesscontrol.createaccountingmanager = false;
+                    accesscontrol.editaccountingmanager = false;
+                    accesscontrol.deleteaccountingmanager = false;
+
+                    accesscontrol.postmessage = false;
+                    accesscontrol.editmessage = false;
+                    accesscontrol.viewmessage = true;
+                    accesscontrol.deletemessage = false;
+
+                    accesscontrol.addproduct = true;
+                    accesscontrol.editproduct = true;
+                    accesscontrol.deleteproduct = true;
+                    accesscontrol.restockproduct = true;
+
+                    accesscontrol.viewsales = false;
+                    accesscontrol.unlockuser = false;
+                    accesscontrol.viewtransactions = false;
+                    accesscontrol.viewactivity = false;
+                    accesscontrol.buyproduct = false;
+
+                    accesscontrol.addtoshoppingcart = false;
+                    accesscontrol.editshoppingcart = false;
+                    accesscontrol.removeproductfromshoppingcart = false;
+                    accesscontrol.viewproduct = true;
+
+                    accesscontrol.editpassword = true;
+
+                    accesscontrol.addadmin = false;
+                    accesscontrol.editadmin = false;
+                    accesscontrol.deleteadmin = false;
+
+                    account.setAccesscontrol(accesscontrol);
+
+                } else if (accountdao.doesUserExist(username, password) && "Magazine Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    // Magazine Manager
+                    accesscontrol.createcustomer = false;
+                    accesscontrol.editcustomer = false;
+                    accesscontrol.deletecustomer = false;
+
+                    accesscontrol.createproductmanager = false;
+                    accesscontrol.editproductmanager = true;
+                    accesscontrol.deleteproductmanager = true;
+
+                    accesscontrol.createaccountingmanager = false;
+                    accesscontrol.editaccountingmanager = false;
+                    accesscontrol.deleteaccountingmanager = false;
+
+                    accesscontrol.postmessage = false;
+                    accesscontrol.editmessage = false;
+                    accesscontrol.viewmessage = true;
+                    accesscontrol.deletemessage = false;
+
+                    accesscontrol.addproduct = true;
+                    accesscontrol.editproduct = true;
+                    accesscontrol.deleteproduct = true;
+                    accesscontrol.restockproduct = true;
+
+                    accesscontrol.viewsales = false;
+                    accesscontrol.unlockuser = false;
+                    accesscontrol.viewtransactions = false;
+                    accesscontrol.viewactivity = false;
+                    accesscontrol.buyproduct = false;
+
+                    accesscontrol.addtoshoppingcart = false;
+                    accesscontrol.editshoppingcart = false;
+                    accesscontrol.removeproductfromshoppingcart = false;
+                    accesscontrol.viewproduct = true;
+
+                    accesscontrol.editpassword = true;
+
+                    accesscontrol.addadmin = false;
+                    accesscontrol.editadmin = false;
+                    accesscontrol.deleteadmin = false;
+
+                    account.setAccesscontrol(accesscontrol);
+                } else if (accountdao.doesUserExist(username, password) && "Accounting Manager".equals(account.getAccountType()) && !account.getLocked()) {
+                    // Accounting Manager
+                    accesscontrol.createcustomer = false;
+                    accesscontrol.editcustomer = false;
+                    accesscontrol.deletecustomer = false;
+
+                    accesscontrol.createproductmanager = false;
+                    accesscontrol.editproductmanager = true;
+                    accesscontrol.deleteproductmanager = true;
+
+                    accesscontrol.createaccountingmanager = false;
+                    accesscontrol.editaccountingmanager = true;
+                    accesscontrol.deleteaccountingmanager = true;
+
+                    accesscontrol.postmessage = false;
+                    accesscontrol.editmessage = false;
+                    accesscontrol.viewmessage = false;
+                    accesscontrol.deletemessage = false;
+
+                    accesscontrol.addproduct = true;
+                    accesscontrol.editproduct = true;
+                    accesscontrol.deleteproduct = true;
+                    accesscontrol.restockproduct = true;
+
+                    accesscontrol.viewsales = true;
+                    accesscontrol.unlockuser = false;
+                    accesscontrol.viewtransactions = false;
+                    accesscontrol.viewactivity = false;
+                    accesscontrol.buyproduct = false;
+
+                    accesscontrol.addtoshoppingcart = false;
+                    accesscontrol.editshoppingcart = false;
+                    accesscontrol.removeproductfromshoppingcart = false;
+                    accesscontrol.viewproduct = false;
+
+                    accesscontrol.editpassword = true;
+
+                    accesscontrol.addadmin = false;
+                    accesscontrol.editadmin = false;
+                    accesscontrol.deleteadmin = false;
+
+                    account.setAccesscontrol(accesscontrol);
+
                     return account;
                 } else {
                     log.setStatus("failed");
-                    log.setLog_accountID(0);
-                    logdao.addLog(log);
-                    return null;
+                    account = adao.getUserByUsername(username);
+                    account.setLoggedIn(false);
+                    if (account != null) {
+                        log.setLog_accountID(account.getAccountID());
+                        logdao.addLog(log);
+
+                        if (!foundCookie) {
+                            Cookie cookie1 = new Cookie(username, account.getAccountType());
+                            cookie1.setMaxAge(24 * 60 * 60);
+                            hsr1.addCookie(cookie1);
+                            out.println("NO COOKIES FOUND");
+                        }
+                        return account;
+                    } else {
+                        log.setStatus("failed");
+                        log.setLog_accountID(0);
+                        logdao.addLog(log);
+                        return null;
+                    }
                 }
             }
 
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return null;
     }
 
     @Override
-    public boolean verifyPassword(User user, String string) {
+    public boolean verifyPassword(User user, String string
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -150,7 +454,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
     }
 
     @Override
-    public String generateStrongPassword(User user, String string) {
+    public String generateStrongPassword(User user, String string
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -160,12 +465,14 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
     }
 
     @Override
-    public AccountBean getUser(long l) {
+    public AccountBean getUser(long l
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public AccountBean getUser(String string) {
+    public AccountBean getUser(String string
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -180,7 +487,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
     }
 
     @Override
-    public void setCurrentUser(User user) {
+    public void setCurrentUser(User user
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -193,13 +501,17 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
                 Hasher hash = new Hasher("MD5");
                 try {
                     hash.updateHash(string, "UTF-8");
+
                 } catch (UnsupportedEncodingException ex) {
-                    Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Authenticator.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 password = hash.getHashBASE64();
                 return password;
+
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Authenticator.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
         return password;
@@ -221,7 +533,8 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
     }
 
     @Override
-    public boolean exists(String string) {
+    public boolean exists(String string
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

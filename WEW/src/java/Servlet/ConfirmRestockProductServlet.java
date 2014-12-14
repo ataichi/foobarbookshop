@@ -40,42 +40,42 @@ public class ConfirmRestockProductServlet extends HttpServlet {
             String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeproduct");
 
-            //if (account.getAccesscontrol().isRestockproduct()) {
-            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
-            ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
-            ProductManagerDAOInterface productmanagerdao = new ProductManagerDAOImplementation();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
+            if (account.getAccesscontrol().isRestockproduct()) {
+                ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+                ProductBean restockproduct = (ProductBean) session.getAttribute("restockproduct");
+                ProductManagerDAOInterface productmanagerdao = new ProductManagerDAOImplementation();
+                ProductDAOInterface productdao = new ProductDAOImplementation();
 
-            int newstocks = Integer.valueOf(request.getParameter("numberstocks"));
+                int newstocks = Integer.valueOf(request.getParameter("numberstocks"));
 
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
 
-            log.setIp_address(address);
-            log.setLog_accountID(account.getAccountID());
-            log.setTime(time);
-            log.setActivity("Restock Confirm Restock for Product ID " + restockproduct.getProductID());
+                log.setIp_address(address);
+                log.setLog_accountID(account.getAccountID());
+                log.setTime(time);
+                log.setActivity("Restock Confirm Restock for Product ID " + restockproduct.getProductID());
 
-            out.println(newstocks);
-            boolean checkRestock = productmanagerdao.restockProduct(newstocks, restockproduct.getProductID());
+                out.println(newstocks);
+                boolean checkRestock = productmanagerdao.restockProduct(newstocks, restockproduct.getProductID());
 
-            if (checkRestock) {
-                productlist = productmanagerdao.getProductsByType(restockproduct.getType());
-                log.setStatus("successful");
-                logdao.addLog(log);
-                session.setAttribute("productlist", productlist);
-                response.sendRedirect("productmanagerHOME.jsp");
+                if (checkRestock) {
+                    productlist = productmanagerdao.getProductsByType(restockproduct.getType());
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+                    session.setAttribute("productlist", productlist);
+                    response.sendRedirect("productmanagerHOME.jsp");
+                } else {
+                    //set cookies unable to restock
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("restockproduct.jsp");
+                }
             } else {
-                //set cookies unable to restock
-                log.setStatus("failed");
-                logdao.addLog(log);
-                response.sendRedirect("restockproduct.jsp");
+                out.println("ACCESS DENIED");
             }
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
         }
     }
 

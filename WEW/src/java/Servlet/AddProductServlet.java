@@ -46,242 +46,240 @@ public class AddProductServlet extends HttpServlet {
             String address = request.getRemoteAddr();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
 
-            //if (homeproduct.getAccesscontrol().isAddproduct()) {
-            ProductManagerDAOImplementation pdao = new ProductManagerDAOImplementation();
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
+            if (homeproduct.getAccesscontrol().isAddproduct()) {
+                ProductManagerDAOImplementation pdao = new ProductManagerDAOImplementation();
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            String prodType = null;
-            if (homeproduct.getAccountType().equals("Audio CD Manager")) {
-                prodType = "Audio CD";
-            } else if (homeproduct.getAccountType().equals("Book Manager")) {
-                prodType = "Book";
-            } else if (homeproduct.getAccountType().equals("DVD Manager")) {
-                prodType = "DVD";
-            } else if (homeproduct.getAccountType().equals("Magazine Manager")) {
-                prodType = "Magazine";
-            }
-
-            ProductBean product = new ProductBean();
-            String type, title, summary, genre;
-            double price;
-            int year, numberStocks;
-
-            type = prodType;
-            title = request.getParameter("productTitle");
-            summary = request.getParameter("productSummary");
-            genre = request.getParameter("productGenre");
-            price = Double.parseDouble(request.getParameter("productPrice"));
-            year = Integer.parseInt(request.getParameter("productYear"));
-            numberStocks = Integer.parseInt(request.getParameter("productStocks"));
-
-            product.setGenre(genre);
-            product.setNumberStocks(numberStocks);
-            product.setPrice(price);
-            product.setSummary(summary);
-            product.setTitle(title);
-            product.setType(type);
-            product.setYear(year);
-
-            log.setIp_address(address);
-            boolean addProduct = false;
-
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-
-            log.setLog_accountID(homeproduct.getAccountID());
-            log.setTime(time);
-            //log.setActivity("Add Product " + title);
-
-            if (type.equals("Audio CD")) {// add audio cd
-                log.setActivity("Add Audio CD");
-
-                AudioCDManagerDAOInterface cdao = new AudioCDManagerDAOImplementation();
-                AudioCDBean cd = new AudioCDBean();
-                String artist = null, recordCompany = null;
-
-                artist = request.getParameter("cdArtist");
-                recordCompany = request.getParameter("cdRecord");
-
-                boolean addCD = false;
-
-                addProduct = pdao.addProduct(product);
-                product = pdao.getLastProduct();
-
-                cd.setArtist(artist);
-                cd.setRecordCompany(recordCompany);
-                cd.setAudiocd_productID(product.getProductID());
-
-                addCD = cdao.addAudioCD(cd);
-
-                if (addProduct && addCD) { // success
-                    log.setStatus("successful");
-                    logdao.addLog(log);
-                    ArrayList<AudioCDBean> cdlist = cdao.getAllAudioCD();
-                    ArrayList<ProductBean> plist = pdao.getProductsByType(type);
-
-                    session.setAttribute("audiocdlist", cdlist);
-                    session.setAttribute("productlist", plist);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                } else { // may error
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("addproduct.jsp");
+                String prodType = null;
+                if (homeproduct.getAccountType().equals("Audio CD Manager")) {
+                    prodType = "Audio CD";
+                } else if (homeproduct.getAccountType().equals("Book Manager")) {
+                    prodType = "Book";
+                } else if (homeproduct.getAccountType().equals("DVD Manager")) {
+                    prodType = "DVD";
+                } else if (homeproduct.getAccountType().equals("Magazine Manager")) {
+                    prodType = "Magazine";
                 }
 
-            } else if (type.equals("Book")) {// add books
-                log.setActivity("Add Book");
-                BookManagerDAOInterface bdao = new BookManagerDAOImplementation();
+                ProductBean product = new ProductBean();
+                String type, title, summary, genre;
+                double price;
+                int year, numberStocks;
 
-                BookBean book = new BookBean();
-                String author, publisher, bookDatePublished;
-                java.util.Date date1;
-                java.sql.Date sqlDate;
+                type = prodType;
+                title = request.getParameter("productTitle");
+                summary = request.getParameter("productSummary");
+                genre = request.getParameter("productGenre");
+                price = Double.parseDouble(request.getParameter("productPrice"));
+                year = Integer.parseInt(request.getParameter("productYear"));
+                numberStocks = Integer.parseInt(request.getParameter("productStocks"));
 
-                author = request.getParameter("bookAuthor");
-                publisher = request.getParameter("bookPublisher");
-                DateFormat formatter;
-                bookDatePublished = request.getParameter("bookDatePublished");
+                product.setGenre(genre);
+                product.setNumberStocks(numberStocks);
+                product.setPrice(price);
+                product.setSummary(summary);
+                product.setTitle(title);
+                product.setType(type);
+                product.setYear(year);
 
-                addProduct = pdao.addProduct(product);
-                product = pdao.getLastProduct();
+                log.setIp_address(address);
+                boolean addProduct = false;
 
-                formatter = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    date1 = formatter.parse(bookDatePublished);
-                    sqlDate = new java.sql.Date(date1.getTime());
-                    book.setDatePublished(sqlDate);
-                } catch (ParseException ex) {
-                    Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
 
-                boolean addBook = false;
-                book.setAuthor(author);
-                book.setPublisher(publisher);
-                int book_productID = product.getProductID();
-                book.setBook_productID(book_productID);
-                addBook = bdao.addBook(book);
+                log.setLog_accountID(homeproduct.getAccountID());
+                log.setTime(time);
 
-                if (addProduct && addBook) { //success
-                    log.setStatus("successful");
-                    logdao.addLog(log);
-                    ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-                    booklist = bdao.getAllBooks();
-                    ArrayList<ProductBean> plist = pdao.getProductsByType(type);
+                if (type.equals("Audio CD")) {// add audio cd
+                    log.setActivity("Add Audio CD");
 
-                    session.setAttribute("booklist", booklist);
-                    session.setAttribute("productlist", plist);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                } else { //error
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    out.println("productmanagerHOME.jsp");
-                }
+                    AudioCDManagerDAOInterface cdao = new AudioCDManagerDAOImplementation();
+                    AudioCDBean cd = new AudioCDBean();
+                    String artist = null, recordCompany = null;
 
-            } else if (type.equals("DVD")) {// add dvd
-                log.setActivity("Add DVD");
-                DVDBean bean = new DVDBean();
-                DVDManagerDAOInterface ddao = new DVDManagerDAOImplementation();
+                    artist = request.getParameter("cdArtist");
+                    recordCompany = request.getParameter("cdRecord");
 
-                addProduct = pdao.addProduct(product);
+                    boolean addCD = false;
 
-                int dvd_productID;
-                String director, actors, productCompany;
+                    addProduct = pdao.addProduct(product);
+                    product = pdao.getLastProduct();
 
-                director = request.getParameter("dvdDirector");
-                actors = request.getParameter("dvdActor");
-                productCompany = request.getParameter("dvdProducer");
+                    cd.setArtist(artist);
+                    cd.setRecordCompany(recordCompany);
+                    cd.setAudiocd_productID(product.getProductID());
 
-                bean.setDirector(director);
-                bean.setMainActors(actors);
-                bean.setProductionCompany(productCompany);
-                product = pdao.getLastProduct();
-                dvd_productID = product.getProductID();
-                bean.setDvd_productID(dvd_productID);
+                    addCD = cdao.addAudioCD(cd);
 
-                boolean addDvd = ddao.addDVD(bean);
+                    if (addProduct && addCD) { // success
+                        log.setStatus("successful");
+                        logdao.addLog(log);
+                        ArrayList<AudioCDBean> cdlist = cdao.getAllAudioCD();
+                        ArrayList<ProductBean> plist = pdao.getProductsByType(type);
 
-                if (addProduct && addDvd) {//successfully added product
-                    log.setStatus("successful");
-                    logdao.addLog(log);
-                    ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
-                    dvdlist = ddao.viewAllDVD();
-                    ArrayList<ProductBean> plist = pdao.getProductsByType(type);
+                        session.setAttribute("audiocdlist", cdlist);
+                        session.setAttribute("productlist", plist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else { // may error
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("addproduct.jsp");
+                    }
 
-                    session.setAttribute("dvdlist", dvdlist);
-                    session.setAttribute("productlist", plist);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                } else { //error
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("productmanagerHOME.jsp");
+                } else if (type.equals("Book")) {// add books
+                    log.setActivity("Add Book");
+                    BookManagerDAOInterface bdao = new BookManagerDAOImplementation();
 
-                }
+                    BookBean book = new BookBean();
+                    String author, publisher, bookDatePublished;
+                    java.util.Date date1;
+                    java.sql.Date sqlDate;
 
-            } else if (type.equals("Magazine")) {// add magazine
-                log.setActivity("Add Magazine");
-                MagazineBean bean = new MagazineBean();
-                MagazineManagerDAOInterface mdao = new MagazineManagerDAOImplementation();
+                    author = request.getParameter("bookAuthor");
+                    publisher = request.getParameter("bookPublisher");
+                    DateFormat formatter;
+                    bookDatePublished = request.getParameter("bookDatePublished");
 
-                addProduct = pdao.addProduct(product);
+                    addProduct = pdao.addProduct(product);
+                    product = pdao.getLastProduct();
 
-                int magazine_productID;
-                String publisher, datePublished;
-                int volumeNo, issueNo;
-                java.util.Date date1;
-                java.sql.Date sqlDate;
+                    formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        date1 = formatter.parse(bookDatePublished);
+                        sqlDate = new java.sql.Date(date1.getTime());
+                        book.setDatePublished(sqlDate);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-                product = pdao.getLastProduct();
-                magazine_productID = product.getProductID();
+                    boolean addBook = false;
+                    book.setAuthor(author);
+                    book.setPublisher(publisher);
+                    int book_productID = product.getProductID();
+                    book.setBook_productID(book_productID);
+                    addBook = bdao.addBook(book);
 
-                DateFormat formatter;
-                datePublished = request.getParameter("magazineDate");
-                formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    if (addProduct && addBook) { //success
+                        log.setStatus("successful");
+                        logdao.addLog(log);
+                        ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+                        booklist = bdao.getAllBooks();
+                        ArrayList<ProductBean> plist = pdao.getProductsByType(type);
 
-                try {
-                    date = formatter.parse(datePublished);
-                    sqlDate = new java.sql.Date(date.getTime());
-                    bean.setDatePublished(sqlDate);
-                } catch (ParseException ex) {
-                    Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                publisher = request.getParameter("magazinePublisher");
-                volumeNo = Integer.parseInt(request.getParameter("magazineVolume"));
-                issueNo = Integer.parseInt(request.getParameter("magazineIssue"));
+                        session.setAttribute("booklist", booklist);
+                        session.setAttribute("productlist", plist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else { //error
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        out.println("productmanagerHOME.jsp");
+                    }
 
-                bean.setMagazine_productID(magazine_productID);
-                bean.setPublisher(publisher);
-                bean.setVolumeNo(volumeNo);
-                bean.setIssueNo(issueNo);
+                } else if (type.equals("DVD")) {// add dvd
+                    log.setActivity("Add DVD");
+                    DVDBean bean = new DVDBean();
+                    DVDManagerDAOInterface ddao = new DVDManagerDAOImplementation();
 
-                boolean addMagazine = mdao.addMagazine(bean);
+                    addProduct = pdao.addProduct(product);
 
-                if (addProduct && addMagazine) {
-                    log.setStatus("successful");
-                    logdao.addLog(log);
-                    ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
-                    ArrayList<ProductBean> plist = pdao.getProductsByType(type);
-                    magazinelist = mdao.getAllMagazine();
+                    int dvd_productID;
+                    String director, actors, productCompany;
 
-                    session.setAttribute("magazinelist", magazinelist);
-                    session.setAttribute("productlist", plist);
-                    response.sendRedirect("productmanagerHOME.jsp");
+                    director = request.getParameter("dvdDirector");
+                    actors = request.getParameter("dvdActor");
+                    productCompany = request.getParameter("dvdProducer");
+
+                    bean.setDirector(director);
+                    bean.setMainActors(actors);
+                    bean.setProductionCompany(productCompany);
+                    product = pdao.getLastProduct();
+                    dvd_productID = product.getProductID();
+                    bean.setDvd_productID(dvd_productID);
+
+                    boolean addDvd = ddao.addDVD(bean);
+
+                    if (addProduct && addDvd) {//successfully added product
+                        log.setStatus("successful");
+                        logdao.addLog(log);
+                        ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+                        dvdlist = ddao.viewAllDVD();
+                        ArrayList<ProductBean> plist = pdao.getProductsByType(type);
+
+                        session.setAttribute("dvdlist", dvdlist);
+                        session.setAttribute("productlist", plist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else { //error
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("productmanagerHOME.jsp");
+
+                    }
+
+                } else if (type.equals("Magazine")) {// add magazine
+                    log.setActivity("Add Magazine");
+                    MagazineBean bean = new MagazineBean();
+                    MagazineManagerDAOInterface mdao = new MagazineManagerDAOImplementation();
+
+                    addProduct = pdao.addProduct(product);
+
+                    int magazine_productID;
+                    String publisher, datePublished;
+                    int volumeNo, issueNo;
+                    java.util.Date date1;
+                    java.sql.Date sqlDate;
+
+                    product = pdao.getLastProduct();
+                    magazine_productID = product.getProductID();
+
+                    DateFormat formatter;
+                    datePublished = request.getParameter("magazineDate");
+                    formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+                    try {
+                        date = formatter.parse(datePublished);
+                        sqlDate = new java.sql.Date(date.getTime());
+                        bean.setDatePublished(sqlDate);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    publisher = request.getParameter("magazinePublisher");
+                    volumeNo = Integer.parseInt(request.getParameter("magazineVolume"));
+                    issueNo = Integer.parseInt(request.getParameter("magazineIssue"));
+
+                    bean.setMagazine_productID(magazine_productID);
+                    bean.setPublisher(publisher);
+                    bean.setVolumeNo(volumeNo);
+                    bean.setIssueNo(issueNo);
+
+                    boolean addMagazine = mdao.addMagazine(bean);
+
+                    if (addProduct && addMagazine) {
+                        log.setStatus("successful");
+                        logdao.addLog(log);
+                        ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                        ArrayList<ProductBean> plist = pdao.getProductsByType(type);
+                        magazinelist = mdao.getAllMagazine();
+
+                        session.setAttribute("magazinelist", magazinelist);
+                        session.setAttribute("productlist", plist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("addproduct.jsp");
+                    }
                 } else {
+                    log.setActivity("Add Product");
                     log.setStatus("failed");
                     logdao.addLog(log);
-                    response.sendRedirect("addproduct.jsp");
+                    response.sendRedirect("productmanagerHOME.jsp");
                 }
             } else {
-                log.setActivity("Add Product");
-                log.setStatus("failed");
-                logdao.addLog(log);
-                response.sendRedirect("productmanagerHOME.jsp");
+                out.println("ACCESS DENIED");
             }
         }
-
-        //} else {
-        //    out.println("ACCESS DENIED");
-        //}
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

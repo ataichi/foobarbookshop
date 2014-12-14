@@ -47,33 +47,37 @@ public class EditBillingInfoServlet extends HttpServlet {
             CustomerDAOImplementation cdao = new CustomerDAOImplementation();
             CustomerBean cbean = (CustomerBean) session.getAttribute("tempcustomer");
 
-            String BA = request.getParameter("BA");
-            String DA = request.getParameter("DA");
+            if (oldbean.getAccesscontrol().isEditcustomer()) {
+                String BA = request.getParameter("BA");
+                String DA = request.getParameter("DA");
 
-            cbean.setBA(BA);
-            cbean.setDA(DA);
+                cbean.setBA(BA);
+                cbean.setDA(DA);
 
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
 
-            log.setIp_address(address);
-            log.setLog_accountID(oldbean.getAccountID());
-            log.setTime(time);
-            log.setActivity("Edit Billing Information");
+                log.setIp_address(address);
+                log.setLog_accountID(oldbean.getAccountID());
+                log.setTime(time);
+                log.setActivity("Edit Billing Information");
 
-            boolean check;
-            check = cdao.editAddress(cbean);
-            if (check) {
-                log.setStatus("successful");
-                logdao.addLog(log);
-                session.setAttribute("tempcustomer", cbean);
-                response.sendRedirect("customerHOME.jsp");
+                boolean check;
+                check = cdao.editAddress(cbean);
+                if (check) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+                    session.setAttribute("tempcustomer", cbean);
+                    response.sendRedirect("customerHOME.jsp");
+                } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("customerAccount.jsp");
+                }
             } else {
-                log.setStatus("failed");
-                logdao.addLog(log);
-                response.sendRedirect("customerAccount.jsp");
+                out.println("ACCESS DENIED");
             }
 
         } catch (Exception e) {

@@ -41,126 +41,126 @@ public class RemoveProductServlet extends HttpServlet {
             String address = request.getRemoteAddr();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
 
-            //if (homeproduct.getAccesscontrol().isDeleteproduct()) {
-            ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
-            ArrayList<ProductBean> plist = new ArrayList<ProductBean>();
+            if (homeproduct.getAccesscontrol().isDeleteproduct()) {
+                ProductManagerDAOInterface pdao = new ProductManagerDAOImplementation();
+                ArrayList<ProductBean> plist = new ArrayList<ProductBean>();
 
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            int productID = Integer.parseInt(request.getParameter("product"));
-            ProductBean removeproduct = pdao.getProductById(productID);
-            boolean check_removeproduct = false;
-            boolean check_removespecificproduct = false;
+                int productID = Integer.parseInt(request.getParameter("product"));
+                ProductBean removeproduct = pdao.getProductById(productID);
+                boolean check_removeproduct = false;
+                boolean check_removespecificproduct = false;
 
-            String type = removeproduct.getType();
-            log.setActivity("Remove " + type + " " + removeproduct.getTitle());
-            log.setIp_address(address);
+                String type = removeproduct.getType();
+                log.setActivity("Remove " + type + " " + removeproduct.getTitle());
+                log.setIp_address(address);
 
-            log.setLog_accountID(homeproduct.getAccountID());
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            log.setTime(time);
-            log.setIp_address(request.getRemoteAddr());
+                log.setLog_accountID(homeproduct.getAccountID());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setTime(time);
+                log.setIp_address(request.getRemoteAddr());
 
-            if (type.equals("Audio CD")) {
-                AudioCDBean removeaudio = new AudioCDBean();
-                AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
-                removeaudio = audiodao.getAudioCDByProductID(productID);
-                ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
+                if (type.equals("Audio CD")) {
+                    AudioCDBean removeaudio = new AudioCDBean();
+                    AudioCDManagerDAOInterface audiodao = new AudioCDManagerDAOImplementation();
+                    removeaudio = audiodao.getAudioCDByProductID(productID);
+                    ArrayList<AudioCDBean> cdlist = new ArrayList<AudioCDBean>();
 
-                check_removespecificproduct = audiodao.deleteAudioCD(removeaudio.getAudiocdID());
-                check_removeproduct = pdao.removeProduct(productID);
-                if (check_removespecificproduct && check_removeproduct) {
-                    log.setStatus("successful");
-                    logdao.addLog(log);
-                    plist = pdao.getProductsByType(type);
-                    cdlist = audiodao.getAllAudioCD();
+                    check_removespecificproduct = audiodao.deleteAudioCD(removeaudio.getAudiocdID());
+                    check_removeproduct = pdao.removeProduct(productID);
+                    if (check_removespecificproduct && check_removeproduct) {
+                        log.setStatus("successful");
+                        logdao.addLog(log);
+                        plist = pdao.getProductsByType(type);
+                        cdlist = audiodao.getAllAudioCD();
 
-                    session.setAttribute("audiocdlist", cdlist);
-                    session.setAttribute("productlist", plist);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                } else {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    //set cookies
-                    response.sendRedirect("productmanagerHOME.jsp");
+                        session.setAttribute("audiocdlist", cdlist);
+                        session.setAttribute("productlist", plist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        //set cookies
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
+
+                } else if (type.equals("Book")) {
+                    BookBean removebook = new BookBean();
+                    BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
+                    BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
+                    removebook = bookdao.getBookByProductID(productID);
+                    ArrayList<BookBean> booklist = new ArrayList<BookBean>();
+
+                    check_removespecificproduct = bookmanagerdao.deleteBook(removebook.getBookID());
+                    check_removeproduct = pdao.removeProduct(productID);
+
+                    if (check_removespecificproduct && check_removeproduct) {
+                        log.setStatus("successful");
+                        logdao.addLog(log);
+                        booklist = bookmanagerdao.getAllBooks();
+                        plist = pdao.getProductsByType(type);
+                        session.setAttribute("booklist", booklist);
+                        session.setAttribute("productlist", plist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        //set cookies
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
+                } else if (type.equals("DVD")) {
+                    DVDBean removedvd = new DVDBean();
+                    DVDManagerDAOInterface dvdmanagerdao = new DVDManagerDAOImplementation();
+                    DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
+                    removedvd = dvddao.getDVDByProductID(productID);
+                    ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
+
+                    check_removespecificproduct = dvdmanagerdao.deleteDVD(removedvd.getDvdID());
+                    check_removeproduct = pdao.removeProduct(productID);
+
+                    if (check_removespecificproduct && check_removeproduct) {
+                        log.setStatus("successful");
+                        logdao.addLog(log);
+                        plist = pdao.getProductsByType(type);
+                        session.setAttribute("dvdlist", dvdlist);
+                        session.setAttribute("productlist", plist);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
+                } else if (type.equals("Magazine")) {
+                    MagazineBean removemagazine = new MagazineBean();
+                    MagazineManagerDAOInterface magazinemanagerdao = new MagazineManagerDAOImplementation();
+                    MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
+                    removemagazine = magazinedao.getMagazineByProductID(productID);
+
+                    check_removespecificproduct = magazinemanagerdao.deleteMagazine(removemagazine.getMagazineID());
+                    check_removeproduct = pdao.removeProduct(productID);
+
+                    if (check_removespecificproduct) {
+                        log.setStatus("successful");
+                        logdao.addLog(log);
+                        ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
+                        magazinelist = magazinemanagerdao.getAllMagazine();
+                        plist = pdao.getProductsByType(type);
+                        session.setAttribute("productlist", plist);
+                        session.setAttribute("magazinelist", magazinelist);
+
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    } else {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("productmanagerHOME.jsp");
+                    }
                 }
-
-            } else if (type.equals("Book")) {
-                BookBean removebook = new BookBean();
-                BookManagerDAOInterface bookmanagerdao = new BookManagerDAOImplementation();
-                BookManagerDAOInterface bookdao = new BookManagerDAOImplementation();
-                removebook = bookdao.getBookByProductID(productID);
-                ArrayList<BookBean> booklist = new ArrayList<BookBean>();
-
-                check_removespecificproduct = bookmanagerdao.deleteBook(removebook.getBookID());
-                check_removeproduct = pdao.removeProduct(productID);
-
-                if (check_removespecificproduct && check_removeproduct) {
-                    log.setStatus("successful");
-                    logdao.addLog(log);
-                    booklist = bookmanagerdao.getAllBooks();
-                    plist = pdao.getProductsByType(type);
-                    session.setAttribute("booklist", booklist);
-                    session.setAttribute("productlist", plist);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                } else {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    //set cookies
-                    response.sendRedirect("productmanagerHOME.jsp");
-                }
-            } else if (type.equals("DVD")) {
-                DVDBean removedvd = new DVDBean();
-                DVDManagerDAOInterface dvdmanagerdao = new DVDManagerDAOImplementation();
-                DVDManagerDAOInterface dvddao = new DVDManagerDAOImplementation();
-                removedvd = dvddao.getDVDByProductID(productID);
-                ArrayList<DVDBean> dvdlist = new ArrayList<DVDBean>();
-
-                check_removespecificproduct = dvdmanagerdao.deleteDVD(removedvd.getDvdID());
-                check_removeproduct = pdao.removeProduct(productID);
-
-                if (check_removespecificproduct && check_removeproduct) {
-                    log.setStatus("successful");
-                    logdao.addLog(log);
-                    plist = pdao.getProductsByType(type);
-                    session.setAttribute("dvdlist", dvdlist);
-                    session.setAttribute("productlist", plist);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                } else {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                }
-            } else if (type.equals("Magazine")) {
-                MagazineBean removemagazine = new MagazineBean();
-                MagazineManagerDAOInterface magazinemanagerdao = new MagazineManagerDAOImplementation();
-                MagazineManagerDAOInterface magazinedao = new MagazineManagerDAOImplementation();
-                removemagazine = magazinedao.getMagazineByProductID(productID);
-
-                check_removespecificproduct = magazinemanagerdao.deleteMagazine(removemagazine.getMagazineID());
-                check_removeproduct = pdao.removeProduct(productID);
-
-                if (check_removespecificproduct) {
-                    log.setStatus("successful");
-                    logdao.addLog(log);
-                    ArrayList<MagazineBean> magazinelist = new ArrayList<MagazineBean>();
-                    magazinelist = magazinemanagerdao.getAllMagazine();
-                    plist = pdao.getProductsByType(type);
-                    session.setAttribute("productlist", plist);
-                    session.setAttribute("magazinelist", magazinelist);
-
-                    response.sendRedirect("productmanagerHOME.jsp");
-                } else {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("productmanagerHOME.jsp");
-                }
+            } else {
+                out.println("ACCESS DENIED");
             }
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
         }
     }
 

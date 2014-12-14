@@ -46,23 +46,23 @@ public class EditReviewServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            //if (homeuser.getAccesscontrol().isEditmessage()) {
-            int reviewID = Integer.valueOf(request.getParameter("reviewid"));
+            if (homeuser.getAccesscontrol().isEditmessage()) {
+                int reviewID = Integer.valueOf(request.getParameter("reviewid"));
 
-            ReviewBean reviewbean = new ReviewBean();
-            ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
-            ProductBean productbean = new ProductBean();
+                ReviewBean reviewbean = new ReviewBean();
+                ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
+                ProductDAOInterface productdao = new ProductDAOImplementation();
+                ProductBean productbean = new ProductBean();
 
-            reviewbean = reviewdao.getReviewByReviewID(reviewID);
-            productbean = productdao.getProductById(reviewbean.getReview_productID());
+                reviewbean = reviewdao.getReviewByReviewID(reviewID);
+                productbean = productdao.getProductById(reviewbean.getReview_productID());
 
-            session.setAttribute("reviewbean", reviewbean);
-            session.setAttribute("productbean", productbean);
-            response.sendRedirect("customereditreview.jsp");
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
+                session.setAttribute("reviewbean", reviewbean);
+                session.setAttribute("productbean", productbean);
+                response.sendRedirect("customereditreview.jsp");
+            } else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 

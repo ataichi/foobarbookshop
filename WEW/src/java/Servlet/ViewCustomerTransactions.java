@@ -46,69 +46,69 @@ public class ViewCustomerTransactions extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            //if (homeuser.getAccesscontrol().isViewtransactions()) {
-            CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
-            CustomerDAOInterface customerdao = new CustomerDAOImplementation();
+            if (homeuser.getAccesscontrol().isViewtransactions()) {
+                CustomerBean tempcustomer = (CustomerBean) session.getAttribute("tempcustomer");
+                CustomerDAOInterface customerdao = new CustomerDAOImplementation();
 
-            ArrayList<ProductOrderBean> productorderlist = new ArrayList<ProductOrderBean>();
-            ArrayList<ProductOrderBean> finalproductorderlist = new ArrayList<ProductOrderBean>();
-            ProductOrderBean productorder = new ProductOrderBean();
-            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
-            ProductBean product = new ProductBean();
-            ArrayList<ShoppingCartBean> shoppingcartlist = new ArrayList<ShoppingCartBean>();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
-        //    ReviewBean review = new ReviewBean();
-            shoppingcartlist = customerdao.getShoppingCartByCustomerID(tempcustomer.getCustomerID());
+                ArrayList<ProductOrderBean> productorderlist = new ArrayList<ProductOrderBean>();
+                ArrayList<ProductOrderBean> finalproductorderlist = new ArrayList<ProductOrderBean>();
+                ProductOrderBean productorder = new ProductOrderBean();
+                ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+                ProductBean product = new ProductBean();
+                ArrayList<ShoppingCartBean> shoppingcartlist = new ArrayList<ShoppingCartBean>();
+                ProductDAOInterface productdao = new ProductDAOImplementation();
+                //    ReviewBean review = new ReviewBean();
+                shoppingcartlist = customerdao.getShoppingCartByCustomerID(tempcustomer.getCustomerID());
 
-            for (int i = 0; i < shoppingcartlist.size(); i++) {
-                productorderlist = customerdao.getProductOrderByShoppingCartID(shoppingcartlist.get(i).getShoppingcartID());
-                for (int j = 0; j < productorderlist.size(); j++) {
-                    // transfer productorderlist sa finalproductorderlist
-                    productorder = productorderlist.get(j);
-                    finalproductorderlist.add(productorder);
+                for (int i = 0; i < shoppingcartlist.size(); i++) {
+                    productorderlist = customerdao.getProductOrderByShoppingCartID(shoppingcartlist.get(i).getShoppingcartID());
+                    for (int j = 0; j < productorderlist.size(); j++) {
+                        // transfer productorderlist sa finalproductorderlist
+                        productorder = productorderlist.get(j);
+                        finalproductorderlist.add(productorder);
 
-                    //arraylist of products bought
-                    product = productdao.getProductById(productorder.getProductorder_productID());
-                    productlist.add(product);
+                        //arraylist of products bought
+                        product = productdao.getProductById(productorder.getProductorder_productID());
+                        productlist.add(product);
+
+                    }
 
                 }
 
-            }
-
                 // get transactions by customer
                 /*
-             session.setAttribute("productlist", productlist);
-             session.setAttribute("finalproductorderlist", finalproductorderlist);
-             session.setAttribute("shoppingcartlist", shoppingcartlist);
-             //      session.setAttribute("reviewlist", reviewlist);
-             */
-            /*
-             out.println("Productlist:" + productlist.size());
-             out.println("\nFinalProductOrderList" + finalproductorderlist.size());
-             out.println("\nShoppingCartList" + shoppingcartlist.size());
+                 session.setAttribute("productlist", productlist);
+                 session.setAttribute("finalproductorderlist", finalproductorderlist);
+                 session.setAttribute("shoppingcartlist", shoppingcartlist);
+                 //      session.setAttribute("reviewlist", reviewlist);
+                 */
+                /*
+                 out.println("Productlist:" + productlist.size());
+                 out.println("\nFinalProductOrderList" + finalproductorderlist.size());
+                 out.println("\nShoppingCartList" + shoppingcartlist.size());
 
-             out.println("PRODUCT LIST:\n");
-             for (int i = 0; i < productlist.size(); i++) {
-             out.println("Title: " + productlist.get(i).getTitle());
-             out.println("\n");
-             }
+                 out.println("PRODUCT LIST:\n");
+                 for (int i = 0; i < productlist.size(); i++) {
+                 out.println("Title: " + productlist.get(i).getTitle());
+                 out.println("\n");
+                 }
 
-             out.println("FINAL PRODUCT ORDER LIST: \n");
-             for (int i = 0; i < finalproductorderlist.size(); i++) {
-             out.println("Product order ID: " + finalproductorderlist.get(i).getProductorderID());
-             out.println("\n");
-             }
+                 out.println("FINAL PRODUCT ORDER LIST: \n");
+                 for (int i = 0; i < finalproductorderlist.size(); i++) {
+                 out.println("Product order ID: " + finalproductorderlist.get(i).getProductorderID());
+                 out.println("\n");
+                 }
 
-             out.println("SHOPPING CART LIST: \n");
-             for (int i = 0; i < shoppingcartlist.size(); i++) {
-             out.println("Order date: " + shoppingcartlist.get(i).getOrderDate());
-             out.println("\n");
-             }
-             */
-            response.sendRedirect("customerTransactions.jsp");
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
+                 out.println("SHOPPING CART LIST: \n");
+                 for (int i = 0; i < shoppingcartlist.size(); i++) {
+                 out.println("Order date: " + shoppingcartlist.get(i).getOrderDate());
+                 out.println("\n");
+                 }
+                 */
+                response.sendRedirect("customerTransactions.jsp");
+            } else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 

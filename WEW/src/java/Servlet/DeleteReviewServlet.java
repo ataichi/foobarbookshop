@@ -59,54 +59,54 @@ public class DeleteReviewServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             /* TODO output your page here. You may use following sample code. */
-            
+
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            //if (homeuser.getAccesscontrol().isDeletemessage()) {
-            out.println(request.getParameter("reviewid"));
-            String str_reviewid = request.getParameter("reviewid");
-            int reviewID = Integer.valueOf(str_reviewid);
-            ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
-            
-            CustomerBean customer = new CustomerBean();
-            CustomerDAOInterface customerdao = new CustomerDAOImplementation();
-            customer = customerdao.getCustomerByAccountID(homeuser.getAccountID());
-            ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
-            
-            boolean checkdelete = false;
-            checkdelete = reviewdao.deleteReview(reviewID);
-            
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
-            
-            log.setActivity("Remove review " + reviewID);
-            
-            log.setLog_accountID(homeuser.getAccountID());
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            log.setTime(time);
-            log.setIp_address(request.getRemoteAddr());
-            
-            if (checkdelete) {
-                log.setStatus("successful");
-                logdao.addLog(log);
-                
-                reviewlist = customerdao.getReviewsByCustomer(customer.getCustomerID());
-                
-                session.setAttribute("reviewlist", reviewlist);
-                response.sendRedirect("customerviewreviews.jsp");
+            if (homeuser.getAccesscontrol().isDeletemessage()) {
+                out.println(request.getParameter("reviewid"));
+                String str_reviewid = request.getParameter("reviewid");
+                int reviewID = Integer.valueOf(str_reviewid);
+                ArrayList<ReviewBean> reviewlist = new ArrayList<ReviewBean>();
+
+                CustomerBean customer = new CustomerBean();
+                CustomerDAOInterface customerdao = new CustomerDAOImplementation();
+                customer = customerdao.getCustomerByAccountID(homeuser.getAccountID());
+                ReviewDAOInterface reviewdao = new ReviewDAOImplementation();
+
+                boolean checkdelete = false;
+                checkdelete = reviewdao.deleteReview(reviewID);
+
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
+
+                log.setActivity("Remove review " + reviewID);
+
+                log.setLog_accountID(homeuser.getAccountID());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setTime(time);
+                log.setIp_address(request.getRemoteAddr());
+
+                if (checkdelete) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+
+                    reviewlist = customerdao.getReviewsByCustomer(customer.getCustomerID());
+
+                    session.setAttribute("reviewlist", reviewlist);
+                    response.sendRedirect("customerviewreviews.jsp");
+                } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("customerviewreviews.jsp");
+                    // delete unsucessful
+                }
             } else {
-                log.setStatus("failed");
-                logdao.addLog(log);
-                response.sendRedirect("customerviewreviews.jsp");
-                // delete unsucessful
+                out.println("ACCESS DENIED HEHE");
             }
-            //} else {
-            //    out.println("ACCESS DENIED HEHE");
-            //}
         }
-        
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

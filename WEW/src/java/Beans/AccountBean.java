@@ -16,30 +16,32 @@ import javax.servlet.http.HttpSession;
 import org.owasp.esapi.errors.AuthenticationException;
 import org.owasp.esapi.errors.AuthenticationHostException;
 import org.owasp.esapi.errors.EncryptionException;
+import Security.AccessController;
 
 public class AccountBean implements org.owasp.esapi.User {
 
-    protected int accountID;
-    protected String accountType;
-    protected String firstName;
-    protected String lastName;
-    protected String middleInitial;
-    protected String username;
-    protected String password;
-    protected String emailAdd;
-    protected int failedLoginCount;
-    protected boolean locked;
+    private int accountID;
+    private String accountType;
+    private String firstName;
+    private String lastName;
+    private String middleInitial;
+    private String username;
+    private String password;
+    private String emailAdd;
+    private int failedLoginCount;
+    private boolean locked;
 
-    protected boolean loggedIn;
+    private boolean loggedIn;
 
-    protected HttpSession userSession;
+    private HttpSession userSession;
+    private AccessController accesscontrol;
 
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
 
     public boolean getLoggedIn() {
-        return loggedIn;
+        return isLoggedIn();
     }
 
     public void setLocked(boolean locked) {
@@ -47,7 +49,7 @@ public class AccountBean implements org.owasp.esapi.User {
     }
 
     public boolean getLocked() {
-        return locked;
+        return isLocked();
     }
 
     public int getAccountID() {
@@ -175,8 +177,8 @@ public class AccountBean implements org.owasp.esapi.User {
             }
             new2 = new2hash.getHashBASE64();
             
-            if(old.equals(this.password) && new1.equals(new2)) {
-                adao.changePassword(this.accountID, new1);
+            if(old.equals(this.getPassword()) && new1.equals(new2)) {
+                adao.changePassword(this.getAccountID(), new1);
             }
             
         } catch (NoSuchAlgorithmException ex) {
@@ -359,7 +361,7 @@ public class AccountBean implements org.owasp.esapi.User {
     @Override
     public void unlock() {
         AdminDAOImplementation admindao = new AdminDAOImplementation();
-        admindao.unlockAccount(this.accountID);
+        admindao.unlockAccount(this.getAccountID());
     }
 
     @Override
@@ -395,6 +397,14 @@ public class AccountBean implements org.owasp.esapi.User {
     @Override
     public String getName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public AccessController getAccesscontrol() {
+        return accesscontrol;
+    }
+
+    public void setAccesscontrol(AccessController accesscontrol) {
+        this.accesscontrol = accesscontrol;
     }
 
 }

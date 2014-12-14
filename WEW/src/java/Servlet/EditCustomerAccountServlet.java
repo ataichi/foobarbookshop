@@ -43,55 +43,55 @@ public class EditCustomerAccountServlet extends HttpServlet {
             String address = request.getRemoteAddr();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
 
-            //if (account.getAccesscontrol().isEditcustomer()) {
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
+            if (account.getAccesscontrol().isEditcustomer()) {
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            AccountBean bean = new AccountBean();
+                AccountBean bean = new AccountBean();
 
-            String firstName, lastName, middleInitial, username, emailAdd;
+                String firstName, lastName, middleInitial, username, emailAdd;
 
-            firstName = request.getParameter("fname");
-            lastName = request.getParameter("lname");
-            middleInitial = request.getParameter("mname");
-            username = request.getParameter("uname");
-            emailAdd = request.getParameter("email");
+                firstName = request.getParameter("fname");
+                lastName = request.getParameter("lname");
+                middleInitial = request.getParameter("mname");
+                username = request.getParameter("uname");
+                emailAdd = request.getParameter("email");
 
-            boolean locked = false;
-            int id = account.getAccountID();
+                boolean locked = false;
+                int id = account.getAccountID();
 
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            log.setIp_address(address);
-            log.setTime(time);
-            log.setLog_accountID(account.getAccountID());
-            log.setActivity("Edit Customer Account " + account.getUsername());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setIp_address(address);
+                log.setTime(time);
+                log.setLog_accountID(account.getAccountID());
+                log.setActivity("Edit Customer Account " + account.getUsername());
 
-            AccountDAOInterface accountdao = new AccountDAOImplementation();
-            bean.setAccountID(id);
-            bean.setFirstName(firstName);
-            bean.setLastName(lastName);
-            bean.setMiddleInitial(middleInitial);
-            bean.setUsername(username);
-            bean.setEmailAdd(emailAdd);
-            bean.setLocked(locked);
-            bean.setAccountType("Customer");
+                AccountDAOInterface accountdao = new AccountDAOImplementation();
+                bean.setAccountID(id);
+                bean.setFirstName(firstName);
+                bean.setLastName(lastName);
+                bean.setMiddleInitial(middleInitial);
+                bean.setUsername(username);
+                bean.setEmailAdd(emailAdd);
+                bean.setLocked(locked);
+                bean.setAccountType("Customer");
 
-            boolean edit = accountdao.updateAccount(bean);
+                boolean edit = accountdao.updateAccount(bean);
 
-            if (edit) {
-                log.setStatus("successful");
-                if (logdao.addLog(log)) {
+                if (edit) {
+                    log.setStatus("successful");
+                    if (logdao.addLog(log)) {
+                        session.setAttribute("homeuser", bean);
+                        response.sendRedirect("customerHOME.jsp");
+                    }
+                } else {
                     session.setAttribute("homeuser", bean);
-                    response.sendRedirect("customerHOME.jsp");
+                    response.sendRedirect("customerAccount.jsp");
                 }
             } else {
-                session.setAttribute("homeuser", bean);
-                response.sendRedirect("customerAccount.jsp");
+                out.println("ACCESS DENIED");
             }
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
 
         } catch (Exception e) {
 

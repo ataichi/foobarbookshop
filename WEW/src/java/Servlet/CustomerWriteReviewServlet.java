@@ -40,25 +40,25 @@ public class CustomerWriteReviewServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeuser");
-            //if (account.getAccesscontrol().isPostmessage()) {
-            CustomerDAOImplementation cdao = new CustomerDAOImplementation();
-            CustomerBean cbean = (CustomerBean) session.getAttribute("homeuser");
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
+            if (account.getAccesscontrol().isPostmessage()) {
+                CustomerDAOImplementation cdao = new CustomerDAOImplementation();
+                CustomerBean cbean = (CustomerBean) session.getAttribute("homeuser");
+                LogBean log = new LogBean();
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            String review = request.getParameter("review");
+                String review = request.getParameter("review");
 
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
 
-            log.setLog_accountID(account.getAccountID());
-            log.setTime(time);
-            log.setActivity("Write new Review Product ID " + 0); //na kelangan edit pa to and write codes 
-            log.setStatus("successful");
+                log.setLog_accountID(account.getAccountID());
+                log.setTime(time);
+                log.setActivity("Write new Review Product ID " + 0); //na kelangan edit pa to and write codes 
+                log.setStatus("successful");
 
-            //}else{
-            //    out.println("ACCESS DENIED");
-            //}
+            } else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 

@@ -38,19 +38,19 @@ public class RestockProductServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeproduct = (AccountBean) session.getAttribute("homeproduct");
 
-            //if (homeproduct.getAccesscontrol().isRestockproduct()) {
-            ProductBean productbean = new ProductBean();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
+            if (homeproduct.getAccesscontrol().isRestockproduct()) {
+                ProductBean productbean = new ProductBean();
+                ProductDAOInterface productdao = new ProductDAOImplementation();
 
-            int product = Integer.valueOf(request.getParameter("product"));
-            productbean = productdao.getProductById(product);
+                int product = Integer.valueOf(request.getParameter("product"));
+                productbean = productdao.getProductById(product);
 
-            session.setAttribute("restockproduct", productbean);
-            response.sendRedirect("restockproduct.jsp");
+                session.setAttribute("restockproduct", productbean);
+                response.sendRedirect("restockproduct.jsp");
 
-            //} else {
-            //    out.println("ACCESS DENIED");
-            //}
+            } else {
+                out.println("ACCESS DENIED");
+            }
         }
     }
 
