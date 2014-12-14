@@ -110,7 +110,7 @@
                         <h3 class="panel-title">Product Information</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" id="productcheck" name="productcheck" action="FinalEditProductServlet" onsubmit="return productCheck(this)" method="post">
+                        <form class="form-horizontal" role="form" id="productcheck" name="productcheck" action="EditProductServlet" onsubmit="return productCheck(this)" method="post">
                             <div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4" for="productTitle">Title</label>
@@ -194,67 +194,68 @@
                                     <div class='col-sm-3'>
                                         <input type='text' class='form-control' id='dvdDirector' name='dvdDirector' onfocus='backWhite(thist);' value='<%out.println(dvd.getDirector());%>'/>
                                     </div>
-                                    <div class='form-group'>
-                                        <label class='control-label col-lg-4' for='dvdActor'>Actor</label>
-                                        <div class='col-sm-3'>
-                                            <input type='text' class='form-control' id='dvdActor' name='dvdActor' onfocus='backWhite(thist);' value='<%out.println(dvd.getMainActors());%>'/>
-                                        </div>
-                                    </div>
-                                    <div class='form-group'>
-                                        <label class='control-label col-lg-4' for='dvdProducer'>Producer</label>
-                                        <div class='col-sm-3'>
-                                            <input type='text' class='form-control' id='dvdProducer' name='dvdProducer' onfocus='backWhite(this);' value='<%out.println(dvd.getProductionCompany());%>'/>
-                                        </div>
-                                    </div>
                                 </div>
-                                <%
-                                } else if (prodType.equals("Magazine")) {
-                                %>
-
                                 <div class='form-group'>
-                                    <label class='control-label col-lg-4' for='magazineVolume'>Volume Number</label>
+                                    <label class='control-label col-lg-4' for='dvdActor'>Actor</label>
                                     <div class='col-sm-3'>
-                                        <input type='text' ckass='form-control' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);' value='<%out.println(magazine.getVolumeNo());%>'/>
+                                        <input type='text' class='form-control' id='dvdActor' name='dvdActor' onfocus='backWhite(thist);' value='<%out.println(dvd.getMainActors());%>'/>
                                     </div>
                                 </div>
                                 <div class='form-group'>
-                                    <label class='control-label col-lg-4' for='magazineIssue'>Issue Number</label>
-
+                                    <label class='control-label col-lg-4' for='dvdProducer'>Producer</label>
                                     <div class='col-sm-3'>
-                                        <input type='text' class='form-control' id='magazineIssue' name='magazineIssue' onfocus='backWhite(this);' value='<%out.println(magazine.getVolumeNo());%>'/>
+                                        <input type='text' class='form-control' id='dvdProducer' name='dvdProducer' onfocus='backWhite(this);' value='<%out.println(dvd.getProductionCompany());%>'/>
                                     </div>
                                 </div>
-                                <div class='form-group'>
-                                    <label class='control-label col-lg-4' for='magazinePublisher'>Publisher</label>
-                                    <div class='col-sm-3'>
-                                        <input type='text' class='form-control' id='magazinePublisher' name='magazinePubliser' onfocus='backWhite(this);' value='<%out.println(magazine.getPublisher());%>'/>
-                                    </div>
-                                </div>
-                                <div class='form-group'>
-                                    <label class='control-label col-lg-4' for='magazineDate'>Date Published(yyyy-MM-dd)</label>
-                                    <div class='col-sm-3'>
-                                        <input type='date' class='form-control' id='magazineDate' name='magazineDate' onfocus='backWhite(this);' value='<%out.println(magazine.getDatePublished());%>'/>
-                                    </div>
-                                </div>
-
-                                <%}%>
-
                             </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-lg center-block">Edit Product</button>
+                            <%
+                            } else if (prodType.equals("Magazine")) {
+                            %>
+
+                            <div class='form-group'>
+                                <label class='control-label col-lg-4' for='magazineVolume'>Volume Number</label>
+                                <div class='col-sm-3'>
+                                    <input type='text' ckass='form-control' id='magazineVolume' name='magazineVolume' onfocus='backWhite(this);' value='<%out.println(magazine.getVolumeNo());%>'/>
+                                </div>
                             </div>
+                            <div class='form-group'>
+                                <label class='control-label col-lg-4' for='magazineIssue'>Issue Number</label>
+
+                                <div class='col-sm-3'>
+                                    <input type='text' class='form-control' id='magazineIssue' name='magazineIssue' onfocus='backWhite(this);' value='<%out.println(magazine.getVolumeNo());%>'/>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label class='control-label col-lg-4' for='magazinePublisher'>Publisher</label>
+                                <div class='col-sm-3'>
+                                    <input type='text' class='form-control' id='magazinePublisher' name='magazinePubliser' onfocus='backWhite(this);' value='<%out.println(magazine.getPublisher());%>'/>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label class='control-label col-lg-4' for='magazineDate'>Date Published(yyyy-MM-dd)</label>
+                                <div class='col-sm-3'>
+                                    <input type='date' class='form-control' id='magazineDate' name='magazineDate' onfocus='backWhite(this);' value='<%out.println(magazine.getDatePublished());%>'/>
+                                </div>
+                            </div>
+
+                            <%}%>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-lg center-block" name="action" value="Edit Product"/>
                     </div>
                     </form>
-                    <div class="form-group">
-                        <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
-                    </div>
+                </div>
+                <div class="form-group">
+                    <a href='productmanagerHOME.jsp'><button class="btn btn-primary btn-lg center-block">Cancel</button></a>
                 </div>
             </div>
         </div>
     </div>
-    <script src="dist/js/jquery-2.1.0.min.js"></script>
-    <script src="dist/js/query.js"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
+</div>
+<script src="dist/js/jquery-2.1.0.min.js"></script>
+<script src="dist/js/query.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
