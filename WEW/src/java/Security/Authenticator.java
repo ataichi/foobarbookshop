@@ -56,7 +56,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
             }
-        //    password = hash.getHashBASE64();
+            password = hash.getHashBASE64();
 
             Cookie[] cookies = hsr.getCookies();
             boolean foundCookie = false;

@@ -60,14 +60,14 @@
                         <li class="dropdown active">
                             <a href="#" class="dropdown-toggle media-heading" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><% out.println(" " + homeuser.getUsername());%> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="customerAccount.jsp"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-edit"></span> Account</a></li>
                                 <li><a href="customerBilling.jsp"><span class="glyphicon glyphicon-edit"></span> Address</a></li>
                                 <li><a href='customerviewreviews.jsp'><span class="glyphicon glyphicon-edit"></span> Reviews</a></li>
                                 <li><a href="customerChangePassword.jsp"><span class="glyphicon glyphicon-pencil"></span> Change Password</a></li>
                                 <li><span class="glyphicon glyphicon-usd"></span><form action='ViewCustomerTransactions'><input type='submit' value=' Transactions' style='background-color: transparent; border: none'/></form></li>
                             </ul>
                         </li>
-                        <li><form action="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span><input type="submit" value="Log out" style=' border:none'/></form></li>
+                        <li><a><span class="glyphicon glyphicon-log-out"></span><form action="LogoutServlet"><input type="submit" value="Logout" style='background-color: transparent; border: none'/></form></a></li>
                     </ul>
                     <form class="navbar-form navbar-right" action='CustomerSearchProductServlet' method="post">
                         <div class="input-group input-group-sm" style="max-width:360px;">
