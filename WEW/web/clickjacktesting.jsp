@@ -23,7 +23,7 @@
         <title>Clickjack test page</title>
     </head>
     <body>
-        <p>If the page below displayed ..you've been clickjacked! HEHE natest na sa jsps natin woo it won't work pero pag tinanggal mu yung sa header it will work!</p>
-        <iframe sandbox="allow-scripts allow-forms" src="http://localhost:8080/" style="width:100%;height:90%"></iframe>
+        <p></p>
+        <iframe sandbox="allow-scripts allow-forms" src="http://localhost:8080/WebApplication1/login.jsp" style="width:100%;height:100%"></iframe>
     </body>
 </html>

@@ -124,6 +124,8 @@
                                                         + "<input type='hidden' name='accountid' value='" + lockedAccounts.get(i).getAccountID() + "'/>"
                                                         + "<input type='submit' value='unlock' style='border-color: transparent; background-color: transparent'/>"
                                                         + "</td></form></tr>");
+                                                
+                                                break;
                                             }
                                         }
                                     }

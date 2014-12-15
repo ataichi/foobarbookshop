@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -47,41 +48,48 @@ public class AdminChangePasswordServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean account = (AccountBean) session.getAttribute("homeadmin");
 
-            AccountDAOInterface accountdao = new AccountDAOImplementation();
+            if (account.getAccesscontrol().isEditpassword()) {
+                AccountDAOInterface accountdao = new AccountDAOImplementation();
 
-            LogBean log = new LogBean();
-            LogDAOInterface logdao = new LogDAOImplementation();
+                LogBean log = new LogBean();
+                ArrayList<LogBean> loglist = (ArrayList<LogBean>) session.getAttribute("loglist");
+                LogDAOInterface logdao = new LogDAOImplementation();
 
-            // hash current password to match password in db
-            String currpass = request.getParameter("currpass");
-            String pass1 = request.getParameter("pass1");
-            String pass2 = request.getParameter("pass2");
-            
-            java.util.Date date = new java.util.Date();
-            Timestamp time = new Timestamp(date.getTime());
-            log.setTime(time);
-            log.setActivity("Change password");
-            log.setLog_accountID(account.getAccountID());
-            log.setIp_address(request.getRemoteAddr());
+                // hash current password to match password in db
+                String currpass = request.getParameter("currpass");
+                String pass1 = request.getParameter("pass1");
+                String pass2 = request.getParameter("pass2");
 
-            try {
-                account.changePassword(currpass, pass1, pass2);
-                log.setStatus("successful");
-                logdao.addLog(log);
+                java.util.Date date = new java.util.Date();
+                Timestamp time = new Timestamp(date.getTime());
+                log.setTime(time);
+                log.setActivity("Change password");
+                log.setLog_accountID(account.getAccountID());
+                log.setIp_address(request.getRemoteAddr());
 
-                session.setAttribute("homeadmin", account);
-                response.sendRedirect("adminHOME.jsp");
+                try {
+                    account.changePassword(currpass, pass1, pass2);
+                    log.setStatus("successful");
+                    logdao.addLog(log);
 
-            } catch (AuthenticationException ex) {
-                log.setStatus("failed");
-                logdao.addLog(log);
-                response.sendRedirect("adminChangePassword.jsp");
-                Logger.getLogger(AdminChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EncryptionException ex) {
-                log.setStatus("failed");
-                logdao.addLog(log);
-                response.sendRedirect("adminChangePassword.jsp");
-                Logger.getLogger(AdminChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    session.setAttribute("homeadmin", account);
+                    response.sendRedirect("adminHOME.jsp");
+
+                } catch (AuthenticationException ex) {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    loglist = logdao.getAllLogs();
+                    session.setAttribute("loglist", loglist);
+                    response.sendRedirect("adminChangePassword.jsp");
+                    Logger.getLogger(AdminChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (EncryptionException ex) {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    loglist = logdao.getAllLogs();
+                    session.setAttribute("loglist", loglist);
+                    response.sendRedirect("adminChangePassword.jsp");
+                    Logger.getLogger(AdminChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

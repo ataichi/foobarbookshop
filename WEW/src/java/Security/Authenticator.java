@@ -56,7 +56,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
             }
-    //        password = hash.getHashBASE64();
+            password = hash.getHashBASE64();
 
             Cookie[] cookies = hsr.getCookies();
             boolean foundCookie = false;
@@ -86,9 +86,10 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
             AccountDAOImplementation accountdao = new AccountDAOImplementation();
             AccessController accesscontrol = new AccessController();
             if (usercheck) {
-                log.setLog_accountID(account.getAccountID());
                 log.setStatus("successful");
                 account = adao.getUserByUsername(username);
+
+                log.setLog_accountID(account.getAccountID());
                 account.setLoggedIn(true);
                 account.setFailedLoginCount(0);
                 adao.setFailedLoginCountToZero(account.getAccountID());

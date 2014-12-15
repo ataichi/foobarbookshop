@@ -76,12 +76,12 @@ public class ViewCustomerTransactions extends HttpServlet {
                 }
 
                 // get transactions by customer
-                /*
+                
                  session.setAttribute("productlist", productlist);
                  session.setAttribute("finalproductorderlist", finalproductorderlist);
                  session.setAttribute("shoppingcartlist", shoppingcartlist);
                  //      session.setAttribute("reviewlist", reviewlist);
-                 */
+                 
                 /*
                  out.println("Productlist:" + productlist.size());
                  out.println("\nFinalProductOrderList" + finalproductorderlist.size());
@@ -105,6 +105,7 @@ public class ViewCustomerTransactions extends HttpServlet {
                  out.println("\n");
                  }
                  */
+//                session.setAttribute(null, out);
                 response.sendRedirect("customerTransactions.jsp");
             } else {
                 out.println("ACCESS DENIED");

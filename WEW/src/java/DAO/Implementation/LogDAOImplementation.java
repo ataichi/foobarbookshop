@@ -32,6 +32,7 @@ public class LogDAOImplementation implements LogDAOInterface {
             ps.setTimestamp(3, log.getTime());
             ps.setString(4, log.getIp_address());
             ps.setString(5, log.getStatus());
+            //ps.setString(6, );
 
             ps.executeUpdate();
             connection.close();

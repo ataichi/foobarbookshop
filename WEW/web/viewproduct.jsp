@@ -438,7 +438,8 @@
                                 for (int j = 0; j < customerlist.size(); j++) {
                                     if (reviews.get(i).getReview_customerID() == customerlist.get(j).getCustomerID()) {
                                         for (int k = 0; k < accountlist.size(); k++) {
-                                            if (accountlist.get(k).getAccountID() == customerlist.get(j).getCustomer_accountID()) {
+                                            if (accountlist.get(k).getAccountID() == customerlist.get(j).getCustomer_accountID() &&
+                                                   reviews.get(i).getReview_customerID() == customerlist.get(j).getCustomerID() ) {
                                                 out.println("<div><p>" + accountlist.get(k).getFirstName() + " " + accountlist.get(k).getLastName()
                                                         + ": " + reviews.get(i).getReview() + "</p></div>");
                                                 break;

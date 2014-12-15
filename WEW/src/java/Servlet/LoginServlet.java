@@ -176,10 +176,11 @@ public class LoginServlet extends HttpServlet {
                         log.setLog_accountID(account.getAccountID());
                         log.setTime(time);
                         log.setIp_address(request.getRemoteAddr());
+                        log.setStatus("successful");
 
-                        if (logdao.addLog(log)) {
+//                        if (logdao.addLog(log)) {
                             response.sendRedirect("customerHOME.jsp");
-                        }
+//                        }
                     } else if (account.getAccountType().equals("Audio CD Manager")) {
                         audiocdlist = cddao.getAllAudioCD();
                         productlist = pdao.getProductsByType("Audio CD");
@@ -202,10 +203,11 @@ public class LoginServlet extends HttpServlet {
                         log.setLog_accountID(account.getAccountID());
                         log.setTime(time);
                         log.setIp_address(request.getRemoteAddr());
+                        log.setStatus("successful");
 
-                        if (logdao.addLog(log)) {
+//                        if (logdao.addLog(log)) {
                             response.sendRedirect("productmanagerHOME.jsp");
-                        }
+//                        }
 
                     } else if (account.getAccountType().equals("Book Manager")) {
                         booklist = bookdao.getAllBooks();
@@ -229,10 +231,11 @@ public class LoginServlet extends HttpServlet {
                         log.setLog_accountID(account.getAccountID());
                         log.setTime(time);
                         log.setIp_address(request.getRemoteAddr());
+                        log.setStatus("successful");
 
-                        if (logdao.addLog(log)) {
+ //                       if (logdao.addLog(log)) {
                             response.sendRedirect("productmanagerHOME.jsp");
-                        }
+//                        }
 
                     } else if (account.getAccountType().equals("DVD Manager")) {
                         dvdlist = dvddao.viewAllDVD();
@@ -256,10 +259,11 @@ public class LoginServlet extends HttpServlet {
                         log.setLog_accountID(account.getAccountID());
                         log.setTime(time);
                         log.setIp_address(request.getRemoteAddr());
-
-                        if (logdao.addLog(log)) {
+                        log.setStatus("successful");
+                        
+//                        if (logdao.addLog(log)) {
                             response.sendRedirect("productmanagerHOME.jsp");
-                        }
+//                        }
                     } else if (account.getAccountType().equals("Magazine Manager")) {
                         magazinelist = magazinedao.getAllMagazine();
                         productlist = pdao.getProductsByType("Magazine");
@@ -282,10 +286,11 @@ public class LoginServlet extends HttpServlet {
                         log.setLog_accountID(account.getAccountID());
                         log.setTime(time);
                         log.setIp_address(request.getRemoteAddr());
-
-                        if (logdao.addLog(log)) {
+                        log.setStatus("successful");
+                        
+//                        if (logdao.addLog(log)) {
                             response.sendRedirect("productmanagerHOME.jsp");
-                        }
+//                        }
 
                     } else if (account.getAccountType().equals("Accounting Manager")) {
                         productorderlist = accountingmanagerdao.getAllProductOrders();
@@ -321,10 +326,11 @@ public class LoginServlet extends HttpServlet {
                         log.setLog_accountID(account.getAccountID());
                         log.setTime(time);
                         log.setIp_address(request.getRemoteAddr());
-
-                        if (logdao.addLog(log)) {
+                        log.setStatus("successful");
+                        
+//                        if (logdao.addLog(log)) {
                             response.sendRedirect("accountingmanagerHOME.jsp");
-                        }
+//                        }
                     }
                 }
 

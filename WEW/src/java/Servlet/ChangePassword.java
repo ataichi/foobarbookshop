@@ -14,6 +14,7 @@ import DAO.Interface.LogDAOInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,10 +26,6 @@ import javax.servlet.http.HttpSession;
 import org.owasp.esapi.errors.AuthenticationException;
 import org.owasp.esapi.errors.EncryptionException;
 
-/**
- *
- * @author Giodee
- */
 @WebServlet(name = "ChangePassword", urlPatterns = {"/ChangePassword"})
 public class ChangePassword extends HttpServlet {
 
@@ -55,6 +52,7 @@ public class ChangePassword extends HttpServlet {
 
             LogBean log = new LogBean();
             LogDAOInterface logdao = new LogDAOImplementation();
+            ArrayList<LogBean> loglist = (ArrayList<LogBean>) session.getAttribute("loglist");
             /* End of declaration*/
 
             /* request.getParameter() */
@@ -70,72 +68,92 @@ public class ChangePassword extends HttpServlet {
             /* End of request.getParameter() */
             if (session.getAttribute("homeproduct") != null) { // product manager
                 account = (AccountBean) session.getAttribute("homeproduct");
-                log.setLog_accountID(account.getAccountID());
 
-                try {
-                    account.changePassword(currpass, pass1, pass2);
-                    log.setStatus("successful");
-                    logdao.addLog(log);
+                if (account.getAccesscontrol().isEditpassword()) {
+                    log.setLog_accountID(account.getAccountID());
 
-                    session.setAttribute("homeproduct", account);
-                    response.sendRedirect("productmanagerHOME.jsp");
+                    try {
+                        account.changePassword(currpass, pass1, pass2);
+                        log.setStatus("successful");
+                        logdao.addLog(log);
 
-                } catch (AuthenticationException ex) {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("productmanagerChangePassword.jsp");
-                    Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (EncryptionException ex) {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("productmanagerChangePassword.jsp");
-                    Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                        loglist = logdao.getAllLogs();
+                        session.setAttribute("loglist", loglist);
+                        session.setAttribute("homeproduct", account);
+                        response.sendRedirect("productmanagerHOME.jsp");
+
+                    } catch (AuthenticationException ex) {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        loglist = logdao.getAllLogs();
+                        session.setAttribute("loglist", loglist);
+                        response.sendRedirect("productmanagerChangePassword.jsp");
+                        Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (EncryptionException ex) {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("productmanagerChangePassword.jsp");
+                        Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             } else if (session.getAttribute("homeuser") != null) {
                 account = (AccountBean) session.getAttribute("homeuser");
-                log.setLog_accountID(account.getAccountID());
 
-                try {
-                    account.changePassword(currpass, pass1, pass2);
-                    log.setStatus("successful");
-                    logdao.addLog(log);
+                if (account.getAccesscontrol().isEditpassword()) {
+                    log.setLog_accountID(account.getAccountID());
 
-                    session.setAttribute("homecustomer", account);
-                    response.sendRedirect("customerHOME.jsp");
+                    try {
+                        account.changePassword(currpass, pass1, pass2);
+                        log.setStatus("successful");
+                        logdao.addLog(log);
 
-                } catch (AuthenticationException ex) {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("customerChangePassword.jsp");
-                    Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (EncryptionException ex) {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("customerChangePassword.jsp");
-                    Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                        loglist = logdao.getAllLogs();
+
+                        session.setAttribute("loglist", loglist);
+                        session.setAttribute("homecustomer", account);
+                        response.sendRedirect("customerHOME.jsp");
+
+                    } catch (AuthenticationException ex) {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+
+                        loglist = logdao.getAllLogs();
+
+                        session.setAttribute("loglist", loglist);
+                        response.sendRedirect("customerChangePassword.jsp");
+                        Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (EncryptionException ex) {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("customerChangePassword.jsp");
+                        Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             } else if (session.getAttribute("homeaccounting") != null) {
                 account = (AccountBean) session.getAttribute("homeaccounting");
-                log.setLog_accountID(account.getAccountID());
 
-                try {
-                    account.changePassword(currpass, pass1, pass2);
-                    log.setStatus("successful");
-                    logdao.addLog(log);
+                if (account.getAccesscontrol().isEditpassword()) {
+                    log.setLog_accountID(account.getAccountID());
 
-                    session.setAttribute("homeaccounting", account);
-                    response.sendRedirect("accountingmanagerHOME.jsp");
+                    try {
+                        account.changePassword(currpass, pass1, pass2);
+                        log.setStatus("successful");
+                        logdao.addLog(log);
 
-                } catch (AuthenticationException ex) {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("accountingmanagerChangePassword.jsp");
-                    Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (EncryptionException ex) {
-                    log.setStatus("failed");
-                    logdao.addLog(log);
-                    response.sendRedirect("accountingmanagerChangePassword.jsp");
-                    Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                        session.setAttribute("homeaccounting", account);
+                        response.sendRedirect("accountingmanagerHOME.jsp");
+
+                    } catch (AuthenticationException ex) {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("accountingmanagerChangePassword.jsp");
+                        Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (EncryptionException ex) {
+                        log.setStatus("failed");
+                        logdao.addLog(log);
+                        response.sendRedirect("accountingmanagerChangePassword.jsp");
+                        Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }

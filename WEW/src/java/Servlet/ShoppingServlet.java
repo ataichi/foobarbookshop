@@ -48,84 +48,85 @@ public class ShoppingServlet extends HttpServlet {
             HttpSession session = request.getSession();
             AccountBean homeuser = (AccountBean) session.getAttribute("homeuser");
 
-            //if (homeuser.getAccesscontrol().isBuyproduct()) {
-            ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
-            ArrayList<ProductBean> productsbought = (ArrayList<ProductBean>) session.getAttribute("productsbought");
+            if (homeuser.getAccesscontrol().isBuyproduct()) {
+                ArrayList<ProductOrderBean> orderlist = (ArrayList<ProductOrderBean>) session.getAttribute("temporder");
+                ArrayList<ProductBean> productsbought = (ArrayList<ProductBean>) session.getAttribute("productsbought");
 
-            ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
-            ArrayList<ProductBean> productaudiolist = (ArrayList<ProductBean>) session.getAttribute("productaudiolist");
-            ArrayList<ProductBean> productbooklist = (ArrayList<ProductBean>) session.getAttribute("productbooklist");
-            ArrayList<ProductBean> productdvdlist = (ArrayList<ProductBean>) session.getAttribute("productdvdlist");
-            ArrayList<ProductBean> productmagazinelist = (ArrayList<ProductBean>) session.getAttribute("productmagazinelist");
+                ArrayList<ProductBean> productlist = new ArrayList<ProductBean>();
+                ArrayList<ProductBean> productaudiolist = (ArrayList<ProductBean>) session.getAttribute("productaudiolist");
+                ArrayList<ProductBean> productbooklist = (ArrayList<ProductBean>) session.getAttribute("productbooklist");
+                ArrayList<ProductBean> productdvdlist = (ArrayList<ProductBean>) session.getAttribute("productdvdlist");
+                ArrayList<ProductBean> productmagazinelist = (ArrayList<ProductBean>) session.getAttribute("productmagazinelist");
 
-            ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
-            CustomerBean customer = new CustomerBean();
-            CustomerDAOInterface cdao = new CustomerDAOImplementation();
+                ShoppingCartBean cartbean = (ShoppingCartBean) session.getAttribute("shoppingcart");
+                CustomerBean customer = new CustomerBean();
+                CustomerDAOInterface cdao = new CustomerDAOImplementation();
 
-            ProductBean productbean = new ProductBean();
-            ProductDAOInterface productdao = new ProductDAOImplementation();
+                ProductBean productbean = new ProductBean();
+                ProductDAOInterface productdao = new ProductDAOImplementation();
 
-            double total = 0;
+                double total = 0;
 
-            boolean shopcartcheck = false;
-            int i = 0, shoppingcartID;
-            shoppingcartID = cdao.getShoppingCartID(); // returns last shoppingcartID
-            String action = request.getParameter("action");
+                boolean shopcartcheck = false;
+                int i = 0, shoppingcartID;
+                shoppingcartID = cdao.getShoppingCartID(); // returns last shoppingcartID
+                String action = request.getParameter("action");
 
-            /* Reset all
-             *  
-             */
-            ArrayList<ProductOrderBean> neworderlist = new ArrayList<ProductOrderBean>();
-            ArrayList<ProductBean> newproductlist = new ArrayList<ProductBean>();
-            ShoppingCartBean newshoppingcart = new ShoppingCartBean();
+                /* Reset all
+                 *  
+                 */
+                ArrayList<ProductOrderBean> neworderlist = new ArrayList<ProductOrderBean>();
+                ArrayList<ProductBean> newproductlist = new ArrayList<ProductBean>();
+                ShoppingCartBean newshoppingcart = new ShoppingCartBean();
 
-            customer = cdao.getCustomerByAccountID(homeuser.getAccountID());
+                customer = cdao.getCustomerByAccountID(homeuser.getAccountID());
 
-            // cartbean.setShoppingcart_customerID(homeuser.getAccountID());
-            for (i = 0; i < orderlist.size(); i++) { // update total
-                total += orderlist.get(i).getPrice() * orderlist.get(i).getQuantity();
-            }
-            Timestamp orderTime;
-            java.util.Date date = new java.util.Date();
-            orderTime = new Timestamp(date.getTime());
-            cartbean.setOrderDate(orderTime);
-            cartbean.setShoppingcart_customerID(customer.getCustomerID());
-            cartbean.setTotal(total);
-
-            shopcartcheck = cdao.purchase(cartbean); // add to shopping cart table
-
-            LogBean log = new LogBean();
-            LogDAOImplementation logdao = new LogDAOImplementation();
-            Timestamp time = new Timestamp(date.getTime());
-
-            log.setLog_accountID(homeuser.getAccountID());
-            log.setTime(time);
-            log.setIp_address(request.getRemoteAddr());
-            log.setActivity("Purchase Product");
-
-            if (shopcartcheck) {
-                log.setStatus("successful");
-                logdao.addLog(log);
-                shoppingcartID = cdao.getShoppingCartID();
-
-                for (i = 0; i < orderlist.size(); i++) {
-                    productbean = productdao.getProductById(orderlist.get(i).getProductorder_productID());
-                    cdao.addProductsToCart(orderlist.get(i), shoppingcartID); // add to productorderbean
-                    productdao.updateStocks(productbean.getProductID(), productbean.getNumberStocks() - orderlist.get(i).getQuantity());
-                    productlist.add(productbean);
-                    productsbought.add(productbean);
+                // cartbean.setShoppingcart_customerID(homeuser.getAccountID());
+                for (i = 0; i < orderlist.size(); i++) { // update total
+                    total += orderlist.get(i).getPrice() * orderlist.get(i).getQuantity();
                 }
-                session.setAttribute("temporder", neworderlist);
-                session.setAttribute("productlist", orderlist);
+                Timestamp orderTime;
+                java.util.Date date = new java.util.Date();
+                orderTime = new Timestamp(date.getTime());
+                cartbean.setOrderDate(orderTime);
+                cartbean.setShoppingcart_customerID(customer.getCustomerID());
+                cartbean.setTotal(total);
 
-                session.setAttribute("productsbought", productsbought); // updated list of products bought
-                session.setAttribute("shoppingcart", newshoppingcart); // reset
-                response.sendRedirect("writeReview.jsp");
-            } else {
-                log.setStatus("failed");
-                logdao.addLog(log);
-                response.sendRedirect("customerConfirmBillingInformation.jsp");
+                shopcartcheck = cdao.purchase(cartbean); // add to shopping cart table
 
+                LogBean log = new LogBean();
+                LogDAOImplementation logdao = new LogDAOImplementation();
+                Timestamp time = new Timestamp(date.getTime());
+
+                log.setLog_accountID(homeuser.getAccountID());
+                log.setTime(time);
+                log.setIp_address(request.getRemoteAddr());
+                log.setActivity("Purchase Product");
+
+                if (shopcartcheck) {
+                    log.setStatus("successful");
+                    logdao.addLog(log);
+                    shoppingcartID = cdao.getShoppingCartID();
+
+                    for (i = 0; i < orderlist.size(); i++) {
+                        productbean = productdao.getProductById(orderlist.get(i).getProductorder_productID());
+                        cdao.addProductsToCart(orderlist.get(i), shoppingcartID); // add to productorderbean
+                        productdao.updateStocks(productbean.getProductID(), productbean.getNumberStocks() - orderlist.get(i).getQuantity());
+                        productlist.add(productbean);
+                        productsbought.add(productbean);
+                    }
+                    session.setAttribute("temporder", neworderlist);
+                    session.setAttribute("productlist", orderlist);
+
+                    session.setAttribute("productsbought", productsbought); // updated list of products bought
+                    session.setAttribute("shoppingcart", newshoppingcart); // reset
+                    response.sendRedirect("writeReview.jsp");
+                } else {
+                    log.setStatus("failed");
+                    logdao.addLog(log);
+                    response.sendRedirect("customerConfirmBillingInformation.jsp");
+
+                }
             }
         }
     }

@@ -117,10 +117,17 @@ public class AdminLoginServlet extends HttpServlet {
 
                 session.setMaxInactiveInterval(600);
 
-                log.setActivity("Admin login");
-                
-                
-                
+                /*
+                 log.setActivity("Admin login");
+                 log.setIp_address(request.getRemoteAddr());
+                 log.setLog_accountID(account.getAccountID());
+                 log.setStatus("successful");
+
+                 Timestamp time;
+                 java.util.Date date = new java.util.Date();
+                 time = new Timestamp(date.getTime());
+                 log.setTime(time);
+                 */
                 response.sendRedirect("adminHOME.jsp");
             } else {
                 response.sendRedirect("adminLogin.jsp");

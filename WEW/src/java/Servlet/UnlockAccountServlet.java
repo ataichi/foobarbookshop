@@ -81,16 +81,22 @@ public class UnlockAccountServlet extends HttpServlet {
                 if (admindao.unlockAccount(accountID) && lockreportdao.editLockReport(lockreport)) {
                     log.setStatus("Successful");
                     logdao.addLog(log);
+                    ArrayList<LogBean> loglist = logdao.getAllLogs();
+                    
                     lockreportlist = lockreportdao.getAllNotDoneLockReport();
                     lockedAccounts = accountdao.getAllLockedAccounts();
                     accountdao.setFailedLoginCountToZero(accountID);
 
+                    session.setAttribute("loglist", loglist);
                     session.setAttribute("lockedreportlist", lockreportlist);
                     session.setAttribute("lockedAccounts", lockedAccounts);
                     response.sendRedirect("unlock_account.jsp");
                 } else {
                     log.setStatus("failed");
                     logdao.addLog(log);
+                    ArrayList<LogBean> loglist = logdao.getAllLogs();
+                    
+                    session.setAttribute("loglist", loglist);
                     response.sendRedirect("unlock_account.jsp");
                 }
             } else {
